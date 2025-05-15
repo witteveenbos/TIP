@@ -1,0 +1,54 @@
+﻿Municipality,Gem_code_CBS,Municipality_ID,Region,Region_ID,RES,RES_ID,Provincie,Provincie_ID
+Kaag en Braassem,1884,GM1884,Holland Rijnland,REG01,Holland Rijnland,ES21,Zuid-Holland,PV28
+Teylingen,1525,GM1525,Holland Rijnland,REG01,Holland Rijnland,ES21,Zuid-Holland,PV28
+Zoeterwoude,638,GM0638,Holland Rijnland,REG01,Holland Rijnland,ES21,Zuid-Holland,PV28
+Voorschoten,626,GM0626,Holland Rijnland,REG01,Holland Rijnland,ES21,Zuid-Holland,PV28
+Oegstgeest,579,GM0579,Holland Rijnland,REG01,Holland Rijnland,ES21,Zuid-Holland,PV28
+Noordwijk,575,GM0575,Holland Rijnland,REG01,Holland Rijnland,ES21,Zuid-Holland,PV28
+Nieuwkoop,569,GM0569,Holland Rijnland,REG01,Holland Rijnland,ES21,Zuid-Holland,PV28
+Lisse,553,GM0553,Holland Rijnland,REG01,Holland Rijnland,ES21,Zuid-Holland,PV28
+Leiderdorp,547,GM0547,Holland Rijnland,REG01,Holland Rijnland,ES21,Zuid-Holland,PV28
+Leiden,546,GM0546,Holland Rijnland,REG01,Holland Rijnland,ES21,Zuid-Holland,PV28
+Katwijk,537,GM0537,Holland Rijnland,REG01,Holland Rijnland,ES21,Zuid-Holland,PV28
+Hillegom,534,GM0534,Holland Rijnland,REG01,Holland Rijnland,ES21,Zuid-Holland,PV28
+Alphen aan den Rijn,484,GM0484,Holland Rijnland,REG01,Holland Rijnland,ES21,Zuid-Holland,PV28
+Krimpenerwaard,1931,GM1931,Midden-Holland,REG02,Midden-Holland,ES22,Zuid-Holland,PV28
+Bodegraven-Reeuwijk,1901,GM1901,Midden-Holland,REG02,Midden-Holland,ES22,Zuid-Holland,PV28
+Zuidplas,1892,GM1892,Midden-Holland,REG02,Midden-Holland,ES22,Zuid-Holland,PV28
+Waddinxveen,627,GM0627,Midden-Holland,REG02,Midden-Holland,ES22,Zuid-Holland,PV28
+Gouda,513,GM0513,Midden-Holland,REG02,Midden-Holland,ES22,Zuid-Holland,PV28
+Zwijndrecht,642,GM0642,Drechtsteden,REG03,Drechtsteden,ES18,Zuid-Holland,PV28
+Sliedrecht,610,GM0610,Drechtsteden,REG03,Drechtsteden,ES18,Zuid-Holland,PV28
+Papendrecht,590,GM0590,Drechtsteden,REG03,Drechtsteden,ES18,Zuid-Holland,PV28
+Hendrik-Ido-Ambacht,531,GM0531,Drechtsteden,REG03,Drechtsteden,ES18,Zuid-Holland,PV28
+Hardinxveld-Giessendam,523,GM0523,Drechtsteden,REG03,Drechtsteden,ES18,Zuid-Holland,PV28
+Dordrecht,505,GM0505,Drechtsteden,REG03,Drechtsteden,ES18,Zuid-Holland,PV28
+Alblasserdam,482,GM0482,Drechtsteden,REG03,Drechtsteden,ES18,Zuid-Holland,PV28
+Molenlanden,1978,GM1978,Drechtsteden,REG03,Alblasserwaard,ES17,Zuid-Holland,PV28
+Gorinchem,512,GM0512,Drechtsteden,REG03,Alblasserwaard,ES17,Zuid-Holland,PV28
+Vlaardingen,622,GM0622,Rotterdam,REG04,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
+Albrandswaard,613,GM0613,Rotterdam,REG04,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
+Schiedam,606,GM0606,Rotterdam,REG04,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
+Rotterdam,599,GM0599,Rotterdam,REG04,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
+Ridderkerk,597,GM0597,Rotterdam,REG04,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
+Maassluis,556,GM0556,Rotterdam,REG04,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
+Krimpen aan den IJssel,542,GM0542,Rotterdam,REG04,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
+Capelle aan den IJssel,502,GM0502,Rotterdam,REG04,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
+Barendrecht,489,GM0489,Rotterdam,REG04,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
+Lansingerland,1621,GM1621,Rotterdam,REG04,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
+Pijnacker-Nootdorp,1926,GM1926,Haaglanden,REG05,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
+Leidschendam-Voorburg,1916,GM1916,Haaglanden,REG05,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
+Midden-Delfland,1842,GM1842,Haaglanden,REG05,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
+Westland,1783,GM1783,Haaglanden,REG05,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
+Zoeterwoude,638,GM0638,Haaglanden,REG05,Holland Rijnland,ES21,Zuid-Holland,PV28
+Zoetermeer,637,GM0637,Haaglanden,REG05,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
+Wassenaar,629,GM0629,Haaglanden,REG05,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
+Rijswijk,603,GM0603,Haaglanden,REG05,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
+'s-Gravenhage,518,GM0518,Haaglanden,REG05,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
+Delft,503,GM0503,Haaglanden,REG05,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
+Hoeksche Waard,1963,GM1963,Zuid-Hollandse Eilanden,REG06,Hoeksche Waard,ES20,Zuid-Holland,PV28
+Nissewaard,1930,GM1930,Zuid-Hollandse Eilanden,REG06,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
+Goeree-Overflakkee,1924,GM1924,Zuid-Hollandse Eilanden,REG06,Goeree-Overflakkee,ES19,Zuid-Holland,PV28
+Westvoorne,614,GM0614,Zuid-Hollandse Eilanden,REG06,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
+Hellevoetsluis,530,GM0530,Zuid-Hollandse Eilanden,REG06,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
+Brielle,501,GM0501,Zuid-Hollandse Eilanden,REG06,Rotterdam Den Haag,ES23,Zuid-Holland,PV28

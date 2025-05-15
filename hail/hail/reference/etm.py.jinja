@@ -1,0 +1,19 @@
+from pydantic import BaseModel
+from hail.models.response import QueryResult, InputResult
+from typing import Optional
+
+Value = float | int
+
+class RefersTo(BaseModel):
+
+    class ui(BaseModel):
+        {% for userinput in userinputs %}
+        {{ userinput }}: Optional[Value] = None{% endfor %}
+
+    class inputs(BaseModel):
+        {% for input in inputs %}
+        {{ input }}: Optional[InputResult] = None{% endfor %}
+
+    class gqueries(BaseModel):
+        {% for gquery in gqueries %}
+        {{ gquery }}: Optional[QueryResult] = None{% endfor %}

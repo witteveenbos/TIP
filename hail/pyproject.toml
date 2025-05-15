@@ -1,0 +1,37 @@
+[tool.poetry]
+name = "hail"
+version = "0.2.0"
+description = ""
+authors = ["Seth van Wieringen <seth.van.wieringen@witteveenbos.com>"]
+readme = "README.md"
+packages = [
+    {include = "hail"},
+    {include = "config"}
+]
+
+[tool.poetry.dependencies]
+python = "3.11.*"
+aiohttp = "^3.9.5"
+pydantic = "^2.7.4"
+pyyaml = "^6.0.1"
+fastapi = {extras = ["standard"], version = "^0.112.1"}
+redis = "^5.0.8"
+tenacity = "^9.0.0"
+colorcet = "^3.1.0"
+pytest = "^8.3.3"
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.4.2"
+ipykernel = "^6.29.4"
+pytest = "^8.2.2"
+requests = "^2.32.3"
+jinja2 = "^3.1.4"
+pandas = "2.2.2"
+openpyxl = "^3.1.5"
+
+[tool.poetry.scripts]
+update-refs = "scripts.update_references:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

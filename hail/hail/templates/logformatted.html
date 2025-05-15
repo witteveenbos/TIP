@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Logs</title>
+    <style>
+        body {
+            font-family: monospace;
+            background: #1e1e1e;
+            color: #d4d4d4;
+            margin: 20px;
+        }
+
+        .log-content {
+            height: calc(100vh - 40px);
+            overflow-y: auto;
+        }
+
+        .log-line {
+            margin: 2px 0;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+        .debug {
+            color: #569cd6;
+        }
+
+        .info {
+            color: #6A9955;
+        }
+
+        .warning {
+            color: #dcdcaa;
+        }
+
+        .error {
+            color: #f44747;
+            font-weight: bold;
+        }
+
+        .container-list {
+            margin-bottom: 20px;
+        }
+
+        .container-item {
+            display: inline-block;
+            margin-right: 10px;
+            padding: 5px 10px;
+            background: #2d2d2d;
+            border-radius: 3px;
+        }
+
+        a {
+            color: #569cd6;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script>
+        function scrollToBottom() {
+            requestAnimationFrame(() => {
+                const logContent = document.querySelector('.log-content');
+                logContent.scrollTop = logContent.scrollHeight;
+            });
+        }
+
+        // Scroll on initial load
+        window.addEventListener('load', scrollToBottom);
+
+        // Create an observer to watch for changes in the log content
+        const observer = new MutationObserver(scrollToBottom);
+
+        // Start observing after DOM is loaded
+        window.addEventListener('DOMContentLoaded', () => {
+            const logContent = document.querySelector('.log-content');
+            observer.observe(logContent, { childList: true, subtree: true });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="log-content">
+        {% for log in logs %}
+        <div class="log-line {{ log.level }}">{{ log.content }}</div>
+        {% endfor %}
+    </div>
+</body>
+
+</html>

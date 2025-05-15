@@ -1,0 +1,17 @@
+secret.*
+**/__pycache__/
+**/__pycache__/*.*
+/.vscode/settings.json
+**/*.json
+**/.env
+**/.env
+
+!valid_user_inputs.json
+!**/launch.json
+!config/scenarios/**.json
+!config/results/maps/data/**.json
+*.pkl
+
+!**/fixtures/**.json
+!**/config/**/**.json
+**/logs

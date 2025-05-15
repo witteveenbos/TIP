@@ -1,0 +1,29 @@
+# Frontend Code Styles check
+
+trigger:
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - frontend
+
+pr:
+  branches:
+    include:
+      - "*"
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: "20.x"
+    displayName: "Install Node.js"
+
+  - script: |
+      cd frontend
+      npm ci
+      npm run lint
+    displayName: "npm install and lint"

@@ -1,0 +1,40 @@
+version: "3.1"
+services:
+  web:
+    image: nginx:alpine
+    working_dir: /app
+    ports:
+      - "8081:80"
+      - "8082:443"
+    depends_on:
+      - python
+    volumes:
+      - "./docker/files/static/502.html:/app/502.html:cached"
+      - "./docker/files/config/nginx.conf.template:/etc/nginx/templates/default.conf.template:cached"
+      - "./docker/files/certs:/etc/nginx/certs"
+      - "./src/media:/app/media"
+      - "./src/static:/app/static"
+    environment:
+      - PYTHON_HOST=http://python
+      - MEDIA_REMOTE_DOMAIN=stripedtodo.nl
+
+  python:
+    image: frojd/pmiek_stripes_python
+    build: ./src
+    volumes:
+      - "./src:/app"
+    depends_on:
+      - db
+    env_file: ./docker/config/python.env
+
+  db:
+    image: postgis/postgis:13-3.4-alpine
+    ports:
+      - "8083:5432"
+    volumes:
+      - "./docker/files/db-dumps/:/docker-entrypoint-initdb.d/"
+      - "./docker/files/shared:/shared:rw"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres

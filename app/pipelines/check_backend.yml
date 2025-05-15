@@ -1,0 +1,31 @@
+trigger:
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - src
+
+pr:
+  branches:
+    include:
+      - "*"
+
+pool:
+  vmImage: "ubuntu-latest"
+
+steps:
+  - script: |
+      pip install black
+      black --check --exclude "/(\.eggs|\.git|\.hg|\.mypy_cache|\.nox|\.tox|\.venv|_build|buck-out|build|dist|migrations)/" src
+    displayName: "Run linting"
+  - script: |
+      cd src
+      # Create virtual environment to ignore azure's python packages
+      python -m venv venv
+      source venv/bin/activate
+      pip install --upgrade pip
+      pip install pip-audit setuptools==65.5.1 # Add setuptools, because venv uses it, but it's not always the latest version
+      pip install -r requirements/prod.txt
+      pip-audit
+    displayName: "Audit libraries with pip audit"

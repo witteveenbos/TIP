@@ -1,0 +1,14 @@
+Django==4.2.16
+django-cors-headers==4.3.1
+psycopg==3.1.12
+python-dotenv==1.0.0
+wagtail==5.2.6
+wagtail-meta-preview==3.0.0
+wagtail_headless_preview==0.7.0
+pandas==2.2.0
+seaborn
+whitenoise==6.0.0
+pyyaml
+pydantic==2.6.4
+dask
+jinja2

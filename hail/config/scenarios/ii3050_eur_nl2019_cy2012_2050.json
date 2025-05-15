@@ -1,0 +1,213 @@
+{
+    "main_scenario": "ii3050_eur_nl2019_cy2012_2050",
+    "municipal_scenarios": [
+        {
+            "ETMscenarioID": 1163029,
+            "municipalityID": "GM0482"
+        },
+        {
+            "ETMscenarioID": 1163030,
+            "municipalityID": "GM0484"
+        },
+        {
+            "ETMscenarioID": 1163031,
+            "municipalityID": "GM0489"
+        },
+        {
+            "ETMscenarioID": 1163032,
+            "municipalityID": "GM0501"
+        },
+        {
+            "ETMscenarioID": 1163033,
+            "municipalityID": "GM0502"
+        },
+        {
+            "ETMscenarioID": 1163034,
+            "municipalityID": "GM0503"
+        },
+        {
+            "ETMscenarioID": 1163035,
+            "municipalityID": "GM0505"
+        },
+        {
+            "ETMscenarioID": 1163036,
+            "municipalityID": "GM0512"
+        },
+        {
+            "ETMscenarioID": 1163037,
+            "municipalityID": "GM0513"
+        },
+        {
+            "ETMscenarioID": 1163038,
+            "municipalityID": "GM0518"
+        },
+        {
+            "ETMscenarioID": 1163039,
+            "municipalityID": "GM0523"
+        },
+        {
+            "ETMscenarioID": 1163040,
+            "municipalityID": "GM0530"
+        },
+        {
+            "ETMscenarioID": 1163041,
+            "municipalityID": "GM0531"
+        },
+        {
+            "ETMscenarioID": 1163042,
+            "municipalityID": "GM0534"
+        },
+        {
+            "ETMscenarioID": 1163043,
+            "municipalityID": "GM0537"
+        },
+        {
+            "ETMscenarioID": 1163044,
+            "municipalityID": "GM0542"
+        },
+        {
+            "ETMscenarioID": 1163045,
+            "municipalityID": "GM0546"
+        },
+        {
+            "ETMscenarioID": 1163046,
+            "municipalityID": "GM0547"
+        },
+        {
+            "ETMscenarioID": 1163047,
+            "municipalityID": "GM0553"
+        },
+        {
+            "ETMscenarioID": 1163048,
+            "municipalityID": "GM0556"
+        },
+        {
+            "ETMscenarioID": 1163049,
+            "municipalityID": "GM0569"
+        },
+        {
+            "ETMscenarioID": 1163050,
+            "municipalityID": "GM0575"
+        },
+        {
+            "ETMscenarioID": 1163051,
+            "municipalityID": "GM0579"
+        },
+        {
+            "ETMscenarioID": 1163052,
+            "municipalityID": "GM0590"
+        },
+        {
+            "ETMscenarioID": 1163053,
+            "municipalityID": "GM0597"
+        },
+        {
+            "ETMscenarioID": 1163054,
+            "municipalityID": "GM0599"
+        },
+        {
+            "ETMscenarioID": 1163055,
+            "municipalityID": "GM0603"
+        },
+        {
+            "ETMscenarioID": 1163056,
+            "municipalityID": "GM0606"
+        },
+        {
+            "ETMscenarioID": 1163057,
+            "municipalityID": "GM0610"
+        },
+        {
+            "ETMscenarioID": 1163058,
+            "municipalityID": "GM0613"
+        },
+        {
+            "ETMscenarioID": 1163059,
+            "municipalityID": "GM0614"
+        },
+        {
+            "ETMscenarioID": 1163060,
+            "municipalityID": "GM0622"
+        },
+        {
+            "ETMscenarioID": 1163061,
+            "municipalityID": "GM0626"
+        },
+        {
+            "ETMscenarioID": 1163062,
+            "municipalityID": "GM0627"
+        },
+        {
+            "ETMscenarioID": 1163063,
+            "municipalityID": "GM0629"
+        },
+        {
+            "ETMscenarioID": 1163064,
+            "municipalityID": "GM0637"
+        },
+        {
+            "ETMscenarioID": 1163065,
+            "municipalityID": "GM0638"
+        },
+        {
+            "ETMscenarioID": 1163066,
+            "municipalityID": "GM0642"
+        },
+        {
+            "ETMscenarioID": 1163067,
+            "municipalityID": "GM1525"
+        },
+        {
+            "ETMscenarioID": 1163068,
+            "municipalityID": "GM1621"
+        },
+        {
+            "ETMscenarioID": 1163069,
+            "municipalityID": "GM1783"
+        },
+        {
+            "ETMscenarioID": 1163070,
+            "municipalityID": "GM1842"
+        },
+        {
+            "ETMscenarioID": 1163071,
+            "municipalityID": "GM1884"
+        },
+        {
+            "ETMscenarioID": 1163072,
+            "municipalityID": "GM1892"
+        },
+        {
+            "ETMscenarioID": 1163073,
+            "municipalityID": "GM1901"
+        },
+        {
+            "ETMscenarioID": 1163074,
+            "municipalityID": "GM1916"
+        },
+        {
+            "ETMscenarioID": 1163075,
+            "municipalityID": "GM1924"
+        },
+        {
+            "ETMscenarioID": 1163076,
+            "municipalityID": "GM1926"
+        },
+        {
+            "ETMscenarioID": 1163077,
+            "municipalityID": "GM1930"
+        },
+        {
+            "ETMscenarioID": 1163078,
+            "municipalityID": "GM1931"
+        },
+        {
+            "ETMscenarioID": 1163079,
+            "municipalityID": "GM1963"
+        },
+        {
+            "ETMscenarioID": 1163080,
+            "municipalityID": "GM1978"
+        }
+    ]
+}

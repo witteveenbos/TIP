@@ -1,0 +1,20 @@
+{
+  "viewSettings": {
+    "areaDivision": "PROV",
+    "energyCarrier": "all",
+    "balance": "balance",
+    "original": true,
+    "developmentType": "sectoral",
+    "graphType": "energybalance_bar",
+    "graphFocus": "PV28"
+  },
+  "userSettings": {
+    "municipalityScenarios": [
+      {
+        "ETMscenarioID": 1314602,
+        "municipalityID": "GM0482"
+      }
+    ],
+    "selectedScenario": "ii3050_dec_nl2019_cy2012_2040"
+  }
+}

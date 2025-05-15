@@ -1,0 +1,57 @@
+trigger:
+  batch: true
+  branches:
+    include:
+      - "main"
+      - "production"
+  paths:
+    include:
+      - frontend
+
+resources:
+  - repo: self
+
+variables:
+  dockerRegistryServiceConnection: "C24010238_CR"
+  imageRepository: "frontend"
+  dockerfilePath: "$(Build.SourcesDirectory)/frontend/prod.Dockerfile"
+  tag: "$(Build.SourceBranchName)"
+  ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
+    wagtailUrlArg: http://backend:8000/wt/api/nextjs
+    apiUrlArg: https://pzh-pmiek-tooling-accept.azurewebsites.net/api
+    rekenkernApiUrlArg: https://pmiek-data.azurewebsites.net
+  ${{ if eq(variables['Build.SourceBranchName'], 'production') }}:
+    wagtailUrlArg: http://backend:8000/wt/api/nextjs
+    apiUrlArg: https://pzh-pmiek-tooling.azurewebsites.net/api
+  wagtailPathArg: /wt/api/nextjs
+
+stages:
+  - stage: Build
+    displayName: Build image
+    jobs:
+      - job: Build
+        displayName: Build
+        pool:
+          vmImage: "ubuntu-latest"
+        steps:
+          - task: DockerInstaller@0
+            inputs:
+              dockerVersion: "17.09.0-ce"
+          - task: Docker@2
+            displayName: Build image
+            inputs:
+              command: build
+              containerRegistry: $(dockerRegistryServiceConnection)
+              repository: $(imageRepository)
+              dockerfile: $(dockerfilePath)
+              tags: |
+                $(tag)
+              arguments: '--build-arg NEXT_PUBLIC_WAGTAIL_API_URL=$(wagtailPathArg) --build-arg NEXT_PUBLIC_API_URL=$(apiUrlArg) --build-arg WAGTAIL_API_URL=$(wagtailUrlArg) --build-arg NEXT_PUBLIC_REKENKERN_API_URL=$(rekenkernApiUrlArg)'
+          - task: Docker@2
+            displayName: Publish image to Azure Container Registry
+            inputs:
+              command: push
+              containerRegistry: $(dockerRegistryServiceConnection)
+              repository: $(imageRepository)
+              tags: |
+                $(tag)

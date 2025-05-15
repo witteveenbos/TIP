@@ -1,0 +1,55 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+      args:
+        NEXT_PUBLIC_WAGTAIL_API_URL: http://localhost:8000/wt/api/nextjs
+        # Update 'VARIANT' to pick a version of Python: 3, 3.10, 3.9, 3.8, 3.7, 3.6
+        # Append -bullseye or -buster to pin to an OS version.
+        # Use -bullseye variants on local arm64/Apple Silicon.
+        VARIANT: 3.11-bullseye
+        # Optional Node.js version to install
+        NODE_VERSION: "20"
+    env_file: .env
+    depends_on:
+      - db
+    volumes:
+      - ..:/workspace:cached
+    # Overrides default command so things don't shut down after the process ends.
+    command: sleep infinity
+    # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
+    network_mode: service:db
+    # Uncomment the next line to use a non-root user for all processes.
+    # user: vscode
+
+    # Use "forwardPorts" in **devcontainer.json** to forward an app port locally.
+    # (Adding the "ports" property to this file will not forward from a Codespace.)
+  db:
+    image: postgis/postgis:13-3.4-alpine
+    restart: unless-stopped
+    #    command: "-c log_statement=all"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=${DB_USER:-postgres}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-postgres}
+      - POSTGRES_DB=${DB_NAME:-stripes}
+
+  pgadmin:
+    image: dpage/pgadmin4
+    depends_on:
+      - db
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-admin@admin.nl}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      # PGADMIN_LISTEN_ADDRESS: [::]
+      PGADMIN_LISTEN_PORT: 5000
+    network_mode: service:db
+
+volumes:
+  postgres-data: null
+  node_modules: null

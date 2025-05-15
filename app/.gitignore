@@ -1,0 +1,64 @@
+# Virtualenv
+venv/
+
+# Python specific, Byte-compiled / optimized / DLL files
+*.pyc
+__pycache__/
+*.py[cod]
+
+# PyCharm
+.idea/
+
+# VS Code
+.vscode/*
+!.vscode/launch.json
+!.vscode/settings.json
+
+# Installer logs
+pip-log.txt
+
+# OSX
+.DS_Store
+
+# SQL-Files
+*.sql
+
+# Log files
+*.log
+
+# Tmp folders
+tmp
+temp
+
+# Docker
+docker/config/db.env
+docker/config/python.env
+docker/config/db_backup.env
+docker/files/certs/*
+!docker/files/certs/.gitkeep
+docker-compose.override.yml
+
+# Environment
+src/.env
+src/.env.local
+
+# Static folder
+static
+src/static
+src/media
+src/pipit/static/pipit/**
+!src/pipit/static/pipit/admin-overrides.css
+!src/energy/static
+/media/**
+
+# Pytest
+.cache
+
+# Code Coverage
+htmlcov
+.coverage
+
+# Mypy
+.mypy_cache
+media/**
+

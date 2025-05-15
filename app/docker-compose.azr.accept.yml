@@ -1,0 +1,34 @@
+services:
+  backend:
+    container_name: backend
+    image: C24010238cr.azurecr.io/backend:main
+    restart: unless-stopped
+    volumes:
+      - static_volume:/home/app/web/static
+      - ${WEBAPP_STORAGE_HOME}/media-accept:/home/app/web/media
+    expose:
+      - 8000
+
+
+  frontend:
+    container_name: frontend
+    image: C24010238cr.azurecr.io/frontend:main
+    restart: unless-stopped
+    depends_on:
+      - backend
+    expose:
+      - 3000
+
+  nginx:
+    image: C24010238cr.azurecr.io/nginx:main
+    restart: unless-stopped
+    ports:
+      - 80:80
+    depends_on:
+      - frontend
+    volumes:
+      - static_volume:/home/app/web/static
+      - ${WEBAPP_STORAGE_HOME}/media-accept:/home/app/web/media
+
+volumes:
+  static_volume:

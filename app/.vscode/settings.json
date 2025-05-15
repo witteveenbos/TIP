@@ -1,0 +1,67 @@
+{
+    "editor.formatOnSave": true,
+    "[yaml]": {
+        "editor.formatOnSave": false
+    },
+
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit",
+        "source.organizeImports": "explicit"
+    },
+    "editor.quickSuggestions": {
+        "strings": true
+    },
+    "editor.insertSpaces": true,
+    "editor.tabSize": 4,
+    "python.defaultInterpreterPath": "/usr/local/bin/python",
+    "python.languageServer": "Pylance",
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": true,
+    "python.linting.pylintArgs": [
+        "--load-plugins=pylint_django",
+        "--disable=django-not-configured",
+        "--django-settings-module=pipit.settings.local"
+    ],
+    "python.formatting.provider": "black",
+    "python.formatting.blackPath": "/usr/local/py-utils/bin/black",
+    "python.linting.pycodestylePath": "/usr/local/py-utils/bin/pycodestyle",
+    "python.linting.pydocstylePath": "/usr/local/py-utils/bin/pydocstyle",
+    "python.linting.pylintPath": "/usr/local/py-utils/bin/pylint",
+    "python.testing.pytestPath": "/usr/local/py-utils/bin/pytest",
+    "python.testing.pytestEnabled": true,
+    "files.associations": {
+        "*.css": "tailwindcss"
+    },
+    "eslint.validate": ["javascript"],
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "spellright.language": ["en", "nl"],
+    "spellright.documentTypes": ["markdown", "latex", "plaintext"],
+    "workbench.colorCustomizations": {
+        "activityBar.activeBackground": "#b5afba",
+        "activityBar.background": "#b5afba",
+        "activityBar.foreground": "#15202b",
+        "activityBar.inactiveForeground": "#15202b99",
+        "activityBarBadge.background": "#8f6430",
+        "activityBarBadge.foreground": "#e7e7e7",
+        "commandCenter.border": "#15202b99",
+        "sash.hoverBorder": "#b5afba",
+        "statusBar.background": "#9c93a3",
+        "statusBar.foreground": "#15202b",
+        "statusBarItem.hoverBackground": "#83778c",
+        "statusBarItem.remoteBackground": "#9c93a3",
+        "statusBarItem.remoteForeground": "#15202b",
+        "titleBar.activeBackground": "#9c93a3",
+        "titleBar.activeForeground": "#15202b",
+        "titleBar.inactiveBackground": "#9c93a399",
+        "titleBar.inactiveForeground": "#15202b99"
+    },
+    "peacock.remoteColor": "#9c93a3"
+}

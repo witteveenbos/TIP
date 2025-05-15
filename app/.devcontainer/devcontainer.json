@@ -1,0 +1,39 @@
+{
+    "name": "pmiek-stripes",
+    // "dockerComposeFile": [
+    // 	"../docker-compose.yml",
+    // 	"docker-compose.extend.yml"
+    // ],
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "app",
+    "workspaceFolder": "/workspace",
+    // Uncomment the next line if you want to keep your containers running after VS Code shuts down.
+    // "shutdownAction": "none",
+    "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.black-formatter",
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "wix.vscode-import-cost",
+        "bradlc.vscode-tailwindcss",
+        "samuelcolvin.jinjahtml",
+        "ms-toolsai.jupyter"
+    ],
+    "forwardPorts": [
+        8000,
+        5000,
+        5432,
+        6379,
+        3000
+    ],
+    "remoteUser": "root",
+    "postCreateCommand": [
+        "bash",
+        "./.devcontainer/docker-entrypoint.sh"
+    ],
+    "settings": {
+        "python.pythonPath": "/usr/local/bin/python",
+        "python.formatting.provider": "black"
+    }
+}

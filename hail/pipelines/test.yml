@@ -1,0 +1,64 @@
+trigger:
+  batch: true
+  branches:
+    include:
+      - production
+      - development
+
+pr:
+  branches:
+    include:
+      - production
+      - development
+
+pool:
+  vmImage: "ubuntu-latest"
+
+steps:
+  # Checkout the repository
+  - checkout: self
+    displayName: "Checkout Repository"
+
+  # Set up Python
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: "3.11.*"
+      architecture: "x64"
+      addToPath: true
+    displayName: "Set up Python $(pythonVersion)"
+
+  # Install Poetry
+  - script: |
+      curl -sSL https://install.python-poetry.org | python3 -
+      echo "##vso[task.prependpath]$HOME/.local/bin"
+    displayName: "Install Poetry"
+
+  # Configure Poetry (Optional: Disable virtualenv creation if desired)
+  - script: |
+      poetry config virtualenvs.create false
+    displayName: "Configure Poetry"
+
+  # Install Dependencies using Poetry
+  - script: |
+      poetry install --no-interaction --no-ansi
+    displayName: "Install Dependencies with Poetry"
+
+  # **Black Linting Task**
+  - script: |
+      poetry run black --check hail config tests --exclude 'hail/reference/model.py' --diff
+    displayName: "Lint with Black"
+
+  # Run Pytest
+  - script: |
+      poetry run pytest --junitxml=test-results.xml
+    displayName: "Run Pytest"
+    condition: always()
+
+  # Publish Test Results
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFormat: "JUnit"
+      testResultsFiles: "**/test-results.xml"
+      failTaskOnFailedTests: false
+    displayName: "Publish Test Results"
+    condition: always()

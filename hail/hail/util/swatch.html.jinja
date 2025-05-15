@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palette picker</title>
+    <style>
+        .swatch {
+            display: grid;
+            grid-row: 1;
+            grid-template-columns: repeat(auto-fill, minmax(2px, 1fr));
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .color-box {
+            height: 50px;
+            margin: 0px;
+            box-sizing: border-box;
+        }
+
+        body {
+            padding: 2rem 2rem
+        }
+    </style>
+</head>
+
+<body>
+
+    {% for palette_name, colors in palettes %}
+    <h1 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">{{ palette_name }}</h1>
+    <div class="swatch">
+        {% for color in colors %}
+        <div class="color-box" style="background-color: {{ color }};"></div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+
+</body>
+
+</html>

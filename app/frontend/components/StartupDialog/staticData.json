@@ -1,0 +1,486 @@
+{
+    "metaData": {
+        "title": "Energiebalans",
+        "unit": "GWh",
+        "yLabelText": "Energie",
+        "xGrouping": "demandSupply"
+    },
+    "graphData": [
+        {
+            "demandSupply": "Demand",
+            "carrier": "Electricity",
+            "sector": "Agriculture",
+            "value": 5.25,
+            "color": "#ffd700"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Electricity",
+            "sector": "Buildings",
+            "value": 3.51,
+            "color": "#fed917"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Electricity",
+            "sector": "Buildings_hp_electric",
+            "value": 0.99,
+            "color": "#fddc2f"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Electricity",
+            "sector": "Buildings_hp_hybrid",
+            "value": 0.06,
+            "color": "#fbdf46"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Electricity",
+            "sector": "Heat_network",
+            "value": 0.21,
+            "color": "#fae15e"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Electricity",
+            "sector": "Households",
+            "value": 4.03,
+            "color": "#f9e475"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Electricity",
+            "sector": "Households_hp_electric",
+            "value": 2.09,
+            "color": "#f8e68d"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Electricity",
+            "sector": "Households_hp_hybrid",
+            "value": 0.14,
+            "color": "#f7e9a5"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Electricity",
+            "sector": "Industry_aluminium",
+            "value": 0.0,
+            "color": "#f5ebbc"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Electricity",
+            "sector": "Industry_datacenters",
+            "value": 0.0,
+            "color": "#f4eed4"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Electricity",
+            "sector": "Industry_food",
+            "value": 1.56,
+            "color": "#ffd700"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Electricity",
+            "sector": "Industry_metals",
+            "value": 0.0,
+            "color": "#fed915"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Electricity",
+            "sector": "Industry_other",
+            "value": 3.15,
+            "color": "#fddc2a"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Electricity",
+            "sector": "Industry_paper",
+            "value": 0.25,
+            "color": "#fcde40"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Electricity",
+            "sector": "Other_demand",
+            "value": 2.59,
+            "color": "#fbe056"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Electricity",
+            "sector": "Transport_bus",
+            "value": 0.28,
+            "color": "#fae36b"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Electricity",
+            "sector": "Transport_car",
+            "value": 3.51,
+            "color": "#f8e580"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Electricity",
+            "sector": "Transport_other",
+            "value": 0.64,
+            "color": "#f7e795"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Electricity",
+            "sector": "Transport_train",
+            "value": 0.49,
+            "color": "#f6eaab"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Electricity",
+            "sector": "Transport_truck",
+            "value": 3.41,
+            "color": "#f5ecc1"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Electricity",
+            "sector": "Transport_van",
+            "value": 1.72,
+            "color": "#f4eed6"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Hydrogen",
+            "sector": "Agriculture",
+            "value": 0.0,
+            "color": "#4682b4"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Hydrogen",
+            "sector": "Buildings_combi_boiler",
+            "value": 0.0,
+            "color": "#578dba"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Hydrogen",
+            "sector": "Buildings_hp_hybrid",
+            "value": 0.0,
+            "color": "#6898c0"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Hydrogen",
+            "sector": "Heat_network",
+            "value": 0.0,
+            "color": "#79a3c7"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Hydrogen",
+            "sector": "Households_combi_boiler",
+            "value": 0.0,
+            "color": "#8aaecd"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Hydrogen",
+            "sector": "Households_hp_hybrid",
+            "value": 0.0,
+            "color": "#9ab9d3"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Hydrogen",
+            "sector": "Industry_food",
+            "value": 0.17,
+            "color": "#acc4d9"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Hydrogen",
+            "sector": "Industry_other",
+            "value": 0.38,
+            "color": "#bdd0e0"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Hydrogen",
+            "sector": "Industry_paper",
+            "value": 0.14,
+            "color": "#cedbe6"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Hydrogen",
+            "sector": "Other_demand",
+            "value": 0.0,
+            "color": "#dfe6ec"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Hydrogen",
+            "sector": "Transport",
+            "value": 2.29,
+            "color": "#4682b4"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Methane",
+            "sector": "Agriculture",
+            "value": 0.0,
+            "color": "#2e8b57"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Methane",
+            "sector": "Blue_hydrogen_production",
+            "value": 21.5,
+            "color": "#419566"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Methane",
+            "sector": "Buildings",
+            "value": 0.0,
+            "color": "#54a075"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Methane",
+            "sector": "Buildings_combi_boiler",
+            "value": 0.2,
+            "color": "#66aa84"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Methane",
+            "sector": "Buildings_hp_hybrid",
+            "value": 0.07,
+            "color": "#7ab493"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Methane",
+            "sector": "Green_hydrogen_production",
+            "value": 0.0,
+            "color": "#8cbfa2"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Methane",
+            "sector": "Grey_hydrogen_production",
+            "value": 0.0,
+            "color": "#9fc9b1"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Methane",
+            "sector": "Heat_network",
+            "value": 1.12,
+            "color": "#b3d4c0"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Methane",
+            "sector": "Households",
+            "value": 0.0,
+            "color": "#c5decf"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Methane",
+            "sector": "Households_combi_boiler",
+            "value": 0.52,
+            "color": "#d8e8de"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Methane",
+            "sector": "Households_hp_hybrid",
+            "value": 0.32,
+            "color": "#2e8b57"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Methane",
+            "sector": "Industry_aluminium",
+            "value": 0.0,
+            "color": "#3f9465"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Methane",
+            "sector": "Industry_food",
+            "value": 0.0,
+            "color": "#509e72"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Methane",
+            "sector": "Industry_metals",
+            "value": 0.0,
+            "color": "#61a780"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Methane",
+            "sector": "Industry_other",
+            "value": 0.0,
+            "color": "#73b18e"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Methane",
+            "sector": "Industry_other_non_energetic",
+            "value": 0.0,
+            "color": "#84ba9b"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Methane",
+            "sector": "Industry_paper",
+            "value": 0.0,
+            "color": "#95c3a9"
+        },
+        {
+            "demandSupply": "Demand",
+            "carrier": "Methane",
+            "sector": "Other_demand",
+            "value": 0.03,
+            "color": "#a6cdb6"
+        },
+        {
+            "demandSupply": "Supply",
+            "carrier": "Electricity",
+            "sector": "Biomass",
+            "value": 0.0,
+            "color": "#ffd700"
+        },
+        {
+            "demandSupply": "Supply",
+            "carrier": "Electricity",
+            "sector": "Hydro_RoR",
+            "value": 0.0,
+            "color": "#fed913"
+        },
+        {
+            "demandSupply": "Supply",
+            "carrier": "Electricity",
+            "sector": "Power_plant_coal",
+            "value": 0.0,
+            "color": "#fddb27"
+        },
+        {
+            "demandSupply": "Supply",
+            "carrier": "Electricity",
+            "sector": "Power_plant_nuclear",
+            "value": 7.95,
+            "color": "#fcdd3a"
+        },
+        {
+            "demandSupply": "Supply",
+            "carrier": "Electricity",
+            "sector": "Power_plant_other",
+            "value": 0.0,
+            "color": "#fbdf4e"
+        },
+        {
+            "demandSupply": "Supply",
+            "carrier": "Electricity",
+            "sector": "Solar_PV_buildings",
+            "value": 4.77,
+            "color": "#fae262"
+        },
+        {
+            "demandSupply": "Supply",
+            "carrier": "Electricity",
+            "sector": "Solar_PV_field",
+            "value": 5.01,
+            "color": "#f9e475"
+        },
+        {
+            "demandSupply": "Supply",
+            "carrier": "Electricity",
+            "sector": "Solar_PV_households",
+            "value": 6.2,
+            "color": "#f8e689"
+        },
+        {
+            "demandSupply": "Supply",
+            "carrier": "Electricity",
+            "sector": "Solar_PV_offshore",
+            "value": 0.0,
+            "color": "#f7e89d"
+        },
+        {
+            "demandSupply": "Supply",
+            "carrier": "Electricity",
+            "sector": "Wind_offshore",
+            "value": 60.62,
+            "color": "#f6eab0"
+        },
+        {
+            "demandSupply": "Supply",
+            "carrier": "Electricity",
+            "sector": "Wind_onshore",
+            "value": 9.61,
+            "color": "#f5ecc4"
+        },
+        {
+            "demandSupply": "Supply",
+            "carrier": "Hydrogen",
+            "sector": "Blue_hydrogen_production",
+            "value": 16.02,
+            "color": "#558cba"
+        },
+        {
+            "demandSupply": "Supply",
+            "carrier": "Hydrogen",
+            "sector": "Green_hydrogen_production",
+            "value": 0.0,
+            "color": "#6596bf"
+        },
+        {
+            "demandSupply": "Supply",
+            "carrier": "Hydrogen",
+            "sector": "Grey_hydrogen_production",
+            "value": 0.0,
+            "color": "#74a0c5"
+        },
+        {
+            "demandSupply": "Supply",
+            "carrier": "Hydrogen",
+            "sector": "Power_to_gas_solar_PV",
+            "value": 0.0,
+            "color": "#84aacb"
+        },
+        {
+            "demandSupply": "Supply",
+            "carrier": "Hydrogen",
+            "sector": "Power_to_gas_wind_offshore",
+            "value": 0.0,
+            "color": "#93b4d0"
+        },
+        {
+            "demandSupply": "Supply",
+            "carrier": "Methane",
+            "sector": "Green_gas_production",
+            "value": 4.65,
+            "color": "#b8d7c5"
+        },
+        {
+            "demandSupply": "Supply",
+            "carrier": "Methane",
+            "sector": "Natural_gas_production",
+            "value": 0.0,
+            "color": "#c9e0d2"
+        }
+    ]
+}

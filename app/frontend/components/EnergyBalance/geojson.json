@@ -1,0 +1,3791 @@
+{
+    "GM1978": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+            "projects": [
+                {
+                    "projectId": "proj1",
+                    "projectName": "Project X"
+                },
+                {
+                    "projectId": "proj_2",
+                    "projectName": "Project Y"
+                }
+            ],
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM0482": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+            "projects": [
+                {
+                    "projectId": "proj1",
+                    "projectName": "Project X"
+                },
+                {
+                    "projectId": "proj_2",
+                    "projectName": "Project Y"
+                }
+            ],
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+            "projects": [
+                {
+                    "projectId": "proj1",
+                    "projectName": "Project X"
+                },
+                {
+                    "projectId": "proj_2",
+                    "projectName": "Project Y"
+                }
+            ],
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM0484": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+            "projects": [
+                {
+                    "projectId": "proj1",
+                    "projectName": "Project X"
+                },
+                {
+                    "projectId": "proj_2",
+                    "projectName": "Project Y"
+                }
+            ],
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+            "projects": [
+                {
+                    "projectId": "proj1",
+                    "projectName": "Project X"
+                },
+                {
+                    "projectId": "proj_2",
+                    "projectName": "Project Y"
+                }
+            ],
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM0489": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+            "projects": [
+                {
+                    "projectId": "proj1",
+                    "projectName": "Project X"
+                },
+                {
+                    "projectId": "proj_2",
+                    "projectName": "Project Y"
+                }
+            ],
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+            "projects": [
+                {
+                    "projectId": "proj1",
+                    "projectName": "Project X"
+                },
+                {
+                    "projectId": "proj_2",
+                    "projectName": "Project Y"
+                }
+            ],
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM0501": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+            "projects": [
+                {
+                    "projectId": "proj1",
+                    "projectName": "Project X"
+                },
+                {
+                    "projectId": "proj_2",
+                    "projectName": "Project Y"
+                }
+            ],
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+            "projects": [
+                {
+                    "projectId": "proj1",
+                    "projectName": "Project X"
+                },
+                {
+                    "projectId": "proj_2",
+                    "projectName": "Project Y"
+                }
+            ],
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM0502": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+            "projects": [
+                {
+                    "projectId": "proj1",
+                    "projectName": "Project X"
+                },
+                {
+                    "projectId": "proj_2",
+                    "projectName": "Project Y"
+                }
+            ],
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+            "projects": [
+                {
+                    "projectId": "proj1",
+                    "projectName": "Project X"
+                },
+                {
+                    "projectId": "proj_2",
+                    "projectName": "Project Y"
+                }
+            ],
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM0503": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM0505": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM0512": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM0513": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM0518": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM0523": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM0530": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+            "projects": [
+                {
+                    "projectId": "proj1",
+                    "name": "Project X"
+                },
+                {
+                    "projectId": "proj_2",
+                    "name": "Project Y"
+                }
+            ],
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM0531": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM0534": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM0537": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM0542": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM0546": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM0547": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM0553": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM0556": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM0569": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM0575": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM0579": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM0590": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM0597": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM0599": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM0603": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+            "projects": [
+                {
+                    "projectId": "proj1",
+                    "name": "Project X"
+                },
+                {
+                    "projectId": "proj_2",
+                    "name": "Project Y"
+                }
+            ],
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM0606": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+            "projects": [
+                {
+                    "projectId": "proj1",
+                    "name": "Project X"
+                },
+                {
+                    "projectId": "proj_2",
+                    "name": "Project Y"
+                }
+            ],
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM0610": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM0613": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+            "projects": [
+                {
+                    "projectId": "proj1",
+                    "name": "Project X"
+                },
+                {
+                    "projectId": "proj_2",
+                    "name": "Project Y"
+                }
+            ],
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM0614": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+            "projects": [
+                {
+                    "projectId": "proj1",
+                    "name": "Project X"
+                },
+                {
+                    "projectId": "proj_2",
+                    "name": "Project Y"
+                }
+            ],
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM0622": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+            "projects": [
+                {
+                    "projectId": "proj1",
+                    "name": "Project X"
+                },
+                {
+                    "projectId": "proj_2",
+                    "name": "Project Y"
+                }
+            ],
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM0626": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+            "projects": [
+                {
+                    "projectId": "proj1",
+                    "name": "Project X"
+                },
+                {
+                    "projectId": "proj_2",
+                    "name": "Project Y"
+                }
+            ],
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM0627": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM0629": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+            "projects": [
+                {
+                    "projectId": "proj1",
+                    "name": "Project X"
+                },
+                {
+                    "projectId": "proj_2",
+                    "name": "Project Y"
+                }
+            ],
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM0637": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+            "projects": [
+                {
+                    "projectId": "proj1",
+                    "name": "Project X"
+                },
+                {
+                    "projectId": "proj_2",
+                    "name": "Project Y"
+                }
+            ],
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM0638": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+            "projects": [
+                {
+                    "projectId": "proj1",
+                    "name": "Project X"
+                },
+                {
+                    "projectId": "proj_2",
+                    "name": "Project Y"
+                }
+            ],
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM0642": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+            "projects": [
+                {
+                    "projectId": "proj1",
+                    "name": "Project X"
+                },
+                {
+                    "projectId": "proj_2",
+                    "name": "Project Y"
+                }
+            ],
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM1525": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+            "projects": [
+                {
+                    "projectId": "proj1",
+                    "name": "Project X"
+                },
+                {
+                    "projectId": "proj_2",
+                    "name": "Project Y"
+                }
+            ],
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM1621": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+            "projects": [
+                {
+                    "projectId": "proj1",
+                    "name": "Project X"
+                },
+                {
+                    "projectId": "proj_2",
+                    "name": "Project Y"
+                }
+            ],
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM1783": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+            "projects": [
+                {
+                    "projectId": "proj1",
+                    "name": "Project X"
+                },
+                {
+                    "projectId": "proj_2",
+                    "name": "Project Y"
+                }
+            ],
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM1842": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+            "projects": [
+                {
+                    "projectId": "proj1",
+                    "name": "Project X"
+                },
+                {
+                    "projectId": "proj_2",
+                    "name": "Project Y"
+                }
+            ],
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM1884": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+            "projects": [
+                {
+                    "projectId": "proj1",
+                    "name": "Project X"
+                },
+                {
+                    "projectId": "proj_2",
+                    "name": "Project Y"
+                }
+            ],
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM1892": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+            "projects": [
+                {
+                    "projectId": "proj1",
+                    "name": "Project X"
+                },
+                {
+                    "projectId": "proj_2",
+                    "name": "Project Y"
+                }
+            ],
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM1901": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+            "projects": [
+                {
+                    "projectId": "proj1",
+                    "name": "Project X"
+                },
+                {
+                    "projectId": "proj_2",
+                    "name": "Project Y"
+                }
+            ],
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM1916": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+            "projects": [
+                {
+                    "projectId": "proj1",
+                    "name": "Project X"
+                },
+                {
+                    "projectId": "proj_2",
+                    "name": "Project Y"
+                }
+            ],
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM1924": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+            "projects": [
+                {
+                    "projectId": "proj1",
+                    "name": "Project X"
+                },
+                {
+                    "projectId": "proj_2",
+                    "name": "Project Y"
+                }
+            ],
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM1926": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+            "projects": [
+                {
+                    "projectId": "proj1",
+                    "name": "Project X"
+                },
+                {
+                    "projectId": "proj_2",
+                    "name": "Project Y"
+                }
+            ],
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM1930": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+            "projects": [
+                {
+                    "projectId": "proj1",
+                    "name": "Project X"
+                },
+                {
+                    "projectId": "proj_2",
+                    "name": "Project Y"
+                }
+            ],
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM1931": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+            "projects": [
+                {
+                    "projectId": "proj1",
+                    "name": "Project X"
+                },
+                {
+                    "projectId": "proj_2",
+                    "name": "Project Y"
+                }
+            ],
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        }
+    ],
+    "GM1963": [
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "continuous",
+            "projects": [
+                {
+                    "projectId": "proj1",
+                    "name": "Project X"
+                },
+                {
+                    "projectId": "proj_2",
+                    "name": "Project Y"
+                }
+            ],
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "capacity_of_rooftop_pv_in_households",
+            "name": "Opgesteld vermogen zon op dak (huishouden)",
+            "type": "sectoral",
+
+            "inputs": [
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj1_cv_ketels_methaan",
+                    "name": "cv ketels methaan",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_cv_ketels_methaan",
+                    "name": "Project Y input 1",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "MW"
+                },
+                {
+                    "key": "capacity_of_rooftop_pv_in_households_proj2_2",
+                    "name": "Project Y input 2",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "MW"
+                }
+            ]
+        },
+        {
+            "key": "bladibla",
+            "name": "Energie enzo",
+            "type": "sectoral",
+            "projects": [
+                {
+                    "projectId": "proj1",
+                    "projectName": "Project A"
+                },
+                {
+                    "projectId": "proj_2",
+                    "projectName": "Project B"
+                }
+            ],
+            "inputs": [
+                {
+                    "key": "key1",
+                    "name": "ketels",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 241,
+                    "unit": "%"
+                },
+                {
+                    "key": "key2",
+                    "name": "bezems",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 251,
+                    "unit": "%"
+                },
+                {
+                    "key": "key3",
+                    "name": "dansers",
+                    "min": 0,
+                    "max": 500,
+                    "default_value": 252,
+                    "unit": "%"
+                }
+            ]
+        }
+    ]
+}

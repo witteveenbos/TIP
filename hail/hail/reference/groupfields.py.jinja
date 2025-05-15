@@ -1,0 +1,7 @@
+from pydantic import BaseModel
+Value = float | int
+
+
+class GroupFields(BaseModel):
+    {% for userinput in userinputs %}
+    {{ userinput }}: Value{% endfor %}

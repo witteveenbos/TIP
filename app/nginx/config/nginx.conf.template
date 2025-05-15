@@ -1,0 +1,86 @@
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    proxy_read_timeout 120s;
+
+    server_name localhost _;
+
+    # do not touch - uncommented when enable_ssl.sh is used
+    #mkcert listen 443 ssl;
+    #mkcert ssl_certificate /etc/nginx/certs/cert.pem;
+    #mkcert ssl_certificate_key /etc/nginx/certs/cert-key.pem;
+
+    client_max_body_size 128M;
+
+    gzip on;
+    gzip_proxied any;
+    gzip_types text/plain text/xml text/css application/x-javascript;
+    gzip_vary on;
+    gzip_disable “MSIE [1-6]\.(?!.*SV1)”;
+
+    sendfile on;
+    sendfile_max_chunk 512k;
+
+    root /app/src;
+
+    access_log off;
+
+    error_page 502 /502.html;
+    location /502.html {
+        root /app;
+    }
+
+    location /wt/media  {
+        alias /home/app/web/media;
+    }
+
+    # If you instead want to use images from a remote domain - uncomment this
+    # location /wt/media {
+    #     try_files $uri @fallback;
+    # }
+    #
+    # location @fallback {
+    #     resolver 1.1.1.1;
+    #     rewrite "^/wt/media/(.*)$" "https://${MEDIA_REMOTE_DOMAIN}/wt/media/$1" redirect;
+    # }
+
+    location /wt/static {
+        expires 30d;
+        alias /home/app/web/static;
+    }
+
+    location / {
+        proxy_pass http://frontend:3000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+
+    location /_next/webpack-hmr {
+        proxy_pass http://frontend:3000/_next/webpack-hmr;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+
+    location /_util {
+        proxy_pass http://backend:8000/wt;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+
+    location /wt {
+        proxy_pass http://backend:8000/wt;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+
+    location /api {
+        proxy_pass http://backend:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}

@@ -1,0 +1,10 @@
+from enum import Enum
+
+
+class GraphTypes(Enum):
+    {% if graphs %}
+    {% for graph_name, graph_value in graphs %}
+    {{ graph_name }} = "{{ graph_value }}"{% endfor %}
+    {% else %}
+    pass
+    {% endif %}
