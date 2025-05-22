@@ -19,6 +19,7 @@ matplotlib = "^3.9.2"
 owslib = "^0.31.0"
 folium = "^0.18.0"
 mapclassify = "^2.8.1"
+fiona = "^1.10.1"
 
 [tool.poetry.group.dev.dependencies]
 pylint = "^2.15.10"
