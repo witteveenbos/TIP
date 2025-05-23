@@ -27,60 +27,60 @@ def shapes_to_shapes(orig: gpd.GeoSeries, dest: gpd.GeoSeries) -> sparse.lil_mat
     return transfer
 
 
-def pmiek_substation_mapper(
-    fp_municipalities: Path = "data/municipalities_simplified.geojson",
-) -> gpd.GeoDataFrame:
-    """
-    This function maps the total capacity of the substations to the municipalities.
-    The data is retrieved from the PDOK WFS service.
-    The total capacity of the substations is then mapped to the municipalities.
-    The function returns a GeoDataFrame with the municipalities, with two extra columns for the total substation capacity available for invoeding and afname specific to that municipality.
+### This was a function, but thats not really usefull when debugging the WFS retrieval with interactive windows
+"""
+This function maps the total capacity of the substations to the municipalities.
+The data is retrieved from the PDOK WFS service.
+The total capacity of the substations is then mapped to the municipalities.
+The function returns a GeoDataFrame with the municipalities, with two extra columns for the total substation capacity available for invoeding and afname specific to that municipality.
 
-    Parameters:
-    fp_municipalities: Path
+Parameters:
+fp_municipalities: Path
 
-    Returns:
-    gdf_municipalities: gpd.GeoDataFrame
-    gdf_substations: gpd.GeoDataFrame
-    """
+Returns:
+gdf_municipalities: gpd.GeoDataFrame
+gdf_substations: gpd.GeoDataFrame
+"""
+fp_municipalities = "data/municipalities_simplified.geojson"
 
-    # Load the data
-    gdf_municipalities: gpd.GeoDataFrame = gpd.read_file(fp_municipalities)
+# Load the data
+gdf_municipalities: gpd.GeoDataFrame = gpd.read_file(fp_municipalities)
 
-    # setup of wfs connection
-    wfs_url = "https://service.pdok.nl/kadaster/netcapaciteit/wfs/v1_0"
-    wfs = WebFeatureService(url=wfs_url, version="2.0.0")
+# setup of wfs connection
+wfs_url = "https://service.pdok.nl/kadaster/netcapaciteit/wfs/v1_0"
+wfs = WebFeatureService(url=wfs_url, version="2.0.0")
 
-    # List available layers, layer 1 contains the verzorgingsgebieden, layer 0 contains the substations
-    layers = list(wfs.contents)
+# List available layers, layer 1 contains the verzorgingsgebieden, layer 0 contains the substations
+layers = list(wfs.contents)
 
-    ### if you want more info:
-    # schema = wfs.get_schema(layers[1])
-    # properties = list(schema.get("properties").keys())
+### if you want more info:
+schema = wfs.get_schema(layers[1])
+properties = list(schema.get("properties").keys())
 
-    # probe the WFS api and save the response in a GeoDataFrame
-    response = wfs.getfeature(typename=layers[1], outputFormat="json")
-    gdf_substations: gpd.GeoDataFrame = gpd.read_file(response)
-    gdf_substations = gdf_substations.to_crs(gdf_municipalities.crs)
+# probe the WFS api and save the response in a GeoDataFrame
+response = wfs.getfeature(typename=layers[1], outputFormat="json")
+gdf_substations: gpd.GeoDataFrame = gpd.read_file(response)
+gdf_substations = gdf_substations.to_crs(gdf_municipalities.crs)
 
-    # compute a transfer matrix between the municipalities and the substations
-    transfer = shapes_to_shapes(gdf_municipalities.geometry, gdf_substations.geometry)
+# Cookie cut the substations down to only the province of interest
+gdf_substations = gdf_substations.clip(gdf_municipalities)
 
-    # select relevant data columns from substations data that we want to map to municipalities
-    invoeding = "totaleCapaciteitInvoedingMva"
-    afname = "totaleCapaciteitAfnameMva"
-    gdf_substations["unit"] = 1
-    # apply operation:
-    gdf_municipalities["invoeding"] = transfer.T.dot(gdf_substations[invoeding])
-    gdf_municipalities["afname"] = transfer.T.dot(gdf_substations[afname])
+# compute a transfer matrix between the municipalities and the substations
+transfer = shapes_to_shapes(gdf_municipalities.geometry, gdf_substations.geometry)
 
-    return gdf_municipalities, gdf_substations
+# select relevant data columns from substations data that we want to map to municipalities
+invoeding = "totaleCapaciteitInvoedingMva"
+afname = "totaleCapaciteitAfnameMva"
+gdf_substations["unit"] = 1
+# apply operation:
+gdf_municipalities["invoeding"] = transfer.T.dot(gdf_substations[invoeding])
+gdf_municipalities["afname"] = transfer.T.dot(gdf_substations[afname])
+
+gdf_municipalities, gdf_substations
+# end of function
 
 
-# %%
-gdf_municipalities, gdf_substations = pmiek_substation_mapper()
-
-VISUAL_VALIDATION = False
+VISUAL_VALIDATION = True
 
 transfer_matrix = shapes_to_shapes(
     gdf_substations.geometry, gdf_municipalities.geometry
@@ -91,7 +91,7 @@ transfer_matrix = transfer_matrix.toarray()
 mapper = {}
 for i, row in enumerate(transfer_matrix):
 
-    this_region = gdf_municipalities.iloc[i : i + 1].gid.values[0]
+    this_region = gdf_municipalities.iloc[i]["identificatie"]
 
     # make the map
     mapper.update(
@@ -154,9 +154,9 @@ if VISUAL_VALIDATION:
         this_station = hsms[hsms["name"] == station_name]
 
         ax = this_station.plot()
-        for gid, value in relation_to_municipalities.items():
+        for code, value in relation_to_municipalities.items():
             if value > 0.01:
-                this_region = gdf_municipalities[gdf_municipalities.gid == gid]
+                this_region = gdf_municipalities[gdf_municipalities["identificatie"] == code]
                 this_region.plot(
                     ax=ax,
                     color="red",
