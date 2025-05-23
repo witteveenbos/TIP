@@ -1,10 +1,16 @@
 ## (1) Prepare grid GIS-data with VIVET
 https://gitlab.wbad.witteveenbos.com/energy-modeling/vivet-pmiek
 
-1. [Download](https://www.pdok.nl/atom-downloadservices/-/article/bestuurlijke-grenzen) municipalities geoshapes, add to `/data` folder as `municipalities_simplified.geojson` 
-> Might be useful to also make this work as a script function
-2. Run `geomapping_regions.py` to generate the relational mapping between municipalities, RES-regions and provinces to create `geo_mapping.csv`
-3. Run `shapes_mapper_grid_only.py` to generate the relational mapping between municipality loads and the substations
+1. [Download](https://www.pdok.nl/atom-downloadservices/-/article/bestuurlijke-grenzen) geoshapes of borders and add to `/data/base_data` folder. In this case as `BestuurlijkeGebieden_2025.gpkg`.
+2. Run the `geo_preprocessing.py` script. Make sure to set the correct file paths, the province of interest and inspect the results visually (run in interactive window). This outputs two things:
+   - a geoJSON containing the municipalities in the province of interest. as `municipalities_simplified.geojson`. (actual simplification not implemented, might be needed to reduce file size)
+   - a .csv containing the hierarchical relations between different aggregation levels (gemeente, resregio, provincie). The file for the entire Netherlands is `geo_hierarchy.csv`, for the specific provincie the file is called `geo_mapping.csv`.
+
+2. Run `geomapping_regions.py` to generate the relational mapping between municipalities. This creates the one-hot encoded JSONs `municipalities_to_XXX.json`. These files are needed for correctly aggregating results. This script needs the `geo_mapping.csv` (which is province specific) to function.
+
+Up till here it was about administrative borders, the next steps are for the electrical substations.
+
+4. Run `shapes_mapper_grid_only.py` to generate the relational mapping between municipality loads and the substations
 4. [optional] if you want you can check the results visually by running `shapes_visuals.py`
 5. You should now have the following files:
    1. `geo_mapping.csv`
