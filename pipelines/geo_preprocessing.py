@@ -182,4 +182,4 @@ gemeenten_selected = gemeenten_selected.clip(resregio_selected)
 # after
 gemeenten_selected.plot(column="naam")
 
-gemeenten_selected.to_file("data/munipalities_simplified.geojson")
+gemeenten_selected.to_file("data/municipalities_simplified.geojson")
