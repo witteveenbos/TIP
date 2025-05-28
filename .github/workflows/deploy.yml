@@ -1,0 +1,49 @@
+name: Deploy to Azure Container Apps
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "accept-pnh"
+
+jobs:
+  build_backend:
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Log in to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{secrets.AZURE_PRINCIPAL_ID}}
+
+      - name: Log in to Azure Container Registry
+        run: |
+          az acr login --name ${{ACR_NAME}}
+
+      - name: Build Docker image for Backend
+        run: |
+          docker build -t ${{ACR_NAME}}.azurecr.io/backend:${{github.ref_name}} -f $GITHUB_WORKSPACE/app/src/prod.Dockerfile .
+      
+      - name: Push Docker image for Backend
+        run: |
+          docker push ${{ACR_NAME}}.azurecr.io/backend:${{github.ref_name}}
+      
+      - name: Deploy Backend to Azure Container App
+        run: |
+          az containerapp create \
+            --name backend-prod-app \
+            --resource-group ${{ secrets.RESOURCE_GROUP_NAME }} \
+            --image ${{ACR_NAME}}.azurecr.io/backend:${{github.ref_name}} \
+            --target-port 8000 \
+            --ingress external \
+            --env-vars DB_NAME=${{DB_NAME}} \
+              DB_USER=${{DB_USER}} \
+              DB_PASSWORD=${{secrets.DB_PASSWORD}} \
+              DB_HOST=${{DB_HOST}} \
+              DB_PORT=${{DB_PORT}} \
+            --registry-server ${{ACR_NAME}}.azurecr.io \
+            --cpu 2.0 \
+            --memory 4.0Gi \
+            --query properties.configuration.ingress.fqdn
