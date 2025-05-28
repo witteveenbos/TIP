@@ -26,22 +26,22 @@ jobs:
 
       - name: Log in to Azure Container Registry
         run: |
-          az acr login --name $ACR_NAME
+          az acr login --name ${{vars.ACR_NAME}}
 
       - name: Build Docker image for Backend
         run: |
-          docker build -t $ACR_NAME.azurecr.io/backend:${{github.ref_name}} -f ${{github.workspace}}/app/src/prod.Dockerfile .
+          docker build -t ${{vars.ACR_NAME}}.azurecr.io/backend:${{github.ref_name}} -f ${{github.workspace}}/app/src/prod.Dockerfile .
       
       - name: Push Docker image for Backend
         run: |
-          docker push $ACR_NAME.azurecr.io/backend:${{github.ref_name}}
+          docker push ${{vars.ACR_NAME}}.azurecr.io/backend:${{github.ref_name}}
       
       - name: Deploy Backend to Azure Container App
         run: |
           az containerapp create \
             --name backend-prod-app \
             --resource-group $RESOURCE_GROUP_NAME \
-            --image $ACR_NAME.azurecr.io/backend:${{github.ref_name}} \
+            --image ${{vars.ACR_NAME}}.azurecr.io/backend:${{github.ref_name}} \
             --target-port 8000 \
             --ingress external \
             --env-vars DB_NAME=$DB_NAME \
@@ -49,7 +49,7 @@ jobs:
               DB_PASSWORD=${{secrets.DB_PASSWORD}} \
               DB_HOST=$DB_HOST \
               DB_PORT=$DB_PORT \
-            --registry-server $ACR_NAME.azurecr.io \
+            --registry-server ${{vars.ACR_NAME}}.azurecr.io \
             --cpu 2.0 \
             --memory 4.0Gi \
             --query properties.configuration.ingress.fqdn
