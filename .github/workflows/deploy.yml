@@ -39,6 +39,12 @@ jobs:
       
       - name: Deploy Backend to Azure Container App
         run: |
+          IDENTITY_ID=$(az identity show \
+                  --name ${{vars.IDENTITY}}  \
+                  --resource-group ${{vars.RESOURCE_GROUP_NAME}} \
+                  --query id \
+                  --output tsv)
+
           az containerapp create \
             --name backend-prod-app \
             --resource-group ${{vars.RESOURCE_GROUP_NAME}} \
@@ -52,6 +58,7 @@ jobs:
               DB_HOST=${{vars.DB_HOST}} \
               DB_PORT=${{vars.DB_PORT}} \
             --registry-server ${{vars.ACR_NAME}}.azurecr.io \
+            --registry-identity $IDENTITY_ID \
             --cpu 2.0 \
             --memory 4.0Gi \
             --query properties.configuration.ingress.fqdn
