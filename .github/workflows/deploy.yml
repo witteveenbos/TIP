@@ -42,6 +42,7 @@ jobs:
           az containerapp create \
             --name backend-prod-app \
             --resource-group ${{vars.RESOURCE_GROUP_NAME}} \
+            --environment ${{vars.CONTAINER_APPS_ENV}} \
             --image ${{vars.ACR_NAME}}.azurecr.io/backend:${{github.ref_name}} \
             --target-port 8000 \
             --ingress external \
