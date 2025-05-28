@@ -31,7 +31,7 @@ jobs:
 
       - name: Build Docker image for Backend
         run: |
-          docker build -t ${{vars.ACR_NAME}}.azurecr.io/backend:${{github.ref_name}} -f ${{github.workspace}}/app/src/prod.Dockerfile .
+          docker build -t ${{vars.ACR_NAME}}.azurecr.io/backend:${{github.ref_name}} -f ${{github.workspace}}/app/src/prod.Dockerfile ${{github.workspace}}/app/src
       
       - name: Push Docker image for Backend
         run: |

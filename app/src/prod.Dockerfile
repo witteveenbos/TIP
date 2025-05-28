@@ -24,8 +24,7 @@ RUN apt-get update \
 
 # Install Python packages
 RUN pip install pip --upgrade
-RUN echo "Current directory: $(pwd)"
-ADD requirements/ $APP_HOME/requirements/
+ADD requirements $APP_HOME/requirements
 RUN pip install -r ./requirements/prod.txt
 
 # Copy project
