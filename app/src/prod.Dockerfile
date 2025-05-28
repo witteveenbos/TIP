@@ -26,6 +26,9 @@ RUN apt-get update \
 RUN pip install pip --upgrade
 # Print directory structure for debugging
 RUN apt-get update && apt-get install -y tree && tree -a /home/app || ls -alR /home/app
+RUN echo "Current directory: $(pwd)" \
+    && echo "Folder structure:" \
+    && ls -alR .
 ADD requirements $APP_HOME/requirements
 RUN pip install -r ./requirements/prod.txt
 
