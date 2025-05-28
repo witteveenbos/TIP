@@ -41,15 +41,15 @@ jobs:
         run: |
           az containerapp create \
             --name backend-prod-app \
-            --resource-group $RESOURCE_GROUP_NAME \
+            --resource-group ${{vars.RESOURCE_GROUP_NAME}} \
             --image ${{vars.ACR_NAME}}.azurecr.io/backend:${{github.ref_name}} \
             --target-port 8000 \
             --ingress external \
-            --env-vars DB_NAME=$DB_NAME \
-              DB_USER=$DB_USER \
+            --env-vars DB_NAME=${{vars.DB_NAME}} \
+              DB_USER=${{vars.DB_USER}} \
               DB_PASSWORD=${{secrets.DB_PASSWORD}} \
-              DB_HOST=$DB_HOST \
-              DB_PORT=$DB_PORT \
+              DB_HOST=${{vars.DB_HOST}} \
+              DB_PORT=${{vars.DB_PORT}} \
             --registry-server ${{vars.ACR_NAME}}.azurecr.io \
             --cpu 2.0 \
             --memory 4.0Gi \
