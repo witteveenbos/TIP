@@ -6,6 +6,10 @@ on:
     branches:
       - "accept-pnh"
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   build_backend:
     runs-on: "ubuntu-latest"
