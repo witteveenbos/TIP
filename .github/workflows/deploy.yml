@@ -26,30 +26,30 @@ jobs:
 
       - name: Log in to Azure Container Registry
         run: |
-          az acr login --name ${{env.ACR_NAME}}
+          az acr login --name $ACR_NAME
 
       - name: Build Docker image for Backend
         run: |
-          docker build -t ${{env.ACR_NAME}}.azurecr.io/backend:${{github.ref_name}} -f $GITHUB_WORKSPACE/app/src/prod.Dockerfile .
+          docker build -t $ACR_NAME.azurecr.io/backend:${{github.ref_name}} -f ${{github.workspace}}/app/src/prod.Dockerfile .
       
       - name: Push Docker image for Backend
         run: |
-          docker push ${{env.ACR_NAME}}.azurecr.io/backend:${{github.ref_name}}
+          docker push $ACR_NAME.azurecr.io/backend:${{github.ref_name}}
       
       - name: Deploy Backend to Azure Container App
         run: |
           az containerapp create \
             --name backend-prod-app \
-            --resource-group ${{env.RESOURCE_GROUP_NAME}} \
-            --image ${{env.ACR_NAME}}.azurecr.io/backend:${{github.ref_name}} \
+            --resource-group $RESOURCE_GROUP_NAME \
+            --image $ACR_NAME.azurecr.io/backend:${{github.ref_name}} \
             --target-port 8000 \
             --ingress external \
-            --env-vars DB_NAME=${{env.DB_NAME}} \
-              DB_USER=${{env.DB_USER}} \
+            --env-vars DB_NAME=$DB_NAME \
+              DB_USER=$DB_USER \
               DB_PASSWORD=${{secrets.DB_PASSWORD}} \
-              DB_HOST=${{env.DB_HOST}} \
-              DB_PORT=${{env.DB_PORT}} \
-            --registry-server ${{env.ACR_NAME}}.azurecr.io \
+              DB_HOST=$DB_HOST \
+              DB_PORT=$DB_PORT \
+            --registry-server $ACR_NAME.azurecr.io \
             --cpu 2.0 \
             --memory 4.0Gi \
             --query properties.configuration.ingress.fqdn
