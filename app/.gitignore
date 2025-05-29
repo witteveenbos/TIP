@@ -51,6 +51,9 @@ src/pipit/static/pipit/**
 !src/energy/static
 /media/**
 
+# Allow nginx static folder
+!nginx/static
+
 # Pytest
 .cache
 
