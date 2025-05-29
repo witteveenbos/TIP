@@ -215,8 +215,4 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # CORS
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
-CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:3000",
-    "https://pzh-pmiek-tooling-accept.azurewebsites.net",
-    "https://pzh-pmiek-tooling.azurewebsites.net",
-]
+CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"]
