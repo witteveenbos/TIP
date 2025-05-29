@@ -62,8 +62,8 @@ jobs:
               SECRET_KEY=${{secrets.SECRET_KEY}} \
               ALLOWED_HOSTS=${{vars.ALLOWED_HOSTS}} \
               TRUSTED_ORIGINS=${{vars.TRUSTED_ORIGINS}} \
-              
             --registry-server ${{vars.ACR_NAME}}.azurecr.io \
+            --user-assigned "$IDENTITY_ID" \
             --registry-identity $IDENTITY_ID \
             --cpu 2.0 \
             --memory 4.0Gi \
