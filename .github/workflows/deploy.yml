@@ -123,3 +123,52 @@ jobs:
             --cpu 2.0 \
             --memory 4.0Gi \
             --query properties.configuration.ingress.fqdn
+
+  build_nginx:
+    runs-on: "ubuntu-latest"
+    needs: build_frontend
+    environment: accept-pnh
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Log in to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Log in to Azure Container Registry
+        run: |
+          az acr login --name ${{ vars.ACR_NAME}}
+
+      - name: Build Docker image for Nginx
+        run: |
+          docker build -t ${{vars.ACR_NAME}}.azurecr.io/nginx:${{github.ref_name}} -f ${{github.workspace}}/app/nginx/Dockerfile ${{github.workspace}}/app/nginx
+      
+      - name: Push Docker image for Nginx
+        run: |
+          docker push ${{vars.ACR_NAME}}.azurecr.io/nginx:${{github.ref_name}}
+      
+      - name: Deploy Nginx to Azure Container App
+        run: |
+          IDENTITY_ID=$(az identity show \
+                  --name ${{vars.IDENTITY}}  \
+                  --resource-group ${{vars.RESOURCE_GROUP_NAME}} \
+                  --query id \
+                  --output tsv)
+
+          az containerapp create \
+            --name nginx-accept-app \
+            --resource-group ${{vars.RESOURCE_GROUP_NAME}} \
+            --environment ${{vars.CONTAINER_APPS_ENV}} \
+            --image ${{vars.ACR_NAME}}.azurecr.io/nginx:${{github.ref_name}} \
+            --target-port 80 \
+            --ingress external \
+            --registry-server ${{vars.ACR_NAME}}.azurecr.io \
+            --user-assigned "$IDENTITY_ID" \
+            --registry-identity $IDENTITY_ID \
+            --cpu 2.0 \
+            --memory 4.0Gi \
+            --query properties.configuration.ingress.fqdn
