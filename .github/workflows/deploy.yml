@@ -54,7 +54,7 @@ jobs:
             --resource-group ${{vars.RESOURCE_GROUP_NAME}} \
             --environment ${{vars.CONTAINER_APPS_ENV}} \
             --image ${{vars.ACR_NAME}}.azurecr.io/data:${{github.ref_name}} \
-            --bind "${{vars.REDIS_CONTAINER}}" \
+            --bind ${{vars.REDIS_CONTAINER}}[:redis_accept] \
             --target-port 7000 \
             --ingress external \
             --env-vars REDIS_HOST=${{vars.REDIS_HOST}} \
