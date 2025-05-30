@@ -53,7 +53,7 @@ jobs:
             --target-port 7000 \
             --ingress external \
             --env-vars REDIS_HOST=${{vars.REDIS_HOST}} \
-              REDIS_PORT=${{secrets.REDIS_PORT}} \
+              REDIS_PORT=${{vars.REDIS_PORT}} \
               ETM_API_KEY=${{secrets.ETM_API_KEY}} \
               SUPER_SECRET_KEY=${{secrets.SUPER_SECRET_KEY}} \
               TRUSTED_ORIGINS_DATA=${{vars.TRUSTED_ORIGINS_DATA}} \
