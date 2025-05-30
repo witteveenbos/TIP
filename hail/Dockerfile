@@ -13,6 +13,7 @@ RUN pip install poetry && poetry install --no-interaction --no-ansi --without de
 # Set environment variables
 ENV REDIS_HOST=${REDIS_HOST}
 ENV REDIS_PORT=${REDIS_PORT}
+ENV REDIS_PASSWORD=${REDIS_PASSWORD}
 ENV ETM_API_KEY=${ETM_API_KEY}
 ENV TRUSTED_ORIGINS_DATA=${TRUSTED_ORIGINS_DATA}
 ENV SUPER_SECRET_KEY=${SUPER_SECRET_KEY}

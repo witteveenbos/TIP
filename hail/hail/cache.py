@@ -12,8 +12,9 @@ logger = logging.getLogger(__name__)
 async def get_redis_client():
     redis_host = os.getenv("REDIS_HOST", "localhost")
     redis_port = int(os.getenv("REDIS_PORT", 6379))
+    redis_password = os.getenv("REDIS_PASSWORD", None)
     print(f"Connecting to Redis at {redis_host}:{redis_port}")
-    r = redis.Redis(host=redis_host, port=redis_port, db=0)
+    r = redis.Redis(host=redis_host, port=redis_port, db=0, password=redis_password, ssl=True)
     try:
         yield r
     finally:
@@ -57,6 +58,7 @@ async def _get_from_cache(
         return data
     except Exception as e:
         logger.error(f"Error accessing Redis for cache key {cache_key}: {str(e)}")
+        logger.error(f"Redis connection: Host {r.connection_pool.connection_kwargs['host']}, Port {r.connection_pool.connection_kwargs['port']}")
         return None
 
 
@@ -67,6 +69,7 @@ async def _set_cache(redis_client: redis.Redis, cache_key: str, data: dict) -> N
         await r.set(cache_key, json.dumps(data))
     except Exception as e:
         logger.error(f"Error setting Redis cache for key {cache_key}: {str(e)}")
+        logger.error(f"Redis connection: Host {r.connection_pool.connection_kwargs['host']}, Port {r.connection_pool.connection_kwargs['port']}")
 
 
 def rediscache(func):
