@@ -33,6 +33,13 @@ jobs:
         run: |
           az acr login --name ${{ vars.ACR_NAME}}
 
+      - name: Create a Redis container
+        run: |
+          az containerapp add-on redis create \
+            --name data_accept_redis \
+            --resource-group ${{vars.RESOURCE_GROUP_NAME}} \
+            --environment ${{vars.CONTAINER_APPS_ENV}}
+
       - name: Build Docker image for Rekenkern
         run: |
           docker build -t ${{vars.ACR_NAME}}.azurecr.io/data:${{github.ref_name}} -f ${{github.workspace}}/hail/Dockerfile ${{github.workspace}}/hail
@@ -54,7 +61,7 @@ jobs:
             --resource-group ${{vars.RESOURCE_GROUP_NAME}} \
             --environment ${{vars.CONTAINER_APPS_ENV}} \
             --image ${{vars.ACR_NAME}}.azurecr.io/data:${{github.ref_name}} \
-            --bind redis_accept[:${{vars.REDIS_CONTAINER}}] \
+            --bind data_accept_redis \
             --target-port 7000 \
             --ingress external \
             --env-vars REDIS_HOST=${{vars.REDIS_HOST}} \
