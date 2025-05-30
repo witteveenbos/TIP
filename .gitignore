@@ -4,3 +4,5 @@ node_modules/
 *.log
 *.zip
 **/visual_checks/
+
+pipelines/data/base_data/BestuurlijkeGebieden_2025.gpkg

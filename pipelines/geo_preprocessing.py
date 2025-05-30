@@ -182,4 +182,11 @@ gemeenten_selected = gemeenten_selected.clip(resregio_selected)
 # after
 gemeenten_selected.plot(column="naam")
 
-gemeenten_selected.to_file("data/municipalities_simplified.geojson")
+#saving geoshapes for geomapping script and also for the frontend shapes
+gemeenten_selected.to_file("data/municipalities.geojson")
+# %% create a version of the municipalities with simplified geometries to reduce file size
+tolerance = 10 #unit: meter - 10 meter shrinks the filesize ~10x
+gemeenten_selected_simplified = gemeenten_selected.copy()
+gemeenten_selected_simplified["geometry"] = gemeenten_selected_simplified["geometry"].simplify(tolerance)
+
+gemeenten_selected_simplified.to_file("data/municipalities_simplified.geojson")

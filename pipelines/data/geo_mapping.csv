@@ -1,53 +1,45 @@
-Municipality,Gem_code_CBS,Municipality_ID,Region,Region_ID,RES,RES_ID,Provincie,Provincie_ID
-Kaag en Braassem,1884,GM1884,Holland Rijnland,REG01,Holland Rijnland,ES21,Zuid-Holland,PV28
-Teylingen,1525,GM1525,Holland Rijnland,REG01,Holland Rijnland,ES21,Zuid-Holland,PV28
-Voorschoten,626,GM0626,Holland Rijnland,REG01,Holland Rijnland,ES21,Zuid-Holland,PV28
-Oegstgeest,579,GM0579,Holland Rijnland,REG01,Holland Rijnland,ES21,Zuid-Holland,PV28
-Noordwijk,575,GM0575,Holland Rijnland,REG01,Holland Rijnland,ES21,Zuid-Holland,PV28
-Nieuwkoop,569,GM0569,Holland Rijnland,REG01,Holland Rijnland,ES21,Zuid-Holland,PV28
-Lisse,553,GM0553,Holland Rijnland,REG01,Holland Rijnland,ES21,Zuid-Holland,PV28
-Leiderdorp,547,GM0547,Holland Rijnland,REG01,Holland Rijnland,ES21,Zuid-Holland,PV28
-Leiden,546,GM0546,Holland Rijnland,REG01,Holland Rijnland,ES21,Zuid-Holland,PV28
-Katwijk,537,GM0537,Holland Rijnland,REG01,Holland Rijnland,ES21,Zuid-Holland,PV28
-Hillegom,534,GM0534,Holland Rijnland,REG01,Holland Rijnland,ES21,Zuid-Holland,PV28
-Alphen aan den Rijn,484,GM0484,Holland Rijnland,REG01,Holland Rijnland,ES21,Zuid-Holland,PV28
-Krimpenerwaard,1931,GM1931,Midden-Holland,REG02,Midden-Holland,ES22,Zuid-Holland,PV28
-Bodegraven-Reeuwijk,1901,GM1901,Midden-Holland,REG02,Midden-Holland,ES22,Zuid-Holland,PV28
-Zuidplas,1892,GM1892,Midden-Holland,REG02,Midden-Holland,ES22,Zuid-Holland,PV28
-Waddinxveen,627,GM0627,Midden-Holland,REG02,Midden-Holland,ES22,Zuid-Holland,PV28
-Gouda,513,GM0513,Midden-Holland,REG02,Midden-Holland,ES22,Zuid-Holland,PV28
-Zwijndrecht,642,GM0642,Drechtsteden,REG03,Drechtsteden,ES18,Zuid-Holland,PV28
-Sliedrecht,610,GM0610,Drechtsteden,REG03,Drechtsteden,ES18,Zuid-Holland,PV28
-Papendrecht,590,GM0590,Drechtsteden,REG03,Drechtsteden,ES18,Zuid-Holland,PV28
-Hendrik-Ido-Ambacht,531,GM0531,Drechtsteden,REG03,Drechtsteden,ES18,Zuid-Holland,PV28
-Hardinxveld-Giessendam,523,GM0523,Drechtsteden,REG03,Drechtsteden,ES18,Zuid-Holland,PV28
-Dordrecht,505,GM0505,Drechtsteden,REG03,Drechtsteden,ES18,Zuid-Holland,PV28
-Alblasserdam,482,GM0482,Drechtsteden,REG03,Drechtsteden,ES18,Zuid-Holland,PV28
-Molenlanden,1978,GM1978,Drechtsteden,REG03,Alblasserwaard,ES17,Zuid-Holland,PV28
-Gorinchem,512,GM0512,Drechtsteden,REG03,Alblasserwaard,ES17,Zuid-Holland,PV28
-Vlaardingen,622,GM0622,Rotterdam,REG04,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
-Albrandswaard,613,GM0613,Rotterdam,REG04,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
-Schiedam,606,GM0606,Rotterdam,REG04,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
-Rotterdam,599,GM0599,Rotterdam,REG04,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
-Ridderkerk,597,GM0597,Rotterdam,REG04,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
-Maassluis,556,GM0556,Rotterdam,REG04,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
-Krimpen aan den IJssel,542,GM0542,Rotterdam,REG04,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
-Capelle aan den IJssel,502,GM0502,Rotterdam,REG04,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
-Barendrecht,489,GM0489,Rotterdam,REG04,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
-Lansingerland,1621,GM1621,Rotterdam,REG04,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
-Pijnacker-Nootdorp,1926,GM1926,Haaglanden,REG05,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
-Leidschendam-Voorburg,1916,GM1916,Haaglanden,REG05,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
-Midden-Delfland,1842,GM1842,Haaglanden,REG05,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
-Westland,1783,GM1783,Haaglanden,REG05,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
-Zoeterwoude,638,GM0638,Haaglanden,REG05,Holland Rijnland,ES21,Zuid-Holland,PV28
-Zoetermeer,637,GM0637,Haaglanden,REG05,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
-Wassenaar,629,GM0629,Haaglanden,REG05,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
-Rijswijk,603,GM0603,Haaglanden,REG05,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
-'s-Gravenhage,518,GM0518,Haaglanden,REG05,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
-Delft,503,GM0503,Haaglanden,REG05,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
-Hoeksche Waard,1963,GM1963,Zuid-Hollandse Eilanden,REG06,Hoeksche Waard,ES20,Zuid-Holland,PV28
-Nissewaard,1930,GM1930,Zuid-Hollandse Eilanden,REG06,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
-Goeree-Overflakkee,1924,GM1924,Zuid-Hollandse Eilanden,REG06,Goeree-Overflakkee,ES19,Zuid-Holland,PV28
-Westvoorne,614,GM0614,Zuid-Hollandse Eilanden,REG06,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
-Hellevoetsluis,530,GM0530,Zuid-Hollandse Eilanden,REG06,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
-Brielle,501,GM0501,Zuid-Hollandse Eilanden,REG06,Rotterdam Den Haag,ES23,Zuid-Holland,PV28
+,Municipality,Gem_code_CBS,Municipality_ID,Region,Region_ID,RES,RES_ID,Provincie,Provincie_ID
+1,Schagen,0441,GM0441,Kop van Noord-Holland,REG16,Kop van Noord-Holland,16,Noord-Holland,PV27
+17,Castricum,0383,GM0383,Regio Alkmaar,REG17,Regio Alkmaar,17,Noord-Holland,PV27
+18,Zaanstad,0479,GM0479,Zaanstreek-Waterland,REG21,Zaanstreek-Waterland,21,Noord-Holland,PV27
+34,Beverwijk,0375,GM0375,IJmond-Zuid-Kennemerland,REG20,IJmond-Zuid-Kennemerland,20,Noord-Holland,PV27
+58,Bloemendaal,0377,GM0377,IJmond-Zuid-Kennemerland,REG20,IJmond-Zuid-Kennemerland,20,Noord-Holland,PV27
+68,Velsen,0453,GM0453,IJmond-Zuid-Kennemerland,REG20,IJmond-Zuid-Kennemerland,20,Noord-Holland,PV27
+69,Drechterland,0498,GM0498,West-Friesland,REG18,West-Friesland,18,Noord-Holland,PV27
+71,Oostzaan,0431,GM0431,Zaanstreek-Waterland,REG21,Zaanstreek-Waterland,21,Noord-Holland,PV27
+76,Zandvoort,0473,GM0473,IJmond-Zuid-Kennemerland,REG20,IJmond-Zuid-Kennemerland,20,Noord-Holland,PV27
+79,Enkhuizen,0388,GM0388,West-Friesland,REG18,West-Friesland,18,Noord-Holland,PV27
+87,Hollands Kroon,1911,GM1911,Kop van Noord-Holland,REG16,Kop van Noord-Holland,16,Noord-Holland,PV27
+92,Aalsmeer,0358,GM0358,Amstelland,REG24,Amstelland,24,Noord-Holland,PV27
+107,Haarlem,0392,GM0392,IJmond-Zuid-Kennemerland,REG20,IJmond-Zuid-Kennemerland,20,Noord-Holland,PV27
+108,Wormerland,0880,GM0880,Zaanstreek-Waterland,REG21,Zaanstreek-Waterland,21,Noord-Holland,PV27
+112,Stede Broec,0532,GM0532,West-Friesland,REG18,West-Friesland,18,Noord-Holland,PV27
+115,Koggenland,1598,GM1598,West-Friesland,REG18,West-Friesland,18,Noord-Holland,PV27
+122,Ouder-Amstel,0437,GM0437,Amstelland,REG24,Amstelland,24,Noord-Holland,PV27
+133,Amsterdam,0363,GM0363,Amsterdam,REG19,Amsterdam,19,Noord-Holland,PV27
+147,Laren,0417,GM0417,Gooi en Vechtstreek,REG22,Gooi en Vechtstreek,22,Noord-Holland,PV27
+156,Purmerend,0439,GM0439,Zaanstreek-Waterland,REG21,Zaanstreek-Waterland,21,Noord-Holland,PV27
+157,Blaricum,0376,GM0376,Gooi en Vechtstreek,REG22,Gooi en Vechtstreek,22,Noord-Holland,PV27
+161,Hoorn,0405,GM0405,West-Friesland,REG18,West-Friesland,18,Noord-Holland,PV27
+167,Gooise Meren,1942,GM1942,Gooi en Vechtstreek,REG22,Gooi en Vechtstreek,22,Noord-Holland,PV27
+183,Opmeer,0432,GM0432,West-Friesland,REG18,West-Friesland,18,Noord-Holland,PV27
+211,Wijdemeren,1696,GM1696,Gooi en Vechtstreek,REG22,Gooi en Vechtstreek,22,Noord-Holland,PV27
+219,Alkmaar,0361,GM0361,Regio Alkmaar,REG17,Regio Alkmaar,17,Noord-Holland,PV27
+230,Uitgeest,0450,GM0450,Regio Alkmaar,REG17,Regio Alkmaar,17,Noord-Holland,PV27
+240,Medemblik,0420,GM0420,West-Friesland,REG18,West-Friesland,18,Noord-Holland,PV27
+243,Dijk en Waard,1980,GM1980,Regio Alkmaar,REG17,Regio Alkmaar,17,Noord-Holland,PV27
+244,Landsmeer,0415,GM0415,Zaanstreek-Waterland,REG21,Zaanstreek-Waterland,21,Noord-Holland,PV27
+261,Hilversum,0402,GM0402,Gooi en Vechtstreek,REG22,Gooi en Vechtstreek,22,Noord-Holland,PV27
+265,Uithoorn,0451,GM0451,Amstelland,REG24,Amstelland,24,Noord-Holland,PV27
+266,Heiloo,0399,GM0399,Regio Alkmaar,REG17,Regio Alkmaar,17,Noord-Holland,PV27
+267,Texel,0448,GM0448,Kop van Noord-Holland,REG16,Kop van Noord-Holland,16,Noord-Holland,PV27
+272,Edam-Volendam,0385,GM0385,Zaanstreek-Waterland,REG21,Zaanstreek-Waterland,21,Noord-Holland,PV27
+284,Waterland,0852,GM0852,Zaanstreek-Waterland,REG21,Zaanstreek-Waterland,21,Noord-Holland,PV27
+303,Bergen (NH),0373,GM0373,Regio Alkmaar,REG17,Regio Alkmaar,17,Noord-Holland,PV27
+314,Huizen,0406,GM0406,Gooi en Vechtstreek,REG22,Gooi en Vechtstreek,22,Noord-Holland,PV27
+316,Haarlemmermeer,0394,GM0394,Haarlemmermeer,REG23,Haarlemmermeer,23,Noord-Holland,PV27
+319,Den Helder,0400,GM0400,Kop van Noord-Holland,REG16,Kop van Noord-Holland,16,Noord-Holland,PV27
+322,Diemen,0384,GM0384,Amstelland,REG24,Amstelland,24,Noord-Holland,PV27
+324,Heemskerk,0396,GM0396,IJmond-Zuid-Kennemerland,REG20,IJmond-Zuid-Kennemerland,20,Noord-Holland,PV27
+333,Heemstede,0397,GM0397,IJmond-Zuid-Kennemerland,REG20,IJmond-Zuid-Kennemerland,20,Noord-Holland,PV27
+334,Amstelveen,0362,GM0362,Amstelland,REG24,Amstelland,24,Noord-Holland,PV27

@@ -8,10 +8,11 @@ https://gitlab.wbad.witteveenbos.com/energy-modeling/vivet-pmiek
 
 2. Run `geomapping_regions.py` to generate the relational mapping between municipalities. This creates the one-hot encoded JSONs `municipalities_to_XXX.json`. These files are needed for correctly aggregating results. This script needs the `geo_mapping.csv` (which is province specific) to function.
 
-Up till here it was about administrative borders, the next steps are for the electrical substations.
+Up till here it was about administrative borders, the next step is for the electrical substations.
 
-4. Run `shapes_mapper_grid_only.py` to generate the relational mapping between municipality loads and the substations
+4. Run `shapes_mapper_grid_only.py` to generate the relational mapping between municipality loads and the substations. This works for now, but the WFS endpoint from which the data is obtained is deprecated and will be removed in the future.
 4. [optional] if you want you can check the results visually by running `shapes_visuals.py`
+
 5. You should now have the following files:
    1. `geo_mapping.csv`
    1. `hsms_capacity.json`
