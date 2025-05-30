@@ -31,13 +31,13 @@ jobs:
 
       - name: Build Docker image for Rekenkern
         run: |
-          docker build -t ${{vars.ACR_NAME}}.azurecr.io/accept-data:${{github.ref_name}} -f ${{github.workspace}}/hail/Dockerfile ${{github.workspace}}/hail
+          docker build -t ${{vars.ACR_NAME}}.azurecr.io/data:${{github.ref_name}} -f ${{github.workspace}}/hail/Dockerfile ${{github.workspace}}/hail
       
       - name: Push Docker image for Rekenkern
         run: |
-          docker push ${{vars.ACR_NAME}}.azurecr.io/accept-data:${{github.ref_name}}
+          docker push ${{vars.ACR_NAME}}.azurecr.io/data:${{github.ref_name}}
       
-      - name: Deploy Backend to Azure Container App
+      - name: Deploy Rekenkern to Azure Container App
         run: |
           IDENTITY_ID=$(az identity show \
                   --name ${{vars.IDENTITY}}  \
@@ -49,7 +49,7 @@ jobs:
             --name data-accept-app \
             --resource-group ${{vars.RESOURCE_GROUP_NAME}} \
             --environment ${{vars.CONTAINER_APPS_ENV}} \
-            --image ${{vars.ACR_NAME}}.azurecr.io/backend:${{github.ref_name}} \
+            --image ${{vars.ACR_NAME}}.azurecr.io/data:${{github.ref_name}} \
             --target-port 7000 \
             --ingress external \
             --env-vars REDIS_HOST=${{vars.REDIS_HOST}} \
