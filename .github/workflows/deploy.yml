@@ -36,6 +36,7 @@ jobs:
       - name: Create a Redis container
         run: |
           az containerapp add-on redis create \
+            --allow-preview true \
             --name data_accept_redis \
             --resource-group ${{vars.RESOURCE_GROUP_NAME}} \
             --environment ${{vars.CONTAINER_APPS_ENV}}
