@@ -37,7 +37,7 @@ jobs:
       - name: Create a Redis container
         run: |
           az containerapp add-on redis create \
-            --name dataAcceptRedis \
+            --name dataacceptredis \
             --resource-group ${{vars.RESOURCE_GROUP_NAME}} \
             --environment ${{vars.CONTAINER_APPS_ENV}}
 
@@ -62,7 +62,7 @@ jobs:
             --resource-group ${{vars.RESOURCE_GROUP_NAME}} \
             --environment ${{vars.CONTAINER_APPS_ENV}} \
             --image ${{vars.ACR_NAME}}.azurecr.io/data:${{github.ref_name}} \
-            --bind dataAcceptRedis \
+            --bind dataacceptredis \
             --target-port 7000 \
             --ingress external \
             --env-vars REDIS_HOST=${{vars.REDIS_HOST}} \
