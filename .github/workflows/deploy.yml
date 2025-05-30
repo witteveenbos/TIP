@@ -28,6 +28,7 @@ jobs:
       - name: Add containerapp extension
         run: |
           az extension add --name containerapp --upgrade --allow-preview true
+          az extension add --name redis --upgrade --allow-preview true
 
       - name: Log in to Azure Container Registry
         run: |
@@ -36,7 +37,6 @@ jobs:
       - name: Create a Redis container
         run: |
           az containerapp add-on redis create \
-            --allow-preview true \
             --name data_accept_redis \
             --resource-group ${{vars.RESOURCE_GROUP_NAME}} \
             --environment ${{vars.CONTAINER_APPS_ENV}}
