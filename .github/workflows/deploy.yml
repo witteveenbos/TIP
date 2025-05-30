@@ -25,6 +25,10 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
+      - name: Add containerapp extension
+        run: |
+          az extension add --name containerapp --upgrade --allow-preview true
+
       - name: Log in to Azure Container Registry
         run: |
           az acr login --name ${{ vars.ACR_NAME}}
@@ -50,6 +54,7 @@ jobs:
             --resource-group ${{vars.RESOURCE_GROUP_NAME}} \
             --environment ${{vars.CONTAINER_APPS_ENV}} \
             --image ${{vars.ACR_NAME}}.azurecr.io/data:${{github.ref_name}} \
+            --bind ${{vars.REDIS_HOST}} \
             --target-port 7000 \
             --ingress external \
             --env-vars REDIS_HOST=${{vars.REDIS_HOST}} \
