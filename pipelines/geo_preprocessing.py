@@ -167,7 +167,7 @@ plot_province_hierarchy(PROVINCIE)
 
 ### Perform some cookie cutting
 hierarchy_df_selected = hierarchy_df[hierarchy_df['Provincie'] == PROVINCIE]
-hierarchy_df_selected.to_csv("data/geo_mapping.csv")
+hierarchy_df_selected.to_csv("data/geo_mapping.csv", index=False)
 
 #get the shapes
 resregio_selected = resregio[resregio.index.isin(hierarchy_df_selected["RES_ID"])]
@@ -183,10 +183,20 @@ gemeenten_selected = gemeenten_selected.clip(resregio_selected)
 gemeenten_selected.plot(column="naam")
 
 #saving geoshapes for geomapping script and also for the frontend shapes
-gemeenten_selected.to_file("data/municipalities.geojson")
 # %% create a version of the municipalities with simplified geometries to reduce file size
-tolerance = 10 #unit: meter - 10 meter shrinks the filesize ~10x
+tolerance = 10 # unit: meter - 10 meter shrinks the filesize ~10x for the gemeenten shapes
+gemeenten_selected.to_file("data/municipalities.geojson")
 gemeenten_selected_simplified = gemeenten_selected.copy()
 gemeenten_selected_simplified["geometry"] = gemeenten_selected_simplified["geometry"].simplify(tolerance)
-
 gemeenten_selected_simplified.to_file("data/municipalities_simplified.geojson")
+
+resregio_selected.to_file("data/res.geojson")
+resregio_selected_simplified = resregio_selected.copy()
+resregio_selected_simplified["geometry"] = resregio_selected_simplified["geometry"].simplify(tolerance)
+resregio_selected_simplified.to_file("data/res_simplified.geojson")
+
+provincies_selected = provincies[provincies.index.isin(hierarchy_df_selected["Provincie_ID"])]
+provincies_selected.to_file("data/province.geojson")
+provincies_selected_simplified = provincies_selected.copy()
+provincies_selected_simplified["geometry"] = provincies_selected_simplified["geometry"].simplify(tolerance)
+provincies_selected_simplified.to_file("data/province_simplified.geojson")
