@@ -22,6 +22,7 @@ let nextConfig = {
     },
     transpilePackages: [
         'react-joyride',
+        '@radix-ui/react-slot',
         '@radix-ui/react-checkbox',
         '@radix-ui/react-context',
         '@radix-ui/react-dialog',
@@ -31,7 +32,6 @@ let nextConfig = {
         '@radix-ui/react-radio-group',
         '@radix-ui/react-scroll-area',
         '@radix-ui/react-select',
-        '@radix-ui/react-slot',
         '@radix-ui/react-switch',
         '@radix-ui/react-tabs',
     ],
