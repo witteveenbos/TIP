@@ -13,7 +13,7 @@
     }
   },
   "module": {
-    "type": "commonjs",
-    "noInterop": true
+    "type": "commonjs"
+    // "noInterop": true
   }
 }
