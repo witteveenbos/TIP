@@ -1,3 +1,4 @@
+const { transpile } = require('typescript');
 const { i18n } = require('./next-i18next.config');
 
 const basePath = '';
@@ -19,6 +20,7 @@ let nextConfig = {
         // !! WARN !!
         ignoreBuildErrors: true,
     },
+    transpilePackages: ['radix-ui'],
     images: {
         domains: ['localhost'],
     },
@@ -26,11 +28,11 @@ let nextConfig = {
         return [
             {
                 source: '/wt/static/:path*',
-                destination: 'http://localhost:8000/wt/static/:path*', // Proxy to Backend
+                destination: 'https://backend-accept-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io/wt/static/:path*', // Proxy to Backend
             },
             {
                 source: '/wt/media/:path*',
-                destination: 'http://localhost:8000/wt/media/:path*', // Proxy to Backend
+                destination: 'https://backend-accept-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io/wt/media/:path*', // Proxy to Backend
             },
         ];
     },
