@@ -20,7 +20,7 @@ let nextConfig = {
         // !! WARN !!
         ignoreBuildErrors: true,
     },
-    transpilePackages: ['radix-ui', '@radix-ui/react-primitive', '@radix-ui/react-slot'],
+    transpilePackages: ['radix-ui', '@radix-ui/react-primitive', '@radix-ui/react-slot', 'react-joyride'],
     images: {
         domains: ['localhost', 'nginx-accept-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io', 'frontend-accept-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io'],
     },
