@@ -162,7 +162,6 @@ jobs:
             --build-arg NEXT_PUBLIC_API_URL=${{vars.NEXT_PUBLIC_WAGTAIL_API_URL}} \
             --build-arg WAGTAIL_API_URL=${{vars.WAGTAIL_API_URL}} \
             --build-arg NEXT_PUBLIC_REKENKERN_API_URL=${{vars.NEXT_PUBLIC_REKENKERN_API_URL}} \
-            --build-arg APP_ENV=${{github.ref_name}} \
             -f ${{github.workspace}}/app/frontend/prod.Dockerfile ${{github.workspace}}/app/frontend
 
       - name: Push Docker image for Frontend
