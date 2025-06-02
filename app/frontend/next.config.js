@@ -23,6 +23,7 @@ let nextConfig = {
     transpilePackages: [
         'react-joyride',
         '@radix-ui/react-checkbox',
+        '@radix-ui/react-context',
         '@radix-ui/react-dialog',
         '@radix-ui/react-label',
         '@radix-ui/react-navigation-menu',
