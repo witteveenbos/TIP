@@ -34,17 +34,17 @@ let nextConfig = {
         '@radix-ui/react-tabs',
     ],
     images: {
-        domains: ['localhost', 'nginx-accept-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io', 'frontend-accept-app.internal.niceflower-dd2b93bc.westeurope.azurecontainerapps.io', 'backend-accept-app.internal.niceflower-dd2b93bc.westeurope.azurecontainerapps.io'],
+        domains: ['localhost', 'nginx-accept-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io', 'frontend-accept-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io', 'backend-accept-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io'],
     },
     async rewrites() {
         return [
             {
                 source: '/wt/static/:path*',
-                destination: 'https://backend-accept-app.internal.niceflower-dd2b93bc.westeurope.azurecontainerapps.io/wt/static/:path*', // Proxy to Backend
+                destination: 'https://backend-accept-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io/wt/static/:path*', // Proxy to Backend
             },
             {
                 source: '/wt/media/:path*',
-                destination: 'https://backend-accept-app.internal.niceflower-dd2b93bc.westeurope.azurecontainerapps.io/wt/media/:path*', // Proxy to Backend
+                destination: 'https://backend-accept-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io/wt/media/:path*', // Proxy to Backend
             },
         ];
     },
