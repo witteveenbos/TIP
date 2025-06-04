@@ -17,9 +17,9 @@ layers = fiona.listlayers(fp_bg)
 print(layers)
 
 # Usually gemeente is layer 0 and provincie is layer 2
-gemeenten = gpd.read_file(fp_bg, layer=0).set_index("identificatie")
-provincies = gpd.read_file(fp_bg, layer=2).set_index("identificatie")
-resregio = gpd.read_file(fp_res).set_index("id")
+gemeenten = gpd.read_file(fp_bg, layer=0).set_index("identificatie").to_crs("EPSG:4326")  # Convert to WGS84
+provincies = gpd.read_file(fp_bg, layer=2).set_index("identificatie").to_crs("EPSG:4326")  # Convert to WGS84
+resregio = gpd.read_file(fp_res).set_index("id").to_crs("EPSG:4326")  # Convert to WGS84
 # plotted for checks
 # gemeenten.plot()
 # provincies.plot()
@@ -194,6 +194,12 @@ resregio_selected.to_file("data/res.geojson")
 resregio_selected_simplified = resregio_selected.copy()
 resregio_selected_simplified["geometry"] = resregio_selected_simplified["geometry"].simplify(tolerance)
 resregio_selected_simplified.to_file("data/res_simplified.geojson")
+
+regions_selected = resregio_selected.copy() #same as resregio, no real use. This was done for PZH regio indeling originaly
+regions_selected.to_file("data/regions.geojson")
+regions_selected_simplified = regions_selected.copy()
+regions_selected_simplified["geometry"] = regions_selected_simplified["geometry"].simplify(tolerance)
+regions_selected_simplified.to_file("data/regions_simplified.geojson")
 
 provincies_selected = provincies[provincies.index.isin(hierarchy_df_selected["Provincie_ID"])]
 provincies_selected.to_file("data/province.geojson")
