@@ -64,6 +64,7 @@ SESSION_COOKIE_SECURE = True
 # Use a secure cookie for the CSRF cookie
 CSRF_COOKIE_SECURE = True
 
+CORS_ALLOWED_ORIGINS = get_env("TRUSTED_ORIGINS", default="").split(",")
 CSRF_TRUSTED_ORIGINS = get_env("TRUSTED_ORIGINS", default="").split(",")
 
 # Email notification url

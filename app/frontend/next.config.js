@@ -11,8 +11,6 @@ let nextConfig = {
     output: 'standalone',
     webpack: true,
     reactStrictMode: true,
-    trailingSlash: true,
-    productionBrowserSourceMaps: true,
     typescript: {
         // !! WARN !!
         // Dangerously allow production builds to successfully complete even if
@@ -36,7 +34,7 @@ let nextConfig = {
         '@radix-ui/react-tabs',
     ],
     images: {
-        domains: ['localhost', 'nginx-accept-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io', 'frontend-accept-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io'],
+        domains: ['localhost', 'nginx-accept-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io', 'frontend-accept-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io', 'backend-accept-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io'],
     },
     async rewrites() {
         return [
