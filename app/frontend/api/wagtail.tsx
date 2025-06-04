@@ -10,7 +10,7 @@ const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_WAGTAIL_API_URL;
 export async function getPage(path, params, options) {
     params = params || {};
     params = {
-        htmlPath: path,
+        htmlPath: path + "/",
         ...params,
     };
 
@@ -82,7 +82,13 @@ export async function getRequest(url, params, options) {
         ...headers,
     };
     const queryString = querystring.stringify(params);
+    console.log("Querystring:" + queryString);
     const res = await fetch(`${url}?${queryString}`, { headers });
+    console.log("Response status: " + res.status);
+    console.log("Response headers: " + JSON.stringify(res.headers));
+    console.log("Response url: " + res.url);
+    console.log("Response params: " + JSON.stringify(params));
+    console.log("Response: " + res);
 
     if (res.status < 200 || res.status >= 300) {
         const error = new WagtailApiResponseError(res, url, params);
