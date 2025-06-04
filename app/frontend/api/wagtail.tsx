@@ -1,5 +1,4 @@
 import querystring from 'querystring';
-import axios from 'axios';
 import {
     keysToCamelFromSnake,
     keysToSnakeFromCamel,
@@ -11,7 +10,7 @@ const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_WAGTAIL_API_URL;
 export async function getPage(path, params, options) {
     params = params || {};
     params = {
-        htmlPath: path + "/",
+        htmlPath: path,
         ...params,
     };
 
@@ -86,8 +85,7 @@ export async function getRequest(url, params, options) {
     console.log("Querystring:" + queryString);
     console.log("Url: " + url);
     console.log("Headers: " + JSON.stringify(headers));
-    const response = await axios.get(`${url}${queryString ? `?${queryString}` : ''}`, { headers });
-    const res = response.data;
+    const res = await fetch(`${url}${queryString ? `?${queryString}` : ''}`, { headers });
     console.log("Response status: " + res.status);
     console.log("Response headers: " + JSON.stringify(res.headers));
     console.log("Response url: " + res.url);
