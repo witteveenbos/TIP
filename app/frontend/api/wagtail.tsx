@@ -1,4 +1,5 @@
 import querystring from 'querystring';
+import axios from 'axios';
 import {
     keysToCamelFromSnake,
     keysToSnakeFromCamel,
@@ -85,7 +86,8 @@ export async function getRequest(url, params, options) {
     console.log("Querystring:" + queryString);
     console.log("Url: " + url);
     console.log("Headers: " + JSON.stringify(headers));
-    const res = await fetch(`${url}${queryString ? `?${queryString}` : ''}`, { headers });
+    const response = await axios.get(`${url}${queryString ? `?${queryString}` : ''}`, { headers });
+    const res = response.data;
     console.log("Response status: " + res.status);
     console.log("Response headers: " + JSON.stringify(res.headers));
     console.log("Response url: " + res.url);
