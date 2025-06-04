@@ -64,6 +64,7 @@ class AreaDivisionEnum(Enum):
 
 class ProvinceIDs(Enum):
     PV28 = "PV28"
+    PV27 = "PV27"
 
 
 class ResRegionIDs(Enum):
@@ -86,9 +87,49 @@ class RegionIDs(Enum):
 
 
 class MunicipalityIDs(Enum):
+    GM0358 = "GM0358"  # Aalsmeer
+    GM0361 = "GM0361"  # Alkmaar
+    GM0362 = "GM0362"  # Amstelveen
+    GM0363 = "GM0363"  # Amsterdam
+    GM0370 = "GM0370"  # Beemster
+    GM0373 = "GM0373"  # Bergen (NH.)
+    GM0375 = "GM0375"  # Beverwijk
+    GM0376 = "GM0376"  # Blaricum
+    GM0377 = "GM0377"  # Bloemendaal
+    GM0383 = "GM0383"  # Castricum
+    GM0384 = "GM0384"  # Diemen
+    GM0385 = "GM0385"  # Edam-Volendam
+    GM0388 = "GM0388"  # Enkhuizen
+    GM0392 = "GM0392"  # Haarlem
+    GM0394 = "GM0394"  # Haarlemmermeer
+    GM0396 = "GM0396"  # Heemskerk
+    GM0397 = "GM0397"  # Heemstede
+    GM0398 = "GM0398"  # Heerhugowaard
+    GM0399 = "GM0399"  # Heiloo
+    GM0400 = "GM0400"  # Den Helder
+    GM0402 = "GM0402"  # Hilversum
+    GM0405 = "GM0405"  # Hoorn
+    GM0406 = "GM0406"  # Huizen
+    GM0415 = "GM0415"  # Landsmeer
+    GM0416 = "GM0416"  # Langedijk
+    GM0417 = "GM0417"  # Laren
+    GM0420 = "GM0420"  # Medemblik
+    GM0431 = "GM0431"  # Oostzaan
+    GM0432 = "GM0432"  # Opmeer
+    GM0437 = "GM0437"  # Ouder-Amstel
+    GM0439 = "GM0439"  # Purmerend
+    GM0441 = "GM0441"  # Schagen
+    GM0448 = "GM0448"  # Texel
+    GM0450 = "GM0450"  # Uitgeest
+    GM0451 = "GM0451"  # Uithoorn
+    GM0453 = "GM0453"  # Velsen
+    GM0457 = "GM0457"  # Weesp
+    GM0473 = "GM0473"  # Zandvoort
+    GM0479 = "GM0479"  # Zaanstad
     GM0482 = "GM0482"
     GM0484 = "GM0484"
     GM0489 = "GM0489"
+    GM0498 = "GM0498"  # Drechterland
     GM0501 = "GM0501"
     GM0502 = "GM0502"
     GM0503 = "GM0503"
@@ -99,6 +140,7 @@ class MunicipalityIDs(Enum):
     GM0523 = "GM0523"
     GM0530 = "GM0530"
     GM0531 = "GM0531"
+    GM0532 = "GM0532"  # Stede Broec
     GM0534 = "GM0534"
     GM0537 = "GM0537"
     GM0542 = "GM0542"
@@ -124,20 +166,27 @@ class MunicipalityIDs(Enum):
     GM0637 = "GM0637"
     GM0638 = "GM0638"
     GM0642 = "GM0642"
+    GM0852 = "GM0852"  # Waterland
+    GM0880 = "GM0880"  # Wormerland
     GM1525 = "GM1525"
+    GM1598 = "GM1598"  # Koggenland
     GM1621 = "GM1621"
+    GM1696 = "GM1696"  # Wijdemeren
     GM1783 = "GM1783"
     GM1842 = "GM1842"
     GM1884 = "GM1884"
     GM1892 = "GM1892"
     GM1901 = "GM1901"
+    GM1911 = "GM1911"  # Hollands Kroon
     GM1916 = "GM1916"
     GM1924 = "GM1924"
     GM1926 = "GM1926"
     GM1930 = "GM1930"
     GM1931 = "GM1931"
+    GM1942 = "GM1942"  # Gooise Meren
     GM1963 = "GM1963"
     GM1978 = "GM1978"
+    GM1980 = "GM1980"  # Dijk en Waard
 
 
 class HSMSIDs(Enum):
@@ -220,11 +269,19 @@ AllAreaDivisionIDs = ProvinceIDs | ResRegionIDs | RegionIDs | MunicipalityIDs | 
 
 
 class MainScenarioEnum(Enum):
-    II3050_DEC_NL2019_CY2012_2040 = "ii3050_dec_nl2019_cy2012_2040"
-    II3050_EUR_NL2019_CY2012_2040 = "ii3050_eur_nl2019_cy2012_2040"
-    II3050_INT_NL2019_CY2012_2040 = "ii3050_int_nl2019_cy2012_2040"
-    II3050_NAT_NL2019_CY2012_2040 = "ii3050_nat_nl2019_cy2012_2040"
-    II3050_DEC_NL2019_CY2012_2050 = "ii3050_dec_nl2019_cy2012_2050"
-    II3050_EUR_NL2019_CY2012_2050 = "ii3050_eur_nl2019_cy2012_2050"
-    II3050_INT_NL2019_CY2012_2050 = "ii3050_int_nl2019_cy2012_2050"
-    II3050_NAT_NL2019_CY2012_2050 = "ii3050_nat_nl2019_cy2012_2050"
+    # II3050_DEC_NL2019_CY2012_2040 = "ii3050_dec_nl2019_cy2012_2040"
+    # II3050_EUR_NL2019_CY2012_2040 = "ii3050_eur_nl2019_cy2012_2040"
+    # II3050_INT_NL2019_CY2012_2040 = "ii3050_int_nl2019_cy2012_2040"
+    # II3050_NAT_NL2019_CY2012_2040 = "ii3050_nat_nl2019_cy2012_2040"
+    # II3050_DEC_NL2019_CY2012_2050 = "ii3050_dec_nl2019_cy2012_2050"
+    # II3050_EUR_NL2019_CY2012_2050 = "ii3050_eur_nl2019_cy2012_2050"
+    # II3050_INT_NL2019_CY2012_2050 = "ii3050_int_nl2019_cy2012_2050"
+    # II3050_NAT_NL2019_CY2012_2050 = "ii3050_nat_nl2019_cy2012_2050"
+    II3050_KM_NL2019_CY2012_2040 = "ii3050_km_nl2019_cy2012_2040"
+    II3050_EV_NL2019_CY2012_2040 = "ii3050_ev_nl2019_cy2012_2040"
+    II3050_GB_NL2019_CY2012_2040 = "ii3050_gb_nl2019_cy2012_2040"
+    II3050_HA_NL2019_CY2012_2040 = "ii3050_ha_nl2019_cy2012_2040"
+    II3050_KM_NL2019_CY2012_2050 = "ii3050_km_nl2019_cy2012_2050"
+    II3050_EV_NL2019_CY2012_2050 = "ii3050_ev_nl2019_cy2012_2050"
+    II3050_GB_NL2019_CY2012_2050 = "ii3050_gb_nl2019_cy2012_2050"
+    II3050_HA_NL2019_CY2012_2050 = "ii3050_ha_nl2019_cy2012_2050"

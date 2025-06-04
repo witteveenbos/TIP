@@ -1,5 +1,11 @@
 import pandas as pd
 from pathlib import Path
+import sys
+import os
+
+# Add the parent directory to the Python path
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
 from hail.models.request import MunicipalityScenario, MainScenarioEnum
 from hail.models.configuration import DistributedScenarioRelation
 
@@ -8,18 +14,20 @@ TARGET_FOLDER = Path(__file__).parent.parent / "config" / "scenarios"
 
 path = Path(__file__).parent / SOURCE
 
-for i in range(10):
+excel_file = pd.ExcelFile(path)
+
+for sheet_name in excel_file.sheet_names:
     try:
-        df = pd.read_excel(path, sheet_name=i, header=None)
+        df = pd.read_excel(excel_file, sheet_name=sheet_name, header=None)
     except ValueError:
         continue
-
+    
     ms = []
-    for entry in df[0].to_dict().values():
-        entry: str = entry
-        prefix, url = entry.split(": ")
-        area_code, scenario, year = prefix.split("_")
-        year = "20" + year
+    for idx, row in df.iterrows():
+        area_code = row[0]
+        url:str = row[1]
+        scenario = sheet_name.split(" ")[0]
+        year = sheet_name.split(" ")[-1]
         etm_scenario_id = url.split("/")[-1]
         ms.append(
             MunicipalityScenario(
