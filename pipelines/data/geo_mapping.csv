@@ -1,45 +1,45 @@
 Municipality,Gem_code_CBS,Municipality_ID,Region,Region_ID,RES,RES_ID,Provincie,Provincie_ID
-Schagen,0441,GM0441,Kop van Noord-Holland,REG16,Kop van Noord-Holland,16,Noord-Holland,PV27
-Castricum,0383,GM0383,Regio Alkmaar,REG17,Regio Alkmaar,17,Noord-Holland,PV27
-Zaanstad,0479,GM0479,Zaanstreek-Waterland,REG21,Zaanstreek-Waterland,21,Noord-Holland,PV27
-Beverwijk,0375,GM0375,IJmond-Zuid-Kennemerland,REG20,IJmond-Zuid-Kennemerland,20,Noord-Holland,PV27
-Bloemendaal,0377,GM0377,IJmond-Zuid-Kennemerland,REG20,IJmond-Zuid-Kennemerland,20,Noord-Holland,PV27
-Velsen,0453,GM0453,IJmond-Zuid-Kennemerland,REG20,IJmond-Zuid-Kennemerland,20,Noord-Holland,PV27
-Drechterland,0498,GM0498,West-Friesland,REG18,West-Friesland,18,Noord-Holland,PV27
-Oostzaan,0431,GM0431,Zaanstreek-Waterland,REG21,Zaanstreek-Waterland,21,Noord-Holland,PV27
-Zandvoort,0473,GM0473,IJmond-Zuid-Kennemerland,REG20,IJmond-Zuid-Kennemerland,20,Noord-Holland,PV27
-Enkhuizen,0388,GM0388,West-Friesland,REG18,West-Friesland,18,Noord-Holland,PV27
-Hollands Kroon,1911,GM1911,Kop van Noord-Holland,REG16,Kop van Noord-Holland,16,Noord-Holland,PV27
-Aalsmeer,0358,GM0358,Amstelland,REG24,Amstelland,24,Noord-Holland,PV27
-Haarlem,0392,GM0392,IJmond-Zuid-Kennemerland,REG20,IJmond-Zuid-Kennemerland,20,Noord-Holland,PV27
-Wormerland,0880,GM0880,Zaanstreek-Waterland,REG21,Zaanstreek-Waterland,21,Noord-Holland,PV27
-Stede Broec,0532,GM0532,West-Friesland,REG18,West-Friesland,18,Noord-Holland,PV27
-Koggenland,1598,GM1598,West-Friesland,REG18,West-Friesland,18,Noord-Holland,PV27
-Ouder-Amstel,0437,GM0437,Amstelland,REG24,Amstelland,24,Noord-Holland,PV27
-Amsterdam,0363,GM0363,Amsterdam,REG19,Amsterdam,19,Noord-Holland,PV27
-Laren,0417,GM0417,Gooi en Vechtstreek,REG22,Gooi en Vechtstreek,22,Noord-Holland,PV27
-Purmerend,0439,GM0439,Zaanstreek-Waterland,REG21,Zaanstreek-Waterland,21,Noord-Holland,PV27
-Blaricum,0376,GM0376,Gooi en Vechtstreek,REG22,Gooi en Vechtstreek,22,Noord-Holland,PV27
-Hoorn,0405,GM0405,West-Friesland,REG18,West-Friesland,18,Noord-Holland,PV27
-Gooise Meren,1942,GM1942,Gooi en Vechtstreek,REG22,Gooi en Vechtstreek,22,Noord-Holland,PV27
-Opmeer,0432,GM0432,West-Friesland,REG18,West-Friesland,18,Noord-Holland,PV27
-Wijdemeren,1696,GM1696,Gooi en Vechtstreek,REG22,Gooi en Vechtstreek,22,Noord-Holland,PV27
-Alkmaar,0361,GM0361,Regio Alkmaar,REG17,Regio Alkmaar,17,Noord-Holland,PV27
-Uitgeest,0450,GM0450,Regio Alkmaar,REG17,Regio Alkmaar,17,Noord-Holland,PV27
-Medemblik,0420,GM0420,West-Friesland,REG18,West-Friesland,18,Noord-Holland,PV27
-Dijk en Waard,1980,GM1980,Regio Alkmaar,REG17,Regio Alkmaar,17,Noord-Holland,PV27
-Landsmeer,0415,GM0415,Zaanstreek-Waterland,REG21,Zaanstreek-Waterland,21,Noord-Holland,PV27
-Hilversum,0402,GM0402,Gooi en Vechtstreek,REG22,Gooi en Vechtstreek,22,Noord-Holland,PV27
-Uithoorn,0451,GM0451,Amstelland,REG24,Amstelland,24,Noord-Holland,PV27
-Heiloo,0399,GM0399,Regio Alkmaar,REG17,Regio Alkmaar,17,Noord-Holland,PV27
-Texel,0448,GM0448,Kop van Noord-Holland,REG16,Kop van Noord-Holland,16,Noord-Holland,PV27
-Edam-Volendam,0385,GM0385,Zaanstreek-Waterland,REG21,Zaanstreek-Waterland,21,Noord-Holland,PV27
-Waterland,0852,GM0852,Zaanstreek-Waterland,REG21,Zaanstreek-Waterland,21,Noord-Holland,PV27
-Bergen (NH),0373,GM0373,Regio Alkmaar,REG17,Regio Alkmaar,17,Noord-Holland,PV27
-Huizen,0406,GM0406,Gooi en Vechtstreek,REG22,Gooi en Vechtstreek,22,Noord-Holland,PV27
-Haarlemmermeer,0394,GM0394,Haarlemmermeer,REG23,Haarlemmermeer,23,Noord-Holland,PV27
-Den Helder,0400,GM0400,Kop van Noord-Holland,REG16,Kop van Noord-Holland,16,Noord-Holland,PV27
-Diemen,0384,GM0384,Amstelland,REG24,Amstelland,24,Noord-Holland,PV27
-Heemskerk,0396,GM0396,IJmond-Zuid-Kennemerland,REG20,IJmond-Zuid-Kennemerland,20,Noord-Holland,PV27
-Heemstede,0397,GM0397,IJmond-Zuid-Kennemerland,REG20,IJmond-Zuid-Kennemerland,20,Noord-Holland,PV27
-Amstelveen,0362,GM0362,Amstelland,REG24,Amstelland,24,Noord-Holland,PV27
+Schagen,0441,GM0441,Kop van Noord-Holland,REGET1501,Kop van Noord-Holland,ET1501,Noord-Holland,PV27
+Castricum,0383,GM0383,Regio Alkmaar,REGET1502,Regio Alkmaar,ET1502,Noord-Holland,PV27
+Zaanstad,0479,GM0479,Zaanstreek-Waterland,REGET1603,Zaanstreek-Waterland,ET1603,Noord-Holland,PV27
+Beverwijk,0375,GM0375,IJmond-Zuid-Kennemerland,REGET1602,IJmond-Zuid-Kennemerland,ET1602,Noord-Holland,PV27
+Bloemendaal,0377,GM0377,IJmond-Zuid-Kennemerland,REGET1602,IJmond-Zuid-Kennemerland,ET1602,Noord-Holland,PV27
+Velsen,0453,GM0453,IJmond-Zuid-Kennemerland,REGET1602,IJmond-Zuid-Kennemerland,ET1602,Noord-Holland,PV27
+Drechterland,0498,GM0498,West-Friesland,REGET1503,West-Friesland,ET1503,Noord-Holland,PV27
+Oostzaan,0431,GM0431,Zaanstreek-Waterland,REGET1603,Zaanstreek-Waterland,ET1603,Noord-Holland,PV27
+Zandvoort,0473,GM0473,IJmond-Zuid-Kennemerland,REGET1602,IJmond-Zuid-Kennemerland,ET1602,Noord-Holland,PV27
+Enkhuizen,0388,GM0388,West-Friesland,REGET1503,West-Friesland,ET1503,Noord-Holland,PV27
+Hollands Kroon,1911,GM1911,Kop van Noord-Holland,REGET1501,Kop van Noord-Holland,ET1501,Noord-Holland,PV27
+Aalsmeer,0358,GM0358,Amstelland,REGET1606,Amstelland,ET1606,Noord-Holland,PV27
+Haarlem,0392,GM0392,IJmond-Zuid-Kennemerland,REGET1602,IJmond-Zuid-Kennemerland,ET1602,Noord-Holland,PV27
+Wormerland,0880,GM0880,Zaanstreek-Waterland,REGET1603,Zaanstreek-Waterland,ET1603,Noord-Holland,PV27
+Stede Broec,0532,GM0532,West-Friesland,REGET1503,West-Friesland,ET1503,Noord-Holland,PV27
+Koggenland,1598,GM1598,West-Friesland,REGET1503,West-Friesland,ET1503,Noord-Holland,PV27
+Ouder-Amstel,0437,GM0437,Amstelland,REGET1606,Amstelland,ET1606,Noord-Holland,PV27
+Amsterdam,0363,GM0363,Amsterdam,REGET1601,Amsterdam,ET1601,Noord-Holland,PV27
+Laren,0417,GM0417,Gooi en Vechtstreek,REGET1604,Gooi en Vechtstreek,ET1604,Noord-Holland,PV27
+Purmerend,0439,GM0439,Zaanstreek-Waterland,REGET1603,Zaanstreek-Waterland,ET1603,Noord-Holland,PV27
+Blaricum,0376,GM0376,Gooi en Vechtstreek,REGET1604,Gooi en Vechtstreek,ET1604,Noord-Holland,PV27
+Hoorn,0405,GM0405,West-Friesland,REGET1503,West-Friesland,ET1503,Noord-Holland,PV27
+Gooise Meren,1942,GM1942,Gooi en Vechtstreek,REGET1604,Gooi en Vechtstreek,ET1604,Noord-Holland,PV27
+Opmeer,0432,GM0432,West-Friesland,REGET1503,West-Friesland,ET1503,Noord-Holland,PV27
+Wijdemeren,1696,GM1696,Gooi en Vechtstreek,REGET1604,Gooi en Vechtstreek,ET1604,Noord-Holland,PV27
+Alkmaar,0361,GM0361,Regio Alkmaar,REGET1502,Regio Alkmaar,ET1502,Noord-Holland,PV27
+Uitgeest,0450,GM0450,Regio Alkmaar,REGET1502,Regio Alkmaar,ET1502,Noord-Holland,PV27
+Medemblik,0420,GM0420,West-Friesland,REGET1503,West-Friesland,ET1503,Noord-Holland,PV27
+Dijk en Waard,1980,GM1980,Regio Alkmaar,REGET1502,Regio Alkmaar,ET1502,Noord-Holland,PV27
+Landsmeer,0415,GM0415,Zaanstreek-Waterland,REGET1603,Zaanstreek-Waterland,ET1603,Noord-Holland,PV27
+Hilversum,0402,GM0402,Gooi en Vechtstreek,REGET1604,Gooi en Vechtstreek,ET1604,Noord-Holland,PV27
+Uithoorn,0451,GM0451,Amstelland,REGET1606,Amstelland,ET1606,Noord-Holland,PV27
+Heiloo,0399,GM0399,Regio Alkmaar,REGET1502,Regio Alkmaar,ET1502,Noord-Holland,PV27
+Texel,0448,GM0448,Kop van Noord-Holland,REGET1501,Kop van Noord-Holland,ET1501,Noord-Holland,PV27
+Edam-Volendam,0385,GM0385,Zaanstreek-Waterland,REGET1603,Zaanstreek-Waterland,ET1603,Noord-Holland,PV27
+Waterland,0852,GM0852,Zaanstreek-Waterland,REGET1603,Zaanstreek-Waterland,ET1603,Noord-Holland,PV27
+Bergen (NH),0373,GM0373,Regio Alkmaar,REGET1502,Regio Alkmaar,ET1502,Noord-Holland,PV27
+Huizen,0406,GM0406,Gooi en Vechtstreek,REGET1604,Gooi en Vechtstreek,ET1604,Noord-Holland,PV27
+Haarlemmermeer,0394,GM0394,Haarlemmermeer,REGET1605,Haarlemmermeer,ET1605,Noord-Holland,PV27
+Den Helder,0400,GM0400,Kop van Noord-Holland,REGET1501,Kop van Noord-Holland,ET1501,Noord-Holland,PV27
+Diemen,0384,GM0384,Amstelland,REGET1606,Amstelland,ET1606,Noord-Holland,PV27
+Heemskerk,0396,GM0396,IJmond-Zuid-Kennemerland,REGET1602,IJmond-Zuid-Kennemerland,ET1602,Noord-Holland,PV27
+Heemstede,0397,GM0397,IJmond-Zuid-Kennemerland,REGET1602,IJmond-Zuid-Kennemerland,ET1602,Noord-Holland,PV27
+Amstelveen,0362,GM0362,Amstelland,REGET1606,Amstelland,ET1606,Noord-Holland,PV27

@@ -19,13 +19,13 @@ print(layers)
 # Usually gemeente is layer 0 and provincie is layer 2
 gemeenten = gpd.read_file(fp_bg, layer=0).set_index("identificatie").to_crs("EPSG:4326")  # Convert to WGS84
 provincies = gpd.read_file(fp_bg, layer=2).set_index("identificatie").to_crs("EPSG:4326")  # Convert to WGS84
-resregio = gpd.read_file(fp_res).set_index("id").to_crs("EPSG:4326")  # Convert to WGS84
+resregio = gpd.read_file(fp_res).set_index("statcode").to_crs("EPSG:4326")  # Convert to WGS84
 # plotted for checks
 # gemeenten.plot()
 # provincies.plot()
 # resregio.plot()
 
-
+# %%
 
 # Create a for loop to establish hierarchy relations between province, resregio, and municipality
 
