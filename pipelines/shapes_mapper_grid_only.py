@@ -41,7 +41,7 @@ Returns:
 gdf_municipalities: gpd.GeoDataFrame
 gdf_substations: gpd.GeoDataFrame
 """
-fp_municipalities = "data/municipalities_simplified.geojson"
+fp_municipalities = "data/municipalities.geojson"
 
 # Load the data
 gdf_municipalities: gpd.GeoDataFrame = gpd.read_file(fp_municipalities)
