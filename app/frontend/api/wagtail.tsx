@@ -83,7 +83,8 @@ export async function getRequest(url, params, options) {
     };
     const queryString = querystring.stringify(params);
     console.log("Querystring:" + queryString);
-    const res = await fetch(`${url}?${queryString}`, { headers });
+    console.log("Url: " + url);
+    const res = await fetch(`https://backend-accept-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io/wt/api/nextjs/v1/page_by_path/?html_path=/`, { headers });
     console.log("Response status: " + res.status);
     console.log("Response headers: " + JSON.stringify(res.headers));
     console.log("Response url: " + res.url);
