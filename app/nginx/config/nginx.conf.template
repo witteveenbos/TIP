@@ -3,7 +3,7 @@ server {
     listen [::]:80 default_server;
     proxy_read_timeout 120s;
 
-    server_name localhost _;
+    server_name nginx-accept-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io localhost _;
 
     # do not touch - uncommented when enable_ssl.sh is used
     #mkcert listen 443 ssl;
@@ -51,6 +51,8 @@ server {
 
     location / {
         proxy_pass https://frontend-accept-app.internal.niceflower-dd2b93bc.westeurope.azurecontainerapps.io;
+        proxy_ssl_server_name on;
+        proxy_http_version 1.1;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -58,6 +60,7 @@ server {
 
     location /_next/webpack-hmr {
         proxy_pass https://frontend-accept-app.internal.niceflower-dd2b93bc.westeurope.azurecontainerapps.io/_next/webpack-hmr;
+        proxy_ssl_server_name on;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
@@ -65,6 +68,8 @@ server {
 
     location /_util {
         proxy_pass https://backend-accept-app.internal.niceflower-dd2b93bc.westeurope.azurecontainerapps.io/wt;
+        proxy_ssl_server_name on;
+        proxy_http_version 1.1;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -72,6 +77,8 @@ server {
 
     location /wt {
         proxy_pass https://backend-accept-app.internal.niceflower-dd2b93bc.westeurope.azurecontainerapps.io/wt;
+        proxy_ssl_server_name on;
+        proxy_http_version 1.1;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -79,6 +86,8 @@ server {
 
     location /api {
         proxy_pass https://backend-accept-app.internal.niceflower-dd2b93bc.westeurope.azurecontainerapps.io;
+        proxy_ssl_server_name on;
+        proxy_http_version 1.1;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
