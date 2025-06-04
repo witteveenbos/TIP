@@ -1,6 +1,11 @@
 import pandas as pd
 import os
 
+'''
+Dirty script to massage the excel to the right format: replace names with codes. 
+!!! Run this *before* parse_links.py !!!
+'''
+
 def main():
     # Path to the Excel file
     excel_path = os.path.join(os.path.dirname(__file__), 'NoordHollandii3050scenarios.xlsx')

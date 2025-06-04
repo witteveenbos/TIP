@@ -2,7 +2,7 @@
 https://gitlab.wbad.witteveenbos.com/energy-modeling/vivet-pmiek
 
 1. [Download](https://www.pdok.nl/atom-downloadservices/-/article/bestuurlijke-grenzen) geoshapes of borders and add to `/data/base_data` folder. In this case as `BestuurlijkeGebieden_2025.gpkg`.
-2. Run the `geo_preprocessing.py` script. Make sure to set the correct file paths, the province of interest and inspect the results visually (run in interactive window). This outputs two things:
+2. Run the `geo_preprocessing.py` script. Make sure to set the correct file paths, the province of interest and inspect the results visually (run in interactive window). Make sure the output is in the correct CRS. The dataset defaults to EPSG:28992 (rijksdriehoek), but the app expects CRS84. This outputs two things:
    - a geoJSON containing the municipalities in the province of interest. as `municipalities_simplified.geojson`. (actual simplification not implemented, might be needed to reduce file size)
    - a .csv containing the hierarchical relations between different aggregation levels (gemeente, resregio, provincie). The file for the entire Netherlands is `geo_hierarchy.csv`, for the specific provincie the file is called `geo_mapping.csv`.
 
@@ -52,7 +52,8 @@ Up till here it was about administrative borders, the next step is for the elect
 
 ### Configuring ETM-scenarios
 1. Add the results of (2) to `data/scenario_links.xlsx`
-2. Run `data/parse_links.py` to generate JSONs that relate the national scenario to municipal ETM scenarios in the `config/scenarios` folder
+2. Check the exact format of `scenario_links.xlsx` to make sure it works with `parse_links.py`. For PNH the municipality names had to be mapped to codes by the `fix_excel.py` script.
+2. Run `data/parse_links.py` to generate JSONs that relate the national scenario to municipal ETM scenarios in the `config/scenarios` folder. Check if these national scenario's are aligned with your expectation. For PNH the v3 scenario's are used which have different names.
 3. By hand (or AI) update the `scenario-list.json` file in the `config/scenarios` folder so that for every of the main scenarios, a Title and Description exists
 
 ### Configuring area divisions and relationships

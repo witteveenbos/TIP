@@ -4,7 +4,7 @@ import sys
 import os
 
 # Add the parent directory to the Python path
-sys.path.insert(0, str(Path(__file__).parent.parent))
+sys.path.insert(0, str(Path(__file__).parent.parent)) #needed to import the models from hail.models.request and hail.models.configuration
 
 from hail.models.request import MunicipalityScenario, MainScenarioEnum
 from hail.models.configuration import DistributedScenarioRelation
