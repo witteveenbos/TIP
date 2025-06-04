@@ -255,7 +255,8 @@ export default function SectoralDevelopments({
                                                             0
                                                         )
                                                 )}{' '}
-                                                units
+                                                {development.inputs[0].unit ||
+                                                    'units'}
                                             </small>
                                         </div>
                                         <Switch
@@ -286,7 +287,8 @@ export default function SectoralDevelopments({
                                                         0
                                                     )
                                             )}{' '}
-                                            units
+                                            {development.inputs[0].unit ||
+                                                'units'}
                                         </small>
                                         <small
                                             className={` ${developmentKey == selectedDevelopment?.key && 'text-white '}`}>
