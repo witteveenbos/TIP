@@ -1,11 +1,18 @@
 ## (1) Prepare grid GIS-data with VIVET
 https://gitlab.wbad.witteveenbos.com/energy-modeling/vivet-pmiek
 
-1. [Download](https://www.pdok.nl/atom-downloadservices/-/article/bestuurlijke-grenzen) municipalities geoshapes, add to `/data` folder as `municipalities_simplified.geojson` 
-> Might be useful to also make this work as a script function
-2. Run `geomapping_regions.py` to generate the relational mapping between municipalities, RES-regions and provinces to create `geo_mapping.csv`
-3. Run `shapes_mapper_grid_only.py` to generate the relational mapping between municipality loads and the substations
+1. [Download](https://www.pdok.nl/atom-downloadservices/-/article/bestuurlijke-grenzen) geoshapes of borders and add to `/data/base_data` folder. In this case as `BestuurlijkeGebieden_2025.gpkg`.
+2. Run the `geo_preprocessing.py` script. Make sure to set the correct file paths, the province of interest and inspect the results visually (run in interactive window). Make sure the output is in the correct CRS. The dataset defaults to EPSG:28992 (rijksdriehoek), but the app expects CRS84. This outputs two things:
+   - a geoJSON containing the municipalities in the province of interest. as `municipalities_simplified.geojson`. (actual simplification not implemented, might be needed to reduce file size)
+   - a .csv containing the hierarchical relations between different aggregation levels (gemeente, resregio, provincie). The file for the entire Netherlands is `geo_hierarchy.csv`, for the specific provincie the file is called `geo_mapping.csv`.
+
+2. Run `geomapping_regions.py` to generate the relational mapping between municipalities. This creates the one-hot encoded JSONs `municipalities_to_XXX.json`. These files are needed for correctly aggregating results. This script needs the `geo_mapping.csv` (which is province specific) to function.
+
+Up till here it was about administrative borders, the next step is for the electrical substations.
+
+4. Run `shapes_mapper_grid_only.py` to generate the relational mapping between municipality loads and the substations. This works for now, but the WFS endpoint from which the data is obtained is deprecated and will be removed in the future.
 4. [optional] if you want you can check the results visually by running `shapes_visuals.py`
+
 5. You should now have the following files:
    1. `geo_mapping.csv`
    1. `hsms_capacity.json`
@@ -45,7 +52,8 @@ https://gitlab.wbad.witteveenbos.com/energy-modeling/vivet-pmiek
 
 ### Configuring ETM-scenarios
 1. Add the results of (2) to `data/scenario_links.xlsx`
-2. Run `data/parse_links.py` to generate JSONs that relate the national scenario to municipal ETM scenarios in the `config/scenarios` folder
+2. Check the exact format of `scenario_links.xlsx` to make sure it works with `parse_links.py`. For PNH the municipality names had to be mapped to codes by the `fix_excel.py` script.
+2. Run `data/parse_links.py` to generate JSONs that relate the national scenario to municipal ETM scenarios in the `config/scenarios` folder. Check if these national scenario's are aligned with your expectation. For PNH the v3 scenario's are used which have different names.
 3. By hand (or AI) update the `scenario-list.json` file in the `config/scenarios` folder so that for every of the main scenarios, a Title and Description exists
 
 ### Configuring area divisions and relationships
