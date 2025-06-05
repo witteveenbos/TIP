@@ -34,7 +34,14 @@ let nextConfig = {
         '@radix-ui/react-tabs',
     ],
     images: {
-        domains: ['localhost', 'nginx-accept-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io', 'frontend-accept-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io', 'backend-accept-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io'],
+        domains: [
+            'localhost',
+            'nginx-accept-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io',
+            'frontend-accept-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io',
+            'backend-accept-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io',
+            'tip-frontend.niceflower-dd2b93bc.westeurope.azurecontainerapps.io',
+            'tip-backend.niceflower-dd2b93bc.westeurope.azurecontainerapps.io'
+        ],
         remotePatterns: [
             {
                 hostname: 'localhost',

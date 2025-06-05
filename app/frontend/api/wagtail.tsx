@@ -85,7 +85,7 @@ export async function getRequest(url, params, options) {
     console.log("Querystring:" + queryString);
     console.log("Url: " + url);
     console.log("Headers: " + JSON.stringify(headers));
-    const res = await fetch(`${url}${queryString ? `?${queryString}` : ''}`, { headers });
+    const res = await fetch(`${url}?${queryString}`, { headers });
     console.log("Response status: " + res.status);
     console.log("Response headers: " + JSON.stringify(res.headers));
     console.log("Response url: " + res.url);

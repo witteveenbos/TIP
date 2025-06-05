@@ -19,7 +19,7 @@ export async function getServerSideProps({ req, params, res }) {
 
     const { host } = req.headers;
     console.log(`Request for path: ${path} on host: ${host}`);
-    let queryParams = new URL(req.url, `https://${host}`).search;
+    let queryParams = new URL(req.url, `https://${host}`).searchParams.toString();
     if (queryParams.indexOf('?') === 0) {
         queryParams = queryParams.substr(1);
     }
