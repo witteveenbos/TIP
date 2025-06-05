@@ -35,6 +35,16 @@ let nextConfig = {
     ],
     images: {
         domains: ['localhost', 'nginx-accept-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io', 'frontend-accept-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io', 'backend-accept-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io'],
+        remotePatterns: [
+            {
+                hostname: 'localhost',
+                pathname: '**',
+            },
+            {
+                hostname: 'azurecontainerapps.io',
+                pathname: '**',
+            },
+        ],
     },
     async rewrites() {
         return [
