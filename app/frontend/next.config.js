@@ -46,6 +46,9 @@ let nextConfig = {
             },
         ],
     },
+    experimental: {
+        instrumentationHook: true,
+    },
     async rewrites() {
         return [
             {
