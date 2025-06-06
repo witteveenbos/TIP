@@ -50,7 +50,7 @@ server {
     }
 
     location / {
-        proxy_pass https://frontend-accept-app.internal.niceflower-dd2b93bc.westeurope.azurecontainerapps.io;
+        proxy_pass https://frontend-accept-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io;
         proxy_ssl_server_name on;
         proxy_http_version 1.1;
         proxy_set_header Host $host;
@@ -59,7 +59,7 @@ server {
     }
 
     location /_next/webpack-hmr {
-        proxy_pass https://frontend-accept-app.internal.niceflower-dd2b93bc.westeurope.azurecontainerapps.io/_next/webpack-hmr;
+        proxy_pass https://frontend-accept-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io/_next/webpack-hmr;
         proxy_ssl_server_name on;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
@@ -67,7 +67,7 @@ server {
     }
 
     location /_util {
-        proxy_pass https://backend-accept-app.internal.niceflower-dd2b93bc.westeurope.azurecontainerapps.io/wt;
+        proxy_pass https://backend-accept-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io/wt;
         proxy_ssl_server_name on;
         proxy_http_version 1.1;
         proxy_set_header Host $host;
@@ -76,7 +76,7 @@ server {
     }
 
     location /wt {
-        proxy_pass https://backend-accept-app.internal.niceflower-dd2b93bc.westeurope.azurecontainerapps.io/wt;
+        proxy_pass https://backend-accept-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io/wt;
         proxy_ssl_server_name on;
         proxy_http_version 1.1;
         proxy_set_header Host $host;
@@ -85,7 +85,7 @@ server {
     }
 
     location /api {
-        proxy_pass https://backend-accept-app.internal.niceflower-dd2b93bc.westeurope.azurecontainerapps.io;
+        proxy_pass https://backend-accept-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io;
         proxy_ssl_server_name on;
         proxy_http_version 1.1;
         proxy_set_header Host $host;
