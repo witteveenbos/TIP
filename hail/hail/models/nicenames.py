@@ -3,7 +3,7 @@ from typing import Any, Iterable
 
 area_div = {
     "PROV": "Provincie",
-    # "REG": "Regio-indeling ZH", # can this be commented out?
+    "REG": "Regio-indeling NH", # can this be commented out? > No
     "GM": "Gemeente",
     "RES": "RES-regio's",
     "HSMS": "Netvlakken",
