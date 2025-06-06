@@ -80,9 +80,7 @@ jobs:
           az containerapp ingress cors enable \
             --name data-accept-app \
             --resource-group ${{vars.RESOURCE_GROUP_NAME}} \
-            --allowed-origins ${{vars.TRUSTED_ORIGINS_DATA}} \
-            --allowed-methods * \
-            --allowed-headers *
+            --allowed-origins ${{vars.TRUSTED_ORIGINS_DATA}}
 
 
   build_backend:
