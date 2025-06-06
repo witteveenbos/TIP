@@ -23,4 +23,6 @@ for file in fp:
     print("-" * 40)
     if file ==  "data/municipalities_simplified.geojson":
         print(gdf.is_valid)
-        gdf.plot()
+
+# %%
+gdf2 = gpd.read_file("data/base_data/geojsons_response.geojson", layer=2)

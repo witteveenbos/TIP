@@ -20,10 +20,14 @@ print(layers)
 gemeenten = gpd.read_file(fp_bg, layer=0).set_index("identificatie").to_crs("EPSG:4326")  # Convert to WGS84
 provincies = gpd.read_file(fp_bg, layer=2).set_index("identificatie").to_crs("EPSG:4326")  # Convert to WGS84
 resregio = gpd.read_file(fp_res).set_index("statcode").to_crs("EPSG:4326")  # Convert to WGS84
-# plotted for checks
-# gemeenten.plot()
-# provincies.plot()
-# resregio.plot()
+
+# add the gid and label as properties to all geoshapes:
+gemeenten["gid"] = gemeenten.index
+gemeenten["label"] = gemeenten["naam"]
+provincies["gid"] = provincies.index
+provincies["label"] = provincies["naam"]
+resregio["gid"] = resregio.index
+resregio["label"] = resregio["statnaam"]
 
 # %%
 
@@ -188,7 +192,7 @@ tolerance = 0.0001 # unit: CRS unit - 10 meter shrinks the filesize ~10x for the
 gemeenten_selected.to_file("data/municipalities.geojson")
 gemeenten_selected_simplified = gemeenten_selected.copy()
 
-gemeenten_selected_simplified["geometry"] = gemeenten_selected_simplified["geometry"].simplify(tolerance)
+# gemeenten_selected_simplified["geometry"] = gemeenten_selected_simplified["geometry"].simplify_coverage(tolerance)
 # Dirty hack because one of the shapes in the municipalities is not valid
 # exclude index 29 from simplification
 gemeenten_selected_simplified.loc["GM1598", "geometry"] = gemeenten_selected.loc["GM1598", "geometry"]
@@ -196,17 +200,17 @@ gemeenten_selected_simplified.to_file("data/municipalities_simplified.geojson")
 
 resregio_selected.to_file("data/res.geojson")
 resregio_selected_simplified = resregio_selected.copy()
-resregio_selected_simplified["geometry"] = resregio_selected_simplified["geometry"].simplify(tolerance)
+# resregio_selected_simplified["geometry"] = resregio_selected_simplified["geometry"].simplify_coverage(tolerance)
 resregio_selected_simplified.to_file("data/res_simplified.geojson")
 
 regions_selected = resregio_selected.copy() #same as resregio, no real use. This was done for PZH regio indeling originaly
 regions_selected.to_file("data/regions.geojson")
 regions_selected_simplified = regions_selected.copy()
-regions_selected_simplified["geometry"] = regions_selected_simplified["geometry"].simplify(tolerance)
+# regions_selected_simplified["geometry"] = regions_selected_simplified["geometry"].simplify_coverage(tolerance)
 regions_selected_simplified.to_file("data/regions_simplified.geojson")
 
 provincies_selected = provincies[provincies.index.isin(hierarchy_df_selected["Provincie_ID"])]
 provincies_selected.to_file("data/province.geojson")
 provincies_selected_simplified = provincies_selected.copy()
-provincies_selected_simplified["geometry"] = provincies_selected_simplified["geometry"].simplify(tolerance)
+# provincies_selected_simplified["geometry"] = provincies_selected_simplified["geometry"].simplify_coverage(tolerance)
 provincies_selected_simplified.to_file("data/province_simplified.geojson")
