@@ -28,18 +28,18 @@ jobs:
       - name: Add containerapp extension
         run: |
           az extension add --name containerapp --upgrade --allow-preview true
-          az extension add --name redisenterprise --upgrade --allow-preview true
+          # az extension add --name redisenterprise --upgrade --allow-preview true
 
       - name: Log in to Azure Container Registry
         run: |
           az acr login --name ${{vars.ACR_NAME}}
 
-      - name: Create a Redis container
-        run: |
-          az containerapp add-on redis create \
-            --name dataacceptredis \
-            --resource-group ${{vars.RESOURCE_GROUP_NAME}} \
-            --environment ${{vars.CONTAINER_APPS_ENV}}
+      # - name: Create a Redis container
+      #   run: |
+      #     az containerapp add-on redis create \
+      #       --name dataacceptredis \
+      #       --resource-group ${{vars.RESOURCE_GROUP_NAME}} \
+      #       --environment ${{vars.CONTAINER_APPS_ENV}}
 
       - name: Build Docker image for Rekenkern
         run: |
@@ -233,7 +233,7 @@ jobs:
                   --output tsv)
 
           az containerapp create \
-            --name nginx-accept-app \
+            --name tip-pnh-accept \
             --resource-group ${{vars.RESOURCE_GROUP_NAME}} \
             --environment ${{vars.CONTAINER_APPS_ENV}} \
             --image ${{vars.ACR_NAME}}.azurecr.io/nginx:${{github.ref_name}} \
