@@ -92,15 +92,15 @@ class RegionIDs(Enum):
     REG04 = "REG04"
     REG05 = "REG05"
     REG06 = "REG06"
-    ET1501 = "ET1501"  # Noord-Holland
-    ET1502 = "ET1502"  # Noord-Holland
-    ET1503 = "ET1503"  # Noord-Holland
-    ET1601 = "ET1601"  # Noord-Holland
-    ET1602 = "ET1602"  # Noord-Holland
-    ET1603 = "ET1603"  # Noord-Holland
-    ET1604 = "ET1604"  # Noord-Holland
-    ET1605 = "ET1605"  # Noord-Holland
-    ET1606 = "ET1606"  # Noord-Holland
+    REGET1501 = "REGET1501"  # Noord-Holland
+    REGET1502 = "REGET1502"  # Noord-Holland
+    REGET1503 = "REGET1503"  # Noord-Holland
+    REGET1601 = "REGET1601"  # Noord-Holland
+    REGET1602 = "REGET1602"  # Noord-Holland
+    REGET1603 = "REGET1603"  # Noord-Holland
+    REGET1604 = "REGET1604"  # Noord-Holland
+    REGET1605 = "REGET1605"  # Noord-Holland
+    REGET1606 = "REGET1606"  # Noord-Holland
 
 
 class MunicipalityIDs(Enum):
