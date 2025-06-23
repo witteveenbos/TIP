@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - "accept-pnh"
+      - "prod-pnh"
 
 permissions:
   id-token: write
@@ -13,7 +13,7 @@ permissions:
 jobs:
   build_rekenkern:
     runs-on: "ubuntu-latest"
-    environment: accept-pnh
+    environment: prod-pnh
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -28,18 +28,10 @@ jobs:
       - name: Add containerapp extension
         run: |
           az extension add --name containerapp --upgrade --allow-preview true
-          # az extension add --name redisenterprise --upgrade --allow-preview true
 
       - name: Log in to Azure Container Registry
         run: |
           az acr login --name ${{vars.ACR_NAME}}
-
-      # - name: Create a Redis container
-      #   run: |
-      #     az containerapp add-on redis create \
-      #       --name dataacceptredis \
-      #       --resource-group ${{vars.RESOURCE_GROUP_NAME}} \
-      #       --environment ${{vars.CONTAINER_APPS_ENV}}
 
       - name: Build Docker image for Rekenkern
         run: |
@@ -58,7 +50,7 @@ jobs:
                   --output tsv)
 
           az containerapp create \
-            --name data-accept-app \
+            --name data-prod-app \
             --resource-group ${{vars.RESOURCE_GROUP_NAME}} \
             --environment ${{vars.CONTAINER_APPS_ENV}} \
             --image ${{vars.ACR_NAME}}.azurecr.io/data:${{github.ref_name}} \
@@ -78,14 +70,14 @@ jobs:
             --query properties.configuration.ingress.fqdn
 
           az containerapp ingress cors enable \
-            --name data-accept-app \
+            --name data-prod-app \
             --resource-group ${{vars.RESOURCE_GROUP_NAME}} \
             --allowed-origins ${{vars.TRUSTED_ORIGINS_DATA}}
 
 
   build_backend:
     runs-on: "ubuntu-latest"
-    environment: accept-pnh
+    environment: prod-pnh
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -118,7 +110,7 @@ jobs:
                   --output tsv)
 
           az containerapp create \
-            --name backend-accept-app \
+            --name backend-prod-app \
             --resource-group ${{vars.RESOURCE_GROUP_NAME}} \
             --environment ${{vars.CONTAINER_APPS_ENV}} \
             --image ${{vars.ACR_NAME}}.azurecr.io/backend:${{github.ref_name}} \
@@ -145,7 +137,7 @@ jobs:
   build_frontend:
     runs-on: "ubuntu-latest"
     # needs: build_backend
-    environment: accept-pnh
+    environment: prod-pnh
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -183,7 +175,7 @@ jobs:
                   --output tsv)
 
           az containerapp create \
-            --name frontend-accept-app \
+            --name frontend-prod-app \
             --resource-group ${{vars.RESOURCE_GROUP_NAME}} \
             --environment ${{vars.CONTAINER_APPS_ENV}} \
             --image ${{vars.ACR_NAME}}.azurecr.io/frontend:${{github.ref_name}} \
@@ -200,7 +192,7 @@ jobs:
   build_nginx:
     runs-on: "ubuntu-latest"
     needs: [build_backend, build_frontend]
-    environment: accept-pnh
+    environment: prod-pnh
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -233,7 +225,7 @@ jobs:
                   --output tsv)
 
           az containerapp create \
-            --name tip-pnh-accept \
+            --name tip-pnh \
             --resource-group ${{vars.RESOURCE_GROUP_NAME}} \
             --environment ${{vars.CONTAINER_APPS_ENV}} \
             --image ${{vars.ACR_NAME}}.azurecr.io/nginx:${{github.ref_name}} \
