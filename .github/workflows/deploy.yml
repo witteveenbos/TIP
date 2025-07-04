@@ -41,38 +41,38 @@ jobs:
         run: |
           docker push ${{vars.ACR_NAME}}.azurecr.io/data:${{github.ref_name}}
       
-      - name: Deploy Rekenkern to Azure Container App
-        run: |
-          IDENTITY_ID=$(az identity show \
-                  --name ${{vars.IDENTITY}}  \
-                  --resource-group ${{vars.RESOURCE_GROUP_NAME}} \
-                  --query id \
-                  --output tsv)
+      # - name: Deploy Rekenkern to Azure Container App
+      #   run: |
+      #     IDENTITY_ID=$(az identity show \
+      #             --name ${{vars.IDENTITY}}  \
+      #             --resource-group ${{vars.RESOURCE_GROUP_NAME}} \
+      #             --query id \
+      #             --output tsv)
 
-          az containerapp create \
-            --name data-prod-app \
-            --resource-group ${{vars.RESOURCE_GROUP_NAME}} \
-            --environment ${{vars.CONTAINER_APPS_ENV}} \
-            --image ${{vars.ACR_NAME}}.azurecr.io/data:${{github.ref_name}} \
-            --target-port 7000 \
-            --ingress external \
-            --env-vars REDIS_HOST=${{vars.REDIS_HOST}} \
-              REDIS_PORT=${{vars.REDIS_PORT}} \
-              REDIS_PASSWORD=${{secrets.REDIS_PASSWORD}} \
-              ETM_API_KEY=${{secrets.ETM_API_KEY}} \
-              SUPER_SECRET_KEY=${{secrets.SUPER_SECRET_KEY}} \
-              TRUSTED_ORIGINS_DATA=${{vars.TRUSTED_ORIGINS_DATA}} \
-            --registry-server ${{vars.ACR_NAME}}.azurecr.io \
-            --user-assigned "$IDENTITY_ID" \
-            --registry-identity $IDENTITY_ID \
-            --cpu 2.0 \
-            --memory 4.0Gi \
-            --query properties.configuration.ingress.fqdn
+      #     az containerapp create \
+      #       --name data-prod-app \
+      #       --resource-group ${{vars.RESOURCE_GROUP_NAME}} \
+      #       --environment ${{vars.CONTAINER_APPS_ENV}} \
+      #       --image ${{vars.ACR_NAME}}.azurecr.io/data:${{github.ref_name}} \
+      #       --target-port 7000 \
+      #       --ingress external \
+      #       --env-vars REDIS_HOST=${{vars.REDIS_HOST}} \
+      #         REDIS_PORT=${{vars.REDIS_PORT}} \
+      #         REDIS_PASSWORD=${{secrets.REDIS_PASSWORD}} \
+      #         ETM_API_KEY=${{secrets.ETM_API_KEY}} \
+      #         SUPER_SECRET_KEY=${{secrets.SUPER_SECRET_KEY}} \
+      #         TRUSTED_ORIGINS_DATA=${{vars.TRUSTED_ORIGINS_DATA}} \
+      #       --registry-server ${{vars.ACR_NAME}}.azurecr.io \
+      #       --user-assigned "$IDENTITY_ID" \
+      #       --registry-identity $IDENTITY_ID \
+      #       --cpu 2.0 \
+      #       --memory 4.0Gi \
+      #       --query properties.configuration.ingress.fqdn
 
-          az containerapp ingress cors enable \
-            --name data-prod-app \
-            --resource-group ${{vars.RESOURCE_GROUP_NAME}} \
-            --allowed-origins ${{vars.TRUSTED_ORIGINS_DATA}}
+      #     az containerapp ingress cors enable \
+      #       --name data-prod-app \
+      #       --resource-group ${{vars.RESOURCE_GROUP_NAME}} \
+      #       --allowed-origins ${{vars.TRUSTED_ORIGINS_DATA}}
 
 
   build_backend:

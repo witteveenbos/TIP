@@ -5,7 +5,7 @@ Write prod settings here, or override base settings
 from pipit.settings.base import *  # NOQA
 
 
-DEBUG = True
+DEBUG = False
 
 DATABASES["default"]["CONN_MAX_AGE"] = int(
     get_env("DATABASE_CONN_MAX_AGE", default="60")

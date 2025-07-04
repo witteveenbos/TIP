@@ -49,33 +49,33 @@ server {
     }
 
     location / {
-        proxy_pass https://frontend-prod-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io;
+        proxy_pass https://frontend-prod-app.internal.niceflower-dd2b93bc.westeurope.azurecontainerapps.io;
         proxy_ssl_server_name on;
         proxy_http_version 1.1;
         proxy_set_header X-Forwarded-Host $host;
     }
 
     location /_next/webpack-hmr {
-        proxy_pass https://frontend-prod-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io/_next/webpack-hmr;
+        proxy_pass https://frontend-prod-app.internal.niceflower-dd2b93bc.westeurope.azurecontainerapps.io/_next/webpack-hmr;
         proxy_ssl_server_name on;
         proxy_http_version 1.1;
         proxy_set_header X-Forwarded-Host $host;
     }
 
     location /_util {
-        proxy_pass https://backend-prod-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io/wt;
+        proxy_pass https://backend-prod-app.internal.niceflower-dd2b93bc.westeurope.azurecontainerapps.io/wt;
         proxy_ssl_server_name on;
         proxy_http_version 1.1;
     }
 
     location /wt {
-        proxy_pass https://backend-prod-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io/wt;
+        proxy_pass https://backend-prod-app.internal.niceflower-dd2b93bc.westeurope.azurecontainerapps.io/wt;
         proxy_ssl_server_name on;
         proxy_http_version 1.1;
     }
 
     location /api {
-        proxy_pass https://backend-prod-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io;
+        proxy_pass https://backend-prod-app.internal.niceflower-dd2b93bc.westeurope.azurecontainerapps.io;
         proxy_ssl_server_name on;
         proxy_http_version 1.1;
     }
