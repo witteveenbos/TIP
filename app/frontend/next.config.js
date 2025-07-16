@@ -37,8 +37,8 @@ let nextConfig = {
         domains: [
             'localhost',
             'tip-pnh.niceflower-dd2b93bc.westeurope.azurecontainerapps.io',
-            'frontend-prod-app.internal.niceflower-dd2b93bc.westeurope.azurecontainerapps.io',
-            'backend-prod-app.internal.niceflower-dd2b93bc.westeurope.azurecontainerapps.io',
+            'frontend-prod-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io',
+            'backend-prod-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io',
         ],
         remotePatterns: [
             {
@@ -58,11 +58,11 @@ let nextConfig = {
         return [
             {
                 source: '/wt/static/:path*',
-                destination: 'https://backend-prod-app.internal.niceflower-dd2b93bc.westeurope.azurecontainerapps.io/wt/static/:path*', // Proxy to Backend
+                destination: 'https://backend-prod-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io/wt/static/:path*', // Proxy to Backend
             },
             {
                 source: '/wt/media/:path*',
-                destination: 'https://backend-prod-app.internal.niceflower-dd2b93bc.westeurope.azurecontainerapps.io/wt/media/:path*', // Proxy to Backend
+                destination: 'https://backend-prod-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io/wt/media/:path*', // Proxy to Backend
             },
         ];
     },
