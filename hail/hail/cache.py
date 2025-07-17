@@ -14,7 +14,7 @@ async def get_redis_client():
     redis_port = int(os.getenv("REDIS_PORT", 6379))
     redis_password = os.getenv("REDIS_PASSWORD", None)
     print(f"Connecting to Redis at {redis_host}:{redis_port}")
-    r = redis.Redis(host=redis_host, port=redis_port, db=0, password=redis_password, ssl=True)
+    r = redis.Redis(host=redis_host, port=redis_port, db=0, ssl=True)
     try:
         yield r
     finally:
