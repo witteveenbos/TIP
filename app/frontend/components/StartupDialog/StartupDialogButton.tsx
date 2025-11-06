@@ -15,7 +15,7 @@ export default function StartupDialogButton({
 }: StartupDialogButtonProps) {
     return (
         <div
-            className="h-20 bg-gray-100 mt-2 flex flex-row justify-between px-5"
+            className="h-20 bg-secondary  mt-2 flex flex-row justify-between px-5"
             key={index}>
             <button
                 onClick={() => handleSelectScenario(scenario.dataLink)}

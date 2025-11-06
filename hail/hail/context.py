@@ -180,9 +180,9 @@ class ContextProvider:
 
     def Matrix(self, value: float | int | None) -> Matrix[float | int]:
         """Returns a matrix with the same length as the scenario_ids, filled with the given value"""
-        if not isinstance(value, (int, float, None)):
+        if not isinstance(value, (int, float, type(None))):
             raise TypeError(
-                f"Value must be an int or float, got {type(value)} instead."
+                f"Value must be an int, float or None, got {type(value)} instead."
             )
         return Matrix([value for _ in range(len(self.scenario_ids))])
 

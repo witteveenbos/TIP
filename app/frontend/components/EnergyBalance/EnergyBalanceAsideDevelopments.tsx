@@ -284,7 +284,7 @@ export function EnergyBalanceAsideDevelopments({
     function notificationNoAreaSelected() {
         return (
             <div className="p-2">
-                <small className="bg-cyan-600 text-white block p-1 gap-2">
+                <small className="bg-accent text-white block p-1 gap-2">
                     Selecteer een gebied op de kaart
                 </small>
             </div>

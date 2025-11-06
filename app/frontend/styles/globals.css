@@ -19,14 +19,14 @@
         --card: 0 0% 100%;
         --card-foreground: 222.2 47.4% 11.2%;
 
-        --primary: 247 55% 27%;
+        --primary: 208 100% 19%;
         --primary-foreground: 210 40% 98%;
 
-        --secondary: 210 40% 96.1%;
+        --secondary: 207 74% 52% / 0.25;
         --secondary-foreground: 222.2 47.4% 11.2%;
 
-        --accent: 210 40% 96.1%;
-        --accent-foreground: 222.2 47.4% 11.2%;
+        --accent: 206 74% 52%;
+        --accent-foreground: 210 40% 98%;
 
         --destructive: 0 100% 50%;
         --destructive-foreground: 210 40% 98%;
@@ -91,7 +91,7 @@
     }
 
     p {
-        color: #000000;
+        color: hsl(var(--primary));
         font-weight: 400;
         font-size: 0.875rem;
     }
@@ -169,8 +169,7 @@ body > #__next {
     }
 }
 
-
 .DialogOverlay {
-  background: rgba(0 0 0 / 0.5);
-  opacity: 1;
+    background: rgba(0 0 0 / 0.5);
+    opacity: 1;
 }

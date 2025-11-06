@@ -114,7 +114,7 @@ export default function Tour({
                     arrowColor: '#fff',
                     backgroundColor: '#fff',
                     overlayColor: 'rgba(0, 0, 0, 0.5)',
-                    primaryColor: 'hsl(247 55% 27%)',
+                    primaryColor: 'hsl(208 100% 19%)',
                     textColor: 'hsl(222.2 47.4% 11.2%)',
                 },
             }}

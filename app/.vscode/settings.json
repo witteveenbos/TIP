@@ -43,7 +43,12 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "spellright.language": ["en", "nl"],
-    "spellright.documentTypes": ["markdown", "latex", "plaintext"],
+    "spellright.documentTypes": [
+        "markdown",
+        "latex",
+        "plaintext"
+    ],
+    "peacock.remoteColor": "#9c93a3",
     "workbench.colorCustomizations": {
         "activityBar.activeBackground": "#b5afba",
         "activityBar.background": "#b5afba",
@@ -62,6 +67,5 @@
         "titleBar.activeForeground": "#15202b",
         "titleBar.inactiveBackground": "#9c93a399",
         "titleBar.inactiveForeground": "#15202b99"
-    },
-    "peacock.remoteColor": "#9c93a3"
+    }
 }

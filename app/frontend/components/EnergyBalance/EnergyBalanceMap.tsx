@@ -183,7 +183,7 @@ export default function EnergyBalance({ geojson }: { geojson: any }) {
         const x = [];
         const newCoords = { ...geojson[selectedAreaDivision] };
         const bounds = newCoords.features.map((feature) =>
-            feature.geometry.coordinates.flat(2)
+            feature.geometry.coordinates.flat(3)
         );
 
         for (let i = 0; i < bounds.length; i++) {
@@ -228,6 +228,10 @@ export default function EnergyBalance({ geojson }: { geojson: any }) {
             mapContainerRef.current.setZoom(zoomLevel);
         }
     };
+    const bounds = [
+        [50.5, 3.5], // whole of the Netherlands
+        [53.5, 7.108],
+    ]; 
 
     return (
         <>
@@ -250,7 +254,7 @@ export default function EnergyBalance({ geojson }: { geojson: any }) {
             <MapContainer
                 className="energy-balance-map"
                 ref={mapContainerRef}
-                bounds={getBounds()}
+                bounds={bounds}
                 scrollWheelZoom={true}>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
