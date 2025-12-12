@@ -22,10 +22,11 @@ If you prefer to use Visual Studio Code (VSCode) instead, follow these steps:
 
 1. Install [VSCode](https://code.visualstudio.com/) on your system.
 2. Clone the repository using `git clone`
-3. Open the project directory in VSCode: `code pMIEK-tool`
+3. Open the hail project directory in VSCode: `code hail` (this is **not** the root project folder, but 1 level deeper)
+4. setup .env for the dev container, just copy the example and rename to `.env`
 4. Install the `Dev Containers` extension in VSCode
 5. Reopen the window in container using `CTRL + SHIFT + P` > "Dev Containers: Reopen in container"
-6. Browse `localhost:7000/docs` to see the FastAPI docs
+6. Browse `localhost:7000/docs` to see the FastAPI docs, it starts automatically
 
 ### Production build
 
