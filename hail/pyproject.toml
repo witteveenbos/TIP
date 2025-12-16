@@ -19,6 +19,7 @@ redis = "^5.0.8"
 tenacity = "^9.0.0"
 colorcet = "^3.1.0"
 pytest = "^8.3.3"
+httpx = "^0.27.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.4.2"
