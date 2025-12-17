@@ -27,7 +27,7 @@ import {
     SectoralProject,
     SelectedDevelopmentState,
     SelectedGeoIDState,
-} from '../types/calculateStore';
+} from '@/types/stores/calculateStore';
 
 
 
