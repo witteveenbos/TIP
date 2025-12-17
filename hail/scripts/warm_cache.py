@@ -82,7 +82,7 @@ async def warm_main_graph(base_url: str, scenario_data_link: str):
     return False
 
 
-async def warm_cache_for_scenario(base_url: str, scenario: dict, config_path: Path) -> bool:
+async def warm_cache_for_scenario(base_url: str, scenario: dict) -> bool:
     """Warm cache for a single scenario."""
     data_link = scenario.get("dataLink")
     title = scenario.get("title", data_link)
@@ -106,12 +106,6 @@ async def main():
         logger.error("Service did not become ready in time. Exiting.")
         sys.exit(1)
     
-    # Determine config path
-    config_path = Path(__file__).parent.parent / "config"
-    if not config_path.exists():
-        logger.error(f"Config path not found: {config_path}")
-        sys.exit(1)
-    
     # Get list of scenarios
     scenarios = await get_scenarios(BASE_URL)
     if not scenarios:
@@ -124,7 +118,7 @@ async def main():
     
     for scenario in scenarios:
         try:
-            result = await warm_cache_for_scenario(BASE_URL, scenario, config_path)
+            result = await warm_cache_for_scenario(BASE_URL, scenario)
             if result:
                 successful += 1
             else:
