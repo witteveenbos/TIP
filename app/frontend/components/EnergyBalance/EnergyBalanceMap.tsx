@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { GeoJSON, MapContainer, TileLayer, Tooltip } from 'react-leaflet';
+import { GeoJSON, MapContainer, TileLayer } from 'react-leaflet';
 import {
     continuousDevelopmentsChangesStore,
     sectoralDevelopmentsChangesStore,
@@ -28,7 +28,6 @@ export default function EnergyBalance({ geojson }: { geojson: any }) {
     const [hoverTooltip, setHoverTooltip] = useState({ show: false, x: 0, y: 0, value: null, name: '' });
     const { selectedGeoId, setSelectedGeoId } = useSelectedGeoIdStore();
     const [dialogOpen, setDialogOpen] = useState({ open: false, type: null });
-    const [errorMessage, setErrorMessage] = useState('');
     const [graphData, setGraphData] = useState(null);
 
     const mapContainerRef = useRef(null);
@@ -46,8 +45,7 @@ export default function EnergyBalance({ geojson }: { geojson: any }) {
         continuousDevelopmentsChangesStore();
     const { sectoralDevelopmentDefaults, changedSectoralDevelopments } =
         sectoralDevelopmentsChangesStore();
-    const { municipalityScenarios } = useMunicipalityScenariosStore();
-    const { energyCarrier, balance, original } = useDragersStore();
+    const { original } = useDragersStore();
 
     const changedDevelopments =
         inputType == 'sectoral'
