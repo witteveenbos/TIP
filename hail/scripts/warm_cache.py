@@ -4,7 +4,7 @@ Cache warming script for the hail application.
 This script pre-populates Redis cache by calling key API endpoints after container startup.
 """
 import asyncio
-import httpx
+import aiohttp
 import logging
 import os
 import sys
@@ -27,13 +27,14 @@ async def wait_for_service(base_url: str, max_attempts: int = 30, delay: int = 2
     """Wait for the service to be ready before warming cache."""
     logger.info(f"Waiting for service at {base_url} to be ready...")
     
-    async with httpx.AsyncClient(timeout=10.0) as client:
+    timeout = aiohttp.ClientTimeout(total=10.0)
+    async with aiohttp.ClientSession(timeout=timeout) as session:
         for attempt in range(max_attempts):
             try:
-                response = await client.get(f"{base_url}/list_scenarios/")
-                if response.status_code == 200:
-                    logger.info("Service is ready!")
-                    return True
+                async with session.get(f"{base_url}/list_scenarios/") as response:
+                    if response.status == 200:
+                        logger.info("Service is ready!")
+                        return True
             except Exception as e:
                 logger.debug(f"Attempt {attempt + 1}/{max_attempts}: Service not ready yet - {e}")
             
@@ -45,13 +46,14 @@ async def wait_for_service(base_url: str, max_attempts: int = 30, delay: int = 2
 
 async def get_scenarios(base_url: str):
     """Fetch the list of available scenarios."""
-    async with httpx.AsyncClient(timeout=TIMEOUT) as client:
+    timeout = aiohttp.ClientTimeout(total=TIMEOUT)
+    async with aiohttp.ClientSession(timeout=timeout) as session:
         try:
-            response = await client.get(f"{base_url}/list_scenarios/")
-            response.raise_for_status()
-            scenarios = response.json()
-            logger.info(f"Found {len(scenarios)} scenarios to warm cache for")
-            return scenarios
+            async with session.get(f"{base_url}/list_scenarios/") as response:
+                response.raise_for_status()
+                scenarios = await response.json()
+                logger.info(f"Found {len(scenarios)} scenarios to warm cache for")
+                return scenarios
         except Exception as e:
             logger.error(f"Failed to fetch scenarios: {e}")
             return []
@@ -62,14 +64,15 @@ async def warm_main_graph(base_url: str, scenario_data_link: str):
     url = f"{base_url}/get_main_graph/"
     params = {"main_scenario": scenario_data_link}
     
-    async with httpx.AsyncClient(timeout=TIMEOUT) as client:
+    timeout = aiohttp.ClientTimeout(total=TIMEOUT)
+    async with aiohttp.ClientSession(timeout=timeout) as session:
         for attempt in range(MAX_RETRIES):
             try:
                 logger.info(f"Warming main graph cache for scenario: {scenario_data_link}")
-                response = await client.get(url, params=params)
-                response.raise_for_status()
-                logger.info(f"✓ Successfully warmed main graph cache for {scenario_data_link}")
-                return True
+                async with session.get(url, params=params) as response:
+                    response.raise_for_status()
+                    logger.info(f"✓ Successfully warmed main graph cache for {scenario_data_link}")
+                    return True
             except Exception as e:
                 logger.warning(f"Attempt {attempt + 1}/{MAX_RETRIES} failed for {scenario_data_link}: {e}")
                 if attempt < MAX_RETRIES - 1:
@@ -79,7 +82,7 @@ async def warm_main_graph(base_url: str, scenario_data_link: str):
     return False
 
 
-async def warm_cache_for_scenario(base_url: str, scenario: dict, config_path: Path) -> bool:
+async def warm_cache_for_scenario(base_url: str, scenario: dict) -> bool:
     """Warm cache for a single scenario."""
     data_link = scenario.get("dataLink")
     title = scenario.get("title", data_link)
@@ -103,12 +106,6 @@ async def main():
         logger.error("Service did not become ready in time. Exiting.")
         sys.exit(1)
     
-    # Determine config path
-    config_path = Path(__file__).parent.parent / "config"
-    if not config_path.exists():
-        logger.error(f"Config path not found: {config_path}")
-        sys.exit(1)
-    
     # Get list of scenarios
     scenarios = await get_scenarios(BASE_URL)
     if not scenarios:
@@ -121,7 +118,7 @@ async def main():
     
     for scenario in scenarios:
         try:
-            result = await warm_cache_for_scenario(BASE_URL, scenario, config_path)
+            result = await warm_cache_for_scenario(BASE_URL, scenario)
             if result:
                 successful += 1
             else:
