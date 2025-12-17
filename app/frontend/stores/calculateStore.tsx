@@ -9,13 +9,11 @@ interface ScenarioState {
 }
 
 interface AreaDivisionState {
-    areaDivision:
-        | string
-        | Array<{
-              label: string;
-              value: string;
-          }>;
-    setAreaDivision: (areaDivision: string) => void;
+    areaDivision: Array<{
+        label: string;
+        value: string;
+    }>;
+    setAreaDivision: (areaDivision: Array<{ label: string; value: string }>) => void;
     selectedAreaDivision: Area;
     setSelectedAreaDivision: (selectedAreaDivision: Area) => void;
 }
@@ -25,6 +23,7 @@ enum Area {
     REG = 'REG',
     GM = 'GM',
     RES = 'RES',
+    HSMS = 'HSMS',
 }
 
 interface MunicipalityScenariosState {
@@ -132,8 +131,8 @@ export const useAreaDivisionStore = create<AreaDivisionState>()(
     devtools(
         persist(
             (set) => ({
-                areaDivision: '',
-                setAreaDivision: (areaDivision: Area) => set({ areaDivision }),
+                areaDivision: [],
+                setAreaDivision: (areaDivision: Array<{ label: string; value: string }>) => set({ areaDivision }),
                 selectedAreaDivision: Area.GM,
                 setSelectedAreaDivision: (selectedAreaDivision: Area) =>
                     set({ selectedAreaDivision }),

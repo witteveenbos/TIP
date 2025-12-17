@@ -27,7 +27,7 @@ export default function EnergyBalanceZoomLevel() {
                         onChange={(e) => changeZoomLevel(e.target.value)}
                         id="header-area-division"
                         value={selectedAreaDivision}
-                        defaultValue={selectedAreaDivision}>
+                        >
                         {areaDivision.map((option) => (
                             <option
                                 key={option.value}

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { GeoJSON, MapContainer, TileLayer } from 'react-leaflet';
+import { GeoJSON, MapContainer, TileLayer, Tooltip } from 'react-leaflet';
 import {
     continuousDevelopmentsChangesStore,
     sectoralDevelopmentsChangesStore,
@@ -25,6 +25,7 @@ import EnergyBalanceLegend from './EnergyBalanceLegend';
 
 export default function EnergyBalance({ geojson }: { geojson: any }) {
     const [hoverGeoId, setHoverGeoId] = useState('');
+    const [hoverTooltip, setHoverTooltip] = useState({ show: false, x: 0, y: 0, value: null, name: '' });
     const { selectedGeoId, setSelectedGeoId } = useSelectedGeoIdStore();
     const [dialogOpen, setDialogOpen] = useState({ open: false, type: null });
     const [errorMessage, setErrorMessage] = useState('');
@@ -109,8 +110,7 @@ export default function EnergyBalance({ geojson }: { geojson: any }) {
         return backupColors[colorIndex];
     };
 
-    const setStyle = (feature) => {
-        let fillColor;
+    const getFeatureValue = (feature) => {
         if (
             selectedDevelopment &&
             Object.keys(developmentsDefaults).length !== 0
@@ -149,6 +149,20 @@ export default function EnergyBalance({ geojson }: { geojson: any }) {
                       )
                     : undefined;
             }
+            return value;
+        } else {
+            return feature.properties.value;
+        }
+    };
+
+    const setStyle = (feature) => {
+        let fillColor;
+        const value = getFeatureValue(feature);
+        
+        if (
+            selectedDevelopment &&
+            Object.keys(developmentsDefaults).length !== 0
+        ) {
             fillColor = setColor(
                 value,
                 selectedDevelopment.min,
@@ -205,9 +219,21 @@ export default function EnergyBalance({ geojson }: { geojson: any }) {
         layer
             .on('mouseover', function (e) {
                 updateHover(feature.properties);
+                const value = getFeatureValue(feature);
+                const unit = selectedDevelopment?.unit || '%';
+                const formattedValue = value !== undefined && value !== null ? `${value.toLocaleString(undefined, { maximumFractionDigits: 1 })} ${unit}`.trim() : 'No data';
+                
+                setHoverTooltip({
+                    show: true,
+                    x: e.containerPoint.x,
+                    y: e.containerPoint.y,
+                    value: formattedValue,
+                    name: feature.properties.label || feature.properties.name || `Area ${feature.properties.gid}`
+                });
             })
             .on('mouseout', function (e) {
                 updateHover('');
+                setHoverTooltip({ show: false, x: 0, y: 0, value: null, name: '' });
             })
             .on('click', function (e) {
                 setSelectedGeoId(feature.properties);
@@ -265,7 +291,7 @@ export default function EnergyBalance({ geojson }: { geojson: any }) {
                 {geoJsonData.geoJSON && (
                     <>
                         <GeoJSON
-                            key={JSON.stringify(geoJsonData.geoJSON)}
+                            key={`${JSON.stringify(geoJsonData.geoJSON)}-${selectedDevelopment?.key || 'none'}`}
                             onEachFeature={clickOnFeature}
                             data={geoJsonData.geoJSON}
                             style={setStyle}
@@ -328,6 +354,29 @@ export default function EnergyBalance({ geojson }: { geojson: any }) {
                     </>
                 )}
             </MapContainer>
+
+            {/* Hover tooltip */}
+            {hoverTooltip.show && (
+                <div
+                    style={{
+                        position: 'absolute',
+                        left: hoverTooltip.x + 10,
+                        top: hoverTooltip.y - 10,
+                        backgroundColor: 'rgba(239, 239, 240)',
+                        color: 'white',
+                        padding: '8px 12px',
+                        borderRadius: '4px',
+                        fontSize: '12px',
+                        pointerEvents: 'none',
+                        zIndex: 1000,
+                        whiteSpace: 'nowrap',
+                        boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+                    }}
+                >
+                    <div style={{ fontWeight: 'bold', color: 'white !important' }}>{hoverTooltip.name}: {hoverTooltip.value}</div>
+                   
+                </div>
+            )}
 
             <aside className={s.EnergyBalanceAside}>
                 <div className={s.EnergyBalanceAside__inner}>
