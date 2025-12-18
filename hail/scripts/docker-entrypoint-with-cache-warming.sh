@@ -13,7 +13,15 @@ UVICORN_PID=$!
 # Function to handle shutdown signals
 cleanup() {
     echo "Shutting down..."
+    
+    # Terminate cache warming process if it's still running
+    if [ ! -z "$WARM_CACHE_PID" ]; then
+        kill $WARM_CACHE_PID 2>/dev/null || true
+    fi
+    
+    # Terminate uvicorn server
     kill $UVICORN_PID 2>/dev/null || true
+    
     exit 0
 }
 
@@ -29,7 +37,16 @@ REDIS_PORT="${REDIS_PORT:-6379}"
 MAX_RETRIES=30
 RETRY_COUNT=0
 
-until poetry run python -c "import redis; redis.Redis(host='${REDIS_HOST}', port=${REDIS_PORT}, socket_connect_timeout=1).ping()" 2>/dev/null; do
+until poetry run python - <<EOF 2>/dev/null
+import os
+import redis
+redis.Redis(
+    host=os.environ.get('REDIS_HOST', 'localhost'),
+    port=int(os.environ.get('REDIS_PORT', 6379)),
+    socket_connect_timeout=1
+).ping()
+EOF
+do
     RETRY_COUNT=$((RETRY_COUNT + 1))
     if [ $RETRY_COUNT -ge $MAX_RETRIES ]; then
         echo "⚠ Redis did not become ready within timeout period"
