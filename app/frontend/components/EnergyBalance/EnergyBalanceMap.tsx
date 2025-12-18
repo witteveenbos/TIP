@@ -7,7 +7,6 @@ import {
     useAreaDivisionStore,
     useGeoJsonDataStore,
     useInputTypeStore,
-    useMunicipalityScenariosStore,
     useScenarioStore,
     useSelectedGeoIdStore,
 } from 'stores/calculateStore';
@@ -20,12 +19,13 @@ import { Button } from '../ui/button';
 import s from './EnergyBalance.module.css';
 import { EnergyBalanceAsideDevelopments } from './EnergyBalanceAsideDevelopments';
 import EnergyBalanceDialogGraph from './EnergyBalanceDialogGraph';
-import EnergyBalanceLabel from './EnergyBalanceLabel';
 import EnergyBalanceLegend from './EnergyBalanceLegend';
+import ZoomHandler from './ZoomHandler';
+import GeoJsonLabel from './GeoJsonLabel';
 
-export default function EnergyBalance({ geojson }: { geojson: any }) {
+export default function EnergyBalanceMap({ geojson }: { geojson: any }) {
     const [hoverGeoId, setHoverGeoId] = useState('');
-    const [hoverTooltip, setHoverTooltip] = useState({ show: false, x: 0, y: 0, value: null, name: '' });
+    const [currentZoom, setCurrentZoom] = useState(0);
     const { selectedGeoId, setSelectedGeoId } = useSelectedGeoIdStore();
     const [dialogOpen, setDialogOpen] = useState({ open: false, type: null });
     const [graphData, setGraphData] = useState(null);
@@ -78,6 +78,14 @@ export default function EnergyBalance({ geojson }: { geojson: any }) {
             });
         }
     }, [futureVisionDialog]);
+
+    // Initialize zoom level when map is ready
+    useEffect(() => {
+        if (mapContainerRef.current) {
+            const map = mapContainerRef.current;
+            setCurrentZoom(map.getZoom());
+        }
+    }, [geoJsonData]);
 
     //Legend colors come from the metadata of the geoJsonData, these are used everywhere
     const legendColors = geoJsonData?.metadata?.legendLabels
@@ -212,28 +220,10 @@ export default function EnergyBalance({ geojson }: { geojson: any }) {
     function updateHover(geoid) {
         setHoverGeoId(geoid);
     }
-    // Function to bind popup to the geoJason data.
+    // Function to bind click events to the geoJSON data.
     function clickOnFeature(feature, layer) {
         layer
-            .on('mouseover', function (e) {
-                updateHover(feature.properties);
-                const value = getFeatureValue(feature);
-                const unit = selectedDevelopment?.unit || '%';
-                const formattedValue = value !== undefined && value !== null ? `${value.toLocaleString(undefined, { maximumFractionDigits: 1 })} ${unit}`.trim() : 'No data';
-                
-                setHoverTooltip({
-                    show: true,
-                    x: e.containerPoint.x,
-                    y: e.containerPoint.y,
-                    value: formattedValue,
-                    name: feature.properties.label || feature.properties.name || `Area ${feature.properties.gid}`
-                });
-            })
-            .on('mouseout', function (e) {
-                updateHover('');
-                setHoverTooltip({ show: false, x: 0, y: 0, value: null, name: '' });
-            })
-            .on('click', function (e) {
+            .on('click', function () {
                 setSelectedGeoId(feature.properties);
             });
     }
@@ -252,6 +242,7 @@ export default function EnergyBalance({ geojson }: { geojson: any }) {
             mapContainerRef.current.setZoom(zoomLevel);
         }
     };
+
     const bounds = [
         [50.5, 3.5], // whole of the Netherlands
         [53.5, 7.108],
@@ -286,6 +277,7 @@ export default function EnergyBalance({ geojson }: { geojson: any }) {
                     subdomains="abcd"
                     maxZoom={20}
                 />
+                <ZoomHandler setCurrentZoom={setCurrentZoom} />
                 {geoJsonData.geoJSON && (
                     <>
                         <GeoJSON
@@ -295,32 +287,16 @@ export default function EnergyBalance({ geojson }: { geojson: any }) {
                             style={setStyle}
                         />
 
-                        {!original &&
-                            geoJsonData.geoJSON.features.map(
-                                (feature: {
-                                    label: string;
-                                    geometry: { coordinates: any };
-                                    properties: {
-                                        value: any;
-                                        label: string;
-                                        color: string;
-                                        gid: string;
-                                    };
-                                }) => {
-                                    return (
-                                        <EnergyBalanceLabel
-                                            key={feature.label}
-                                            coords={
-                                                feature.geometry.coordinates
-                                            }
-                                            value={feature.properties.value}
-                                            text={feature.properties.label}
-                                            color={feature.properties.color}
-                                            gid={feature.properties.gid}
-                                        />
-                                    );
-                                }
-                            )}
+                        {/* Zoom-based labels with integrated development indicators */}
+                        {geoJsonData.geoJSON.features.map((feature) => (
+                            <GeoJsonLabel
+                                key={`geojson-label-${feature.properties.gid}`}
+                                feature={feature}
+                                currentZoom={currentZoom}
+                                getFeatureValue={getFeatureValue}
+                                selectedDevelopment={selectedDevelopment}
+                            />
+                        ))}
 
                         <EnergyBalanceLegend
                             map={mapContainerRef}
@@ -352,29 +328,6 @@ export default function EnergyBalance({ geojson }: { geojson: any }) {
                     </>
                 )}
             </MapContainer>
-
-            {/* Hover tooltip */}
-            {hoverTooltip.show && (
-                <div
-                    style={{
-                        position: 'absolute',
-                        left: hoverTooltip.x + 10,
-                        top: hoverTooltip.y - 10,
-                        backgroundColor: 'rgba(239, 239, 240)',
-                        color: 'white',
-                        padding: '8px 12px',
-                        borderRadius: '4px',
-                        fontSize: '12px',
-                        pointerEvents: 'none',
-                        zIndex: 1000,
-                        whiteSpace: 'nowrap',
-                        boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
-                    }}
-                >
-                    <div style={{ fontWeight: 'bold', color: 'white !important' }}>{hoverTooltip.name}: {hoverTooltip.value}</div>
-                   
-                </div>
-            )}
 
             <aside className={s.EnergyBalanceAside}>
                 <div className={s.EnergyBalanceAside__inner}>
