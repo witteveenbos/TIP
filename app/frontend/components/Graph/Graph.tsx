@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import {
     Bar,
     BarChart,
@@ -11,11 +11,10 @@ import {
     YAxis,
 } from 'recharts';
 import { Checkbox } from '../ui/checkbox';
+//types
+import { GraphProps, GraphDataPoint } from '@/types/components/Graph';
 
-interface GraphProps {
-    scenario: string;
-    data: any;
-}
+
 
 export default function StartupDialogGraph({ scenario, data }: GraphProps) {
     console.log(scenario); // TODO Temporarly print scenario until it's used (to fix linter)
@@ -23,15 +22,15 @@ export default function StartupDialogGraph({ scenario, data }: GraphProps) {
     const graphDataFromApi = data.graph.graphData;
     const metaDataFromApi = data.graph.metaData;
 
-    const uniqueDragers = [
+    const uniqueDragers = useMemo(() => [
         ...new Set(graphDataFromApi.map((item) => item.carrier)),
-    ];
-    const uniqueSectors = [
+    ], [graphDataFromApi]);
+    const uniqueSectors = useMemo(() => [
         ...new Set(graphDataFromApi.map((item) => item.sector)),
-    ];
-    const uniqueBars = [
+    ], [graphDataFromApi]);
+    const uniqueBars = useMemo(() => [
         ...new Set(graphDataFromApi.map((item) => item.demandSupply)),
-    ];
+    ], [graphDataFromApi]);
 
     const [selectedDragers, setSelectedDragers] = useState(uniqueDragers);
     const [selectedSectors, setSelectedSectors] = useState(uniqueSectors);
@@ -50,7 +49,7 @@ export default function StartupDialogGraph({ scenario, data }: GraphProps) {
         );
 
         for (let i = 0; i < uniqueBars.length; i++) {
-            const x = {};
+            const x: GraphDataPoint = {} as GraphDataPoint;
             x.name = uniqueBars[i];
 
             graphData
@@ -65,7 +64,7 @@ export default function StartupDialogGraph({ scenario, data }: GraphProps) {
 
         setGraphData(graph);
         setLegendData(legend);
-    }, [selectedDragers, selectedSectors, data]);
+    }, [selectedDragers, selectedSectors, data, graphDataFromApi, uniqueBars]);
 
     function getUniqueKeys() {
         const uniqueKeys = [];

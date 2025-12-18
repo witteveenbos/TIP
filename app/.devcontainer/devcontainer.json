@@ -27,13 +27,27 @@
         6379,
         3000
     ],
-    "remoteUser": "root",
+    "mounts": [
+        "source=${localEnv:HOME}/.gitconfig,target=/home/vscode/.gitconfig,type=bind,consistency=cached,readonly"
+    ],
+    "features": {
+        "ghcr.io/devcontainers/features/git:1": {}
+    },
+    "remoteUser": "vscode",
     "postCreateCommand": [
         "bash",
         "./.devcontainer/docker-entrypoint.sh"
     ],
+    "postStartCommand": "sudo chown -R vscode:vscode /workspace && git config --global --add safe.directory /workspace && git config --global --add safe.directory '*'",
     "settings": {
         "python.pythonPath": "/usr/local/bin/python",
         "python.formatting.provider": "black"
+    },
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "git.openRepositoryInParentFolders": "always"
+            }
+        }
     }
 }

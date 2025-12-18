@@ -1,121 +1,42 @@
 import { create } from 'zustand';
 import { createJSONStorage, devtools, persist } from 'zustand/middleware';
+import {
+    Area,
+    AreaData,
+    AreaDivisionState,
+    AllAreasState,
+    CalculatedData,
+    CalculatedDataState,
+    changedDevelopment,
+    ContinuousDevelopmentsChangesState,
+    ContinuousOptionsState,
+    DevelopmentDefaults,
+    DevelopmentOptions,
+    GeoJSONData,
+    GeoJsonDataState,
+    GeoMetadata,
+    InputTypeState,
+    MunicipalityScenario,
+    MunicipalityScenariosState,
+    RegionHierarchy,
+    RegionHierarchyState,
+    Scenario,
+    ScenarioState,
+    SectoralDevelopmentsChangesState,
+    SectoralOptionsState,
+    SectoralProject,
+    SelectedDevelopmentState,
+    SelectedGeoIDState,
+} from '@/types/stores/calculateStore';
 
-interface ScenarioState {
-    scenarios: [];
-    setScenarios: (scenarios: any) => void;
-    selectedScenario: string | null;
-    setSelectedScenario: (scenario: string) => void;
-}
 
-interface AreaDivisionState {
-    areaDivision:
-        | string
-        | Array<{
-              label: string;
-              value: string;
-          }>;
-    setAreaDivision: (areaDivision: string) => void;
-    selectedAreaDivision: Area;
-    setSelectedAreaDivision: (selectedAreaDivision: Area) => void;
-}
-
-enum Area {
-    PROV = 'PROV',
-    REG = 'REG',
-    GM = 'GM',
-    RES = 'RES',
-}
-
-interface MunicipalityScenariosState {
-    municipalityScenarios: MunicipalityScenario[];
-    setMunicipalityScenarios: (
-        municipalityScenarios: MunicipalityScenario[]
-    ) => void;
-}
-
-type MunicipalityScenario = {
-    ETMscenarioID: number;
-    municipalityID: string;
-};
-
-interface AllAreasState {
-    allAreas: any;
-    setAllAreas: (allAreas: any) => void;
-}
-
-interface RegionHierarchyState {
-    regionHierarchy: any;
-    regionHierarchyData: any;
-    setRegionHierarchy: (regionHierarchy: any) => void;
-}
-interface GeoJsonDataState {
-    geoJsonData: {
-        metadata: any;
-        geoJSON: any;
-    };
-    setGeoJsonData: (geoJsonData: any) => void;
-}
-
-interface SelectedGeoIDState {
-    selectedGeoId: string | null;
-    setSelectedGeoId: (selectedGeoId: string) => void;
-}
-
-interface inputTypeState {
-    inputType: 'continuous' | 'sectoral';
-    setInputType: (inputType) => void;
-}
-interface selectedDevelopmentState {
-    selectedDevelopment: {
-        name: string;
-        key: string;
-        type: string;
-        min: number;
-        max: number;
-        unit: string;
-    } | null;
-    setSelectedDevelopment: (selectedDevelopment) => void;
-}
-
-type changedDevelopment = {
-    projectId?: string;
-    municipalityID: string;
-    devGroupKey: string;
-    changes: [
-        {
-            devKey: string;
-            value: number;
-        },
-    ];
-};
-
-interface ContinuousDevelopmentsChangesState {
-    continuousDevelopmentDefaults: {};
-    setContinuousDevelopmentDefaults: (continuousDevelopmentDefaults: {}) => void;
-    changedContinuousDevelopments: [];
-    setChangedContinuousDevelopments: (
-        changedContinuousDevelopments: changedDevelopment[]
-    ) => void;
-}
-
-interface SectoralDevelopmentsChangesState {
-    sectoralDevelopmentDefaults: {};
-    setSectoralDevelopmentDefaults: (sectoralDevelopmentDefaults: {}) => void;
-    sectoralDevelopmentDefaultProjects: [];
-    setSectoralDevelopmentDefaultProjects: (
-        sectoralDevelopmentDefaultProjects: []
-    ) => void;
-    changedSectoralDevelopments: changedDevelopment[];
-    setChangedSectoralDevelopments: (changedSectoralDevelopments) => void;
-}
 
 export const useScenarioStore = create<ScenarioState>()(
     devtools(
         persist(
             (set) => ({
                 scenarios: [],
-                setScenarios: (scenarios: any) => set({ scenarios }),
+                setScenarios: (scenarios: Scenario[]) => set({ scenarios }),
                 selectedScenario: null,
                 setSelectedScenario: (selectedScenario: string) =>
                     set({ selectedScenario }),
@@ -132,8 +53,8 @@ export const useAreaDivisionStore = create<AreaDivisionState>()(
     devtools(
         persist(
             (set) => ({
-                areaDivision: '',
-                setAreaDivision: (areaDivision: Area) => set({ areaDivision }),
+                areaDivision: [],
+                setAreaDivision: (areaDivision: Array<{ label: string; value: string }>) => set({ areaDivision }),
                 selectedAreaDivision: Area.GM,
                 setSelectedAreaDivision: (selectedAreaDivision: Area) =>
                     set({ selectedAreaDivision }),
@@ -169,7 +90,8 @@ export const useRegionHierarchyStore = create<RegionHierarchyState>()(
         persist(
             (set) => ({
                 regionHierarchy: {},
-                setRegionHierarchy: (regionHierarchyData: any) =>
+                regionHierarchyData: {},
+                setRegionHierarchy: (regionHierarchyData: RegionHierarchy) =>
                     set({ regionHierarchyData }),
             }),
             {
@@ -185,7 +107,7 @@ export const useAllAreasStore = create<AllAreasState>()(
         persist(
             (set) => ({
                 allAreas: {},
-                setAllAreas: (allAreas: any) => set({ allAreas }),
+                setAllAreas: (allAreas: Record<string, AreaData>) => set({ allAreas }),
             }),
             {
                 name: 'all-areas-store',
@@ -200,7 +122,7 @@ export const useGeoJsonDataStore = create<GeoJsonDataState>()(
         persist(
             (set) => ({
                 geoJsonData: { metadata: null, geoJSON: null },
-                setGeoJsonData: (geoJsonData: any) => set({ geoJsonData }),
+                setGeoJsonData: (geoJsonData: { metadata: GeoMetadata | null; geoJSON: GeoJSONData | null }) => set({ geoJsonData }),
             }),
             {
                 name: 'geo-data-store',
@@ -226,12 +148,12 @@ export const useSelectedGeoIdStore = create<SelectedGeoIDState>()(
     )
 );
 
-export const useInputTypeStore = create<inputTypeState>()(
+export const useInputTypeStore = create<InputTypeState>()(
     devtools(
         persist(
             (set) => ({
                 inputType: 'continuous',
-                setInputType: (inputType) => set({ inputType }),
+                setInputType: (inputType: 'continuous' | 'sectoral') => set({ inputType }),
             }),
             {
                 name: 'input-type-store',
@@ -241,12 +163,19 @@ export const useInputTypeStore = create<inputTypeState>()(
     )
 );
 
-export const selectedDevelopmentStore = create<selectedDevelopmentState>()(
+export const selectedDevelopmentStore = create<SelectedDevelopmentState>()(
     devtools(
         persist(
             (set) => ({
                 selectedDevelopment: null,
-                setSelectedDevelopment: (selectedDevelopment) =>
+                setSelectedDevelopment: (selectedDevelopment: {
+                    name: string;
+                    key: string;
+                    type: string;
+                    min: number;
+                    max: number;
+                    unit: string;
+                } | null) =>
                     set({ selectedDevelopment }),
             }),
             {
@@ -264,12 +193,12 @@ export const continuousDevelopmentsChangesStore =
                 (set) => ({
                     continuousDevelopmentDefaults: null,
                     setContinuousDevelopmentDefaults: (
-                        continuousDevelopmentDefaults
+                        continuousDevelopmentDefaults: DevelopmentDefaults
                     ) => set({ continuousDevelopmentDefaults }),
 
                     changedContinuousDevelopments: [],
                     setChangedContinuousDevelopments: (
-                        changedContinuousDevelopments: []
+                        changedContinuousDevelopments: changedDevelopment[]
                     ) => set({ changedContinuousDevelopments }),
                 }),
                 {
@@ -279,21 +208,23 @@ export const continuousDevelopmentsChangesStore =
             )
         )
     );
-export const sectoralDevelopmentsChangesStore = create()(
+
+
+export const sectoralDevelopmentsChangesStore = create<SectoralDevelopmentsChangesState>()(
     devtools(
         persist(
             (set) => ({
                 sectoralDevelopmentDefaults: null,
-                setSectoralDevelopmentDefaults: (sectoralDevelopmentDefaults) =>
+                setSectoralDevelopmentDefaults: (sectoralDevelopmentDefaults: DevelopmentDefaults) =>
                     set({ sectoralDevelopmentDefaults }),
                 sectoralDevelopmentDefaultProjects: [],
                 setSectoralDevelopmentDefaultProjects: (
-                    sectoralDevelopmentDefaultProjects: []
+                    sectoralDevelopmentDefaultProjects: SectoralProject[]
                 ) => set({ sectoralDevelopmentDefaultProjects }),
 
                 changedSectoralDevelopments: [],
                 setChangedSectoralDevelopments: (
-                    changedSectoralDevelopments: []
+                    changedSectoralDevelopments: changedDevelopment[]
                 ) => set({ changedSectoralDevelopments }),
             }),
             {
@@ -304,12 +235,12 @@ export const sectoralDevelopmentsChangesStore = create()(
     )
 );
 
-export const useContinuousOptionsStore = create()(
+export const useContinuousOptionsStore = create<ContinuousOptionsState>()(
     devtools(
         persist(
             (set) => ({
                 continuousOptions: {},
-                setContinuousOptions: (continuousOptions: any) =>
+                setContinuousOptions: (continuousOptions: DevelopmentOptions) =>
                     set({ continuousOptions }),
             }),
             {
@@ -320,12 +251,12 @@ export const useContinuousOptionsStore = create()(
     )
 );
 
-export const useSectoralOptionsStore = create()(
+export const useSectoralOptionsStore = create<SectoralOptionsState>()(
     devtools(
         persist(
             (set) => ({
                 sectoralOptions: {},
-                setSectoralOptions: (sectoralOptions: any) =>
+                setSectoralOptions: (sectoralOptions: DevelopmentOptions) =>
                     set({ sectoralOptions }),
             }),
             {
@@ -336,12 +267,12 @@ export const useSectoralOptionsStore = create()(
     )
 );
 
-export const useCalculatedDataStore = create()(
+export const useCalculatedDataStore = create<CalculatedDataState>()(
     devtools(
         persist(
             (set) => ({
                 calculatedData: {},
-                setCalculatedData: (calculatedData: any) =>
+                setCalculatedData: (calculatedData: CalculatedData) =>
                     set({ calculatedData }),
             }),
             {
