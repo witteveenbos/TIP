@@ -3,7 +3,6 @@ import { Marker } from 'react-leaflet';
 import {
     continuousDevelopmentsChangesStore,
     sectoralDevelopmentsChangesStore,
-    selectedDevelopmentStore,
     useInputTypeStore,
 } from 'stores/calculateStore';
 
@@ -85,7 +84,7 @@ const GeoJsonLabel = ({
                 <Marker
                     key={`dev-indicator-${feature.properties.gid}`}
                     position={[center.lng, center.lat] as L.LatLngExpression}
-                    // @ts-ignore - Leaflet icon type compatibility
+                    // @ts-expect-error - Leaflet icon type compatibility
                     icon={checkmarkIcon}
                 />
             );
@@ -98,7 +97,7 @@ const GeoJsonLabel = ({
         html: `
             <div style="
                 background-color: rgba(255, 255, 255, 0.9);
-                border: 2px solid ${feature.properties.color || '#333'};
+                border: 2px solid #003360;
                 border-radius: 4px;
                 padding: 4px 8px;
                 font-size: 12px;
@@ -130,4 +129,4 @@ const GeoJsonLabel = ({
     );
 };
 
-export default ZoomBasedLabel;
+export default GeoJsonLabel;

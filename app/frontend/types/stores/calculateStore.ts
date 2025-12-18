@@ -186,10 +186,12 @@ export type changedDevelopment = {
     projectId?: string;
     municipalityID: string;
     devGroupKey: string;
+    isDefault?: boolean;
     changes: [
         {
             devKey: string;
             value: number;
+            default?: number;
         },
     ];
 };
