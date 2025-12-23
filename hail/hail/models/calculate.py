@@ -55,6 +55,8 @@ class LegendDef(BaseModel):
 
 class ColorMapDef(BaseModel):
     colormap: str
+    reverse: bool = False
+    # if True, the colormap will be reversed
     lower_limit: Optional[float | int] = None
     # if None, the minimum value of the data is used
     upper_limit: Optional[float | int] = None
@@ -70,6 +72,7 @@ class ColorMapDef(BaseModel):
             cmap_name=self.colormap,
             vmin=self.lower_limit,
             vmax=self.upper_limit,
+            reverse=self.reverse,
         )
 
     def model_post_init(self, __context: Any) -> None:

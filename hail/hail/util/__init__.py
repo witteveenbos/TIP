@@ -126,6 +126,7 @@ def get_color(
     cmap_name="b_diverging_protanopic_deuteranopic_bwy_60_95_c32",
     vmin=0,
     vmax=100,
+    reverse=False,
 ):
     if value is None:
         logging.debug("[colormap]: Value is None, returning white")
@@ -144,6 +145,11 @@ def get_color(
 
     norm_value = normalize(value, vmin, vmax)
     cmap = getattr(cc, cmap_name)
+    
+    # Reverse the colormap if requested
+    if reverse:
+        norm_value = 255 - norm_value
+    
     color = cmap[norm_value]
 
     return color

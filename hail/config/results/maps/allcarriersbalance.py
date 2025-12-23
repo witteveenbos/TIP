@@ -20,14 +20,16 @@ from config.results.maps.gas_shared import fuel_demand, fuel_potential_and_produ
 class AllCarriersBalanceNormalized(AbstractResultMap):
 
     key = "all_carriers_balance_normalized"
-    name = "Totale energiebalans (percentage)"
+    name = "Energiebalans, aanbod-vraag ratio (%)"
     unit = "%"
     colormap = ColorMapDef(
-        colormap="b_diverging_gkr_60_10_c40",
-        lower_limit=-100,
-        upper_limit=100,
+        # colormap="b_diverging_gkr_60_10_c40",
+        colormap="b_diverging_bwr_55_98_c37",
+        lower_limit=0,
+        upper_limit=200,
+        reverse=True,
     )
-    legend = LegendDef(steps=5, decimals=0)
+    legend = LegendDef(steps=9, decimals=0)
     related_carrier = CarrierEnum.ALL
     related_balance = BalanceEnum.BALANCE
 
@@ -69,7 +71,7 @@ class AllCarriersBalanceNormalized(AbstractResultMap):
         )
 
         # Calculate balance percentage
-        return (total_supply - total_demand) / total_demand * 100
+        return total_supply / total_demand * 100
 
     @staticmethod
     def map_aggregate(var: "Var"):
