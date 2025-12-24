@@ -19,14 +19,15 @@ if TYPE_CHECKING:
 class HeatBalanceNormalized(AbstractResultMap):
 
     key = "heat_balance_normalized"
-    name = "Warmtebalans (percentage)"
+    name = "Warmtebalans, aanbod-vraag ratio (%)"
     unit = "%"
     colormap = ColorMapDef(
-        colormap="b_diverging_gkr_60_10_c40",
-        lower_limit=-100,
-        upper_limit=100,
+        colormap="b_diverging_bwr_55_98_c37",
+        lower_limit=0,
+        upper_limit=200,
+        reverse=True
     )
-    legend = LegendDef(steps=5, decimals=0)
+    legend = LegendDef(steps=9, decimals=0)
     related_carrier = CarrierEnum.HEAT
     related_balance = BalanceEnum.BALANCE
 

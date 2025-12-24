@@ -23,7 +23,7 @@ class AllCarriersSupplyAbsolute(AbstractResultMap):
     unit = "PJ"  # TODO: check unit
     colormap = ColorMapDef(
         # colormap="b_linear_wyor_100_45_c55",
-        colormap="b_linear_kgy_5_95_c69",
+        colormap="b_linear_blue_95_50_c20",
     )
     legend = LegendDef(steps=7, decimals=0)
     related_carrier = CarrierEnum.ALL

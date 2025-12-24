@@ -20,7 +20,7 @@ class GridLoadDemand(AbstractResultMap):
     name = "Netbelasting door afname"
     unit = "%"  # TODO: make a unit Enum
     colormap = ColorMapDef(
-        colormap="b_diverging_gkr_60_10_c40",
+        colormap="b_linear_wyor_100_45_c55",
         lower_limit=0,
         upper_limit=250,
     )
