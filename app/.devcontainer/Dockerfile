@@ -22,9 +22,9 @@ ARG NODE_VERSION="none"
 RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c "umask 0002 && . /usr/local/share/nvm/nvm.sh && nvm install ${NODE_VERSION} 2>&1"; fi
 
 # [Optional] If your requirements rarely change, uncomment this section to add them to the image.
-COPY ./src/requirements/local.txt /tmp/pip-tmp/
-COPY ./src/requirements/test.txt /tmp/pip-tmp/
-COPY ./src/requirements/base.txt /tmp/pip-tmp/
+COPY ./app/src/requirements/local.txt /tmp/pip-tmp/
+COPY ./app/src/requirements/test.txt /tmp/pip-tmp/
+COPY ./app/src/requirements/base.txt /tmp/pip-tmp/
 RUN pip3 --disable-pip-version-check --no-cache-dir install -r /tmp/pip-tmp/local.txt \
     && rm -rf /tmp/pip-tmp
 
@@ -38,6 +38,10 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get install -y binutils libproj-dev gdal-bin \
     && apt-get install -y vim curl gettext \
     && apt-get install -y libmagickwand-dev \
+    && apt-get install -y sudo \
     && rm -rf /var/lib/apt/lists/*
+
+# Give vscode user sudo access
+RUN echo "vscode ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 EXPOSE 8000
