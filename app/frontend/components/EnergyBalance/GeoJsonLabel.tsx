@@ -39,8 +39,8 @@ const GeoJsonLabel = ({
     const value = getFeatureValue(feature);
     const unit = selectedDevelopment?.unit || '%';
     const formattedValue = value !== undefined && value !== null ? 
-        `${value.toLocaleString(undefined, { maximumFractionDigits: 1 })} ${unit}`.trim() : 
-        'No data';
+        `${value.toLocaleString('nl-NL', { maximumFractionDigits: 1 })} ${unit}`.trim() : 
+        'Geen data beschikbaar';
     const name = feature.properties.label || feature.properties.name || `Area ${feature.properties.gid}`;
     
     // Check for active developments (from EnergyBalanceLabel logic)

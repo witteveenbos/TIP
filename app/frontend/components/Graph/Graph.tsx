@@ -176,7 +176,7 @@ export default function StartupDialogGraph({ scenario, data }: GraphProps) {
                     </BarChart>
                 </ResponsiveContainer>
             ) : (
-                'no data'
+                'Geen data beschikbaar'
             )}
         </div>
     );
