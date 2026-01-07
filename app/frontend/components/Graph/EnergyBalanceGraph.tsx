@@ -128,9 +128,8 @@ export default function EnergyBalanceGraph({ scenario, data }: GraphProps) {
     }
 
     return (
-        <div className="flex flex-col md:flex-row h-[250px] flex-1">
-            <div className="">
-                {/* View Mode Toggle */}
+        <div className="flex flex-col h-[350px] flex-1">
+             {/* View Mode Toggle */}
                 <div className="mb-4">
                     <h3 className="text-primary font-bold leading-6 mb-2">Weergave</h3>
                     <div className="flex gap-4">
@@ -159,6 +158,9 @@ export default function EnergyBalanceGraph({ scenario, data }: GraphProps) {
                     </div>
                 </div>
                 <hr className="mb-4" />
+        <div className="flex flex-col md:flex-row flex-1">{/* Removed fixed height h-[250px] */}
+            <div className="">
+               
 
                 {/* Conditional Checkbox Sections */}
                 {viewMode === 'sectors' && (
@@ -271,6 +273,7 @@ export default function EnergyBalanceGraph({ scenario, data }: GraphProps) {
             ) : (
                 'Geen data beschikbaar'
             )}
+        </div>
         </div>
     );
 }
