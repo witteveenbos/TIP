@@ -1,8 +1,8 @@
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import Graph from '../Graph/Graph';
+import EnergyBalanceGraph from '../Graph/EnergyBalanceGraph';
 import { Dialog, DialogOverlay } from '../ui/dialog';
 
-export default function EnergyBalanceDialogGraph({
+export default function EnergyBalanceDialog({
     graphData,
     region,
     closeDialog,
@@ -19,7 +19,7 @@ export default function EnergyBalanceDialogGraph({
                         </button>
                     </div>
                     {graphData !== null ? (
-                        <Graph data={graphData} scenario="" />
+                        <EnergyBalanceGraph data={graphData} scenario="" />
                     ) : (
                         <p>
                             Er is helaas geen Energiebalans grafiek beschikbaar.{' '}

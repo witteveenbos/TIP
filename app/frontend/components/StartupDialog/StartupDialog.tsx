@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useScenarioStore } from 'stores/calculateStore';
 import { getMainGraph } from '../../api/api';
 import { Scenario } from '../../containers/HomePage/HomePage';
-import Graph from '../Graph/Graph';
+import EnergyBalanceGraph from '../Graph/EnergyBalanceGraph';
 import Loader from '../Loader/Loader';
 import { Button } from '../ui/button';
 import { Dialog, DialogOverlay } from '../ui/dialog';
@@ -116,7 +116,7 @@ export default function StartupDialog({
                                 </div>
                                 {error && <p>{error}</p>}
                                 {graphData && (
-                                    <Graph
+                                    <EnergyBalanceGraph
                                         data={graphData}
                                         scenario={selectedScenario}
                                     />
