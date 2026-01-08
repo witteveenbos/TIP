@@ -123,7 +123,7 @@ const GeoJsonLabel = ({
         <Marker
             key={`label-${feature.properties.gid}`}
             position={[center.lng, center.lat] as L.LatLngExpression}
-            // @ts-ignore - Leaflet icon type compatibility
+            // @ts-expect-error - Leaflet icon type compatibility
             icon={labelIcon}
         />
     );

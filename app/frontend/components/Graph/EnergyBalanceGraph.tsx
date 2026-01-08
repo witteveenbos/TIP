@@ -129,9 +129,9 @@ export default function EnergyBalanceGraph({ scenario, data }: GraphProps) {
     }
 
     return (
-        <div className="flex flex-col h-[350px] flex-1">
+        <div className="flex flex-col max-h-[550px] flex-1">
              {/* View Mode Toggle */}
-                <div className="flex justify-between items-center mb-4">
+                <div className="flex justify-start items-center mb-4 gap-8">
                     <h3 className="text-primary font-bold leading-6">Weergave</h3>
                     <div className="flex">
                         <RadioOption
@@ -149,8 +149,8 @@ export default function EnergyBalanceGraph({ scenario, data }: GraphProps) {
                     </div>
                 </div>
                 <hr className="mb-4" />
-        <div className="flex flex-col md:flex-row flex-1">{/* Removed fixed height h-[250px] */}
-            <div className="">
+        <div className="flex flex-col md:flex-row flex-1 min-h-[300px] max-h-[110%]">
+            <div className="min-w-[200px] max-w-[250px] pr-4 ">
                
 
                 {/* Conditional Checkbox Sections */}
@@ -220,6 +220,7 @@ export default function EnergyBalanceGraph({ scenario, data }: GraphProps) {
                     </>
                 )}
             </div>
+            <div className="flex-1 min-h-0">
             {graphData.length > 0 ? (
                 <ResponsiveContainer width="100%" height="100%">
                     <BarChart
@@ -262,8 +263,11 @@ export default function EnergyBalanceGraph({ scenario, data }: GraphProps) {
                     </BarChart>
                 </ResponsiveContainer>
             ) : (
-                'Geen data beschikbaar'
+                <div className="flex items-center justify-center h-full text-gray-500">
+                    Geen data beschikbaar
+                </div>
             )}
+            </div>
         </div>
         </div>
     );
