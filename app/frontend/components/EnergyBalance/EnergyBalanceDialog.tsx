@@ -19,7 +19,9 @@ export default function EnergyBalanceDialog({
                         </button>
                     </div>
                     {graphData !== null ? (
+                        <div className="flex-1 overflow-y-auto">
                         <EnergyBalanceGraph data={graphData} scenario="" />
+                        </div>
                     ) : (
                         <p>
                             Er is helaas geen Energiebalans grafiek beschikbaar.{' '}

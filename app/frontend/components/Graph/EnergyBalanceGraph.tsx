@@ -11,6 +11,7 @@ import {
     YAxis,
 } from 'recharts';
 import { Checkbox } from '../ui/checkbox';
+import RadioOption from '../ui/radioButtonOption';
 //types
 import { GraphProps, GraphDataPoint } from '@/types/components/Graph';
 
@@ -130,31 +131,21 @@ export default function EnergyBalanceGraph({ scenario, data }: GraphProps) {
     return (
         <div className="flex flex-col h-[350px] flex-1">
              {/* View Mode Toggle */}
-                <div className="mb-4">
-                    <h3 className="text-primary font-bold leading-6 mb-2">Weergave</h3>
-                    <div className="flex gap-4">
-                        <label className="flex items-center">
-                            <input
-                                type="radio"
-                                name="viewMode"
-                                value="dragers"
-                                checked={viewMode === 'dragers'}
-                                onChange={(e) => setViewMode(e.target.value as ViewMode)}
-                                className="mr-2"
-                            />
-                            Dragers
-                        </label>
-                        <label className="flex items-center">
-                            <input
-                                type="radio"
-                                name="viewMode"
-                                value="sectors"
-                                checked={viewMode === 'sectors'}
-                                onChange={(e) => setViewMode(e.target.value as ViewMode)}
-                                className="mr-2"
-                            />
-                            Sectoren
-                        </label>
+                <div className="flex justify-between items-center mb-4">
+                    <h3 className="text-primary font-bold leading-6">Weergave</h3>
+                    <div className="flex">
+                        <RadioOption
+                            label="Dragers"
+                            value="dragers"
+                            selectedOption={viewMode}
+                            onSelect={(value) => setViewMode(value as ViewMode)}
+                        />
+                        <RadioOption
+                            label="Sectoren"
+                            value="sectors"
+                            selectedOption={viewMode}
+                            onSelect={(value) => setViewMode(value as ViewMode)}
+                        />
                     </div>
                 </div>
                 <hr className="mb-4" />
