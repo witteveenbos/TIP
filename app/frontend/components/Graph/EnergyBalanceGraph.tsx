@@ -158,7 +158,7 @@ export default function EnergyBalanceGraph({ scenario, data }: GraphProps) {
                     <>
                         <h3 className="text-primary font-bold leading-6">Filter sectoren</h3>
                         {uniqueSectors.map((item) => (
-                            <div key={item}>
+                            <div key={item} className='relative my-1 '>
                                 <Checkbox
                                     id={item}
                                     key={item}
@@ -178,10 +178,13 @@ export default function EnergyBalanceGraph({ scenario, data }: GraphProps) {
                                             ]);
                                         }
                                     }}></Checkbox>
-
-                                <label htmlFor={item} className="ml-2">
+                                <label htmlFor={item} className='mx-4'>
                                     {item}
                                 </label>
+                                <div 
+                                    className="absolute right-[-8px] top-1 w-4 h-4 ml-2 mr-1 border rounded border-gray-300" 
+                                    style={{ backgroundColor: legendData[item] }}
+                                ></div>
                             </div>
                         ))}
                     </>
@@ -191,7 +194,7 @@ export default function EnergyBalanceGraph({ scenario, data }: GraphProps) {
                     <>
                         <h3 className="text-primary font-bold leading-6">Filter dragers</h3>
                         {uniqueDragers.map((item) => (
-                            <div key={item}>
+                            <div key={item} className='relative my-1 '>
                                 <Checkbox
                                     key={item}
                                     id={item}
@@ -211,10 +214,14 @@ export default function EnergyBalanceGraph({ scenario, data }: GraphProps) {
                                             ]);
                                         }
                                     }}></Checkbox>
-
-                                <label className="ml-2" htmlFor={item}>
+                               
+                                <label htmlFor={item} className='mx-4'>
                                     {item}
                                 </label>
+                                <div 
+                                    className="absolute right-[-8px] top-1 w-4 h-4 ml-2 mr-1 border rounded border-gray-300" 
+                                    style={{ backgroundColor: legendData[item] }}
+                                ></div>
                             </div>
                         ))}
                     </>
@@ -247,8 +254,7 @@ export default function EnergyBalanceGraph({ scenario, data }: GraphProps) {
                                 name
                             ]}
                         />
-                        <Legend align="left" />
-
+                       
                         {getUniqueKeys()
                             .filter((bar) => bar != 'name')
                             .map((item, index) => (
