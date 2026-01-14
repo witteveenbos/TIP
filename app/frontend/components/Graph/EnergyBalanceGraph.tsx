@@ -1,280 +1,97 @@
-import { useEffect, useState, useMemo } from 'react';
-import {
-    Bar,
-    BarChart,
-    CartesianGrid,
-    Label,
-    Legend,
-    ResponsiveContainer,
-    Tooltip,
-    XAxis,
-    YAxis,
-} from 'recharts';
-import { Checkbox } from '../ui/checkbox';
+import { useState } from 'react';
+import { GraphProps } from '@/types/components/Graph';
+import { useEnergyBalanceData } from '@/hooks/useEnergyBalanceData';
 import RadioOption from '../ui/radioButtonOption';
-//types
-import { GraphProps, GraphDataPoint } from '@/types/components/Graph';
+import FilterSection from './FilterSection';
+import EnergyBalanceChart from './EnergyBalanceChart';
+import { ViewMode } from '@/types/components/Graph';
 
-type ViewMode = 'dragers' | 'sectors';
 
-export default function EnergyBalanceGraph({ scenario, data }: GraphProps) {
-    console.log(scenario); // TODO Temporarly print scenario until it's used (to fix linter)
-    console.log(data); // TODO Temporarly print data until it's used (to fix linter)
-    const graphDataFromApi = data.graph.graphData;
+export default function EnergyBalanceGraph({ data }: GraphProps) {
     const metaDataFromApi = data.graph.metaData;
-
-    const uniqueDragers = useMemo(() => [
-        ...new Set(graphDataFromApi.map((item) => item.carrier)),
-    ], [graphDataFromApi]);
-    const uniqueSectors = useMemo(() => [
-        ...new Set(graphDataFromApi.map((item) => item.sector)),
-    ], [graphDataFromApi]);
-    const uniqueBars = useMemo(() => [
-        ...new Set(graphDataFromApi.map((item) => item.demandSupply)),
-    ], [graphDataFromApi]);
-
+    
+    // Extract initial unique values for filters
+    const initialDragers = [...new Set(data.graph.graphData.map((item) => item.carrier))];
+    const initialSectors = [...new Set(data.graph.graphData.map((item) => item.sector))];
+    
+    // State management
     const [viewMode, setViewMode] = useState<ViewMode>('dragers');
-    const [selectedDragers, setSelectedDragers] = useState(uniqueDragers);
-    const [selectedSectors, setSelectedSectors] = useState(uniqueSectors);
+    const [selectedDragers, setSelectedDragers] = useState(initialDragers);
+    const [selectedSectors, setSelectedSectors] = useState(initialSectors);
 
-    const [graphData, setGraphData] = useState([]);
-    const [legendData, setLegendData] = useState([]);
-
-    // Define consistent colors for sectors
-    const sectorColors = useMemo(() => {
-        const colors = [
-            '#5D7929', // Forest Green (similar to Biogene brandstoffen)
-            '#4169E1', // Royal Blue (similar to Elektriciteit)
-            '#854321', // Brown (similar to Olie)
-            '#FF8400', // Orange (similar to Geothermisch)
-            '#8B0000', // Dark Red (similar to Warmte)
-            '#87CEEB', // Sky Blue (similar to Waterstof)
-            '#CCCCCC', // Gray (similar to Netwerkgas)
-            '#333333', // Dark Gray (similar to Kolen)
-            '#FFD900', // Yellow (similar to Zonthermie)
-            '#1ce6d6', // Cyan (similar to Ammoniak)
-        ];
-        
-        const colorMap = {};
-        uniqueSectors.forEach((sector, index) => {
-            colorMap[sector] = colors[index % colors.length];
-        });
-        return colorMap;
-    }, [uniqueSectors]);
-
-    useEffect(() => {
-        const graph = [];
-        const legend = [];
-
-        const filteredData = graphDataFromApi.filter(
-            (item) =>
-                selectedDragers.includes(item.carrier) &&
-                selectedSectors.includes(item.sector)
-        );
-
-        if (viewMode === 'dragers') {
-            // Group by demandSupply (x-axis), show carriers as different bars
-            for (let i = 0; i < uniqueBars.length; i++) {
-                const x: GraphDataPoint = {} as GraphDataPoint;
-                x.name = uniqueBars[i];
-
-                filteredData
-                    .filter((item) => item.demandSupply === uniqueBars[i])
-                    .forEach((item) => {
-                        if (x[item.carrier]) {
-                            x[item.carrier] += item.value;
-                        } else {
-                            x[item.carrier] = item.value;
-                            legend[item.carrier] = item.color;
-                        }
-                    });
-
-                graph.push(x);
-            }
+    const toggleDrager = (drager: string) => {
+        if (selectedDragers.includes(drager)) {
+            setSelectedDragers(selectedDragers.filter((d) => d !== drager));
         } else {
-            // Group by demandSupply (x-axis), show sectors as different bars
-            for (let i = 0; i < uniqueBars.length; i++) {
-                const x: GraphDataPoint = {} as GraphDataPoint;
-                x.name = uniqueBars[i];
-
-                filteredData
-                    .filter((item) => item.demandSupply === uniqueBars[i])
-                    .forEach((item) => {
-                        if (x[item.sector]) {
-                            x[item.sector] += item.value;
-                        } else {
-                            x[item.sector] = item.value;
-                            legend[item.sector] = sectorColors[item.sector];
-                        }
-                    });
-
-                graph.push(x);
-            }
+            setSelectedDragers([...selectedDragers, drager]);
         }
+    };
 
-        setGraphData(graph);
-        setLegendData(legend);
-    }, [selectedDragers, selectedSectors, viewMode, data, graphDataFromApi, uniqueBars]);
-
-    function getUniqueKeys() {
-        const uniqueKeys = [];
-        graphData.map((item) => {
-            Object.keys(item).map((key) => {
-                if (!uniqueKeys.includes(key)) {
-                    uniqueKeys.push(key);
-                }
-            });
-        });
-        return uniqueKeys;
-    }
+    const toggleSector = (sector: string) => {
+        if (selectedSectors.includes(sector)) {
+            setSelectedSectors(selectedSectors.filter((s) => s !== sector));
+        } else {
+            setSelectedSectors([...selectedSectors, sector]);
+        }
+    };
+    
+    // Use custom hook for data processing
+    const {
+        graphData,
+        legendData,
+        uniqueDragers,
+        uniqueSectors,
+    } = useEnergyBalanceData(data, viewMode, selectedDragers, selectedSectors);
 
     return (
         <div className="flex flex-col max-h-[550px] flex-1">
-             {/* View Mode Toggle */}
-                <div className="flex justify-start items-center mb-4 gap-8">
-                    <h3 className="text-primary font-bold leading-6">Weergave</h3>
-                    <div className="flex">
-                        <RadioOption
-                            label="Dragers"
-                            value="dragers"
-                            selectedOption={viewMode}
-                            onSelect={(value) => setViewMode(value as ViewMode)}
-                        />
-                        <RadioOption
-                            label="Sectoren"
-                            value="sectors"
-                            selectedOption={viewMode}
-                            onSelect={(value) => setViewMode(value as ViewMode)}
-                        />
-                    </div>
+            {/* View Mode Toggle */}
+            <div className="flex justify-start items-center mb-4 gap-8">
+                <h3 className="text-primary font-bold leading-6">Weergave</h3>
+                <div className="flex">
+                    <RadioOption
+                        label="Dragers"
+                        value="dragers"
+                        selectedOption={viewMode}
+                        onSelect={(value) => setViewMode(value as ViewMode)}
+                    />
+                    <RadioOption
+                        label="Sectoren"
+                        value="sectors"
+                        selectedOption={viewMode}
+                        onSelect={(value) => setViewMode(value as ViewMode)}
+                    />
                 </div>
-                <hr className="mb-4" />
-        <div className="flex flex-col md:flex-row flex-1 min-h-[300px] max-h-[110%]">
-            <div className="min-w-[200px] max-w-[250px] pr-4 ">
-               
-
-                {/* Conditional Checkbox Sections */}
-                {viewMode === 'sectors' && (
-                    <>
-                        <h3 className="text-primary font-bold leading-6">Filter sectoren</h3>
-                        {uniqueSectors.map((item) => (
-                            <div key={item} className='relative my-1 '>
-                                <Checkbox
-                                    id={item}
-                                    key={item}
-                                    value={item}
-                                    defaultChecked={selectedSectors.includes(item)}
-                                    onCheckedChange={() => {
-                                        if (selectedSectors.includes(item)) {
-                                            setSelectedSectors(
-                                                selectedSectors.filter(
-                                                    (sector) => sector !== item
-                                                )
-                                            );
-                                        } else {
-                                            setSelectedSectors([
-                                                ...selectedSectors,
-                                                item,
-                                            ]);
-                                        }
-                                    }}></Checkbox>
-                                <label htmlFor={item} className='mx-4'>
-                                    {item}
-                                </label>
-                                <div 
-                                    className="absolute right-[-8px] top-1 w-4 h-4 ml-2 mr-1 border rounded border-gray-300" 
-                                    style={{ backgroundColor: legendData[item] }}
-                                ></div>
-                            </div>
-                        ))}
-                    </>
-                )}
-
-                {viewMode === 'dragers' && (
-                    <>
-                        <h3 className="text-primary font-bold leading-6">Filter dragers</h3>
-                        {uniqueDragers.map((item) => (
-                            <div key={item} className='relative my-1 '>
-                                <Checkbox
-                                    key={item}
-                                    id={item}
-                                    value={item}
-                                    defaultChecked={selectedDragers.includes(item)}
-                                    onCheckedChange={() => {
-                                        if (selectedDragers.includes(item)) {
-                                            setSelectedDragers(
-                                                selectedDragers.filter(
-                                                    (drager) => drager !== item
-                                                )
-                                            );
-                                        } else {
-                                            setSelectedDragers([
-                                                ...selectedDragers,
-                                                item,
-                                            ]);
-                                        }
-                                    }}></Checkbox>
-                               
-                                <label htmlFor={item} className='mx-4'>
-                                    {item}
-                                </label>
-                                <div 
-                                    className="absolute right-[-8px] top-1 w-4 h-4 ml-2 mr-1 border rounded border-gray-300" 
-                                    style={{ backgroundColor: legendData[item] }}
-                                ></div>
-                            </div>
-                        ))}
-                    </>
-                )}
             </div>
-            <div className="flex-1 min-h-0">
-            {graphData.length > 0 ? (
-                <ResponsiveContainer width="100%" height="100%">
-                    <BarChart
-                        width={500}
-                        height={300}
-                        data={graphData}
-                        margin={{
-                            top: 20,
-                            right: 30,
-                            left: 20,
-                            bottom: 5,
-                        }}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="name" />
-                        <YAxis>
-                            <Label angle={-90} dx={-20}>
-                                {`${metaDataFromApi.title} (${metaDataFromApi.unit})`}
-                            </Label>
-                        </YAxis>
-
-                        <Tooltip 
-                            formatter={(value: number, name: string) => [
-                                value.toFixed(2), 
-                                name
-                            ]}
+            <hr className="mb-4" />
+            <div className="flex flex-col md:flex-row flex-1 min-h-[300px] max-h-[110%]">
+                <div className="min-w-[200px] max-w-[250px] pr-4">
+                    {viewMode === 'sectors' ? (
+                        <FilterSection
+                            title="Filter sectoren"
+                            items={uniqueSectors}
+                            selectedItems={selectedSectors}
+                            onToggleItem={toggleSector}
+                            legendData={legendData}
                         />
-                       
-                        {getUniqueKeys()
-                            .filter((bar) => bar != 'name')
-                            .map((item, index) => (
-                                <Bar
-                                    key={index}
-                                    isAnimationActive={false}
-                                    dataKey={item}
-                                    stackId="a"
-                                    fill={legendData[item]}
-                                />
-                            ))}
-                    </BarChart>
-                </ResponsiveContainer>
-            ) : (
-                <div className="flex items-center justify-center h-full text-gray-500">
-                    Geen data beschikbaar
+                    ) : (
+                        <FilterSection
+                            title="Filter dragers"
+                            items={uniqueDragers}
+                            selectedItems={selectedDragers}
+                            onToggleItem={toggleDrager}
+                            legendData={legendData}
+                        />
+                    )}
                 </div>
-            )}
+                <div className="flex-1 min-h-0">
+                    <EnergyBalanceChart
+                        graphData={graphData}
+                        legendData={legendData}
+                        metaData={metaDataFromApi}
+                    />
+                </div>
             </div>
-        </div>
         </div>
     );
 }
