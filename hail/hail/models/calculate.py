@@ -10,6 +10,7 @@ from hail.models.enums import (
 )
 from hail.models.fundamental import Value
 from hail.models.matrix import AggregatedMatrix, Matrix
+from hail.models.curve import AggregatedCurve, Curve
 from hail.util import get_color
 
 
@@ -178,6 +179,24 @@ class GraphElement(BaseModel, arbitrary_types_allowed=True):
         return GraphElement(
             carrier=self.carrier,
             sector=self.sector,
+            demandSupply=self.demandSupply,
+            color=self.color,
+            value=self.value[index],
+        )
+
+
+class GraphCurveElement(BaseModel, arbitrary_types_allowed=True):
+    name: str
+    demandSupply: str
+    color: str
+    value: list | Curve
+
+    def filter_on_index(self, index: int) -> GraphCurveElement:
+        assert isinstance(
+            self.value, Curve
+        ), "Cannot filter on index if value is not a curve"
+        return GraphCurveElement(
+            name=self.name,
             demandSupply=self.demandSupply,
             color=self.color,
             value=self.value[index],

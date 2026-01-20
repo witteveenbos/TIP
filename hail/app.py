@@ -30,7 +30,7 @@ DEV_CONFIG = CONFIG / "developments"
 RESULT_CONFIG = CONFIG / "results"
 # TODO: use these config paths (optimization)
 
-ORIGINS = os.environ.get("TRUSTED_ORIGINS_DATA", "http://localhost:3000").split(",")
+ORIGINS = os.environ.get("TRUSTED_ORIGINS_DATA", "http://localhost:3000,http://127.0.0.1:3000").split(",")
 
 # this is done during the startup (when the server starts)
 # because we are using the same config for all requests
@@ -196,3 +196,20 @@ def palettes():
 async def list_graphs() -> list[str]:
     graph_values = [graph.value for graph in GraphTypes]
     return graph_values
+
+
+@app.get("/gquery/{gquery_name}/")
+async def get_gquery_value(
+    gquery_name: str,
+    main_scenario: MainScenarioEnum,
+    redis_client: Annotated[Redis, Depends(get_redis_client)],
+) -> dict:
+    """Get any gquery value from the ETM"""
+    async with redis_client as redis_client:
+        return await af.get_gquery_value(
+            selected_scenario=main_scenario,
+            gquery_name=gquery_name,
+            preloaded=preloaded,
+            redis_client=redis_client,
+        )
+

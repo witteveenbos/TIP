@@ -14,6 +14,7 @@ from hail.models.calculate import CalculateResponse
 from hail.models.configuration import AccessedAttributes, ETMScenario
 from hail.models.enums import MainScenarioEnum
 from hail.models.request import PostUserInputRequest
+from hail.models.response import APIResponse
 from hail.models.state import PreloadedState
 from hail.result import AbstractResultMap
 from hail.result.graph import AbstractResultGraph
@@ -211,3 +212,88 @@ def log_reason_postuservalues(request: PostUserInputRequest, changes_by_user: bo
         logging.info(
             "[app:post_user_values] Returning updated results because changes by user"
         )
+
+
+async def get_gquery_value(
+    selected_scenario: MainScenarioEnum,
+    gquery_name: str,
+    preloaded: PreloadedState,
+    redis_client: Redis,
+) -> dict:
+    """Get any gquery value from the ETM"""
+    
+    accessed_attributes = preloaded.accessed_attributes
+    scenario_relations = preloaded.scenario_relations
+
+    # Find the scenario relation
+    base_scenarios = None
+    if scenario_relations:
+        for scenario_rel in scenario_relations:
+            if scenario_rel.main_scenario == selected_scenario:
+                base_scenarios = scenario_rel.municipal_scenarios
+                break
+    
+    if base_scenarios is None:
+        return {"error": "No scenarios found for the given main scenario"}
+
+    default_scenarios = [
+        ETMScenario(
+            name=ms.municipalityID.value,  # Convert enum to string
+            etm_id=ms.ETMscenarioID,
+        )
+        for ms in base_scenarios
+    ]
+
+    client = AsyncETMClient(
+        main_scenario=selected_scenario.value,  # Convert enum to string
+        scenarios=default_scenarios,
+        redis_client=redis_client,
+    )
+
+
+    # Get unvalidated raw debug information by calling query_all directly (async way)
+    try:
+        unvalidated_responses = await client.query_all(gqueries=[gquery_name], inputs=[])
+        logging.debug(f"[get_gquery_value] Unvalidated ETM response for {gquery_name}: {unvalidated_responses}")
+    except Exception as e:
+        logging.debug(f"[get_gquery_value] Could not get unvalidated debug responses: {e}")
+    
+    # Get validated raw debug information by calling query_all directly (async way)
+    try:
+        # Also get the validated responses for comparison
+        validated_responses = [APIResponse(**response) for response in unvalidated_responses]
+        logging.debug(f"[get_gquery_value] Validated ETM response for {gquery_name}: {validated_responses}")
+    except Exception as e:
+        logging.debug(f"[get_gquery_value] Could not get validated debug responses: {e}")
+
+
+    # Connect with just the specific gquery we need
+    context = await client.connect(
+        gqueries=[gquery_name],
+    )
+
+    # Get the value dynamically using getattr
+    try:
+        gquery_obj = getattr(context.gqueries, gquery_name)
+        raw_value = gquery_obj.future
+
+        logging.debug(f"[get_gquery_value] Raw gquery object for {gquery_name}: {gquery_obj}")
+        logging.debug(f"[get_gquery_value] Raw future value for {gquery_name}: {raw_value} (type: {type(raw_value)})")
+        
+        value = raw_value.data  # Matrix.data is already JSON serializable, also nested lists for 2D
+        if raw_value.dimension == 2:
+            value_type = "matrix_2d_timeseries"
+            logging.debug(f"[get_gquery_value] Converted 2D Matrix (timeseries) to data: shape={len(value)}x{len(value[0]) if value else 0}")
+        else:
+            value_type = "matrix_1d"
+            logging.debug(f"[get_gquery_value] Converted 1D Matrix to data list: {value}")
+    except AttributeError:
+        return {"error": f"Gquery '{gquery_name}' not found or not available"}
+    
+    return {
+        "value": value[0:4], # Return only first two entries for brevity
+        "value_type": value_type,
+        "gquery": gquery_name,
+        "unit": "GWh",  # Default unit, could be made configurable
+        "description": f"ETM gquery value for {gquery_name}"
+    }

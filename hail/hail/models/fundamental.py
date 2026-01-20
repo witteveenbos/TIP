@@ -1,4 +1,5 @@
 from hail.models.matrix import Matrix
+from hail.models.curve import Curve
 
 
 Value = float | int
@@ -26,7 +27,10 @@ class FilterList(list):
             return self.etm_key
 
         try:
-            return Matrix([(getattr(x, item)) for x in self])
+            if isinstance(getattr(self[0], item), list):
+                return Curve([getattr(x, item) for x in self])
+            else:
+                return Matrix([(getattr(x, item)) for x in self])
         except AttributeError:
             raise AttributeError(
                 f"Requested field {item} not found in {self}. Check whether you've used the correct field for this datasource."
