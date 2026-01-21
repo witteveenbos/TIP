@@ -18,7 +18,7 @@ import FutureVisionDialog from '../FutureVisionDialog';
 import { Button } from '../ui/button';
 import s from './EnergyBalance.module.css';
 import { EnergyBalanceAsideDevelopments } from './EnergyBalanceAsideDevelopments';
-import EnergyBalanceDialogGraph from './EnergyBalanceDialogGraph';
+import EnergyBalanceDialog from './EnergyBalanceDialog';
 import EnergyBalanceLegend from './EnergyBalanceLegend';
 import ZoomHandler from './ZoomHandler';
 import GeoJsonLabel from './GeoJsonLabel';
@@ -252,7 +252,7 @@ export default function EnergyBalanceMap({ geojson }: { geojson: any }) {
         <>
             {dialogOpen.open &&
                 (dialogOpen.type === 'energyBalance' ? (
-                    <EnergyBalanceDialogGraph
+                    <EnergyBalanceDialog
                         graphData={graphData}
                         region={selectedGeoId}
                         closeDialog={closeDialog}

@@ -6,6 +6,7 @@
             "@/containers/*": ["./containers/*"],
             "@/pages/*": ["./pages/*"],
             "@/api/*": ["./api/*"],
+            "@/hooks/*": ["./hooks/*"],
             "@/utils/*": ["./utils/*"],
             "@/public/*": ["./public/*"],
             "@/services/*": ["./services/*"],
