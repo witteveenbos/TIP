@@ -36,9 +36,14 @@ export interface EnergyBalanceChartProps {
 
 export type ViewMode = 'dragers' | 'sectors';
 
+export interface FilterItem {
+    name: string;
+    demandSupply: string;
+}
+
 export interface FilterSectionProps {
     title: string;
-    items: string[];
+    items: FilterItem[];
     selectedItems: string[];
     onToggleItem: (item: string) => void;
     legendData: Record<string, string>;

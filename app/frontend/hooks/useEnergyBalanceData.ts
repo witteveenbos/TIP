@@ -11,17 +11,35 @@ export function useEnergyBalanceData(
     selectedSectors: string[]
 ) {
     const [graphData, setGraphData] = useState([]);
-    const [legendData, setLegendData] = useState([]);
+    const [legendData, setLegendData] = useState({});
 
     const graphDataFromApi = data.graph.graphData;
 
-    const uniqueDragers = useMemo(() => [
-        ...new Set(graphDataFromApi.map((item) => item.carrier)),
-    ], [graphDataFromApi]);
+    const uniqueDragers = useMemo(() => {
+        const dragerMap = new Map();
+        graphDataFromApi.forEach((item) => {
+            if (!dragerMap.has(item.carrier)) {
+                dragerMap.set(item.carrier, {
+                    name: item.carrier,
+                    demandSupply: item.demandSupply
+                });
+            }
+        });
+        return Array.from(dragerMap.values());
+    }, [graphDataFromApi]);
 
-    const uniqueSectors = useMemo(() => [
-        ...new Set(graphDataFromApi.map((item) => item.sector)),
-    ], [graphDataFromApi]);
+    const uniqueSectors = useMemo(() => {
+        const sectorMap = new Map();
+        graphDataFromApi.forEach((item) => {
+            if (!sectorMap.has(item.sector)) {
+                sectorMap.set(item.sector, {
+                    name: item.sector,
+                    demandSupply: item.demandSupply
+                });
+            }
+        });
+        return Array.from(sectorMap.values());
+    }, [graphDataFromApi]);
 
     const uniqueBars = useMemo(() => [
         ...new Set(graphDataFromApi.map((item) => item.demandSupply)),
@@ -36,14 +54,14 @@ export function useEnergyBalanceData(
         
         const colorMap = {};
         uniqueSectors.forEach((sector, index) => {
-            colorMap[sector] = colors[index % colors.length];
+            colorMap[sector.name] = colors[index % colors.length];
         });
         return colorMap;
     }, [uniqueSectors]);
 
     useEffect(() => {
         const graph = [];
-        const legend = [];
+        const legend = {};
 
         const filteredData = graphDataFromApi.filter(
             (item) =>
