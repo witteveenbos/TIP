@@ -213,3 +213,16 @@ async def get_gquery_value(
             redis_client=redis_client,
         )
 
+
+@app.get("/get_curve_graph/")
+async def get_curve_graph(
+    main_scenario: MainScenarioEnum,
+    redis_client: Annotated[Redis, Depends(get_redis_client)],
+) -> CalculateResponse:
+    """Get the curve graph (electricity demand and supply curves)"""
+    async with redis_client as redis_client:
+        return await af.get_curve_graph(
+            selected_scenario=main_scenario,
+            preloaded=preloaded,
+            redis_client=redis_client,
+        )

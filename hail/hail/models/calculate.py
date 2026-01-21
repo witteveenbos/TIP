@@ -153,7 +153,7 @@ class UpdatedInputGroup(DevelopmentGroup):
 # ------ > Graph
 class GraphResponse(BaseModel):
     metaData: GraphMeta
-    graphData: list[GraphElement]
+    graphData: list[Union[GraphElement, GraphCurveElement]]
 
 
 class GraphMeta(BaseModel):
