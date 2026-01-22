@@ -21,7 +21,7 @@ function RadioOption({
         <label
             className={`cursor-pointer flex flex-row items-center justify-center p-4 m-1 rounded-md ${
                 selectedOption === value
-                    ? 'bg-gray-200 font-semibold'
+                    ? 'bg-secondary font-semibold'
                     : 'bg-white'
             } `}>
             {icon && <img src={icon} alt={label} className="w-6 h-6" />}

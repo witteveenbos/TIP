@@ -2,8 +2,6 @@ import { postUserInputs } from '@/api/api';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import XMarkIcon from '@heroicons/react/24/outline/XMarkIcon';
-import debounce from 'lodash.debounce';
-import cloneDeep from 'lodash/cloneDeep';
 import { useEffect, useState } from 'react';
 import {
     continuousDevelopmentsChangesStore,
@@ -20,6 +18,7 @@ import {
 } from 'stores/calculateStore';
 import { useDragersStore } from 'stores/headerTogglesStore';
 import { PostUserInputRequest } from 'types/api/postUserInput';
+import { cloneDeep, debounce } from 'utils/lodashReplacements';
 import Loader from '../Loader/Loader';
 import ContinuousDevelopments from './ContinuousDevelopments';
 import SectoralDevelopments from './SectoralDevelopments';
@@ -284,7 +283,7 @@ export function EnergyBalanceAsideDevelopments({
     function notificationNoAreaSelected() {
         return (
             <div className="p-2">
-                <small className="bg-cyan-600 text-white block p-1 gap-2">
+                <small className="bg-accent text-white block p-1 gap-2">
                     Selecteer een gebied op de kaart
                 </small>
             </div>

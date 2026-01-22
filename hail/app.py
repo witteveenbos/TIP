@@ -30,12 +30,7 @@ DEV_CONFIG = CONFIG / "developments"
 RESULT_CONFIG = CONFIG / "results"
 # TODO: use these config paths (optimization)
 
-ORIGINS = [
-    "http://localhost:3000",
-    "https://pzh-pmiek-tooling-accept.azurewebsites.net",
-    "https://pzh-pmiek-tooling.azurewebsites.net",
-]
-
+ORIGINS = os.environ.get("TRUSTED_ORIGINS_DATA", "http://localhost:3000").split(",")
 
 # this is done during the startup (when the server starts)
 # because we are using the same config for all requests

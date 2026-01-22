@@ -3,8 +3,8 @@ import { MapContainer, TileLayer } from 'react-leaflet';
 const BaseMap = () => {
     const mapContainerRef = useRef(null);
     const bounds = [
-        [51.643777887245896, 3.773675345120723],
-        [52.33251094756909, 5.0314150015857],
+        [51.8, 3.2], // whole of the Netherlands
+        [53.6, 6.2],
     ];
     return typeof window !== 'undefined' ? (
         <div className="z-20 relative h-screen">

@@ -19,10 +19,17 @@ matplotlib = "^3.9.2"
 owslib = "^0.31.0"
 folium = "^0.18.0"
 mapclassify = "^2.8.1"
+fiona = "^1.10.1"
+openpyxl = "^3.1.5"
 
 [tool.poetry.group.dev.dependencies]
 pylint = "^2.15.10"
 pytest = "^7.2.1"
+aiohttp = "^3.12.8"
+redis = "^6.2.0"
+pydantic = "^2.11.5"
+colorcet = "^3.1.0"
+tenacity = "^9.1.2"
 
 [[tool.poetry.source]]
 name = "wb_pypi"

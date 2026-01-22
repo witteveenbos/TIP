@@ -1,0 +1,176 @@
+trigger:
+  branches:
+    include:
+      - "accept-pnh"
+
+resources:
+  - repo: self
+
+variables:
+- group: accept
+
+stages:
+  - stage: Build
+    displayName: Build image
+    jobs:
+      - job: Build_Backend
+        displayName: Build Backend
+        # dependsOn: Build_Nginx
+        pool:
+          vmImage: "ubuntu-latest"
+        steps:
+          - task: AzureCLI@2
+            inputs:
+              # azureSubscription: $(azurermServiceConnection)  # Use the azurerm service connection for login
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                # Log in to Azure Container Registry
+                az acr login --name ${{ACR_NAME}}
+
+                # Build the Docker image
+                docker build -t ${{ACR_NAME}}.azurecr.io/backend:${{ github.ref_name }} -f $GITHUB_WORKSPACE/app/src/prod.Dockerfile .
+
+                # Push the Docker image to Azure Container Registry
+                docker push ${{ACR_NAME}}.azurecr.io/backend:${{ github.ref_name }}
+
+                IDENTITY_ID=$(az identity show \
+                  --name ${{IDENTITY}}  \
+                  --resource-group ${{RESOURCE_GROUP_NAME}} \
+                  --query id \
+                  --output tsv)
+
+                # Deploy the container app from the image
+                az containerapp create \
+                  --name backend-prod-app \
+                  --resource-group ${{RESOURCE_GROUP_NAME}} \
+                  # --environment $(containerAppEnvironment) \
+                  --image ${{ACR_NAME}}.azurecr.io/backend:${{ github.ref_name }} \
+                  --target-port 8000 \
+                  --ingress external \
+                  --env-vars DB_NAME=${{DB_NAME}} \
+                    DB_USER=${{DB_USER}} \
+                    DB_PASSWORD=${{secrets.DB_PASSWORD}} \
+                    DB_HOST=${{DB_HOST}} \
+                    DB_PORT=${{DB_PORT}} \
+                    # TRUSTED_ORIGINS=$(trustedOrigins) \
+                    # ALLOWED_HOSTS=$(allowedHosts) \
+                  --registry-server ${{ACR_NAME}}.azurecr.io \
+                  --cpu 2.0 \
+                  --memory 4.0Gi \
+                  --query properties.configuration.ingress.fqdn
+                  # --user-assigned "$IDENTITY_ID" \
+                  # --registry-identity "$IDENTITY_ID" \
+
+      - job: Build_Frontend
+        displayName: Build Frontend
+        dependsOn: Build_Backend
+        pool:
+          vmImage: "ubuntu-latest"
+        steps:
+          - task: AzureCLI@2
+            inputs:
+              # azureSubscription: $(azurermServiceConnection)
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                # Log in to Azure Container Registry
+                az acr login --name ${{ACR_NAME}}
+
+                # Build the Docker image for frontend with build arguments
+                docker build -t ${{ACR_NAME}}.azurecr.io/frontend:${{ github.ref_name }} \
+                  --build-arg APP_ENV=${{ github.ref_name }} \
+                  -f $GITHUB_WORKSPACE/frontend/Dockerfile \
+                  $GITHUB_WORKSPACE/frontend
+
+                # Push the Docker image for frontend
+                docker push ${{ACR_NAME}}.azurecr.io/frontend:${{ github.ref_name }}
+
+                IDENTITY_ID=$(az identity show \
+                  --name ${{IDENTITY}} \
+                  --resource-group ${{RESOURCE_GROUP_NAME}} \
+                  --query id \
+                  --output tsv)
+
+                API_BASE_URL=$(az containerapp show \
+                  --resource-group ${{RESOURCE_GROUP_NAME}} \
+                  --name backend-prod-app \
+                  --query properties.configuration.ingress.fqdn \
+                  --output tsv)
+
+                # Deploy the container app from the image
+                az containerapp create \
+                  --name frontend-prod-app \
+                  --resource-group ${{RESOURCE_GROUP_NAME}} \
+                  --environment $(containerAppEnvironment) \
+                  --image ${{ACR_NAME}}.azurecr.io/frontend:${{ github.ref_name }} \
+                  --target-port 3000 \
+                  --env-vars API_BASE_URL=https://backend-prod-app.lemonflower-d61dfbb4.westeurope.azurecontainerapps.io \
+                    APP_BASE_URL=https://frontend-prod-app.lemonflower-d61dfbb4.westeurope.azurecontainerapps.io \
+                  --ingress external \
+                  --cpu 2.0 \
+                  --memory 4.0Gi \
+                  --registry-server ${{ACR_NAME}}.azurecr.io \
+                  --query properties.configuration.ingress.fqdn
+
+      # - job: Build_Nginx
+      #   displayName: Build Nginx
+      #   pool:
+      #     vmImage: "ubuntu-latest"
+      #   steps:
+      #     - task: AzureCLI@2
+      #       inputs:
+      #         azureSubscription: $(azurermServiceConnection)
+      #         scriptType: 'bash'
+      #         scriptLocation: 'inlineScript'
+      #         inlineScript: |
+      #           # Log in to Azure Container Registry
+      #           az acr login --name ${{ACR_NAME}}
+
+      #           # Build and publish the Docker image for Nginx
+      #           docker build -t ${{ACR_NAME}}.azurecr.io/nginx:${{ github.ref_name }} $GITHUB_WORKSPACE/nginx
+
+      #           # Push the Docker image for Nginx
+      #           docker push ${{ACR_NAME}}.azurecr.io/nginx:${{ github.ref_name }}
+                  
+      # - job: Deploy_ContainerApps
+      #   displayName: Deploy All Containers to Azure Container Apps
+      #   dependsOn: Build_Frontend
+      #   pool:
+      #     vmImage: "ubuntu-latest"
+      #   steps:
+      #     - task: AzureCLI@2
+      #       inputs:
+      #         azureSubscription: $(azurermServiceConnection)
+      #         scriptType: 'bash'
+      #         scriptLocation: 'inlineScript'
+      #         inlineScript: |
+      #           # Log in to Azure Container Registry
+      #           az acr login --name ${{ACR_NAME}}
+
+      #           # az identity create --name ${{IDENTITY}} --resource-group ${{RESOURCE_GROUP_NAME}}
+
+      #           IDENTITY_ID=$(az identity show \
+      #             --name ${{IDENTITY}} \
+      #             --resource-group ${{RESOURCE_GROUP_NAME}} \
+      #             --query id \
+      #             --output tsv)
+
+      #           API_BASE_URL=$(az containerapp show --resource-group ${{RESOURCE_GROUP_NAME}} --name backend-test-app --query properties.configuration.ingress.fqdn -o tsv)
+      #           APP_BASE_URL=$(az containerapp show --resource-group ${{RESOURCE_GROUP_NAME}} --name frontend-test-app --query properties.configuration.ingress.fqdn -o tsv)
+
+      #           # Deploy the container app from the nginx image
+      #           az containerapp create \
+      #             --name nginx-test-app \
+      #             --resource-group ${{RESOURCE_GROUP_NAME}} \
+      #             --environment $(containerAppEnvironment) \
+      #             --image ${{ACR_NAME}}.azurecr.io/nginx:${{ github.ref_name }} \
+      #             --target-port 80 \
+      #             --ingress external \
+      #             --cpu 2.0 \
+      #             --memory 4.0Gi \
+      #             --env-vars API_HOST=$API_BASE_URL APP_HOST=$APP_BASE_URL \
+      #             --registry-server ${{ACR_NAME}}.azurecr.io \
+      #             --query properties.configuration.ingress.fqdn
+      #             # --user-assigned "$IDENTITY_ID" \
+      #             # --registry-identity "$IDENTITY_ID" \

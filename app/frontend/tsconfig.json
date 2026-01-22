@@ -6,9 +6,11 @@
             "@/containers/*": ["./containers/*"],
             "@/pages/*": ["./pages/*"],
             "@/api/*": ["./api/*"],
+            "@/hooks/*": ["./hooks/*"],
             "@/utils/*": ["./utils/*"],
             "@/public/*": ["./public/*"],
-            "@/services/*": ["./services/*"]
+            "@/services/*": ["./services/*"],
+            "@/types/*": ["./types/*"]  
         },
         "target": "es6",
         "downlevelIteration": true,

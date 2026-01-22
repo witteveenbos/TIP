@@ -1,0 +1,343 @@
+Municipality,Gem_code_CBS,Municipality_ID,Region,Region_ID,RES,RES_ID,Provincie,Provincie_ID
+Maasdriel,0263,GM0263,Fruitdelta Rivierenland,REGET1101,Fruitdelta Rivierenland,ET1101,Gelderland,PV25
+Schagen,0441,GM0441,Kop van Noord-Holland,REGET1501,Kop van Noord-Holland,ET1501,Noord-Holland,PV27
+Eijsden-Margraten,1903,GM1903,Maastricht Heuvelland,REGET3002,Maastricht Heuvelland,ET3002,Limburg,PV31
+Zwolle,0193,GM0193,West-Overijssel,REGET0501,West-Overijssel,ET0501,Overijssel,PV23
+Echt-Susteren,1711,GM1711,Noord- en Midden-Limburg,REGET2901,Noord- en Midden-Limburg,ET2901,Limburg,PV31
+Lansingerland,1621,GM1621,Rotterdam/Den Haag,REGET2301,Rotterdam/Den Haag,ET2301,Zuid-Holland,PV28
+Laarbeek,1659,GM1659,Metropoolregio Eindhoven,REGET2601,Metropoolregio Eindhoven,ET2601,Noord-Brabant,PV30
+Dongen,0766,GM0766,Hart van Brabant,REGET2501,Hart van Brabant,ET2501,Noord-Brabant,PV30
+West Maas en Waal,0668,GM0668,Fruitdelta Rivierenland,REGET1101,Fruitdelta Rivierenland,ET1101,Gelderland,PV25
+Son en Breugel,0848,GM0848,Metropoolregio Eindhoven,REGET2601,Metropoolregio Eindhoven,ET2601,Noord-Brabant,PV30
+Alphen aan den Rijn,0484,GM0484,Holland Rijnland,REGET2101,Holland Rijnland,ET2101,Zuid-Holland,PV28
+Molenlanden,1978,GM1978,Alblasserwaard,REGET1701,Alblasserwaard,ET1701,Zuid-Holland,PV28
+Voorschoten,0626,GM0626,Holland Rijnland,REGET2101,Holland Rijnland,ET2101,Zuid-Holland,PV28
+Bronckhorst,1876,GM1876,Achterhoek,REGET0701,Achterhoek,ET0701,Gelderland,PV25
+Assen,0106,GM0106,Drenthe,REGET0301,Drenthe,ET0301,Drenthe,PV22
+Maashorst,1991,GM1991,Noordoost-Brabant,REGET2701,Noordoost-Brabant,ET2701,Noord-Brabant,PV30
+Katwijk,0537,GM0537,Holland Rijnland,REGET2101,Holland Rijnland,ET2101,Zuid-Holland,PV28
+Castricum,0383,GM0383,Regio Alkmaar,REGET1502,Regio Alkmaar,ET1502,Noord-Holland,PV27
+Zaanstad,0479,GM0479,Zaanstreek-Waterland,REGET1603,Zaanstreek-Waterland,ET1603,Noord-Holland,PV27
+Coevorden,0109,GM0109,Drenthe,REGET0301,Drenthe,ET0301,Drenthe,PV22
+Oldambt,1895,GM1895,Groningen,REGET0101,Groningen,ET0101,Groningen,PV20
+Zutphen,0301,GM0301,Cleantech,REGET1201,Cleantech,ET1201,Gelderland,PV25
+Het Hogeland,1966,GM1966,Groningen,REGET0101,Groningen,ET0101,Groningen,PV20
+Wierden,0189,GM0189,Twente,REGET0401,Twente,ET0401,Overijssel,PV23
+Rheden,0275,GM0275,Arnhem/Nijmegen,REGET0801,Arnhem/Nijmegen,ET0801,Gelderland,PV25
+Haaksbergen,0158,GM0158,Twente,REGET0401,Twente,ET0401,Overijssel,PV23
+Oost Gelre,1586,GM1586,Achterhoek,REGET0701,Achterhoek,ET0701,Gelderland,PV25
+Veenendaal,0345,GM0345,Foodvalley Utrecht,REGET0902,Foodvalley Utrecht,ET0902,Utrecht,PV26
+Leiden,0546,GM0546,Holland Rijnland,REGET2101,Holland Rijnland,ET2101,Zuid-Holland,PV28
+Heeze-Leende,1658,GM1658,Metropoolregio Eindhoven,REGET2601,Metropoolregio Eindhoven,ET2601,Noord-Brabant,PV30
+Dinkelland,1774,GM1774,Twente,REGET0401,Twente,ET0401,Overijssel,PV23
+Reimerswaal,0703,GM0703,Zeeland,REGET2401,Zeeland,ET2401,Zeeland,PV29
+Breda,0758,GM0758,West-Brabant,REGET2801,West-Brabant,ET2801,Noord-Brabant,PV30
+Bernheze,1721,GM1721,Noordoost-Brabant,REGET2701,Noordoost-Brabant,ET2701,Noord-Brabant,PV30
+Beverwijk,0375,GM0375,IJmond-Zuid-Kennemerland,REGET1602,IJmond-Zuid-Kennemerland,ET1602,Noord-Holland,PV27
+Wijchen,0296,GM0296,Arnhem/Nijmegen,REGET0801,Arnhem/Nijmegen,ET0801,Gelderland,PV25
+Meierijstad,1948,GM1948,Noordoost-Brabant,REGET2701,Noordoost-Brabant,ET2701,Noord-Brabant,PV30
+Westland,1783,GM1783,Rotterdam/Den Haag,REGET2301,Rotterdam/Den Haag,ET2301,Zuid-Holland,PV28
+Hardenberg,0160,GM0160,West-Overijssel,REGET0501,West-Overijssel,ET0501,Overijssel,PV23
+Wageningen,0289,GM0289,Foodvalley Gelderland,REGET0901,Foodvalley Gelderland,ET0901,Gelderland,PV25
+De Fryske Marren,1940,GM1940,Friesland,REGET0201,Friesland,ET0201,Fryslân,PV21
+Sittard-Geleen,1883,GM1883,Westelijke Mijnstreek,REGET3003,Westelijke Mijnstreek,ET3003,Limburg,PV31
+Zevenaar,0299,GM0299,Arnhem/Nijmegen,REGET0801,Arnhem/Nijmegen,ET0801,Gelderland,PV25
+Woudenberg,0351,GM0351,Amersfoort,REGET1301,Amersfoort,ET1301,Utrecht,PV26
+Reusel-De Mierden,1667,GM1667,Metropoolregio Eindhoven,REGET2601,Metropoolregio Eindhoven,ET2601,Noord-Brabant,PV30
+Almere,0034,GM0034,Flevoland,REGET0601,Flevoland,ET0601,Flevoland,PV24
+Amersfoort,0307,GM0307,Amersfoort,REGET1301,Amersfoort,ET1301,Utrecht,PV26
+Oss,0828,GM0828,Noordoost-Brabant,REGET2701,Noordoost-Brabant,ET2701,Noord-Brabant,PV30
+Midden-Delfland,1842,GM1842,Rotterdam/Den Haag,REGET2301,Rotterdam/Den Haag,ET2301,Zuid-Holland,PV28
+Goeree-Overflakkee,1924,GM1924,Goeree-Overflakkee,REGET1901,Goeree-Overflakkee,ET1901,Zuid-Holland,PV28
+Hillegom,0534,GM0534,Holland Rijnland,REGET2101,Holland Rijnland,ET2101,Zuid-Holland,PV28
+Woerden,0632,GM0632,U16,REGET1401,U16,ET1401,Utrecht,PV26
+Mook en Middelaar,0944,GM0944,Noord- en Midden-Limburg,REGET2901,Noord- en Midden-Limburg,ET2901,Limburg,PV31
+Cranendonck,1706,GM1706,Metropoolregio Eindhoven,REGET2601,Metropoolregio Eindhoven,ET2601,Noord-Brabant,PV30
+Epe,0232,GM0232,Cleantech,REGET1201,Cleantech,ET1201,Gelderland,PV25
+Montfoort,0335,GM0335,U16,REGET1401,U16,ET1401,Utrecht,PV26
+Schouwen-Duiveland,1676,GM1676,Zeeland,REGET2401,Zeeland,ET2401,Zeeland,PV29
+Pekela,0765,GM0765,Groningen,REGET0101,Groningen,ET0101,Groningen,PV20
+Bloemendaal,0377,GM0377,IJmond-Zuid-Kennemerland,REGET1602,IJmond-Zuid-Kennemerland,ET1602,Noord-Holland,PV27
+Nieuwegein,0356,GM0356,U16,REGET1401,U16,ET1401,Utrecht,PV26
+Beesel,0889,GM0889,Noord- en Midden-Limburg,REGET2901,Noord- en Midden-Limburg,ET2901,Limburg,PV31
+Roosendaal,1674,GM1674,West-Brabant,REGET2801,West-Brabant,ET2801,Noord-Brabant,PV30
+Putten,0273,GM0273,Noord-Veluwe,REGET1001,Noord-Veluwe,ET1001,Gelderland,PV25
+Tubbergen,0183,GM0183,Twente,REGET0401,Twente,ET0401,Overijssel,PV23
+Culemborg,0216,GM0216,Fruitdelta Rivierenland,REGET1101,Fruitdelta Rivierenland,ET1101,Gelderland,PV25
+Harlingen,0072,GM0072,Friesland,REGET0201,Friesland,ET0201,Fryslân,PV21
+Oegstgeest,0579,GM0579,Holland Rijnland,REGET2101,Holland Rijnland,ET2101,Zuid-Holland,PV28
+Eersel,0770,GM0770,Metropoolregio Eindhoven,REGET2601,Metropoolregio Eindhoven,ET2601,Noord-Brabant,PV30
+Velsen,0453,GM0453,IJmond-Zuid-Kennemerland,REGET1602,IJmond-Zuid-Kennemerland,ET1602,Noord-Holland,PV27
+Drechterland,0498,GM0498,West-Friesland,REGET1503,West-Friesland,ET1503,Noord-Holland,PV27
+Heerenveen,0074,GM0074,Friesland,REGET0201,Friesland,ET0201,Fryslân,PV21
+Oostzaan,0431,GM0431,Zaanstreek-Waterland,REGET1603,Zaanstreek-Waterland,ET1603,Noord-Holland,PV27
+Tynaarlo,1730,GM1730,Drenthe,REGET0301,Drenthe,ET0301,Drenthe,PV22
+Ede,0228,GM0228,Foodvalley Gelderland,REGET0901,Foodvalley Gelderland,ET0901,Gelderland,PV25
+Voorst,0285,GM0285,Cleantech,REGET1201,Cleantech,ET1201,Gelderland,PV25
+Ommen,0175,GM0175,West-Overijssel,REGET0501,West-Overijssel,ET0501,Overijssel,PV23
+Zandvoort,0473,GM0473,IJmond-Zuid-Kennemerland,REGET1602,IJmond-Zuid-Kennemerland,ET1602,Noord-Holland,PV27
+Zundert,0879,GM0879,West-Brabant,REGET2801,West-Brabant,ET2801,Noord-Brabant,PV30
+Utrecht,0344,GM0344,U16,REGET1401,U16,ET1401,Utrecht,PV26
+Enkhuizen,0388,GM0388,West-Friesland,REGET1503,West-Friesland,ET1503,Noord-Holland,PV27
+De Bilt,0310,GM0310,U16,REGET1401,U16,ET1401,Utrecht,PV26
+Hendrik-Ido-Ambacht,0531,GM0531,Drechtsteden,REGET1801,Drechtsteden,ET1801,Zuid-Holland,PV28
+Enschede,0153,GM0153,Twente,REGET0401,Twente,ET0401,Overijssel,PV23
+Tholen,0716,GM0716,Zeeland,REGET2401,Zeeland,ET2401,Zeeland,PV29
+Losser,0168,GM0168,Twente,REGET0401,Twente,ET0401,Overijssel,PV23
+Heerde,0246,GM0246,Cleantech,REGET1201,Cleantech,ET1201,Gelderland,PV25
+Maasgouw,1641,GM1641,Noord- en Midden-Limburg,REGET2901,Noord- en Midden-Limburg,ET2901,Limburg,PV31
+Hollands Kroon,1911,GM1911,Kop van Noord-Holland,REGET1501,Kop van Noord-Holland,ET1501,Noord-Holland,PV27
+Eemnes,0317,GM0317,Amersfoort,REGET1301,Amersfoort,ET1301,Utrecht,PV26
+Waddinxveen,0627,GM0627,Midden-Holland,REGET2201,Midden-Holland,ET2201,Zuid-Holland,PV28
+Nijkerk,0267,GM0267,Foodvalley Gelderland,REGET0901,Foodvalley Gelderland,ET0901,Gelderland,PV25
+Baarle-Nassau,0744,GM0744,West-Brabant,REGET2801,West-Brabant,ET2801,Noord-Brabant,PV30
+Aalsmeer,0358,GM0358,Amstelland,REGET1606,Amstelland,ET1606,Noord-Holland,PV27
+Baarn,0308,GM0308,Amersfoort,REGET1301,Amersfoort,ET1301,Utrecht,PV26
+Nissewaard,1930,GM1930,Rotterdam/Den Haag,REGET2301,Rotterdam/Den Haag,ET2301,Zuid-Holland,PV28
+Bodegraven-Reeuwijk,1901,GM1901,Midden-Holland,REGET2201,Midden-Holland,ET2201,Zuid-Holland,PV28
+Lelystad,0995,GM0995,Flevoland,REGET0601,Flevoland,ET0601,Flevoland,PV24
+Raalte,0177,GM0177,West-Overijssel,REGET0501,West-Overijssel,ET0501,Overijssel,PV23
+Altena,1959,GM1959,West-Brabant,REGET2801,West-Brabant,ET2801,Noord-Brabant,PV30
+Overbetuwe,1734,GM1734,Arnhem/Nijmegen,REGET0801,Arnhem/Nijmegen,ET0801,Gelderland,PV25
+Oldenzaal,0173,GM0173,Twente,REGET0401,Twente,ET0401,Overijssel,PV23
+Heusden,0797,GM0797,Hart van Brabant,REGET2501,Hart van Brabant,ET2501,Noord-Brabant,PV30
+Achtkarspelen,0059,GM0059,Friesland,REGET0201,Friesland,ET0201,Fryslân,PV21
+Hoeksche Waard,1963,GM1963,Hoeksche Waard,REGET2001,Hoeksche Waard,ET2001,Zuid-Holland,PV28
+Buren,0214,GM0214,Fruitdelta Rivierenland,REGET1101,Fruitdelta Rivierenland,ET1101,Gelderland,PV25
+Westerveld,1701,GM1701,Drenthe,REGET0301,Drenthe,ET0301,Drenthe,PV22
+Oisterwijk,0824,GM0824,Hart van Brabant,REGET2501,Hart van Brabant,ET2501,Noord-Brabant,PV30
+Haarlem,0392,GM0392,IJmond-Zuid-Kennemerland,REGET1602,IJmond-Zuid-Kennemerland,ET1602,Noord-Holland,PV27
+Wormerland,0880,GM0880,Zaanstreek-Waterland,REGET1603,Zaanstreek-Waterland,ET1603,Noord-Holland,PV27
+Borne,0147,GM0147,Twente,REGET0401,Twente,ET0401,Overijssel,PV23
+Utrechtse Heuvelrug,1581,GM1581,U16,REGET1401,U16,ET1401,Utrecht,PV26
+Zeewolde,0050,GM0050,Flevoland,REGET0601,Flevoland,ET0601,Flevoland,PV24
+Stede Broec,0532,GM0532,West-Friesland,REGET1503,West-Friesland,ET1503,Noord-Holland,PV27
+Westervoort,0293,GM0293,Arnhem/Nijmegen,REGET0801,Arnhem/Nijmegen,ET0801,Gelderland,PV25
+Waadhoeke,1949,GM1949,Friesland,REGET0201,Friesland,ET0201,Fryslân,PV21
+Koggenland,1598,GM1598,West-Friesland,REGET1503,West-Friesland,ET1503,Noord-Holland,PV27
+Sint-Michielsgestel,0845,GM0845,Noordoost-Brabant,REGET2701,Noordoost-Brabant,ET2701,Noord-Brabant,PV30
+Beekdaelen,1954,GM1954,Parkstad,REGET3001,Parkstad,ET3001,Limburg,PV31
+Bergeijk,1724,GM1724,Metropoolregio Eindhoven,REGET2601,Metropoolregio Eindhoven,ET2601,Noord-Brabant,PV30
+Krimpenerwaard,1931,GM1931,Midden-Holland,REGET2201,Midden-Holland,ET2201,Zuid-Holland,PV28
+Veere,0717,GM0717,Zeeland,REGET2401,Zeeland,ET2401,Zeeland,PV29
+Aa en Hunze,1680,GM1680,Drenthe,REGET0301,Drenthe,ET0301,Drenthe,PV22
+Ouder-Amstel,0437,GM0437,Amstelland,REGET1606,Amstelland,ET1606,Noord-Holland,PV27
+Zwartewaterland,1896,GM1896,West-Overijssel,REGET0501,West-Overijssel,ET0501,Overijssel,PV23
+Doesburg,0221,GM0221,Arnhem/Nijmegen,REGET0801,Arnhem/Nijmegen,ET0801,Gelderland,PV25
+Stadskanaal,0037,GM0037,Groningen,REGET0101,Groningen,ET0101,Groningen,PV20
+Hardinxveld-Giessendam,0523,GM0523,Drechtsteden,REGET1801,Drechtsteden,ET1801,Zuid-Holland,PV28
+Deurne,0762,GM0762,Metropoolregio Eindhoven,REGET2601,Metropoolregio Eindhoven,ET2601,Noord-Brabant,PV30
+Beek,0888,GM0888,Westelijke Mijnstreek,REGET3003,Westelijke Mijnstreek,ET3003,Limburg,PV31
+Terneuzen,0715,GM0715,Zeeland,REGET2401,Zeeland,ET2401,Zeeland,PV29
+Capelle aan den IJssel,0502,GM0502,Rotterdam/Den Haag,REGET2301,Rotterdam/Den Haag,ET2301,Zuid-Holland,PV28
+Westerwolde,1950,GM1950,Groningen,REGET0101,Groningen,ET0101,Groningen,PV20
+Tytsjerksteradiel,0737,GM0737,Friesland,REGET0201,Friesland,ET0201,Fryslân,PV21
+Amsterdam,0363,GM0363,Amsterdam,REGET1601,Amsterdam,ET1601,Noord-Holland,PV27
+Pijnacker-Nootdorp,1926,GM1926,Rotterdam/Den Haag,REGET2301,Rotterdam/Den Haag,ET2301,Zuid-Holland,PV28
+Nijmegen,0268,GM0268,Arnhem/Nijmegen,REGET0801,Arnhem/Nijmegen,ET0801,Gelderland,PV25
+Lopik,0331,GM0331,U16,REGET1401,U16,ET1401,Utrecht,PV26
+Sliedrecht,0610,GM0610,Drechtsteden,REGET1801,Drechtsteden,ET1801,Zuid-Holland,PV28
+Voerendaal,0986,GM0986,Parkstad,REGET3001,Parkstad,ET3001,Limburg,PV31
+Nieuwkoop,0569,GM0569,Holland Rijnland,REGET2101,Holland Rijnland,ET2101,Zuid-Holland,PV28
+Dalfsen,0148,GM0148,West-Overijssel,REGET0501,West-Overijssel,ET0501,Overijssel,PV23
+Bladel,1728,GM1728,Metropoolregio Eindhoven,REGET2601,Metropoolregio Eindhoven,ET2601,Noord-Brabant,PV30
+Landgraaf,0882,GM0882,Parkstad,REGET3001,Parkstad,ET3001,Limburg,PV31
+Tiel,0281,GM0281,Fruitdelta Rivierenland,REGET1101,Fruitdelta Rivierenland,ET1101,Gelderland,PV25
+Noordwijk,0575,GM0575,Holland Rijnland,REGET2101,Holland Rijnland,ET2101,Zuid-Holland,PV28
+Ooststellingwerf,0085,GM0085,Friesland,REGET0201,Friesland,ET0201,Fryslân,PV21
+Meppel,0119,GM0119,Drenthe,REGET0301,Drenthe,ET0301,Drenthe,PV22
+Laren,0417,GM0417,Gooi en Vechtstreek,REGET1604,Gooi en Vechtstreek,ET1604,Noord-Holland,PV27
+Gennep,0907,GM0907,Noord- en Midden-Limburg,REGET2901,Noord- en Midden-Limburg,ET2901,Limburg,PV31
+Barendrecht,0489,GM0489,Rotterdam/Den Haag,REGET2301,Rotterdam/Den Haag,ET2301,Zuid-Holland,PV28
+Rhenen,0340,GM0340,Foodvalley Utrecht,REGET0902,Foodvalley Utrecht,ET0902,Utrecht,PV26
+Beuningen,0209,GM0209,Arnhem/Nijmegen,REGET0801,Arnhem/Nijmegen,ET0801,Gelderland,PV25
+Noordoostpolder,0171,GM0171,Flevoland,REGET0601,Flevoland,ET0601,Flevoland,PV24
+Súdwest-Fryslân,1900,GM1900,Friesland,REGET0201,Friesland,ET0201,Fryslân,PV21
+Arnhem,0202,GM0202,Arnhem/Nijmegen,REGET0801,Arnhem/Nijmegen,ET0801,Gelderland,PV25
+Midden-Drenthe,1731,GM1731,Drenthe,REGET0301,Drenthe,ET0301,Drenthe,PV22
+Purmerend,0439,GM0439,Zaanstreek-Waterland,REGET1603,Zaanstreek-Waterland,ET1603,Noord-Holland,PV27
+Blaricum,0376,GM0376,Gooi en Vechtstreek,REGET1604,Gooi en Vechtstreek,ET1604,Noord-Holland,PV27
+Middelburg,0687,GM0687,Zeeland,REGET2401,Zeeland,ET2401,Zeeland,PV29
+Hof van Twente,1735,GM1735,Twente,REGET0401,Twente,ET0401,Overijssel,PV23
+Smallingerland,0090,GM0090,Friesland,REGET0201,Friesland,ET0201,Fryslân,PV21
+Hoorn,0405,GM0405,West-Friesland,REGET1503,West-Friesland,ET1503,Noord-Holland,PV27
+Groningen,0014,GM0014,Groningen,REGET0101,Groningen,ET0101,Groningen,PV20
+Oldebroek,0269,GM0269,Noord-Veluwe,REGET1001,Noord-Veluwe,ET1001,Gelderland,PV25
+Nederweert,0946,GM0946,Noord- en Midden-Limburg,REGET2901,Noord- en Midden-Limburg,ET2901,Limburg,PV31
+Boxtel,0757,GM0757,Noordoost-Brabant,REGET2701,Noordoost-Brabant,ET2701,Noord-Brabant,PV30
+Vlieland,0096,GM0096,Friesland,REGET0201,Friesland,ET0201,Fryslân,PV21
+Gooise Meren,1942,GM1942,Gooi en Vechtstreek,REGET1604,Gooi en Vechtstreek,ET1604,Noord-Holland,PV27
+Kampen,0166,GM0166,West-Overijssel,REGET0501,West-Overijssel,ET0501,Overijssel,PV23
+Druten,0225,GM0225,Arnhem/Nijmegen,REGET0801,Arnhem/Nijmegen,ET0801,Gelderland,PV25
+Lochem,0262,GM0262,Cleantech,REGET1201,Cleantech,ET1201,Gelderland,PV25
+Dronten,0303,GM0303,Flevoland,REGET0601,Flevoland,ET0601,Flevoland,PV24
+De Ronde Venen,0736,GM0736,U16,REGET1401,U16,ET1401,Utrecht,PV26
+Drimmelen,1719,GM1719,West-Brabant,REGET2801,West-Brabant,ET2801,Noord-Brabant,PV30
+Helmond,0794,GM0794,Metropoolregio Eindhoven,REGET2601,Metropoolregio Eindhoven,ET2601,Noord-Brabant,PV30
+Kaag en Braassem,1884,GM1884,Holland Rijnland,REGET2101,Holland Rijnland,ET2101,Zuid-Holland,PV28
+Twenterand,1700,GM1700,Twente,REGET0401,Twente,ET0401,Overijssel,PV23
+Woensdrecht,0873,GM0873,West-Brabant,REGET2801,West-Brabant,ET2801,Noord-Brabant,PV30
+Brunssum,0899,GM0899,Parkstad,REGET3001,Parkstad,ET3001,Limburg,PV31
+Loon op Zand,0809,GM0809,Hart van Brabant,REGET2501,Hart van Brabant,ET2501,Noord-Brabant,PV30
+Lingewaard,1705,GM1705,Arnhem/Nijmegen,REGET0801,Arnhem/Nijmegen,ET0801,Gelderland,PV25
+Valkenburg aan de Geul,0994,GM0994,Maastricht Heuvelland,REGET3002,Maastricht Heuvelland,ET3002,Limburg,PV31
+Zeist,0355,GM0355,U16,REGET1401,U16,ET1401,Utrecht,PV26
+Opmeer,0432,GM0432,West-Friesland,REGET1503,West-Friesland,ET1503,Noord-Holland,PV27
+Leiderdorp,0547,GM0547,Holland Rijnland,REGET2101,Holland Rijnland,ET2101,Zuid-Holland,PV28
+Kerkrade,0928,GM0928,Parkstad,REGET3001,Parkstad,ET3001,Limburg,PV31
+Doetinchem,0222,GM0222,Achterhoek,REGET0701,Achterhoek,ET0701,Gelderland,PV25
+Hoogeveen,0118,GM0118,Drenthe,REGET0301,Drenthe,ET0301,Drenthe,PV22
+Waalre,0866,GM0866,Metropoolregio Eindhoven,REGET2601,Metropoolregio Eindhoven,ET2601,Noord-Brabant,PV30
+Vaals,0981,GM0981,Maastricht Heuvelland,REGET3002,Maastricht Heuvelland,ET3002,Limburg,PV31
+Bunschoten,0313,GM0313,Amersfoort,REGET1301,Amersfoort,ET1301,Utrecht,PV26
+Weert,0988,GM0988,Noord- en Midden-Limburg,REGET2901,Noord- en Midden-Limburg,ET2901,Limburg,PV31
+Ridderkerk,0597,GM0597,Rotterdam/Den Haag,REGET2301,Rotterdam/Den Haag,ET2301,Zuid-Holland,PV28
+Zwijndrecht,0642,GM0642,Drechtsteden,REGET1801,Drechtsteden,ET1801,Zuid-Holland,PV28
+Berg en Dal,1945,GM1945,Arnhem/Nijmegen,REGET0801,Arnhem/Nijmegen,ET0801,Gelderland,PV25
+Elburg,0230,GM0230,Noord-Veluwe,REGET1001,Noord-Veluwe,ET1001,Gelderland,PV25
+Brummen,0213,GM0213,Cleantech,REGET1201,Cleantech,ET1201,Gelderland,PV25
+Horst aan de Maas,1507,GM1507,Noord- en Midden-Limburg,REGET2901,Noord- en Midden-Limburg,ET2901,Limburg,PV31
+Rucphen,0840,GM0840,West-Brabant,REGET2801,West-Brabant,ET2801,Noord-Brabant,PV30
+Dordrecht,0505,GM0505,Drechtsteden,REGET1801,Drechtsteden,ET1801,Zuid-Holland,PV28
+Asten,0743,GM0743,Metropoolregio Eindhoven,REGET2601,Metropoolregio Eindhoven,ET2601,Noord-Brabant,PV30
+Maastricht,0935,GM0935,Maastricht Heuvelland,REGET3002,Maastricht Heuvelland,ET3002,Limburg,PV31
+Land van Cuijk,1982,GM1982,Noordoost-Brabant,REGET2701,Noordoost-Brabant,ET2701,Noord-Brabant,PV30
+Someren,0847,GM0847,Metropoolregio Eindhoven,REGET2601,Metropoolregio Eindhoven,ET2601,Noord-Brabant,PV30
+Urk,0184,GM0184,Flevoland,REGET0601,Flevoland,ET0601,Flevoland,PV24
+Gilze en Rijen,0784,GM0784,Hart van Brabant,REGET2501,Hart van Brabant,ET2501,Noord-Brabant,PV30
+Steenbergen,0851,GM0851,West-Brabant,REGET2801,West-Brabant,ET2801,Noord-Brabant,PV30
+Krimpen aan den IJssel,0542,GM0542,Rotterdam/Den Haag,REGET2301,Rotterdam/Den Haag,ET2301,Zuid-Holland,PV28
+Gorinchem,0512,GM0512,Alblasserwaard,REGET1701,Alblasserwaard,ET1701,Zuid-Holland,PV28
+Ameland,0060,GM0060,Friesland,REGET0201,Friesland,ET0201,Fryslân,PV21
+Wijk bij Duurstede,0352,GM0352,U16,REGET1401,U16,ET1401,Utrecht,PV26
+Wijdemeren,1696,GM1696,Gooi en Vechtstreek,REGET1604,Gooi en Vechtstreek,ET1604,Noord-Holland,PV27
+Leidschendam-Voorburg,1916,GM1916,Rotterdam/Den Haag,REGET2301,Rotterdam/Den Haag,ET2301,Zuid-Holland,PV28
+Deventer,0150,GM0150,West-Overijssel,REGET0501,West-Overijssel,ET0501,Overijssel,PV23
+Voorne aan Zee,1992,GM1992,Rotterdam/Den Haag,REGET2301,Rotterdam/Den Haag,ET2301,Zuid-Holland,PV28
+Noord-Beveland,1695,GM1695,Zeeland,REGET2401,Zeeland,ET2401,Zeeland,PV29
+Hattem,0244,GM0244,Noord-Veluwe,REGET1001,Noord-Veluwe,ET1001,Gelderland,PV25
+Zaltbommel,0297,GM0297,Fruitdelta Rivierenland,REGET1101,Fruitdelta Rivierenland,ET1101,Gelderland,PV25
+Montferland,1955,GM1955,Achterhoek,REGET0701,Achterhoek,ET0701,Gelderland,PV25
+Alkmaar,0361,GM0361,Regio Alkmaar,REGET1502,Regio Alkmaar,ET1502,Noord-Holland,PV27
+Peel en Maas,1894,GM1894,Noord- en Midden-Limburg,REGET2901,Noord- en Midden-Limburg,ET2901,Limburg,PV31
+Sluis,1714,GM1714,Zeeland,REGET2401,Zeeland,ET2401,Zeeland,PV29
+Westerkwartier,1969,GM1969,Groningen,REGET0101,Groningen,ET0101,Groningen,PV20
+Zoetermeer,0637,GM0637,Rotterdam/Den Haag,REGET2301,Rotterdam/Den Haag,ET2301,Zuid-Holland,PV28
+Borger-Odoorn,1681,GM1681,Drenthe,REGET0301,Drenthe,ET0301,Drenthe,PV22
+Bergen (L),0893,GM0893,Noord- en Midden-Limburg,REGET2901,Noord- en Midden-Limburg,ET2901,Limburg,PV31
+Albrandswaard,0613,GM0613,Rotterdam/Den Haag,REGET2301,Rotterdam/Den Haag,ET2301,Zuid-Holland,PV28
+Best,0753,GM0753,Metropoolregio Eindhoven,REGET2601,Metropoolregio Eindhoven,ET2601,Noord-Brabant,PV30
+Oirschot,0823,GM0823,Metropoolregio Eindhoven,REGET2601,Metropoolregio Eindhoven,ET2601,Noord-Brabant,PV30
+Vijfheerenlanden,1961,GM1961,U16,REGET1401,U16,ET1401,Utrecht,PV26
+Uitgeest,0450,GM0450,Regio Alkmaar,REGET1502,Regio Alkmaar,ET1502,Noord-Holland,PV27
+Heerlen,0917,GM0917,Parkstad,REGET3001,Parkstad,ET3001,Limburg,PV31
+Olst-Wijhe,1773,GM1773,West-Overijssel,REGET0501,West-Overijssel,ET0501,Overijssel,PV23
+Ermelo,0233,GM0233,Noord-Veluwe,REGET1001,Noord-Veluwe,ET1001,Gelderland,PV25
+Terschelling,0093,GM0093,Friesland,REGET0201,Friesland,ET0201,Fryslân,PV21
+Vlaardingen,0622,GM0622,Rotterdam/Den Haag,REGET2301,Rotterdam/Den Haag,ET2301,Zuid-Holland,PV28
+Neder-Betuwe,1740,GM1740,Fruitdelta Rivierenland,REGET1101,Fruitdelta Rivierenland,ET1101,Gelderland,PV25
+Soest,0342,GM0342,Amersfoort,REGET1301,Amersfoort,ET1301,Utrecht,PV26
+Hilvarenbeek,0798,GM0798,Hart van Brabant,REGET2501,Hart van Brabant,ET2501,Noord-Brabant,PV30
+Berkelland,1859,GM1859,Achterhoek,REGET0701,Achterhoek,ET0701,Gelderland,PV25
+Medemblik,0420,GM0420,West-Friesland,REGET1503,West-Friesland,ET1503,Noord-Holland,PV27
+Teylingen,1525,GM1525,Holland Rijnland,REGET2101,Holland Rijnland,ET2101,Zuid-Holland,PV28
+Rozendaal,0277,GM0277,Arnhem/Nijmegen,REGET0801,Arnhem/Nijmegen,ET0801,Gelderland,PV25
+Dijk en Waard,1980,GM1980,Regio Alkmaar,REGET1502,Regio Alkmaar,ET1502,Noord-Holland,PV27
+Landsmeer,0415,GM0415,Zaanstreek-Waterland,REGET1603,Zaanstreek-Waterland,ET1603,Noord-Holland,PV27
+Eemsdelta,1979,GM1979,Groningen,REGET0101,Groningen,ET0101,Groningen,PV20
+Venlo,0983,GM0983,Noord- en Midden-Limburg,REGET2901,Noord- en Midden-Limburg,ET2901,Limburg,PV31
+Tilburg,0855,GM0855,Hart van Brabant,REGET2501,Hart van Brabant,ET2501,Noord-Brabant,PV30
+De Wolden,1690,GM1690,Drenthe,REGET0301,Drenthe,ET0301,Drenthe,PV22
+Moerdijk,1709,GM1709,West-Brabant,REGET2801,West-Brabant,ET2801,Noord-Brabant,PV30
+Midden-Groningen,1952,GM1952,Groningen,REGET0101,Groningen,ET0101,Groningen,PV20
+Halderberge,1655,GM1655,West-Brabant,REGET2801,West-Brabant,ET2801,Noord-Brabant,PV30
+Scherpenzeel,0279,GM0279,Foodvalley Gelderland,REGET0901,Foodvalley Gelderland,ET0901,Gelderland,PV25
+Dantumadiel,1891,GM1891,Friesland,REGET0201,Friesland,ET0201,Fryslân,PV21
+Oude IJsselstreek,1509,GM1509,Achterhoek,REGET0701,Achterhoek,ET0701,Gelderland,PV25
+Opsterland,0086,GM0086,Friesland,REGET0201,Friesland,ET0201,Fryslân,PV21
+Harderwijk,0243,GM0243,Noord-Veluwe,REGET1001,Noord-Veluwe,ET1001,Gelderland,PV25
+Venray,0984,GM0984,Noord- en Midden-Limburg,REGET2901,Noord- en Midden-Limburg,ET2901,Limburg,PV31
+Noordenveld,1699,GM1699,Drenthe,REGET0301,Drenthe,ET0301,Drenthe,PV22
+"Nuenen, Gerwen en Nederwetten",0820,GM0820,Metropoolregio Eindhoven,REGET2601,Metropoolregio Eindhoven,ET2601,Noord-Brabant,PV30
+Maassluis,0556,GM0556,Rotterdam/Den Haag,REGET2301,Rotterdam/Den Haag,ET2301,Zuid-Holland,PV28
+Hilversum,0402,GM0402,Gooi en Vechtstreek,REGET1604,Gooi en Vechtstreek,ET1604,Noord-Holland,PV27
+Renswoude,0339,GM0339,Foodvalley Utrecht,REGET0902,Foodvalley Utrecht,ET0902,Utrecht,PV26
+Heumen,0252,GM0252,Arnhem/Nijmegen,REGET0801,Arnhem/Nijmegen,ET0801,Gelderland,PV25
+Leudal,1640,GM1640,Noord- en Midden-Limburg,REGET2901,Noord- en Midden-Limburg,ET2901,Limburg,PV31
+Uithoorn,0451,GM0451,Amstelland,REGET1606,Amstelland,ET1606,Noord-Holland,PV27
+Heiloo,0399,GM0399,Regio Alkmaar,REGET1502,Regio Alkmaar,ET1502,Noord-Holland,PV27
+Texel,0448,GM0448,Kop van Noord-Holland,REGET1501,Kop van Noord-Holland,ET1501,Noord-Holland,PV27
+Aalten,0197,GM0197,Achterhoek,REGET0701,Achterhoek,ET0701,Gelderland,PV25
+Vlissingen,0718,GM0718,Zeeland,REGET2401,Zeeland,ET2401,Zeeland,PV29
+Renkum,0274,GM0274,Arnhem/Nijmegen,REGET0801,Arnhem/Nijmegen,ET0801,Gelderland,PV25
+Papendrecht,0590,GM0590,Drechtsteden,REGET1801,Drechtsteden,ET1801,Zuid-Holland,PV28
+Edam-Volendam,0385,GM0385,Zaanstreek-Waterland,REGET1603,Zaanstreek-Waterland,ET1603,Noord-Holland,PV27
+Wassenaar,0629,GM0629,Rotterdam/Den Haag,REGET2301,Rotterdam/Den Haag,ET2301,Zuid-Holland,PV28
+Emmen,0114,GM0114,Drenthe,REGET0301,Drenthe,ET0301,Drenthe,PV22
+Weststellingwerf,0098,GM0098,Friesland,REGET0201,Friesland,ET0201,Fryslân,PV21
+West Betuwe,1960,GM1960,Fruitdelta Rivierenland,REGET1101,Fruitdelta Rivierenland,ET1101,Gelderland,PV25
+'s-Gravenhage,0518,GM0518,Rotterdam/Den Haag,REGET2301,Rotterdam/Den Haag,ET2301,Zuid-Holland,PV28
+Etten-Leur,0777,GM0777,West-Brabant,REGET2801,West-Brabant,ET2801,Noord-Brabant,PV30
+Apeldoorn,0200,GM0200,Cleantech,REGET1201,Cleantech,ET1201,Gelderland,PV25
+Staphorst,0180,GM0180,West-Overijssel,REGET0501,West-Overijssel,ET0501,Overijssel,PV23
+Gemert-Bakel,1652,GM1652,Metropoolregio Eindhoven,REGET2601,Metropoolregio Eindhoven,ET2601,Noord-Brabant,PV30
+Oudewater,0589,GM0589,U16,REGET1401,U16,ET1401,Utrecht,PV26
+Waalwijk,0867,GM0867,Hart van Brabant,REGET2501,Hart van Brabant,ET2501,Noord-Brabant,PV30
+Waterland,0852,GM0852,Zaanstreek-Waterland,REGET1603,Zaanstreek-Waterland,ET1603,Noord-Holland,PV27
+Valkenswaard,0858,GM0858,Metropoolregio Eindhoven,REGET2601,Metropoolregio Eindhoven,ET2601,Noord-Brabant,PV30
+Noardeast-Fryslân,1970,GM1970,Friesland,REGET0201,Friesland,ET0201,Fryslân,PV21
+Roerdalen,1669,GM1669,Noord- en Midden-Limburg,REGET2901,Noord- en Midden-Limburg,ET2901,Limburg,PV31
+Roermond,0957,GM0957,Noord- en Midden-Limburg,REGET2901,Noord- en Midden-Limburg,ET2901,Limburg,PV31
+Bergen op Zoom,0748,GM0748,West-Brabant,REGET2801,West-Brabant,ET2801,Noord-Brabant,PV30
+Nunspeet,0302,GM0302,Noord-Veluwe,REGET1001,Noord-Veluwe,ET1001,Gelderland,PV25
+Schiedam,0606,GM0606,Rotterdam/Den Haag,REGET2301,Rotterdam/Den Haag,ET2301,Zuid-Holland,PV28
+Rijssen-Holten,1742,GM1742,Twente,REGET0401,Twente,ET0401,Overijssel,PV23
+Steenwijkerland,1708,GM1708,West-Overijssel,REGET0501,West-Overijssel,ET0501,Overijssel,PV23
+Geertruidenberg,0779,GM0779,West-Brabant,REGET2801,West-Brabant,ET2801,Noord-Brabant,PV30
+Alphen-Chaam,1723,GM1723,West-Brabant,REGET2801,West-Brabant,ET2801,Noord-Brabant,PV30
+Oosterhout,0826,GM0826,West-Brabant,REGET2801,West-Brabant,ET2801,Noord-Brabant,PV30
+Gouda,0513,GM0513,Midden-Holland,REGET2201,Midden-Holland,ET2201,Zuid-Holland,PV28
+Stein,0971,GM0971,Westelijke Mijnstreek,REGET3003,Westelijke Mijnstreek,ET3003,Limburg,PV31
+Almelo,0141,GM0141,Twente,REGET0401,Twente,ET0401,Overijssel,PV23
+Houten,0321,GM0321,U16,REGET1401,U16,ET1401,Utrecht,PV26
+Kapelle,0678,GM0678,Zeeland,REGET2401,Zeeland,ET2401,Zeeland,PV29
+Goirle,0785,GM0785,Hart van Brabant,REGET2501,Hart van Brabant,ET2501,Noord-Brabant,PV30
+Bergen (NH),0373,GM0373,Regio Alkmaar,REGET1502,Regio Alkmaar,ET1502,Noord-Holland,PV27
+Vught,0865,GM0865,Noordoost-Brabant,REGET2701,Noordoost-Brabant,ET2701,Noord-Brabant,PV30
+Meerssen,0938,GM0938,Maastricht Heuvelland,REGET3002,Maastricht Heuvelland,ET3002,Limburg,PV31
+Borsele,0654,GM0654,Zeeland,REGET2401,Zeeland,ET2401,Zeeland,PV29
+Barneveld,0203,GM0203,Foodvalley Gelderland,REGET0901,Foodvalley Gelderland,ET0901,Gelderland,PV25
+Geldrop-Mierlo,1771,GM1771,Metropoolregio Eindhoven,REGET2601,Metropoolregio Eindhoven,ET2601,Noord-Brabant,PV30
+Rotterdam,0599,GM0599,Rotterdam/Den Haag,REGET2301,Rotterdam/Den Haag,ET2301,Zuid-Holland,PV28
+IJsselstein,0353,GM0353,U16,REGET1401,U16,ET1401,Utrecht,PV26
+'s-Hertogenbosch,0796,GM0796,Noordoost-Brabant,REGET2701,Noordoost-Brabant,ET2701,Noord-Brabant,PV30
+Stichtse Vecht,1904,GM1904,U16,REGET1401,U16,ET1401,Utrecht,PV26
+Winterswijk,0294,GM0294,Achterhoek,REGET0701,Achterhoek,ET0701,Gelderland,PV25
+Huizen,0406,GM0406,Gooi en Vechtstreek,REGET1604,Gooi en Vechtstreek,ET1604,Noord-Holland,PV27
+Duiven,0226,GM0226,Arnhem/Nijmegen,REGET0801,Arnhem/Nijmegen,ET0801,Gelderland,PV25
+Haarlemmermeer,0394,GM0394,Haarlemmermeer,REGET1605,Haarlemmermeer,ET1605,Noord-Holland,PV27
+Bunnik,0312,GM0312,U16,REGET1401,U16,ET1401,Utrecht,PV26
+Zuidplas,1892,GM1892,Midden-Holland,REGET2201,Midden-Holland,ET2201,Zuid-Holland,PV28
+Den Helder,0400,GM0400,Kop van Noord-Holland,REGET1501,Kop van Noord-Holland,ET1501,Noord-Holland,PV27
+Veldhoven,0861,GM0861,Metropoolregio Eindhoven,REGET2601,Metropoolregio Eindhoven,ET2601,Noord-Brabant,PV30
+Goes,0664,GM0664,Zeeland,REGET2401,Zeeland,ET2401,Zeeland,PV29
+Diemen,0384,GM0384,Amstelland,REGET1606,Amstelland,ET1606,Noord-Holland,PV27
+Simpelveld,0965,GM0965,Parkstad,REGET3001,Parkstad,ET3001,Limburg,PV31
+Heemskerk,0396,GM0396,IJmond-Zuid-Kennemerland,REGET1602,IJmond-Zuid-Kennemerland,ET1602,Noord-Holland,PV27
+Alblasserdam,0482,GM0482,Drechtsteden,REGET1801,Drechtsteden,ET1801,Zuid-Holland,PV28
+Hengelo (O),0164,GM0164,Twente,REGET0401,Twente,ET0401,Overijssel,PV23
+Hellendoorn,0163,GM0163,Twente,REGET0401,Twente,ET0401,Overijssel,PV23
+Zoeterwoude,0638,GM0638,Holland Rijnland,REGET2101,Holland Rijnland,ET2101,Zuid-Holland,PV28
+Hulst,0677,GM0677,Zeeland,REGET2401,Zeeland,ET2401,Zeeland,PV29
+Delft,0503,GM0503,Rotterdam/Den Haag,REGET2301,Rotterdam/Den Haag,ET2301,Zuid-Holland,PV28
+Rijswijk,0603,GM0603,Rotterdam/Den Haag,REGET2301,Rotterdam/Den Haag,ET2301,Zuid-Holland,PV28
+Boekel,0755,GM0755,Noordoost-Brabant,REGET2701,Noordoost-Brabant,ET2701,Noord-Brabant,PV30
+Heemstede,0397,GM0397,IJmond-Zuid-Kennemerland,REGET1602,IJmond-Zuid-Kennemerland,ET1602,Noord-Holland,PV27
+Amstelveen,0362,GM0362,Amstelland,REGET1606,Amstelland,ET1606,Noord-Holland,PV27
+Veendam,0047,GM0047,Groningen,REGET0101,Groningen,ET0101,Groningen,PV20
+Gulpen-Wittem,1729,GM1729,Maastricht Heuvelland,REGET3002,Maastricht Heuvelland,ET3002,Limburg,PV31
+Leusden,0327,GM0327,Amersfoort,REGET1301,Amersfoort,ET1301,Utrecht,PV26
+Lisse,0553,GM0553,Holland Rijnland,REGET2101,Holland Rijnland,ET2101,Zuid-Holland,PV28
+Leeuwarden,0080,GM0080,Friesland,REGET0201,Friesland,ET0201,Fryslân,PV21
+Eindhoven,0772,GM0772,Metropoolregio Eindhoven,REGET2601,Metropoolregio Eindhoven,ET2601,Noord-Brabant,PV30
+Schiermonnikoog,0088,GM0088,Friesland,REGET0201,Friesland,ET0201,Fryslân,PV21

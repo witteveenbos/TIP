@@ -1,3 +1,3 @@
-import Graph from './Graph';
+import EnergyBalanceGraph from './EnergyBalanceGraph';
 
-export default Graph;
+export default EnergyBalanceGraph;

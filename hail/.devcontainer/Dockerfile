@@ -8,7 +8,7 @@ WORKDIR /workspace
 COPY pyproject.toml poetry.lock ./
 
 # Install dependencies
-RUN pip install poetry && poetry install --no-dev --no-root
+RUN pip install poetry && poetry install --no-root
 
 # Install additional dependencies
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
