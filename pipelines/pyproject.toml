@@ -25,7 +25,7 @@ openpyxl = "^3.1.5"
 [tool.poetry.group.dev.dependencies]
 pylint = "^2.15.10"
 pytest = "^7.2.1"
-aiohttp = "^3.12.8"
+aiohttp = "^3.13.3"
 redis = "^6.2.0"
 pydantic = "^2.11.5"
 colorcet = "^3.1.0"
