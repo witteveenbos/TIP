@@ -34,8 +34,30 @@ class ElectricitySupplyAbsolute(AbstractResultMap):
 
     @staticmethod
     def map(var: "Var"):
-        return var.gqueries.total_electricity_produced.future / 1e9  # MJ to PJ
+        # Calculate domestic supply (excluding imports)
+        total_supply = (
+            var.gqueries.other_renewables_to_network_in_sankey.future +
+            var.gqueries.shortage_to_network_in_sankey.future +
+            var.gqueries.solar_to_network_in_sankey.future +
+            var.gqueries.hydrogen_to_network_in_sankey.future +
+            var.gqueries.wind_to_network_in_sankey.future +
+            var.gqueries.biomass_waste_greengas_to_network_in_sankey.future +
+            var.gqueries.fossil_to_network_in_sankey.future +
+            var.gqueries.nuclear_to_network_in_sankey.future
+        )
+        return total_supply
 
     @staticmethod
     def map_aggregate(var: "Var"):
-        return var.gqueries.total_electricity_produced.future / 1e9  # MJ to PJ
+        # Calculate domestic supply (excluding imports)
+        total_supply = (
+            var.gqueries.other_renewables_to_network_in_sankey.future +
+            var.gqueries.shortage_to_network_in_sankey.future +
+            var.gqueries.solar_to_network_in_sankey.future +
+            var.gqueries.hydrogen_to_network_in_sankey.future +
+            var.gqueries.wind_to_network_in_sankey.future +
+            var.gqueries.biomass_waste_greengas_to_network_in_sankey.future +
+            var.gqueries.fossil_to_network_in_sankey.future +
+            var.gqueries.nuclear_to_network_in_sankey.future
+        )
+        return total_supply

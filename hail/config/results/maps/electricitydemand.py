@@ -34,10 +34,36 @@ class ElectricityBalanceNormalized(AbstractResultMap):
 
     @staticmethod
     def map(var: "Var"):
-        return var.gqueries.total_electricity_consumed.future / 1e9  # MJ to PJ
+        # Calculate local demand (excluding exports)
+        total_demand = (
+            var.gqueries.network_to_households_in_sankey.future +
+            var.gqueries.network_to_buildings_in_sankey.future +
+            var.gqueries.network_to_transport_in_sankey.future +
+            var.gqueries.network_to_industry_in_sankey.future +
+            var.gqueries.network_to_agriculture_in_sankey.future +
+            var.gqueries.network_to_p2g_in_sankey.future +
+            var.gqueries.network_to_p2g_offshore_in_sankey.future +
+            var.gqueries.network_to_curtailment_in_sankey.future +
+            var.gqueries.network_to_other_in_sankey.future +
+            var.gqueries.network_to_bunkers_in_sankey.future +
+            var.gqueries.network_to_loss_in_sankey.future
+        )
+        return total_demand
 
     @staticmethod
     def map_aggregate(var: "Var"):
-        # TODO: Might be nice to be able to return a "WithoutNormalisation" object, that indicates
-        # that the map should be aggregated as is
-        return var.gqueries.total_electricity_consumed.future / 1e9  # MJ to PJ
+        # Calculate local demand (excluding exports)
+        total_demand = (
+            var.gqueries.network_to_households_in_sankey.future +
+            var.gqueries.network_to_buildings_in_sankey.future +
+            var.gqueries.network_to_transport_in_sankey.future +
+            var.gqueries.network_to_industry_in_sankey.future +
+            var.gqueries.network_to_agriculture_in_sankey.future +
+            var.gqueries.network_to_p2g_in_sankey.future +
+            var.gqueries.network_to_p2g_offshore_in_sankey.future +
+            var.gqueries.network_to_curtailment_in_sankey.future +
+            var.gqueries.network_to_other_in_sankey.future +
+            var.gqueries.network_to_bunkers_in_sankey.future +
+            var.gqueries.network_to_loss_in_sankey.future
+        )
+        return total_demand
