@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 from itertools import product
 from scipy import sparse
-from owslib.wfs import WebFeatureService
+# from owslib.wfs import WebFeatureService
 import json
 from shapely.prepared import prep
 from pathlib import Path
@@ -46,21 +46,33 @@ fp_municipalities = "data/municipalities.geojson"
 # Load the data
 gdf_municipalities: gpd.GeoDataFrame = gpd.read_file(fp_municipalities)
 
-# setup of wfs connection
-wfs_url = "https://service.pdok.nl/kadaster/netcapaciteit/wfs/v1_0"
-wfs = WebFeatureService(url=wfs_url, version="2.0.0")
+# # setup of wfs connection
+# wfs_url = "https://service.pdok.nl/kadaster/netcapaciteit/wfs/v1_0"
+# wfs = WebFeatureService(url=wfs_url, version="2.0.0")
 
-# List available layers, layer 1 contains the verzorgingsgebieden, layer 0 contains the substations
-layers = list(wfs.contents)
+# # List available layers, layer 1 contains the verzorgingsgebieden, layer 0 contains the substations
+# layers = list(wfs.contents)
 
-### if you want more info:
-schema = wfs.get_schema(layers[1])
-properties = list(schema.get("properties").keys())
+# ### if you want more info:
+# schema = wfs.get_schema(layers[1])
+# properties = list(schema.get("properties").keys())
 
-# probe the WFS api and save the response in a GeoDataFrame
-response = wfs.getfeature(typename=layers[1], outputFormat="json")
-gdf_substations: gpd.GeoDataFrame = gpd.read_file(response)
+#### probe the WFS api and save the response in a GeoDataFrame
+# response = wfs.getfeature(typename=layers[1], outputFormat="json")
+# gdf_substations: gpd.GeoDataFrame = gpd.read_file(response)
+# gdf_substations = gdf_substations.to_crs(gdf_municipalities.crs)
+##############
+
+### Use the existing file
+gdf_substations = gpd.read_file("data/hsms.geojson")
 gdf_substations = gdf_substations.to_crs(gdf_municipalities.crs)
+
+df_substations = pd.DataFrame(json.load(open("data/hsms_capacity.json"))).T # has columns invoeding and afname, index is station name
+# rename columns to the original silly names
+df_substations = df_substations.rename(columns={"invoeding": "totaleCapaciteitInvoedingMva", "afname": "totaleCapaciteitAfnameMva"})
+
+gdf_substations = gdf_substations.join(df_substations, on="label")
+gdf_substations["station"] = gdf_substations["label"]
 
 # Cookie cut the substations down to only the province of interest
 gdf_substations = gdf_substations.clip(gdf_municipalities)
@@ -167,8 +179,8 @@ if VISUAL_VALIDATION:
                 ax.annotate(
                     f"{value:.2f}",
                     (
-                        this_region.geometry.centroid.x,
-                        this_region.geometry.centroid.y,
+                        this_region.geometry.centroid.x.values[0],
+                        this_region.geometry.centroid.y.values[0],
                     ),
                 )
                 # remove all axis
@@ -189,15 +201,15 @@ with open("data/municipal_load_to_station_map.json", "w") as f:
 
 
 # save only the capacities
-hsms_fordict = hsms[["name", "invoeding", "afname"]]
-with open("data/hsms_capacity.json", "w") as f:
-    hsms_d = hsms_fordict.to_dict("records")
-    hsms_d = {d["name"]: {k: v for k, v in d.items() if k != "name"} for d in hsms_d}
-    json.dump(hsms_d, f)
+# hsms_fordict = hsms[["name", "invoeding", "afname"]]
+# with open("data/hsms_capacity.json", "w") as f:
+#     hsms_d = hsms_fordict.to_dict("records")
+#     hsms_d = {d["name"]: {k: v for k, v in d.items() if k != "name"} for d in hsms_d}
+#     json.dump(hsms_d, f)
 
 # save the shapes
-hsms["label"] = hsms["name"]
-hsms["gid"] = hsms["name"]
-hsms.drop("name", axis=1, inplace=True)
-hsms = hsms[["label", "gid", "geometry"]]
-hsms.to_file("data/hsms.geojson", driver="GeoJSON")
+# hsms["label"] = hsms["name"]
+# hsms["gid"] = hsms["name"]
+# hsms.drop("name", axis=1, inplace=True)
+# hsms = hsms[["label", "gid", "geometry"]]
+# hsms.to_file("data/hsms.geojson", driver="GeoJSON")

@@ -1,8 +1,8 @@
 from __future__ import annotations
 import typing
 import logging
-import yaml
-import os
+# import yaml
+# import os
 import colorcet as cc
 from pathlib import Path
 from jinja2 import Template, Environment, meta
@@ -12,28 +12,28 @@ if typing.TYPE_CHECKING:
     from hail.models.calculate import DevelopmentGroup
 
 
-def load_yaml(f: Path) -> dict:
-    """Load a YAML file and return a dictionary using the custom Loader."""
+# def load_yaml(f: Path) -> dict:
+#     """Load a YAML file and return a dictionary using the custom Loader."""
 
-    class Loader(yaml.SafeLoader):
-        """Custom YAML loader that supports the !include tag."""
+#     class Loader(yaml.SafeLoader):
+#         """Custom YAML loader that supports the !include tag."""
 
-        def __init__(self, stream):
+#         def __init__(self, stream):
 
-            self._root = os.path.split(stream.name)[0]
+#             self._root = os.path.split(stream.name)[0]
 
-            super(Loader, self).__init__(stream)
+#             super(Loader, self).__init__(stream)
 
-        def include(self, node):
+#         def include(self, node):
 
-            filename = os.path.join(self._root, self.construct_scalar(node))
+#             filename = os.path.join(self._root, self.construct_scalar(node))
 
-            with open(filename, "r") as f:
-                return yaml.load(f, Loader)
+#             with open(filename, "r") as f:
+#                 return yaml.load(f, Loader)
 
-    Loader.add_constructor("!include", Loader.include)
-    with open(f, "r") as f:
-        return yaml.load(f, Loader)
+#     Loader.add_constructor("!include", Loader.include)
+#     with open(f, "r") as f:
+#         return yaml.load(f, Loader)
 
 
 def filter_dict(d: dict, keys: list[str]) -> dict:
