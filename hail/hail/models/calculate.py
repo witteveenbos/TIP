@@ -185,6 +185,16 @@ class GraphElement(BaseModel, arbitrary_types_allowed=True):
             color=self.color,
             value=self.value[index],
         )
+    
+    def multiply_value(self, factor: float | int) -> GraphElement:
+        new_value = self.value * factor
+        return GraphElement(
+            carrier=self.carrier,
+            sector=self.sector,
+            demandSupply=self.demandSupply,
+            color=self.color,
+            value=new_value,
+        )
 
 
 Groupable = Literal["sector", "carrier", "demandSupply"]
