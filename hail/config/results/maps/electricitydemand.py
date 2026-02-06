@@ -4,6 +4,8 @@ from hail.models.calculate import ColorMapDef, LegendDef
 from hail.models.enums import AreaDivisionEnum, BalanceEnum, CarrierEnum
 from hail.result import AbstractResultMap
 
+from config.results.maps.electricity_shared import get_e_demand
+
 if TYPE_CHECKING:
     from hail.reference import RefersTo
     from hail.context import ContextProvider
@@ -15,7 +17,7 @@ class ElectricityBalanceNormalized(AbstractResultMap):
 
     key = "electricity_demand"
     name = "Elektriciteitsvraag"
-    unit = "PJ"  # TODO: check unit
+    unit = "GWh"  # TODO: check unit
     colormap = ColorMapDef(
         colormap="b_linear_wyor_100_45_c55",
     )
@@ -35,35 +37,9 @@ class ElectricityBalanceNormalized(AbstractResultMap):
     @staticmethod
     def map(var: "Var"):
         # Calculate local demand (excluding exports)
-        total_demand = (
-            var.gqueries.network_to_households_in_sankey.future +
-            var.gqueries.network_to_buildings_in_sankey.future +
-            var.gqueries.network_to_transport_in_sankey.future +
-            var.gqueries.network_to_industry_in_sankey.future +
-            var.gqueries.network_to_agriculture_in_sankey.future +
-            var.gqueries.network_to_p2g_in_sankey.future +
-            var.gqueries.network_to_p2g_offshore_in_sankey.future +
-            var.gqueries.network_to_curtailment_in_sankey.future +
-            var.gqueries.network_to_other_in_sankey.future +
-            var.gqueries.network_to_bunkers_in_sankey.future +
-            var.gqueries.network_to_loss_in_sankey.future
-        )
-        return total_demand
+        return get_e_demand(var)
 
     @staticmethod
     def map_aggregate(var: "Var"):
         # Calculate local demand (excluding exports)
-        total_demand = (
-            var.gqueries.network_to_households_in_sankey.future +
-            var.gqueries.network_to_buildings_in_sankey.future +
-            var.gqueries.network_to_transport_in_sankey.future +
-            var.gqueries.network_to_industry_in_sankey.future +
-            var.gqueries.network_to_agriculture_in_sankey.future +
-            var.gqueries.network_to_p2g_in_sankey.future +
-            var.gqueries.network_to_p2g_offshore_in_sankey.future +
-            var.gqueries.network_to_curtailment_in_sankey.future +
-            var.gqueries.network_to_other_in_sankey.future +
-            var.gqueries.network_to_bunkers_in_sankey.future +
-            var.gqueries.network_to_loss_in_sankey.future
-        )
-        return total_demand
+        return get_e_demand(var)

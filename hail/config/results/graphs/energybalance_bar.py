@@ -14,7 +14,7 @@ class ElectricityBalanceBar(AbstractResultGraph):
 
     key = "energybalance_bar"
     name = "Energiebalans"
-    unit = "PJ"  # TODO: make a unit Enum
+    unit = "GWh"  # TODO: make a unit Enum
     meta = GraphMeta(
         # if we don't supply a title, it will be the same as the name
         # if we don't supply a unit, it will be the same as the unit
@@ -25,7 +25,7 @@ class ElectricityBalanceBar(AbstractResultGraph):
 
     @staticmethod
     def graph(var: "Var"):
-        return [
+        graph_elements =  [
            
             # New graph based on the electricity Sankey: https://github.com/quintel/etmodel/blob/fa78a605b9722846337f604285311a5822733f7d/app/assets/javascripts/d3/sankey.coffee
             GraphElement(
@@ -330,11 +330,11 @@ class ElectricityBalanceBar(AbstractResultGraph):
                 carrier="Export",
                 sector="Elektriciteitsgebruik",
                 demandSupply="Vraag",
-            ),
-
-
-            
+            ),            
         ]
+        # Conversion from PJ to GWh
+        graph_elements = [graph_element.multiply_value(277.7778) for graph_element in graph_elements]
+        return graph_elements
 
     @staticmethod
     def graph_aggregate(var: "Var"):

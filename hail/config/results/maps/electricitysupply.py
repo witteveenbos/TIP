@@ -4,6 +4,8 @@ from hail.models.calculate import ColorMapDef, LegendDef
 from hail.models.enums import AreaDivisionEnum, BalanceEnum, CarrierEnum
 from hail.result import AbstractResultMap
 
+from config.results.maps.electricity_shared import get_e_supply
+
 if TYPE_CHECKING:
     from hail.reference import RefersTo
     from hail.context import ContextProvider
@@ -15,7 +17,7 @@ class ElectricitySupplyAbsolute(AbstractResultMap):
 
     key = "electricity_supply"
     name = "Elektriciteitsproductie"
-    unit = "PJ"  # TODO: check unit
+    unit = "GWh"  # TODO: check unit
     colormap = ColorMapDef(
         colormap="b_linear_blue_95_50_c20",
     )
@@ -35,29 +37,9 @@ class ElectricitySupplyAbsolute(AbstractResultMap):
     @staticmethod
     def map(var: "Var"):
         # Calculate domestic supply (excluding imports)
-        total_supply = (
-            var.gqueries.other_renewables_to_network_in_sankey.future +
-            var.gqueries.shortage_to_network_in_sankey.future +
-            var.gqueries.solar_to_network_in_sankey.future +
-            var.gqueries.hydrogen_to_network_in_sankey.future +
-            var.gqueries.wind_to_network_in_sankey.future +
-            var.gqueries.biomass_waste_greengas_to_network_in_sankey.future +
-            var.gqueries.fossil_to_network_in_sankey.future +
-            var.gqueries.nuclear_to_network_in_sankey.future
-        )
-        return total_supply
+        return get_e_supply(var)
 
     @staticmethod
     def map_aggregate(var: "Var"):
         # Calculate domestic supply (excluding imports)
-        total_supply = (
-            var.gqueries.other_renewables_to_network_in_sankey.future +
-            var.gqueries.shortage_to_network_in_sankey.future +
-            var.gqueries.solar_to_network_in_sankey.future +
-            var.gqueries.hydrogen_to_network_in_sankey.future +
-            var.gqueries.wind_to_network_in_sankey.future +
-            var.gqueries.biomass_waste_greengas_to_network_in_sankey.future +
-            var.gqueries.fossil_to_network_in_sankey.future +
-            var.gqueries.nuclear_to_network_in_sankey.future
-        )
-        return total_supply
+        return get_e_supply(var)
