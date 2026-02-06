@@ -37,8 +37,8 @@ class ElectricityBalanceNormalized(AbstractResultMap):
         AreaDivisionEnum.REG,
     ]
   
-    @classmethod
-    def map(cls, var: "Var"):
+    @staticmethod
+    def map(var: "Var"):
         # Calculate domestic supply (excluding imports)
         total_supply = get_e_supply(var)
         total_demand = get_e_demand(var)
