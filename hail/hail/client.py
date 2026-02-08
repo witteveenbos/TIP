@@ -28,11 +28,23 @@ class AsyncETMClient:
         self,
         main_scenario: str,
         scenarios: list[ETMScenario],
-        base_url: str = "https://engine.energytransitionmodel.com/",
+        base_url: str = "https://2025-01.engine.energytransitionmodel.com/",
         api_key: str = None,
         redis_client: redis.Redis = None,
     ) -> None:
         self.base_url = base_url
+        #### commented out because using the env vars is not setup
+        # if base_url is not None:
+        #     self.base_url = base_url
+        # else:
+        #     self.base_url = os.getenv("ETM_BASE_URL")
+        #     if not self.base_url:
+        #         raise ValueError(
+        #             "ETM_BASE_URL environment variable is required but not set. "
+        #             "Please set it to the ETM API base URL (e.g., 'https://2025-01.engine.energytransitionmodel.com/')"
+        #         )
+        logger.debug(f"ETM base URL set to: {self.base_url}")
+
         self.main_scenario = main_scenario
 
         if api_key is not None:
@@ -91,7 +103,7 @@ class AsyncETMClient:
                         f"Failed to get put on {scenario.etm_id}: {response.reason}"
                     )
                     raise ConnectionError(
-                        f"Unable to put on {scenario.etm_id} due to {e.__class__}"
+                        f"Unable to put on {scenario.etm_id}: {response.status} {response.reason}"
                     )
                 else:
                     logger.debug(
@@ -99,7 +111,7 @@ class AsyncETMClient:
                     )
         except Exception as e:
             logger.error(
-                "Unable to put on {} due to {}.".format(scenario.etm_id, e.__class__)
+                "Unable to put on {} due to {}.".format(scenario.etm_id, e.__class__.__name__)
             )
             raise e
         return resp
@@ -152,7 +164,7 @@ class AsyncETMClient:
 
                 if response.status != 200:
                     logger.error(
-                        f"Failed to get inputs for{scenario.etm_id}: {response.reason}"
+                        f"Failed to get inputs for {scenario.etm_id}: {response.reason}"
                     )
                     raise ConnectionError(
                         f"Unable to get inputs on {scenario.etm_id}: {response.reason}"
@@ -164,9 +176,11 @@ class AsyncETMClient:
         except Exception as e:
             logger.error(
                 "Unable to get inputs for {} due to {}.".format(
-                    scenario.etm_id, e.__class__
+                    scenario.etm_id, e.__class__.__name__
                 )
             )
+            logger.error(f"Full get request URL: {self.base_url}{inputs_url}")
+            logger.exception(e)
             raise e
 
         return filter_dict(resp, inputs)
@@ -209,9 +223,10 @@ class AsyncETMClient:
         """Query all scenarios for a list of gqueries and return a list of responses."""
 
         headers = {}
-        headers["Authorization"] = f"Bearer {self.api_key}"
+        if self.api_key and self.api_key not in ["your_api_key", "enter_etm_key"]:
+            headers["Authorization"] = f"Bearer {self.api_key}"
 
-        async with aiohttp.ClientSession(base_url=self.base_url) as session:
+        async with aiohttp.ClientSession(base_url=self.base_url, headers=headers) as session:
             ret = await asyncio.gather(
                 *(
                     self.query(scenario, session, gqueries, inputs)
