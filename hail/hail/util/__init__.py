@@ -1,8 +1,6 @@
 from __future__ import annotations
 import typing
 import logging
-# import yaml
-# import os
 import colorcet as cc
 from pathlib import Path
 from jinja2 import Template, Environment, meta
@@ -10,30 +8,6 @@ from jinja2 import Template, Environment, meta
 if typing.TYPE_CHECKING:
     from hail.models.request import PostUserInputRequest
     from hail.models.calculate import DevelopmentGroup
-
-
-# def load_yaml(f: Path) -> dict:
-#     """Load a YAML file and return a dictionary using the custom Loader."""
-
-#     class Loader(yaml.SafeLoader):
-#         """Custom YAML loader that supports the !include tag."""
-
-#         def __init__(self, stream):
-
-#             self._root = os.path.split(stream.name)[0]
-
-#             super(Loader, self).__init__(stream)
-
-#         def include(self, node):
-
-#             filename = os.path.join(self._root, self.construct_scalar(node))
-
-#             with open(filename, "r") as f:
-#                 return yaml.load(f, Loader)
-
-#     Loader.add_constructor("!include", Loader.include)
-#     with open(f, "r") as f:
-#         return yaml.load(f, Loader)
 
 
 def filter_dict(d: dict, keys: list[str]) -> dict:
@@ -145,11 +119,11 @@ def get_color(
 
     norm_value = normalize(value, vmin, vmax)
     cmap = getattr(cc, cmap_name)
-    
+
     # Reverse the colormap if requested
     if reverse:
         norm_value = 255 - norm_value
-    
+
     color = cmap[norm_value]
 
     return color

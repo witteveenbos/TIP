@@ -88,7 +88,6 @@ app.get("/logs_download", response_class=FileResponse)(download_logs)
 async def get_scenario_list() -> list[ScenarioDisplay]:
     """Get the list of all scenarios"""
     return preloaded.scenario_display
-    # return None
 
 
 @app.get("/get_main_graph/")
