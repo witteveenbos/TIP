@@ -14,7 +14,7 @@ class ElectricityBalanceCurve(AbstractResultCurveGraph):
 
     key = "energybalance_curve"
     name = "Vermogensbalans elektriciteit"
-    unit = "GW"  # TODO: make a unit Enum, check this unit
+    unit = "MW"  # TODO: make a unit Enum, check this unit
     meta = GraphCurveMeta(
         # if we don't supply a title, it will be the same as the name
         # if we don't supply a unit, it will be the same as the unit
