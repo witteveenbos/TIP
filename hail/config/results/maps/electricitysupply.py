@@ -4,6 +4,8 @@ from hail.models.calculate import ColorMapDef, LegendDef
 from hail.models.enums import AreaDivisionEnum, BalanceEnum, CarrierEnum
 from hail.result import AbstractResultMap
 
+from config.results.maps.electricity_shared import get_e_supply
+
 if TYPE_CHECKING:
     from hail.reference import RefersTo
     from hail.context import ContextProvider
@@ -15,7 +17,7 @@ class ElectricitySupplyAbsolute(AbstractResultMap):
 
     key = "electricity_supply"
     name = "Elektriciteitsproductie"
-    unit = "PJ"  # TODO: check unit
+    unit = "GWh"  # TODO: check unit
     colormap = ColorMapDef(
         colormap="b_linear_blue_95_50_c20",
     )
@@ -34,8 +36,10 @@ class ElectricitySupplyAbsolute(AbstractResultMap):
 
     @staticmethod
     def map(var: "Var"):
-        return var.gqueries.total_electricity_produced.future / 1e9  # MJ to PJ
+        # Calculate domestic supply (excluding imports)
+        return get_e_supply(var)
 
     @staticmethod
     def map_aggregate(var: "Var"):
-        return var.gqueries.total_electricity_produced.future / 1e9  # MJ to PJ
+        # Calculate domestic supply (excluding imports)
+        return get_e_supply(var)
