@@ -16,8 +16,7 @@ from hail.models.enums import MainScenarioEnum
 from hail.models.request import PostUserInputRequest
 from hail.models.response import APIResponse
 from hail.models.state import PreloadedState
-from hail.result import AbstractResultMap
-from hail.result.graph import AbstractResultGraph
+from hail.result import AbstractResultMap, AbstractResultGraph, AbstractResultCurveGraph
 from tests.mock_context import MockMultiScenarioDataWrapper
 from config.aggregation import configs as aggregation_configs
 
@@ -142,10 +141,10 @@ def get_developmentclasses(configpath: Path) -> list[AbstractDevelopment]:
     return classes
 
 
-def get_graphclasses(configpath: Path) -> list[AbstractResultGraph]:
+def get_graphclasses(configpath: Path) -> list[AbstractResultGraph|AbstractResultCurveGraph]:
 
-    classes: list[AbstractResultGraph] = import_all_classes_from_folder(
-        configpath, AbstractResultGraph
+    classes: list[AbstractResultGraph|AbstractResultCurveGraph] = import_all_classes_from_folder(
+        configpath, (AbstractResultGraph, AbstractResultCurveGraph)
     )
     return classes
 
@@ -298,6 +297,47 @@ async def get_gquery_value(
         "description": f"ETM gquery value for {gquery_name}"
     }
 
+async def get_curve_toplevel(
+    selected_scenario: MainScenarioEnum,
+    preloaded: PreloadedState,
+    redis_client: Redis,
+) -> CalculateResponse:
+
+    accessed_attributes = preloaded.accessed_attributes
+    scenario_relations = preloaded.scenario_relations
+    energy_balance_curve_graph = [
+        graph for graph in preloaded.graphclasses if graph.key == "energybalance_curve"
+    ][0]
+
+    for scenario_rel in scenario_relations:
+        if scenario_rel.main_scenario == selected_scenario:
+            base_scenarios = scenario_rel.municipal_scenarios
+
+    default_scenarios = [
+        ETMScenario(
+            name=ms.municipalityID,
+            etm_id=ms.ETMscenarioID,
+        )
+        for ms in base_scenarios
+    ]
+
+    client = AsyncETMClient(
+        main_scenario=selected_scenario,
+        scenarios=default_scenarios,
+        redis_client=redis_client,
+    )
+
+    context = await client.connect(
+        gqueries=accessed_attributes.gqueries,
+        inputs=accessed_attributes.inputs,
+        ui=accessed_attributes.ui,
+    )
+
+    graph = energy_balance_curve_graph.make_graph_toplevel(context)
+
+    return CalculateResponse(graph=graph)
+
+
 async def get_curve_graph(
     selected_scenario: MainScenarioEnum,
     preloaded: PreloadedState,
@@ -334,6 +374,6 @@ async def get_curve_graph(
         ui=accessed_attributes.ui,
     )
 
-    graph = energy_balance_curve_graph.make_curve_toplevel(context)
+    graph = energy_balance_curve_graph.make_graph(context)
 
     return CalculateResponse(graph=graph)

@@ -52,6 +52,7 @@ class plotTypes(Enum):
     line = "line"
     bar = "bar"
     scatter = "scatter"
+    stacked_area = "stacked_area"
 
 
 class AreaDivisionEnum(Enum):

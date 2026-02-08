@@ -1,10 +1,9 @@
 from __future__ import annotations
 import logging
 from abc import abstractmethod
-from hail.models.calculate import GraphElement, GraphCurveElement, GraphMeta, GraphResponse, NullReponse
+from hail.models.calculate import GraphElement, GraphMeta, GraphCurveElement, GraphCurveMeta, GraphResponse, GraphCurveResponse, NullReponse
 from hail.result.base import AbstractResult
 from typing import TYPE_CHECKING
-
 from hail.context import ContextProvider
 from hail.models.matrix import Matrix
 from hail.util import id_to_region_map, region_to_id_map
@@ -76,40 +75,6 @@ class AbstractResultGraph(AbstractResult):
             )
             for ge in all_graphs
         ]
-        return GraphResponse(
-            graphData=summed_graphs,
-            metaData=cls._make_metadata(),
-        )
-
-    @classmethod
-    def make_curve_toplevel(cls, context: ContextProvider) -> GraphResponse:
-        """Make a top level curve graph, summing all curve graphs in the context"""
-        # TODO: This is a temporary solution, we need to make a proper aggregate graph but that is currently out of scope
-        all_graphs: list[GraphCurveElement] = cls.graph(var=context)
-        # summed_graphs = [
-        #     GraphCurveElement(
-        #         value=ge.value.sum_element_wise(),
-        #         **ge.model_dump(exclude={"value"}),
-        #     )
-        #     for ge in all_graphs
-        # ]
-        summed_graphs = []
-        for gce in all_graphs:
-            graph = GraphCurveElement(
-                value=gce.value.sum_element_wise(),
-                **gce.model_dump(exclude={"value"}),
-            )
-            logging.info(f"Added to summed graph: {graph}, type: {type(graph)}")
-            summed_graphs.append(graph)
-        
-        logging.info(f"Summed graphs: {summed_graphs}")
-
-        response = GraphResponse(
-            graphData=summed_graphs,
-            metaData=cls._make_metadata(),
-        )
-        logging.info(f"Returning curve graph response: {response}")
-
         return GraphResponse(
             graphData=summed_graphs,
             metaData=cls._make_metadata(),

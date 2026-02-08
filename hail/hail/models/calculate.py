@@ -22,7 +22,7 @@ class NullReponse(BaseModel):
 class CalculateResponse(BaseModel):
     input: Optional[InputResponse] = None
     map: Optional[MapResponse] = None
-    graph: Optional[GraphResponse] = None
+    graph: Optional[GraphResponse|GraphCurveResponse] = None
     msgs: Optional[list[NullReponse]] = None
 
 
@@ -153,7 +153,7 @@ class UpdatedInputGroup(DevelopmentGroup):
 # ------ > Graph
 class GraphResponse(BaseModel):
     metaData: GraphMeta
-    graphData: list[Union[GraphElement, GraphCurveElement]]
+    graphData: list[GraphElement]
 
 
 class GraphMeta(BaseModel):
@@ -164,6 +164,20 @@ class GraphMeta(BaseModel):
     xLabelText: Optional[str] = None
     xGrouping: Optional[Groupable] = None
 
+# ------ > Graph
+class GraphCurveResponse(BaseModel):
+    metaData: GraphCurveMeta
+    graphData: list[dict[str, float | int]]
+
+class GraphCurveMeta(BaseModel):
+    title: str = "default"
+    unit: str = "default"
+    yLabelText: str
+    plotType: plotTypes
+    xLabelText: Optional[str] = None
+    xTickLabels: Optional[list[str]] = None
+    xGrouping: Optional[Groupable] = None    
+    properties: Optional[dict[str, dict[str, str]]] = None
 
 class GraphElement(BaseModel, arbitrary_types_allowed=True):
     carrier: str
@@ -187,6 +201,7 @@ class GraphElement(BaseModel, arbitrary_types_allowed=True):
 
 class GraphCurveElement(BaseModel, arbitrary_types_allowed=True):
     name: str
+    group: str
     demandSupply: str
     color: str
     value: list | Curve
@@ -197,6 +212,7 @@ class GraphCurveElement(BaseModel, arbitrary_types_allowed=True):
         ), "Cannot filter on index if value is not a curve"
         return GraphCurveElement(
             name=self.name,
+            group=self.group,
             demandSupply=self.demandSupply,
             color=self.color,
             value=self.value[index],
