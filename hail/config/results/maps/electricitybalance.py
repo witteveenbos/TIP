@@ -1,8 +1,10 @@
 from typing import TYPE_CHECKING
 
-from hail.models.calculate import ColorMapDef, LegendDef
+from hail.models.calculate import ColorMapDef, LegendDef, MapDataEntry, MapMetaData, MapResponse
 from hail.models.enums import AreaDivisionEnum, BalanceEnum, CarrierEnum
 from hail.result import AbstractResultMap
+
+from config.results.maps.electricity_shared import get_e_supply, get_e_demand
 
 if TYPE_CHECKING:
     from hail.reference import RefersTo
@@ -14,14 +16,15 @@ if TYPE_CHECKING:
 class ElectricityBalanceNormalized(AbstractResultMap):
 
     key = "electricity_balance_normalized"
-    name = "Elektriciteitsbalans (percentage)"
+    name = "Elektriciteitsbalans, aanbod-vraag ratio (%)"
     unit = "%"  # TODO: make a unit Enum
     colormap = ColorMapDef(
-        colormap="b_diverging_gkr_60_10_c40",
-        lower_limit=-100,
-        upper_limit=100,
+        colormap="b_diverging_bwr_55_98_c37",
+        lower_limit=0,
+        upper_limit=200,
+        reverse=True
     )
-    legend = LegendDef(steps=5, decimals=0)
+    legend = LegendDef(steps=9, decimals=0)
     related_carrier = CarrierEnum.ELECTRICITY
     related_balance = BalanceEnum.BALANCE
 
@@ -33,21 +36,60 @@ class ElectricityBalanceNormalized(AbstractResultMap):
         AreaDivisionEnum.PROV,
         AreaDivisionEnum.REG,
     ]
-
+  
     @staticmethod
     def map(var: "Var"):
+        # Calculate domestic supply (excluding imports)
+        total_supply = get_e_supply(var)
+        total_demand = get_e_demand(var)
+             
+        # Return supply/demand ratio as percentage
+        return (total_supply / total_demand) * 100
 
-        return var.gqueries.share_of_electricity_generated_domestically.future * 100
 
     @staticmethod
     def map_aggregate(var: "Var"):
-
-        per_region_balance = (
-            var.gqueries.share_of_electricity_generated_domestically.future * 100
+        """
+        Required by abstract base class but not used directly.
+        We override make_map_aggregate instead to handle supply/demand aggregation separately.
+        """
+        raise NotImplementedError(
+            "Use make_map_aggregate instead - balance requires separate supply/demand aggregation"
         )
-        per_region_generation = var.gqueries.total_electricity_produced.future
-        total_generation = (
-            var.gqueries.total_electricity_produced.future
-        ).sum_element_wise()
 
-        return per_region_balance * per_region_generation / total_generation
+    # Override the aggregation method to handle supply and demand separately for correct aggregation
+    @classmethod
+    def make_map_aggregate(cls, context: "ContextProvider") -> MapResponse:
+        """Override to properly aggregate supply and demand separately before calculating ratio"""
+        # Get supply and demand matrices at municipality level
+        supply_matrix = get_e_supply(context)
+        demand_matrix = get_e_demand(context)
+        
+        # Get the aggregator
+        aggregator = context.aggregator
+        
+        # Aggregate both supply and demand to the target geographic level
+        agg_supply = aggregator.aggregate(to_aggregate=supply_matrix, context=context)
+        agg_demand = aggregator.aggregate(to_aggregate=demand_matrix, context=context)
+        
+        # Calculate the balance ratio at the aggregated level
+        agg_balance = (agg_supply / agg_demand) * 100
+        
+        # Create colormap and metadata
+        cm = cls.make_colormap(map_matrix=agg_balance)
+        map_metadata = cls._make_metadata(colormap=cm)
+        
+        # Build the map response
+        this_map = {
+            region: MapDataEntry(
+                gid=region,
+                value=value,
+                color=cm.get_color_for_value(value),
+            )
+            for region, value in zip(aggregator.region_ids, agg_balance)
+        }
+        
+        return MapResponse(
+            metadata=map_metadata,
+            mapData=this_map,
+        )
