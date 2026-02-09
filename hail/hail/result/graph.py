@@ -1,5 +1,4 @@
 from __future__ import annotations
-import logging
 from abc import abstractmethod
 from hail.models.calculate import GraphElement, GraphMeta, GraphCurveElement, GraphCurveMeta, GraphResponse, GraphCurveResponse, NullReponse
 from hail.result.base import AbstractResult

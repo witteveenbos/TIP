@@ -1,6 +1,6 @@
 from __future__ import annotations
 import logging
-from typing import Any, Literal, Optional, Union
+from typing import Any, Literal, Optional
 import colorcet as cc
 from pydantic import BaseModel
 
