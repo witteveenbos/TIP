@@ -5,8 +5,8 @@ from datetime import datetime
 
 
 class QueryResult(BaseModel):
-    present: Union[float, List[float], None]
-    future: Union[float, List[float]]
+    present: float | List[float] | None
+    future: float | List[float]
     unit: str | None
 
 

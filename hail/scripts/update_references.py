@@ -3,7 +3,7 @@ import logging
 import requests
 from hail.development import AbstractDevelopment
 from hail.result import AbstractResultMap
-from hail.result.graph import AbstractResultGraph
+from hail.result.graph_bar import AbstractResultGraph
 from hail.util import render_template
 from hail.generate import import_all_classes_from_folder
 from pathlib import Path
