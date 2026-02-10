@@ -52,16 +52,98 @@ class AbstractResultCurveGraph(AbstractResult):
             **exst_meta.model_dump(exclude={"title", "unit", "xTickLabels", "properties"}),
         )
 
+    @classmethod
+    def _make_metadata_for_groups(cls, gces: list[GraphCurveElement]) -> GraphCurveMeta:
+        """Create metadata for grouped data, inferring color and demandSupply from group elements"""
+        exst_meta: GraphCurveMeta = cls.meta
+        groups = cls._group_elements(gces)
+
+        # Create properties for groups, omitting the group attribute itself
+        # Color and demandSupply are inferred from the first element in each group
+        properties = {}
+        for group_name, group_elements in groups.items():
+            # Use the first element to infer color and demandSupply for the group
+            representative_element = group_elements[0]
+            properties[group_name] = {
+                "demandSupply": representative_element.demandSupply, 
+                "color": representative_element.color
+            }
+            # Note: group attribute is omitted as requested
+
+        x_tick_labels = hourly_datetime_labels()
+        
+        return GraphCurveMeta(
+            title=cls.name if exst_meta.title == "default" else exst_meta.title,
+            unit=cls.unit if exst_meta.unit == "default" else exst_meta.unit,
+            properties=properties,
+            xTickLabels=x_tick_labels,
+            **exst_meta.model_dump(exclude={"title", "unit", "xTickLabels", "properties"}),
+        )
+
     @staticmethod
-    def transform_data_for_frontend(gces: List[GraphCurveElement]) -> List[dict[str, float | int]]:
-        """Make a curve graph that can be parsed by Recharts with all curve graphs in the context"""
-        # TODO: write transformation and check how metadata can best be generated
-        graph_data = [{} for _ in range(len(gces[0].value))]
+    def _group_elements(gces: list[GraphCurveElement]) -> dict[str, list[GraphCurveElement]]:
+        """Group elements by their group attribute"""
+        groups = {}
         for gce in gces:
-            for i, val in enumerate(gce.value):
-                graph_data[i][gce.name] = val
+            group_name = gce.group
+            if group_name not in groups:
+                groups[group_name] = []
+            groups[group_name].append(gce)
+        return groups
+
+    @staticmethod
+    def transform_data_for_frontend(gces: list[GraphCurveElement]) -> list[dict[str, float | int]]:
+        """Make a curve graph that can be parsed by Recharts with all curve graphs in the context and group them by group attribute"""
+        groups = AbstractResultCurveGraph._group_elements(gces)
+        
+        # Initialize the graph data structure
+        graph_data = [{} for _ in range(len(gces[0].value))]
+        
+        # Aggregate values for each group
+        for group_name, group_elements in groups.items():
+            # Sum the values for all elements in this group at each time step
+            for i in range(len(gces[0].value)):
+                aggregated_value = 0
+                for gce in group_elements:
+                    aggregated_value += gce.value[i]
+                graph_data[i][group_name] = aggregated_value
 
         return graph_data
+
+    @classmethod
+    def transform_and_create_metadata(cls, gces: list[GraphCurveElement]) -> tuple[list[dict[str, float | int]], GraphCurveMeta]:
+        """Transform data for frontend and create metadata in a single operation to avoid redundancy"""
+        groups = cls._group_elements(gces)
+        
+        # Transform data for frontend
+        graph_data = [{} for _ in range(len(gces[0].value))]
+        for group_name, group_elements in groups.items():
+            for i in range(len(gces[0].value)):
+                aggregated_value = 0
+                for gce in group_elements:
+                    aggregated_value += gce.value[i]
+                graph_data[i][group_name] = aggregated_value
+
+        # Create metadata for groups
+        exst_meta: GraphCurveMeta = cls.meta
+        properties = {}
+        for group_name, group_elements in groups.items():
+            representative_element = group_elements[0]
+            properties[group_name] = {
+                "demandSupply": representative_element.demandSupply,
+                "color": representative_element.color
+            }
+
+        x_tick_labels = hourly_datetime_labels()
+        metadata = GraphCurveMeta(
+            title=cls.name if exst_meta.title == "default" else exst_meta.title,
+            unit=cls.unit if exst_meta.unit == "default" else exst_meta.unit,
+            properties=properties,
+            xTickLabels=x_tick_labels,
+            **exst_meta.model_dump(exclude={"title", "unit", "xTickLabels", "properties"}),
+        )
+
+        return graph_data, metadata
 
     @classmethod
     def make_graph(cls, context: ContextProvider) -> GraphCurveResponse:
@@ -72,11 +154,10 @@ class AbstractResultCurveGraph(AbstractResult):
             filter_region = context.request.viewSettings.graphFocus.value
             filter_id = region_to_id[filter_region]
             graph_index = context.scenario_ids.index(filter_id)
-            all_graphs: list[GraphCurveElement] = cls.graph(var=context)
+            all_graphs: list[GraphCurveElement] = cls.graph(context)
             filtered_graph = [ge.filter_on_index(graph_index) for ge in all_graphs]
 
-            graph_data = cls.transform_data_for_frontend(filtered_graph)
-            graph_meta_data = cls._make_metadata(filtered_graph)
+            graph_data, graph_meta_data = cls.transform_and_create_metadata(filtered_graph)
 
             response = GraphCurveResponse(
                 graphData=graph_data,
@@ -97,7 +178,7 @@ class AbstractResultCurveGraph(AbstractResult):
     def make_graph_toplevel(cls, context: ContextProvider) -> GraphCurveResponse:
         """Make a top level (province) curve graph, summing all graph curve elements (municipalities) in the context"""
         # TODO: This is a temporary solution, we need to make a proper aggregate graph but that is currently out of scope
-        all_graphs: list[GraphCurveElement] = cls.graph(var=context)
+        all_graphs: list[GraphCurveElement] = cls.graph(context)
 
         summed_graphs = []
         for gce in all_graphs:
@@ -109,8 +190,7 @@ class AbstractResultCurveGraph(AbstractResult):
 
         logging.info(f"Summed graph curve elements for toplevel graph: {summed_graphs}")
 
-        graph_data = cls.transform_data_for_frontend(summed_graphs)
-        graph_meta_data = cls._make_metadata(summed_graphs)
+        graph_data, graph_meta_data = cls.transform_and_create_metadata(summed_graphs)
         
         response = GraphCurveResponse(
             graphData=graph_data,
