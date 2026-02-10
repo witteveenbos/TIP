@@ -28,6 +28,25 @@ export default function EnergyBalanceChart({
         return uniqueKeys;
     };
 
+    const CustomTooltip = ({ active, payload, label }: any) => {
+        if (active && payload && payload.length) {
+            // Reverse the payload order to match the visual stacking order
+            const reversedPayload = [...payload].reverse();
+            
+            return (
+                <div className="bg-white p-3 border border-gray-300 rounded shadow-lg">
+                    <p className="font-medium">{`${label}`}</p>
+                    {reversedPayload.map((entry: any, index: number) => (
+                        <p key={index} >
+                            {`${entry.name}: ${entry.value.toFixed(2)}`}
+                        </p>
+                    ))}
+                </div>
+            );
+        }
+        return null;
+    };
+
     if (graphData.length === 0) {
         return (
             <div className="flex items-center justify-center h-full text-gray-500">
@@ -55,12 +74,7 @@ export default function EnergyBalanceChart({
                         {`${metaData.title} (${metaData.unit})`}
                     </Label>
                 </YAxis>
-                <Tooltip
-                    formatter={(value: number, name: string) => [
-                        value.toFixed(2),
-                        name,
-                    ]}
-                />
+                <Tooltip content={<CustomTooltip />} />
                 {getUniqueKeys()
                     .filter((bar) => bar !== 'name')
                     .map((item, index) => (

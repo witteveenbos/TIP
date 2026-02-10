@@ -18,7 +18,10 @@ export default function FilterSection({
         return acc;
     }, {} as Record<string, typeof items>);
 
-    const groups = Object.entries(groupedItems);
+    const groups = Object.entries(groupedItems).map(([demandSupply, groupItems]) => [
+        demandSupply,
+        groupItems.slice().reverse()
+    ]);
 
     return (
         <>
