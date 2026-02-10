@@ -10,6 +10,7 @@ from hail.models.enums import (
 )
 from hail.models.fundamental import Value
 from hail.models.matrix import AggregatedMatrix, Matrix
+from hail.models.curve import AggregatedCurve, Curve
 from hail.util import get_color
 
 
@@ -21,7 +22,7 @@ class NullReponse(BaseModel):
 class CalculateResponse(BaseModel):
     input: Optional[InputResponse] = None
     map: Optional[MapResponse] = None
-    graph: Optional[GraphResponse] = None
+    graph: Optional[GraphResponse|GraphCurveResponse] = None
     msgs: Optional[list[NullReponse]] = None
 
 
@@ -166,6 +167,20 @@ class GraphMeta(BaseModel):
     xLabelText: Optional[str] = None
     xGrouping: Optional[Groupable] = None
 
+# ------ > Graph
+class GraphCurveResponse(BaseModel):
+    metaData: GraphCurveMeta
+    graphData: list[dict[str, float | int]]
+
+class GraphCurveMeta(BaseModel):
+    title: str = "default"
+    unit: str = "default"
+    yLabelText: str
+    plotType: plotTypes
+    xLabelText: Optional[str] = None
+    xTickLabels: Optional[list[str]] = None
+    xGrouping: Optional[Groupable] = None    
+    properties: Optional[dict[str, dict[str, str]]] = None
 
 class GraphElement(BaseModel, arbitrary_types_allowed=True):
     carrier: str
@@ -194,6 +209,26 @@ class GraphElement(BaseModel, arbitrary_types_allowed=True):
             demandSupply=self.demandSupply,
             color=self.color,
             value=new_value,
+        )
+
+
+class GraphCurveElement(BaseModel, arbitrary_types_allowed=True):
+    name: str
+    group: str
+    demandSupply: str
+    color: str
+    value: list | Curve
+
+    def filter_on_index(self, index: int) -> GraphCurveElement:
+        assert isinstance(
+            self.value, Curve
+        ), "Cannot filter on index if value is not a curve"
+        return GraphCurveElement(
+            name=self.name,
+            group=self.group,
+            demandSupply=self.demandSupply,
+            color=self.color,
+            value=self.value[index],
         )
 
 
