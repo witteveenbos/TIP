@@ -42,13 +42,3 @@ RUN rm -f /etc/apt/sources.list.d/yarn.list \
     && rm -rf /var/lib/apt/lists/*
 
 EXPOSE 8000
-
-# [Optional] Uncomment this section to install additional OS packages.
-RUN rm -f /etc/apt/sources.list.d/yarn.list \
-    && apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get -y install --no-install-recommends \
-    && apt-get install -y netcat gcc libpq-dev \
-    && apt-get install -y binutils libproj-dev gdal-bin \
-    && apt-get install -y vim curl gettext \
-    && apt-get install -y libmagickwand-dev \
-    && rm -rf /var/lib/apt/lists/*
