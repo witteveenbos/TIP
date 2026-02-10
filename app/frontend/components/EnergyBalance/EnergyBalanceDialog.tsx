@@ -1,7 +1,7 @@
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import EnergyBalanceGraph from '../Graph/EnergyBalanceGraph';
-import EnergyProfileGraph from '../Graph/EnergyProfileGraph/EnergyProfileGraph';
+import EnergyProfileGraph from '../Graph/EnergyProfileGraph';
 import { Dialog, DialogOverlay } from '../ui/dialog';
 
 export default function EnergyBalanceDialog({
@@ -55,7 +55,7 @@ export default function EnergyBalanceDialog({
                                     <EnergyBalanceGraph data={graphData} scenario="" />
                                 )}
                                 {activeTab === 'profile' && (
-                                    <EnergyProfileGraph data={graphData} scenario="" />
+                                    <EnergyProfileGraph  />
                                 )}
                             </div>
                         ) : (
