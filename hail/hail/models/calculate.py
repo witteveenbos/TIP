@@ -217,7 +217,7 @@ class GraphCurveElement(BaseModel, arbitrary_types_allowed=True):
     group: str
     demandSupply: str
     color: str
-    value: list | Curve
+    value: Curve
 
     def filter_on_index(self, index: int) -> GraphCurveElement:
         assert isinstance(

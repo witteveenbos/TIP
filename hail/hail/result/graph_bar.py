@@ -1,6 +1,6 @@
 from __future__ import annotations
 from abc import abstractmethod
-from hail.models.calculate import GraphElement, GraphMeta, GraphCurveElement, GraphCurveMeta, GraphResponse, GraphCurveResponse, NullReponse
+from hail.models.calculate import GraphElement, GraphMeta, GraphResponse, NullReponse
 from hail.result.base import AbstractResult
 from typing import TYPE_CHECKING
 from hail.context import ContextProvider

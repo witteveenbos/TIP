@@ -1,7 +1,7 @@
 from __future__ import annotations
 import logging
 from abc import abstractmethod
-from hail.models.calculate import GraphElement, GraphMeta, GraphCurveElement, GraphCurveMeta, GraphResponse, GraphCurveResponse, NullReponse
+from hail.models.calculate import GraphMeta, GraphCurveElement, GraphCurveMeta, GraphCurveResponse, NullReponse
 from hail.result.base import AbstractResult
 from typing import TYPE_CHECKING
 from hail.result.helpers import hourly_datetime_labels

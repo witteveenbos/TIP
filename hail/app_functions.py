@@ -219,7 +219,7 @@ async def get_gquery_value(
     preloaded: PreloadedState,
     redis_client: Redis,
 ) -> dict:
-    """Get any gquery value from the ETM"""
+    """Get any gquery value from the ETM. This one is only used to expose single gqueries for debugging and exploration purposes"""
     
     accessed_attributes = preloaded.accessed_attributes
     scenario_relations = preloaded.scenario_relations
@@ -296,46 +296,6 @@ async def get_gquery_value(
         "unit": "GWh",  # Default unit, could be made configurable
         "description": f"ETM gquery value for {gquery_name}"
     }
-
-async def get_curve_toplevel(
-    selected_scenario: MainScenarioEnum,
-    preloaded: PreloadedState,
-    redis_client: Redis,
-) -> CalculateResponse:
-
-    accessed_attributes = preloaded.accessed_attributes
-    scenario_relations = preloaded.scenario_relations
-    energy_balance_curve_graph = [
-        graph for graph in preloaded.graphclasses if graph.key == "energybalance_curve"
-    ][0]
-
-    for scenario_rel in scenario_relations:
-        if scenario_rel.main_scenario == selected_scenario:
-            base_scenarios = scenario_rel.municipal_scenarios
-
-    default_scenarios = [
-        ETMScenario(
-            name=ms.municipalityID,
-            etm_id=ms.ETMscenarioID,
-        )
-        for ms in base_scenarios
-    ]
-
-    client = AsyncETMClient(
-        main_scenario=selected_scenario,
-        scenarios=default_scenarios,
-        redis_client=redis_client,
-    )
-
-    context = await client.connect(
-        gqueries=accessed_attributes.gqueries,
-        inputs=accessed_attributes.inputs,
-        ui=accessed_attributes.ui,
-    )
-
-    graph = energy_balance_curve_graph.make_graph_toplevel(context)
-
-    return CalculateResponse(graph=graph)
 
 
 async def get_curve_graph(
