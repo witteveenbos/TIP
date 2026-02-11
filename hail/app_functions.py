@@ -65,8 +65,15 @@ async def initial_context_call(
     # TODO: make sure this logic is not flawed due to the state of the ETM scenarios (e.g. convergence)
     # TODO: In principle, we should always hit cache for non-updated scenario's if we solely base this on area codes
     # E.g., hash the input differently for scenarios without user_values (request.UserSettings.<con/sec>Developments is None)
+    # Only fetch curve gqueries when the curve graph is requested
+    needs_curves = (
+        request.viewSettings.graphType is not None
+        and request.viewSettings.graphType.value == "energybalance_curve"
+    )
+    gqueries = accessed_attributes.gqueries_all if needs_curves else accessed_attributes.gqueries
+
     return await client.connect(
-        gqueries=accessed_attributes.gqueries,
+        gqueries=gqueries,
         inputs=accessed_attributes.inputs,
         ui=accessed_attributes.ui,
     )
@@ -101,8 +108,14 @@ async def update_context(
         redis_client=redis_client,
     )
 
+    needs_curves = (
+        request.viewSettings.graphType is not None
+        and request.viewSettings.graphType.value == "energybalance_curve"
+    )
+    gqueries = accessed_attributes.gqueries_all if needs_curves else accessed_attributes.gqueries
+
     updated_context = await updated_client.connect(
-        gqueries=accessed_attributes.gqueries,
+        gqueries=gqueries,
         inputs=accessed_attributes.inputs,
         ui=accessed_attributes.ui,
     )
@@ -329,7 +342,7 @@ async def get_curve_graph(
     )
 
     context = await client.connect(
-        gqueries=accessed_attributes.gqueries,
+        gqueries=accessed_attributes.gqueries_all,
         inputs=accessed_attributes.inputs,
         ui=accessed_attributes.ui,
     )
