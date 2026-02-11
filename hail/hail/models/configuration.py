@@ -139,11 +139,13 @@ class AccessedAttributes(BaseModel):
     _ui: set = set()
     _inputs: set = set()
     _gqueries: set = set()
+    _gqueries_curve: set = set()
 
     def __add__(self, other: AccessedAttributes) -> AccessedAttributes:
         self._ui.update(other._ui)
         self._inputs.update(other._inputs)
         self._gqueries.update(other._gqueries)
+        self._gqueries_curve.update(other._gqueries_curve)
         return self
 
     @property
@@ -158,15 +160,26 @@ class AccessedAttributes(BaseModel):
 
     @property
     def gqueries(self):
-        """Sorted list of accessed gquery attributes, important for consistent cache key generation"""
+        """Sorted list of accessed gquery attributes (excluding curve gqueries)"""
         return sorted(list(self._gqueries))
 
     @property
+    def gqueries_curve(self):
+        """Sorted list of accessed curve gquery attributes"""
+        return sorted(list(self._gqueries_curve))
+
+    @property
+    def gqueries_all(self):
+        """Sorted list of all accessed gquery attributes (base + curve)"""
+        return sorted(list(self._gqueries | self._gqueries_curve))
+
+    @property
     def private_model_fields_names(self):
+        """Used by the AST visitor to match attribute patterns like var.gqueries.xxx"""
         return ["_ui", "_inputs", "_gqueries"]
 
     def __str__(self):
-        return f"AccessedAttributes(ui={self.ui}, inputs={self.inputs}, gqueries={self.gqueries})"
+        return f"AccessedAttributes(ui={self.ui}, inputs={self.inputs}, gqueries={self.gqueries}, gqueries_curve={self.gqueries_curve})"
 
     def __repr__(self):
         return str(self)
