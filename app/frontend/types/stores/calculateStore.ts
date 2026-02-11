@@ -1,3 +1,12 @@
+// Shared types - import from API as canonical source
+import { ViewSettings, MunicipalityScenario, ContinuousDevelopment, SectoralDevelopment } from '../api/postUserInput';
+
+export type DevelopmentType = ViewSettings['developmentType'];
+export type AreaDivision = ViewSettings['areaDivision'];
+
+// Re-export API types for convenience
+export type { MunicipalityScenario, ContinuousDevelopment, SectoralDevelopment };
+
 // Base types
 export type Scenario = {
     id: string;
@@ -9,7 +18,7 @@ export type Scenario = {
 export type AreaData = {
     id: string;
     name: string;
-    level: Area;
+    level: AreaDivision;
     parentId?: string;
     [key: string]: unknown;
 };
@@ -18,7 +27,7 @@ export type RegionHierarchy = {
     [regionId: string]: {
         id: string;
         name: string;
-        level: Area;
+        level: AreaDivision;
         children?: string[];
         parent?: string;
         [key: string]: unknown;
@@ -112,10 +121,11 @@ export interface AreaDivisionState {
         value: string;
     }>;
     setAreaDivision: (areaDivision: Array<{ label: string; value: string }>) => void;
-    selectedAreaDivision: Area;
-    setSelectedAreaDivision: (selectedAreaDivision: Area) => void;
+    selectedAreaDivision: AreaDivision;
+    setSelectedAreaDivision: (selectedAreaDivision: AreaDivision) => void;
 }
 
+// Keep Area enum for backward compatibility, but align with API
 export enum Area {
     PROV = 'PROV',
     REG = 'REG',
@@ -130,11 +140,6 @@ export interface MunicipalityScenariosState {
         municipalityScenarios: MunicipalityScenario[]
     ) => void;
 }
-
-export type MunicipalityScenario = {
-    ETMscenarioID: number;
-    municipalityID: string;
-};
 
 export interface AllAreasState {
     allAreas: Record<string, AreaData>;
@@ -155,13 +160,21 @@ export interface GeoJsonDataState {
 }
 
 export interface SelectedGeoIDState {
-    selectedGeoId: string | null;
-    setSelectedGeoId: (selectedGeoId: string) => void;
+    selectedGeoId: {
+        gid: string;
+        label: string;
+        [key: string]: unknown;
+    } | null;
+    setSelectedGeoId: (selectedGeoId: {
+        gid: string;
+        label: string;
+        [key: string]: unknown;
+    } | null) => void;
 }
 
 export interface InputTypeState {
-    inputType: 'continuous' | 'sectoral';
-    setInputType: (inputType: 'continuous' | 'sectoral') => void;
+    inputType: DevelopmentType;
+    setInputType: (inputType: DevelopmentType) => void;
 }
 export interface SelectedDevelopmentState {
     selectedDevelopment: {

@@ -347,7 +347,7 @@ export default function EnergyBalanceMap({ geojson }: { geojson: any }) {
                                     type: 'energyBalance',
                                 })
                             }>
-                            energiebalans
+                            Energie inzichten
                         </Button>
                     </EnergyBalanceAsideDevelopments>
                 </div>
