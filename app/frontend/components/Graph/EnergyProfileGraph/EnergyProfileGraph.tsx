@@ -1,5 +1,5 @@
 
-import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer, CartesianGrid, Tooltip } from 'recharts';
+import { ComposedChart, Area, Line, XAxis, YAxis, ResponsiveContainer, CartesianGrid, Tooltip } from 'recharts';
 import { useEffect, useState } from 'react';
 import { postUserInputs } from 'api/api';
 import type { PostUserInputRequest } from 'types/api/postUserInput';
@@ -128,13 +128,29 @@ export default function EnergyProfileGraph({
     }, [enabled, selectedGeoId, selectedAreaDivision, energyCarrier, balance, original, inputType, municipalityScenarios, changedContinuousDevelopments, changedSectoralDevelopments, selectedScenario]);
 
 
-    const chartData = data.length > 0 ? data :null;
+    const chartData = data.length > 0 ? data : [];
     const colors = ['#8884d8', '#82ca9d', '#ffc658', '#ff7c7c', '#8dd1e1'];
     
     // Get all data keys except 'name' for the areas
-    const dataKeys = chartData.length > 0 
+    const allDataKeys = chartData.length > 0 
         ? Object.keys(chartData[0]).filter(key => key !== 'name')
         : [];
+    
+    // Transform data to make 'Vraag' values negative
+    const transformedChartData = chartData.map(dataPoint => {
+        const transformed = { ...dataPoint };
+        allDataKeys.forEach(key => {
+            const demandSupply = metadata?.properties?.[key]?.demandSupply;
+            if (demandSupply === 'Vraag' && typeof transformed[key] === 'number') {
+                transformed[key] = -Math.abs(transformed[key]);
+            }
+        });
+        return transformed;
+    });
+    
+    // Separate 'Basislast elektriciteit' from other keys
+    const dataKeys = allDataKeys.filter(key => key !== 'Basislast elektriciteitsvraag');
+    const hasBasislast = allDataKeys.includes('Basislast elektriciteitsvraag');
     return (
         <div className="flex flex-col h-[550px] flex-1">
             <div className="text-center p-8 flex-1 flex flex-col">
@@ -158,8 +174,8 @@ export default function EnergyProfileGraph({
                 {!loading && !error && (
                     <div className="flex-1 min-h-0">
                         <ResponsiveContainer width="100%" height="100%">
-                            <AreaChart
-                                data={chartData}
+                            <ComposedChart
+                                data={transformedChartData}
                                 margin={{
                                     top: 20,
                                     right: 30,
@@ -171,17 +187,31 @@ export default function EnergyProfileGraph({
                                 <XAxis dataKey="name" />
                                 <YAxis label={{ value: metadata?.yLabelText || 'Waarde', angle: -90, position: 'insideLeft' }} />
                                 <Tooltip />
-                                {dataKeys.map((key, index) => (
-                                    <Area 
-                                        key={key}
-                                        type="monotone" 
-                                        dataKey={key} 
-                                        stackId="1" 
-                                        stroke={metadata?.properties?.[key]?.color || colors[index % colors.length]} 
-                                        fill={metadata?.properties?.[key]?.color || colors[index % colors.length]} 
+                                {dataKeys.map((key, index) => {
+                                    const demandSupply = metadata?.properties?.[key]?.demandSupply;
+                                    const stackId = demandSupply === 'Vraag' ? 'demand' : 'supply';
+                                    
+                                    return (
+                                        <Area 
+                                            key={key}
+                                            type="monotone" 
+                                            dataKey={key} 
+                                            stackId={stackId}
+                                            stroke={metadata?.properties?.[key]?.color || colors[index % colors.length]} 
+                                            fill={metadata?.properties?.[key]?.color || colors[index % colors.length]} 
+                                        />
+                                    );
+                                })}
+                                {hasBasislast && (
+                                    <Line
+                                        type="monotone"
+                                        dataKey="Basislast elektriciteitsvraag"
+                                        stroke={metadata?.properties?.['Basislast elektriciteitsvraag']?.color || '#ff0000'}
+                                        strokeWidth={1}
+                                        dot={false}
                                     />
-                                ))}
-                            </AreaChart>
+                                )}
+                            </ComposedChart>
                         </ResponsiveContainer>
                     </div>
                 )}
