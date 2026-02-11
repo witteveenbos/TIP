@@ -65,7 +65,10 @@ class AbstractResultCurveGraph(AbstractResult):
 
     @staticmethod
     def transform_data_for_frontend(gces: list[GraphCurveElement], resample_hours: int = 1) -> list[dict[str, float | int]]:
-        """Make a curve graph that can be parsed by Recharts with all curve graphs in the context and group them by group attribute
+        """Make a curve graph that can be parsed by Recharts with all curve graphs in the context and group them by group attribute.
+        The hour within each resampled period with the highest total demand across all graph curve elements will be used as the 
+        representative hour for that period, and its values will be used for all groups in that period.
+        Demand values will be made negative to ensure they are displayed as negative in the frontend.
         
         Args:
             gces: List of GraphCurveElement objects
@@ -84,27 +87,40 @@ class AbstractResultCurveGraph(AbstractResult):
         graph_data = [{} for _ in range(resampled_length)]
         
         # Aggregate values for each group
-        for group_name, group_elements in groups.items():
-            # Determine if this group represents demand (should be negative)
-            representative_element = group_elements[0]
-            is_demand = representative_element.demandSupply.lower() in ["demand", "vraag"]
+        for resampled_index in range(resampled_length):
+            # Calculate the range of original indices for this resampled period
+            start_hour = resampled_index * resample_hours
+            end_hour = min(start_hour + resample_hours, original_length)
             
-            # Aggregate values at each resampled time step
-            for resampled_index in range(resampled_length):
+            # Find the hour within this window with highest total demand across all gces
+            max_total_demand = -float('inf')
+            peak_hour_index = start_hour
+            
+            for hour_index in range(start_hour, end_hour):
+                total_demand_this_hour = 0
+                for gce in gces:
+                    # Only consider demand elements for finding peak hour
+                    if gce.demandSupply.lower() in ["demand", "vraag"]:
+                        total_demand_this_hour += abs(gce.value[hour_index])
+                
+                if total_demand_this_hour > max_total_demand:
+                    max_total_demand = total_demand_this_hour
+                    peak_hour_index = hour_index
+            
+            # Use values from the peak demand hour for all groups
+            for group_name, group_elements in groups.items():
+                # Determine if this group represents demand (should be negative)
+                representative_element = group_elements[0]
+                is_demand = representative_element.demandSupply.lower() in ["demand", "vraag"]
+                
+                # Sum values for all elements in this group at the peak hour
                 aggregated_value = 0
-                
-                # Calculate the range of original indices for this resampled period
-                start_hour = resampled_index * resample_hours
-                end_hour = min(start_hour + resample_hours, original_length)
-                
-                # Sum values for all elements in this group over the time period
-                for hour_index in range(start_hour, end_hour):
-                    for gce in group_elements:
-                        value = gce.value[hour_index]
-                        # Make demand values negative
-                        if is_demand:
-                            value = -1*value
-                        aggregated_value += value
+                for gce in group_elements:
+                    value = gce.value[peak_hour_index]
+                    # Make demand values negative
+                    if is_demand:
+                        value = -1*value
+                    aggregated_value += value
                 
                 graph_data[resampled_index][group_name] = aggregated_value
 
