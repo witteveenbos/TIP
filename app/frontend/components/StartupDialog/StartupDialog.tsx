@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useScenarioStore } from 'stores/calculateStore';
 import { getMainGraph } from '../../api/api';
 import { Scenario } from '../../containers/HomePage/HomePage';
-import EnergyBalanceGraph from '../Graph/EnergyBalanceGraph';
+import EnergyBalanceGraph from '../Graph/EnergyBalanceGraph/EnergyBalanceGraph';
 import Loader from '../Loader/Loader';
 import { Button } from '../ui/button';
 import { Dialog, DialogOverlay } from '../ui/dialog';
