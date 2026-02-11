@@ -9,7 +9,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent)) #needed to import the mode
 from hail.models.request import MunicipalityScenario, MainScenarioEnum
 from hail.models.configuration import DistributedScenarioRelation
 
-SOURCE = "scenario_links.xlsx"
+SOURCE = "20260204_scenario_links_fixed.xlsx"
 TARGET_FOLDER = Path(__file__).parent.parent / "config" / "scenarios"
 
 path = Path(__file__).parent / SOURCE

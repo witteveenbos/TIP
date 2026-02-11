@@ -1,3 +1,4 @@
+# %%
 import geopandas as gpd
 import fiona
 import matplotlib
@@ -9,21 +10,23 @@ import matplotlib.pyplot as plt
 ######## MOST PART OF THIS CODE IS GENERAL AND FOR THE ENTIRE NETHERLANDS ##############
 
 # set filepaths 
-fp_bg = "data/base_data/BestuurlijkeGebieden_2025.gpkg" #this can be downloaded from PDOK
+fp_gemeenten = "data/base_data/gemeenten_nh.geojson" #this can be downloaded from PDOK
+fp_provincies = "data/base_data/provincie_nh.geojson" #this can be downloaded from PDOK
 fp_res = "data/base_data/RESregio.json" # I don't remember where i got this one...
 
-# List available stuff
-layers = fiona.listlayers(fp_bg)
-print(layers)
+# # List available stuff
+# layers = fiona.listlayers(fp_bg)
+# print(layers)
 
 # Usually gemeente is layer 0 and provincie is layer 2
-gemeenten = gpd.read_file(fp_bg, layer=0).set_index("identificatie").to_crs("EPSG:4326")  # Convert to WGS84
-provincies = gpd.read_file(fp_bg, layer=2).set_index("identificatie").to_crs("EPSG:4326")  # Convert to WGS84
+gemeenten = gpd.read_file(fp_gemeenten).set_index("identificatie", ).to_crs("EPSG:4326")  # Convert to WGS84
+provincies = gpd.read_file(fp_provincies).set_index("identificatie").to_crs("EPSG:4326")  # Convert to WGS84
 resregio = gpd.read_file(fp_res).set_index("statcode").to_crs("EPSG:4326")  # Convert to WGS84
 
 # add the gid and label as properties to all geoshapes:
 gemeenten["gid"] = gemeenten.index
-gemeenten["label"] = gemeenten["naam"]
+gemeenten["label"] = gemeenten["index"]
+gemeenten["naam"] = gemeenten["index"]  # adding a 'naam' column for consistency
 provincies["gid"] = provincies.index
 provincies["label"] = provincies["naam"]
 resregio["gid"] = resregio.index
