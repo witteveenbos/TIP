@@ -28,22 +28,11 @@ class AsyncETMClient:
         self,
         main_scenario: str,
         scenarios: list[ETMScenario],
-        base_url: str = "https://2025-01.engine.energytransitionmodel.com/",
+        base_url: str = "https://2025-01.engine.energytransitionmodel.com/", # most straightforward way to set URL
         api_key: str = None,
         redis_client: redis.Redis = None,
     ) -> None:
         self.base_url = base_url
-        #### commented out because using the env vars is not setup
-        # if base_url is not None:
-        #     self.base_url = base_url
-        # else:
-        #     self.base_url = os.getenv("ETM_BASE_URL")
-        #     if not self.base_url:
-        #         raise ValueError(
-        #             "ETM_BASE_URL environment variable is required but not set. "
-        #             "Please set it to the ETM API base URL (e.g., 'https://2025-01.engine.energytransitionmodel.com/')"
-        #         )
-        logger.debug(f"ETM base URL set to: {self.base_url}")
 
         self.main_scenario = main_scenario
 
@@ -223,7 +212,7 @@ class AsyncETMClient:
         """Query all scenarios for a list of gqueries and return a list of responses."""
 
         headers = {}
-        if self.api_key and self.api_key not in ["your_api_key", "enter_etm_key"]:
+        if self.api_key and self.api_key not in ["your_api_key", "enter_etm_key"]: # Don't send non-existing defaults which may have ended up in env vars. Invalid key returns unauthorized
             headers["Authorization"] = f"Bearer {self.api_key}"
 
         async with aiohttp.ClientSession(base_url=self.base_url, headers=headers) as session:
