@@ -92,7 +92,10 @@ export default function EnergyProfileGraph({
                             selectedItems={selectedItems}
                             onToggleItem={toggleItem} // Toggle functionality implemented
                             legendData={metadata ? Object.fromEntries(Object.entries(metadata.properties).map(([key, value], index) => [key, value.color || colors[index % colors.length]])) : {}}
-                            reverseOrder={false}
+                            reverseOrder={{
+                                "Vraag": false,
+                                "Aanbod": true,
+                            }}
                         />
                     </div>
                     <div className="flex-1 min-h-0">

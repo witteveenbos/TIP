@@ -47,6 +47,6 @@ export interface FilterSectionProps {
     selectedItems: string[];
     onToggleItem: (item: string) => void;
     legendData: Record<string, string>;
-    reverseOrder?: boolean;
+    reverseOrder?: Record<string, boolean>;
 }
 

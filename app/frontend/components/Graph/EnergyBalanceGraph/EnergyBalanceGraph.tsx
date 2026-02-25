@@ -73,7 +73,10 @@ export default function EnergyBalanceGraph({ data }: GraphProps) {
                             selectedItems={selectedSectors}
                             onToggleItem={toggleSector}
                             legendData={legendData}
-                            reverseOrder={true}
+                            reverseOrder={{
+                                "Vraag": true,
+                                "Aanbod": true
+                            }}
                         />
                     ) : (
                         <FilterSection
@@ -82,7 +85,10 @@ export default function EnergyBalanceGraph({ data }: GraphProps) {
                             selectedItems={selectedDragers}
                             onToggleItem={toggleDrager}
                             legendData={legendData}
-                            reverseOrder={true}
+                            reverseOrder={{
+                                "Vraag": true,
+                                "Aanbod": true
+                            }}
                         />
                     )}
                 </div>

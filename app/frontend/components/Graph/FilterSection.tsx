@@ -8,7 +8,7 @@ export default function FilterSection({
     selectedItems,
     onToggleItem,
     legendData,
-    reverseOrder = true,
+    reverseOrder = {},
 }: FilterSectionProps) {
     // Group items by demandSupply to show separator
     const groupedItems = items.reduce((acc, item) => {
@@ -21,7 +21,7 @@ export default function FilterSection({
 
     const groups = Object.entries(groupedItems).map(([demandSupply, groupItems]) => [
         demandSupply,
-        reverseOrder ? groupItems.slice().reverse() : groupItems
+        reverseOrder[demandSupply] ? groupItems.slice().reverse() : groupItems
     ]);
 
     return (
