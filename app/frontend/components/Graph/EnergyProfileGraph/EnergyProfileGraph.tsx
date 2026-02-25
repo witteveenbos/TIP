@@ -4,11 +4,55 @@ import Loader from '@/components/Loader/Loader';
 import { EnergyProfileGraphProps } from '@/types/components/EnergyProfileGraph';
 import CustomYAxisLabel from './CustomYAxisLabel';
 import { useEnergyProfileData } from '@/hooks/useEnergyProfileData';
+import FilterSection from '../FilterSection';
 
 export default function EnergyProfileGraph({ 
     enabled = true 
 }: EnergyProfileGraphProps) {
     const { data, metadata, loading, error } = useEnergyProfileData({ enabled });
+
+    const CustomTooltip = ({ active, payload, label }: any) => {
+        if (active && payload && payload.length) {
+            // Group payload by demandSupply type
+            const groupedPayload = payload.reduce((acc: any, entry: any) => {
+                const demandSupply = metadata?.properties?.[entry.dataKey]?.demandSupply || '';
+                if (!acc[demandSupply]) {
+                    acc[demandSupply] = [];
+                }
+                acc[demandSupply].push(entry);
+                return acc;
+            }, {});
+            
+            return (
+                <div className="bg-white p-3 border border-gray-300 rounded shadow-lg">
+                    <p className="font-medium">{label}</p>
+                    {/* Show Aanbod first */}
+                    {groupedPayload['Aanbod'] && (
+                        <>
+                            <p className="font-medium text-sm mt-2">Aanbod</p>
+                            {groupedPayload['Aanbod'].map((entry: any, index: number) => (
+                                <p key={`aanbod-${index}`} className="ml-2">
+                                    {`${entry.dataKey}: ${entry.value?.toFixed(2) || 0} ${metadata?.unit || ''}`}
+                                </p>
+                            ))}
+                        </>
+                    )}
+                    {/* Then show Vraag */}
+                    {groupedPayload['Vraag'] && (
+                        <>
+                            <p className="font-medium text-sm mt-2">Vraag</p>
+                            {groupedPayload['Vraag'].map((entry: any, index: number) => (
+                                <p key={`vraag-${index}`} className="ml-2">
+                                    {`${entry.dataKey}: ${entry.value?.toFixed(2) || 0} ${metadata?.unit || ''}`}
+                                </p>
+                            ))}
+                        </>
+                    )}
+                </div>
+            );
+        }
+        return null;
+    };
 
 
     const chartData = data.length > 0 ? data : [];
@@ -49,6 +93,32 @@ export default function EnergyProfileGraph({
                 )}
                 
                 {!loading && !error && (
+                  <div className="flex flex-col md:flex-row flex-1 min-h-[300px] max-h-[110%]">
+              <div className="min-w-[200px] max-w-[250px] pr-4">
+                        <FilterSection
+                            title="Selecteer energieprofielen"
+                            items={metadata ? (() => {
+                                const entries = Object.entries(metadata.properties);
+                                const aanbodItems = entries
+                                    .filter(([key, value]) => value.demandSupply === 'Aanbod')
+                                    .map(([key, value]) => ({
+                                        name: key,
+                                        demandSupply: value.demandSupply,
+                                    }));
+                                const vraagItems = entries
+                                    .filter(([key, value]) => value.demandSupply === 'Vraag')
+                                    .map(([key, value]) => ({
+                                        name: key,
+                                        demandSupply: value.demandSupply,
+                                    }));
+                                return [...aanbodItems, ...vraagItems];
+                            })() : []}
+                            selectedItems={dataKeys}
+                            onToggleItem={() => {}} // No toggle functionality for now
+                            legendData={metadata ? Object.fromEntries(Object.entries(metadata.properties).map(([key, value], index) => [key, value.color || colors[index % colors.length]])) : {}}
+                            reverseOrder={false}
+                        />
+                    </div>
                     <div className="flex-1 min-h-0">
                         <ResponsiveContainer width="100%" height="100%">
                             <ComposedChart
@@ -67,7 +137,7 @@ export default function EnergyProfileGraph({
                                     tick={{ fontSize: 14 }}
                                 />  
                                 <YAxis label={(props: any) => <CustomYAxisLabel {...props} metadata={metadata} />}  tick={{ fontSize: 14 }} />
-                                <Tooltip />
+                                <Tooltip content={<CustomTooltip />} />
                                 <ReferenceLine y={0} stroke="#666" strokeWidth={1} />
                               
                                 {dataKeys.map((key, index) => {
@@ -98,6 +168,7 @@ export default function EnergyProfileGraph({
                             </ComposedChart>
                         </ResponsiveContainer>
                     </div>
+                     </div>
                 )}
             </div>
         </div>

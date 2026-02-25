@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { GraphProps } from '@/types/components/Graph';
 import { useEnergyBalanceData } from '@/hooks/useEnergyBalanceData';
 import RadioOption from '../../ui/radioButtonOption';
-import FilterSection from './FilterSection';
+import FilterSection from '../FilterSection';
 import EnergyBalanceChart from './EnergyBalanceChart';
 import { ViewMode } from '@/types/components/Graph';
 
@@ -73,6 +73,7 @@ export default function EnergyBalanceGraph({ data }: GraphProps) {
                             selectedItems={selectedSectors}
                             onToggleItem={toggleSector}
                             legendData={legendData}
+                            reverseOrder={true}
                         />
                     ) : (
                         <FilterSection
@@ -81,6 +82,7 @@ export default function EnergyBalanceGraph({ data }: GraphProps) {
                             selectedItems={selectedDragers}
                             onToggleItem={toggleDrager}
                             legendData={legendData}
+                            reverseOrder={true}
                         />
                     )}
                 </div>
