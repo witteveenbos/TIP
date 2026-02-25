@@ -1,4 +1,5 @@
 
+import React, { useState } from 'react';
 import { ComposedChart, Area, Line, XAxis, YAxis, ResponsiveContainer, CartesianGrid, Tooltip, ReferenceLine } from 'recharts';
 import Loader from '@/components/Loader/Loader';
 import { EnergyProfileGraphProps } from '@/types/components/EnergyProfileGraph';
@@ -10,6 +11,25 @@ export default function EnergyProfileGraph({
     enabled = true 
 }: EnergyProfileGraphProps) {
     const { data, metadata, loading, error } = useEnergyProfileData({ enabled });
+
+    // State for selected items (initially empty, will be set when data loads)
+    const [selectedItems, setSelectedItems] = useState<string[]>([]);
+
+    // Update selectedItems when data changes
+    React.useEffect(() => {
+        if (data.length > 0) {
+            const newDataKeys = Object.keys(data[0]).filter(key => key !== 'name');
+            setSelectedItems(newDataKeys);
+        }
+    }, [data]);
+
+    const toggleItem = (item: string) => {
+        setSelectedItems(prev => 
+            prev.includes(item)
+                ? prev.filter(i => i !== item)
+                : [...prev, item]
+        );
+    };
 
     const CustomTooltip = ({ active, payload, label }: any) => {
         if (active && payload && payload.length) {
@@ -71,9 +91,9 @@ export default function EnergyProfileGraph({
         ? Object.keys(chartData[0]).filter(key => key !== 'name')
         : [];
     
-    // Separate 'Basislast elektriciteit' from other keys
-    const dataKeys = allDataKeys.filter(key => key !== 'Basislast elektriciteitsvraag');
-    const hasBasislast = allDataKeys.includes('Basislast elektriciteitsvraag');
+    // Filter data keys based on selected items and separate 'Basislast elektriciteit' from other keys
+    const dataKeys = allDataKeys.filter(key => key !== 'Basislast elektriciteitsvraag' && selectedItems.includes(key));
+    const hasBasislast = allDataKeys.includes('Basislast elektriciteitsvraag') && selectedItems.includes('Basislast elektriciteitsvraag');
     return (
         <div className="flex flex-col h-[550px] flex-1">
             <div className="text-left p-8 flex-1 flex flex-col">
@@ -113,8 +133,8 @@ export default function EnergyProfileGraph({
                                     }));
                                 return [...aanbodItems, ...vraagItems];
                             })() : []}
-                            selectedItems={dataKeys}
-                            onToggleItem={() => {}} // No toggle functionality for now
+                            selectedItems={selectedItems}
+                            onToggleItem={toggleItem} // Toggle functionality implemented
                             legendData={metadata ? Object.fromEntries(Object.entries(metadata.properties).map(([key, value], index) => [key, value.color || colors[index % colors.length]])) : {}}
                             reverseOrder={false}
                         />

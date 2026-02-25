@@ -35,7 +35,7 @@ export default function FilterSection({
                             <Checkbox
                                 id={item.name}
                                 value={item.name}
-                                defaultChecked={selectedItems.includes(item.name)}
+                                checked={selectedItems.includes(item.name)}
                                 onCheckedChange={() => onToggleItem(item.name)}
                             />
                             <label htmlFor={item.name} className="mx-4">
