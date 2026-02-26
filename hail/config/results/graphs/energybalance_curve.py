@@ -166,7 +166,7 @@ class ElectricityBalanceCurve(AbstractResultCurveGraph):
                 value=var.gqueries.households_flexibility_p2p_electricity.future,
                 color="#92896B",
                 name="Thuisbatterijen",
-                group="batterijen",
+                group="Batterijen",
                 demandSupply="Aanbod",
             ),
             GraphCurveElement(
