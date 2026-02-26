@@ -1,4 +1,6 @@
-import { ComposedChart, Area, Line, XAxis, YAxis, ResponsiveContainer, CartesianGrid, Tooltip, ReferenceLine } from 'recharts';
+import { ComposedChart, Area, Line, XAxis, YAxis, ResponsiveContainer, CartesianGrid, Tooltip, ReferenceLine, Brush } from 'recharts';
+import { useState, useMemo, useCallback } from 'react';
+import React from 'react';
 import CustomYAxisLabel from './CustomYAxisLabel';
 import { EnergyProfileChartProps } from '@/types/components/EnergyProfileGraph';
 
@@ -10,7 +12,75 @@ export default function EnergyProfileChart({
     hasBasislast,
     colors
 }: EnergyProfileChartProps) {
-    const CustomTooltip = ({ active, payload, label }: any) => {
+    // State for brush-based zooming with monthly segments
+    const [selectedMonthRange, setSelectedMonthRange] = useState<{ startMonth: number; endMonth: number } | null>(null);
+    
+    const isZoomed = selectedMonthRange !== null;
+
+    // Create 12-month brush data for better performance and UX
+    const monthlyBrushData = useMemo(() => {
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        return months.map((month, index) => ({
+            name: month,
+            month: index,
+            // Add a representative value for visual feedback in brush
+            value: index + 1 
+        }));
+    }, []);
+
+    // Calculate actual data indices from month selection
+    const actualDataIndices = useMemo(() => {
+        if (!selectedMonthRange) return null;
+        
+        const pointsPerMonth = Math.floor(chartData.length / 12);
+        const startIndex = selectedMonthRange.startMonth * pointsPerMonth;
+        const endIndex = selectedMonthRange.endMonth === 11 
+            ? chartData.length - 1 
+            : (selectedMonthRange.endMonth + 1) * pointsPerMonth - 1;
+            
+        return { startIndex, endIndex };
+    }, [selectedMonthRange, chartData.length]);
+
+    // Handle brush change - map from month indices to actual data
+    const handleBrushChange = useCallback((e: any) => {
+        if (e && 
+            typeof e.startIndex === 'number' && 
+            typeof e.endIndex === 'number' && 
+            e.startIndex >= 0 && 
+            e.endIndex >= 0 &&
+            e.startIndex <= 11 &&
+            e.endIndex <= 11 &&
+            e.startIndex <= e.endIndex) {
+                
+            console.log('Month range selected:', { start: e.startIndex, end: e.endIndex });
+            setSelectedMonthRange({ 
+                startMonth: e.startIndex, 
+                endMonth: e.endIndex 
+            });
+        } else {
+            console.log('Clearing month selection');
+            setSelectedMonthRange(null);
+        }
+    }, []);
+
+    // Reset zoom function
+    const resetZoom = useCallback(() => {
+        setSelectedMonthRange(null);
+    }, []);
+
+    // Calculate display data based on month selection
+    const displayData = useMemo(() => {
+        if (!actualDataIndices) return chartData;
+        
+        return chartData.slice(actualDataIndices.startIndex, actualDataIndices.endIndex + 1);
+    }, [chartData, actualDataIndices]);
+
+    // Calculate X-axis interval for better performance
+    const xAxisInterval = useMemo(() => {
+        return Math.max(1, Math.floor(displayData.length / 12));
+    }, [displayData.length]);
+
+    const CustomTooltip = useCallback(({ active, payload, label }: any) => {
         if (active && payload && payload.length) {
             // Group payload by demandSupply type
             const groupedPayload = payload.reduce((acc: any, entry: any) => {
@@ -51,55 +121,105 @@ export default function EnergyProfileChart({
             );
         }
         return null;
-    };
+    }, [metadata?.unit]);
 
     return (
-        <ResponsiveContainer width="100%" height="100%">
-            <ComposedChart
-                data={chartData}
-                margin={{
-                    top: 20,
-                    right: 30,
-                    left: 20,
-                    bottom: 5,
-                }}
-            >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis 
-                    dataKey="name" 
-                    interval={Math.floor(chartData.length / 12)} // Show every Nth tick for ~12 labels
-                    tick={{ fontSize: 14 }}
-                />  
-                <YAxis label={(props: any) => <CustomYAxisLabel {...props} metadata={metadata} />}  tick={{ fontSize: 14 }} />
-                <Tooltip content={<CustomTooltip />} />
-                <ReferenceLine y={0} stroke="#666" strokeWidth={1} />
-              
-                {dataKeys.map((key, index) => {
-                    const demandSupply = metadata?.properties?.[key]?.demandSupply;
-                    const stackId = demandSupply === 'Vraag' ? 'demand' : 'supply';
+        <div className="w-full h-full min-h-[400px] flex flex-col">
+            <div className="flex justify-between items-center mb-2 flex-shrink-0">
+                <span className="text-sm text-gray-600">
+                    {isZoomed && selectedMonthRange ? (
+                        (() => {
+                            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                            const startMonth = months[selectedMonthRange.startMonth];
+                            const endMonth = months[selectedMonthRange.endMonth];
+                            return selectedMonthRange.startMonth === selectedMonthRange.endMonth ? 
+                                `Showing ${startMonth}` : 
+                                `Showing ${startMonth} - ${endMonth}`;
+                        })()
+                    ) : 
+                        'Showing full year'
+                    }
+                </span>
+                <div className="flex gap-2 items-center">
+                    {isZoomed && (
+                        <button 
+                            onClick={resetZoom}
+                            className="px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+                        >
+                            Reset Zoom
+                        </button>
+                    )}
+                    <span className="text-xs text-gray-500">
+                        {isZoomed ? 'Drag handles to adjust or click Reset' : 'Drag brush handles to zoom'}
+                    </span>
+                </div>
+            </div>
+            
+            <div className="flex-1 min-h-[350px]">
+                <ResponsiveContainer width="100%" height="100%">
+                    <ComposedChart
+                        data={displayData}
+                        margin={{
+                            top: 20,
+                            right: 30,
+                            left: 20,
+                            bottom: 60, // Space for brush component
+                        }}
+                    >
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis 
+                            dataKey="name" 
+                            interval={xAxisInterval}
+                            tick={{ fontSize: 14 }}
+                        />  
+                        <YAxis label={(props: any) => <CustomYAxisLabel {...props} metadata={metadata} />}  tick={{ fontSize: 14 }} />
+                        <Tooltip content={<CustomTooltip />} />
+                        <ReferenceLine y={0} stroke="#666" strokeWidth={1} />
+                        
+                        {dataKeys.map((key, index) => {
+                            const demandSupply = metadata?.properties?.[key]?.demandSupply;
+                            const stackId = demandSupply === 'Vraag' ? 'demand' : 'supply';
+                            
+                            return (
+                                <Area 
+                                    key={key}
+                                    type="monotone" 
+                                    dataKey={key} 
+                                    stackId={stackId}
+                                    stroke={metadata?.properties?.[key]?.color || colors[index % colors.length]} 
+                                    fill={metadata?.properties?.[key]?.color || colors[index % colors.length]} 
+                                />
+                            );
+                        })}
+                        {hasBasislast && (
+                            <Line
+                                type="monotone"
+                                dataKey="Basislast elektriciteitsvraag"
+                                stroke={metadata?.properties?.['Basislast elektriciteitsvraag']?.color || '#ff0000'}
+                                strokeWidth={3}
+                                strokeDasharray="3 3"
+                                dot={false}
+                            />
+                        )}
                     
-                    return (
-                        <Area 
-                            key={key}
-                            type="monotone" 
-                            dataKey={key} 
-                            stackId={stackId}
-                            stroke={metadata?.properties?.[key]?.color || colors[index % colors.length]} 
-                            fill={metadata?.properties?.[key]?.color || colors[index % colors.length]} 
+                        {/* Monthly brush with 12 segments for yearly data */}
+                        <Brush 
+                            key={`monthly-brush-${chartData.length}`}
+                            data={monthlyBrushData}
+                            dataKey="name"
+                            height={60}
+                            stroke="#2563eb"
+                            fill="rgba(37, 99, 235, 0.1)"
+                            onChange={handleBrushChange}
+                            startIndex={selectedMonthRange?.startMonth ?? undefined}
+                            endIndex={selectedMonthRange?.endMonth ?? undefined}
+                            tick={{ fontSize: 12 }}
+                            tickFormatter={(value) => value} // Shows month names directly
+                            travellerWidth={8}
                         />
-                    );
-                })}
-                {hasBasislast && (
-                    <Line
-                        type="monotone"
-                        dataKey="Basislast elektriciteitsvraag"
-                        stroke={metadata?.properties?.['Basislast elektriciteitsvraag']?.color || '#ff0000'}
-                        strokeWidth={3}
-                        strokeDasharray="3 3"
-                        dot={false}
-                    />
-                )}
-            </ComposedChart>
-        </ResponsiveContainer>
+                    </ComposedChart>
+                </ResponsiveContainer>
+            </div>
+        </div>
     );
 }
