@@ -125,37 +125,9 @@ export default function EnergyProfileChart({
 
     return (
         <div className="w-full h-full min-h-[400px] flex flex-col">
-            <div className="flex justify-between items-center mb-2 flex-shrink-0">
-                <span className="text-sm text-gray-600">
-                    {isZoomed && selectedMonthRange ? (
-                        (() => {
-                            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-                            const startMonth = months[selectedMonthRange.startMonth];
-                            const endMonth = months[selectedMonthRange.endMonth];
-                            return selectedMonthRange.startMonth === selectedMonthRange.endMonth ? 
-                                `Showing ${startMonth}` : 
-                                `Showing ${startMonth} - ${endMonth}`;
-                        })()
-                    ) : 
-                        'Showing full year'
-                    }
-                </span>
-                <div className="flex gap-2 items-center">
-                    {isZoomed && (
-                        <button 
-                            onClick={resetZoom}
-                            className="px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
-                        >
-                            Reset Zoom
-                        </button>
-                    )}
-                    <span className="text-xs text-gray-500">
-                        {isZoomed ? 'Drag handles to adjust or click Reset' : 'Drag brush handles to zoom'}
-                    </span>
-                </div>
-            </div>
+           
             
-            <div className="flex-1 min-h-[350px]">
+            <div className="flex-1 min-h-[350px] max-h-[600px]">
                 <ResponsiveContainer width="100%" height="100%">
                     <ComposedChart
                         data={displayData}
@@ -208,12 +180,11 @@ export default function EnergyProfileChart({
                             data={monthlyBrushData}
                             dataKey="name"
                             height={60}
-                            stroke="#2563eb"
-                            fill="rgba(37, 99, 235, 0.1)"
+                            stroke="#003461"
+                            fill="rgba(0, 52, 97, 0.2)"
                             onChange={handleBrushChange}
                             startIndex={selectedMonthRange?.startMonth ?? undefined}
                             endIndex={selectedMonthRange?.endMonth ?? undefined}
-                            tick={{ fontSize: 12 }}
                             tickFormatter={(value) => value} // Shows month names directly
                             travellerWidth={8}
                         />
