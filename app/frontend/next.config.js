@@ -10,6 +10,7 @@ let nextConfig = {
     i18n,
     output: 'standalone',
     webpack: true,
+    turbopack: {},
     reactStrictMode: true,
     typescript: {
         // !! WARN !!
@@ -34,25 +35,18 @@ let nextConfig = {
         '@radix-ui/react-tabs',
     ],
     images: {
-        domains: [
-            'localhost',
-            'nginx-accept-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io',
-            'frontend-accept-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io',
-            'backend-accept-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io',
-        ],
         remotePatterns: [
             {
+                protocol: 'http',
                 hostname: 'localhost',
                 pathname: '**',
             },
             {
-                hostname: 'azurecontainerapps.io',
+                protocol: 'https',
+                hostname: '*.azurecontainerapps.io',
                 pathname: '**',
             },
         ],
-    },
-    experimental: {
-        instrumentationHook: true,
     },
     async rewrites() {
         return [
