@@ -22,7 +22,7 @@ class AllCarriersBalanceNormalized(AbstractResultMap):
     name = "Totale energievraag"
     unit = "PJ"  # TODO: check unit
     colormap = ColorMapDef(
-        colormap="b_linear_bmy_10_95_c78",
+        colormap="b_linear_wyor_100_45_c55",
     )
     legend = LegendDef(steps=7, decimals=0)
     related_carrier = CarrierEnum.ALL

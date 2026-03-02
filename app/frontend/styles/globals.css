@@ -1,3 +1,4 @@
+@import 'leaflet/dist/leaflet.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -110,7 +111,6 @@ body > #__next {
     width: 100%;
     height: 100%;
 }
-@import '~leaflet/dist/leaflet.css';
 
 .map__text_icon {
     width: 0 !important;

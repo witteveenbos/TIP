@@ -36,7 +36,7 @@ const Header = ({ logo }: HeaderProps) => {
     };
 
     return (
-        <header>
+        <header className="mx-2 md:mx-4">
             <div className="flex flex-row justify-between h-16" id="header">
                 <div className="flex flex-row items-center">
                     {logo && (
