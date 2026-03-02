@@ -1,24 +1,44 @@
 
-import { ComposedChart, Area, Line, XAxis, YAxis, ResponsiveContainer, CartesianGrid, Tooltip, ReferenceLine } from 'recharts';
+import React, { useState } from 'react';
 import Loader from '@/components/Loader/Loader';
 import { EnergyProfileGraphProps } from '@/types/components/EnergyProfileGraph';
-import CustomYAxisLabel from './CustomYAxisLabel';
 import { useEnergyProfileData } from '@/hooks/useEnergyProfileData';
+import FilterSection from '../FilterSection';
+import EnergyProfileChart from './EnergyProfileChart';
+import { GraphDataPoint } from '@/types/components/Graph';
 
 export default function EnergyProfileGraph({ 
     enabled = true 
 }: EnergyProfileGraphProps) {
     const { data, metadata, loading, error } = useEnergyProfileData({ enabled });
 
+    // State for selected items (initially empty, will be set when data loads)
+    const [selectedItems, setSelectedItems] = useState<string[]>([]);
+
+    // Update selectedItems when data changes
+    React.useEffect(() => {
+        if (data.length > 0) {
+            const newDataKeys = Object.keys(data[0]).filter(key => key !== 'name');
+            setSelectedItems(newDataKeys);
+        }
+    }, [data]);
+
+    const toggleItem = (item: string) => {
+        setSelectedItems(prev => 
+            prev.includes(item)
+                ? prev.filter(i => i !== item)
+                : [...prev, item]
+        );
+    };
 
     const chartData = data.length > 0 ? data : [];
     const colors = ['#8884d8', '#82ca9d', '#ffc658', '#ff7c7c', '#8dd1e1'];
     
     // Transform data to include proper x-axis labels from metadata
-    const finalChartData = chartData.map((dataPoint, index) => {
+    const finalChartData: GraphDataPoint[] = chartData.map((dataPoint, index) => {
         return {
             ...dataPoint,
-            name: metadata?.xTickLabels?.[index] || dataPoint.name || `Day ${index + 1}`
+            name: String(metadata?.xTickLabels?.[index] || dataPoint.name || `Day ${index + 1}`)
         };
     });
     
@@ -27,9 +47,9 @@ export default function EnergyProfileGraph({
         ? Object.keys(chartData[0]).filter(key => key !== 'name')
         : [];
     
-    // Separate 'Basislast elektriciteit' from other keys
-    const dataKeys = allDataKeys.filter(key => key !== 'Basislast elektriciteitsvraag');
-    const hasBasislast = allDataKeys.includes('Basislast elektriciteitsvraag');
+    // Filter data keys based on selected items and separate 'Basislast elektriciteit' from other keys
+    const dataKeys = allDataKeys.filter(key => key !== 'Basislast elektriciteitsvraag' && selectedItems.includes(key));
+    const hasBasislast = allDataKeys.includes('Basislast elektriciteitsvraag') && selectedItems.includes('Basislast elektriciteitsvraag');
     return (
         <div className="flex flex-col h-[550px] flex-1">
             <div className="text-left p-8 flex-1 flex flex-col">
@@ -49,55 +69,45 @@ export default function EnergyProfileGraph({
                 )}
                 
                 {!loading && !error && (
-                    <div className="flex-1 min-h-0">
-                        <ResponsiveContainer width="100%" height="100%">
-                            <ComposedChart
-                                data={finalChartData}
-                                margin={{
-                                    top: 20,
-                                    right: 30,
-                                    left: 20,
-                                    bottom: 5,
-                                }}
-                            >
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis 
-                                    dataKey="name" 
-                                    interval={Math.floor(finalChartData.length / 12)} // Show every Nth tick for ~12 labels
-                                    tick={{ fontSize: 14 }}
-                                />  
-                                <YAxis label={(props: any) => <CustomYAxisLabel {...props} metadata={metadata} />}  tick={{ fontSize: 14 }} />
-                                <Tooltip />
-                                <ReferenceLine y={0} stroke="#666" strokeWidth={1} />
-                              
-                                {dataKeys.map((key, index) => {
-                                    const demandSupply = metadata?.properties?.[key]?.demandSupply;
-                                    const stackId = demandSupply === 'Vraag' ? 'demand' : 'supply';
-                                    
-                                    return (
-                                        <Area 
-                                            key={key}
-                                            type="monotone" 
-                                            dataKey={key} 
-                                            stackId={stackId}
-                                            stroke={metadata?.properties?.[key]?.color || colors[index % colors.length]} 
-                                            fill={metadata?.properties?.[key]?.color || colors[index % colors.length]} 
-                                        />
-                                    );
-                                })}
-                                {hasBasislast && (
-                                    <Line
-                                        type="monotone"
-                                        dataKey="Basislast elektriciteitsvraag"
-                                        stroke={metadata?.properties?.['Basislast elektriciteitsvraag']?.color || '#ff0000'}
-                                        strokeWidth={3}
-                                        strokeDasharray="3 3"
-                                        dot={false}
-                                    />
-                                )}
-                            </ComposedChart>
-                        </ResponsiveContainer>
+                  <div className="flex flex-col md:flex-row flex-1 min-h-[300px] max-h-[110%]">
+              <div className="min-w-[200px] max-w-[250px] pr-4">
+                        <FilterSection
+                            title="Selecteer energieprofielen"
+                            items={metadata ? (() => {
+                                const entries = Object.entries(metadata.properties);
+                                const aanbodItems = entries
+                                    .filter(([key, value]) => value.demandSupply === 'Aanbod')
+                                    .map(([key, value]) => ({
+                                        name: key,
+                                        demandSupply: value.demandSupply,
+                                    }));
+                                const vraagItems = entries
+                                    .filter(([key, value]) => value.demandSupply === 'Vraag')
+                                    .map(([key, value]) => ({
+                                        name: key,
+                                        demandSupply: value.demandSupply,
+                                    }));
+                                return [...aanbodItems, ...vraagItems];
+                            })() : []}
+                            selectedItems={selectedItems}
+                            onToggleItem={toggleItem} // Toggle functionality implemented
+                            legendData={metadata ? Object.fromEntries(Object.entries(metadata.properties).map(([key, value], index) => [key, value.color || colors[index % colors.length]])) : {}}
+                            reverseOrder={{
+                                "Vraag": false,
+                                "Aanbod": true,
+                            }}
+                        />
                     </div>
+                    <div className="flex-1 min-h-0">
+                        <EnergyProfileChart
+                            chartData={finalChartData}
+                            metadata={metadata}
+                            dataKeys={dataKeys}
+                            hasBasislast={hasBasislast}
+                            colors={colors}
+                        />
+                    </div>
+                     </div>
                 )}
             </div>
         </div>
