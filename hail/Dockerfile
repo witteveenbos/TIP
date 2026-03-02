@@ -13,6 +13,9 @@ RUN pip install poetry && poetry install --no-interaction --no-ansi --without de
 # Make the entrypoint script executable
 RUN chmod +x scripts/docker-entrypoint-with-cache-warming.sh
 
+# Make the entrypoint script executable
+RUN chmod +x scripts/docker-entrypoint-with-cache-warming.sh
+
 # Set environment variables
 ENV REDIS_HOST=${REDIS_HOST}
 ENV REDIS_PORT=${REDIS_PORT}

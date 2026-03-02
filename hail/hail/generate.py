@@ -32,8 +32,10 @@ def import_all_classes_from_folder(
     # Add the folder path to the system path
     sys.path.append(str(folder_path.resolve()))
 
-    if class_or_tuple is not tuple:
+    if not isinstance(class_or_tuple, tuple):
         class_tuple = (class_or_tuple,)
+    else:
+        class_tuple = class_or_tuple
 
     classes = []
     for file in folder_path.rglob("*.py"):

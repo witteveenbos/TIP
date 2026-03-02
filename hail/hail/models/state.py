@@ -8,13 +8,11 @@ from hail.models.configuration import (
     DistributedScenarioRelation,
 )
 from hail.models.scenario import ScenarioDisplay
-from hail.result import AbstractResultMap
-from hail.result.graph import AbstractResultGraph
-
+from hail.result import AbstractResultMap, AbstractResultGraph, AbstractResultCurveGraph
 
 class PreloadedState(BaseModel, arbitrary_types_allowed=True):
     mapclasses: Optional[list[AbstractResultMap]] = None
-    graphclasses: Optional[list[AbstractResultGraph]] = None
+    graphclasses: Optional[list[AbstractResultGraph | AbstractResultCurveGraph]] = None
     developmentclasses: Optional[list[AbstractDevelopment]] = None
     accessed_attributes: Optional[AccessedAttributes] = None
     scenario_display: Optional[list[ScenarioDisplay]] = None

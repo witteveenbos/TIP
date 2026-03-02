@@ -67,10 +67,22 @@ def find_accessed_attributes(file_path, class_name: str = "var") -> AccessedAttr
     return finder.accessed_attributes
 
 
+def _is_curve_graph_file(file_path: Path) -> bool:
+    """Check if a file defines a curve graph class (subclass of AbstractResultCurveGraph)."""
+    with open(file_path, "r") as f:
+        content = f.read()
+    return "AbstractResultCurveGraph" in content
+
+
 def find_all_accessed_attributes(config_folder: Path) -> AccessedAttributes:
     accessed_attributes = AccessedAttributes()
     for file in config_folder.glob("**/*.py"):
-        accessed_attributes += find_accessed_attributes(file, "var")
+        file_attrs = find_accessed_attributes(file, "var")
+        if _is_curve_graph_file(file):
+            # Route gqueries from curve graph files into _gqueries_curve
+            accessed_attributes._gqueries_curve.update(file_attrs._gqueries)
+            file_attrs._gqueries = set()
+        accessed_attributes += file_attrs
     return accessed_attributes
 
 

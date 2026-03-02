@@ -5,38 +5,8 @@
         "description": "Koersvaste Middenweg schetst de verwachte koers van de energietransitie op basis van actuele trends, aangevuld met beleidsambities uit onder meer het Nationaal Plan Energiesysteem (NPE), beleidsnota's en provinciale energievisies. Dit scenario vormt een consistent geheel dat voortbouwt op het scenario Klimaatambitie uit IP2024. Het scenario kenmerkt zich door een sterke en snelle elektrificatie van het eindverbruik, waarbij het totale energieverbruik in balans wordt gehouden door aanvullend gebruik van andere energiedragers."
     },
     {
-        "title": "Eigen Vermogen 2040",
-        "dataLink": "ii3050_ev_nl2019_cy2012_2040",
-        "description": "Eigen Vermogen beschrijft een toekomst waarin Nederland qua politiek, beleid en markt sterk inzet op energie-autonomie en een hoge mate van zelfvoorzienendheid. Het scenario combineert elementen uit de scenario's Nationale Drijfveren uit IP2024 en Nationaal Leiderschap uit II3050-2e editie, aangevuld met kenmerken uit Decentrale Initiatieven. De opwek van duurzame elektriciteit groeit sterk, met een nadruk op zon- en windenergie. Er wordt maximaal ingezet op flexibiliteit, grootschalige warmtenetten en de inzet van groene waterstof. Er is sprake van een snelle elektrificatie van de industrie, mobiliteit en gebouwde omgeving, wat leidt tot een grote impact op de elektriciteitsinfrastructuur."
-    },
-    {
-        "title": "Gezamenlijke Balans 2040",
-        "dataLink": "ii3050_gb_nl2019_cy2012_2040",
-        "description": "Gezamenlijke Balans schetst een toekomst waarin samenwerking en afstemming binnen Europa centraal staan, en is mede gebaseerd op de uitgangspunten van de scenario's Internationale Ambitie uit IP2024 en Europese Integratie uit II3050-2e editie. De verduurzaming van vraagsectoren gebeurt via een hybride aanpak, met een belangrijke rol voor zowel elektrificatie als gas. De gasinfrastructuur blijft daarbij van groot belang, mede door de inzet van aardgas, groen gas, biobrandstoffen en blauwe waterstof. Het scenario kent daarnaast een hoge energiedoorvoer naar het buitenland, zodat ook buurlanden kunnen profiteren van de duurzame energie die via Nederlandse import beschikbaar komt."
-    },
-    {
-        "title": "Horizon Aanvoer 2040",
-        "dataLink": "ii3050_ha_nl2019_cy2012_2040",
-        "description": "Horizon Aanvoer bouwt voort op de scenario's Internationale Ambitie uit IP2024 en Internationale Handel uit II3050-2e editie en gaat uit van een wereld waarin duurzame energie op grote schaal internationaal beschikbaar is. Nederland richt zich sterk op de import van energie en industriële halffabricaten, waardoor de energie-intensieve industrie deels verplaatst naar het buitenland en het finaal energieverbruik in Nederland laag blijft. Door deze importoriëntatie is de eigen productie van duurzame elektriciteit beperkt, en ligt de nadruk op internationale energieketens."
-    },
-    {
         "title": "Koersvaste Middenweg 2050",
         "dataLink": "ii3050_km_nl2019_cy2012_2050",
         "description": "Koersvaste Middenweg schetst de verwachte koers van de energietransitie op basis van actuele trends, aangevuld met beleidsambities uit onder meer het Nationaal Plan Energiesysteem (NPE), beleidsnota's en provinciale energievisies. Dit scenario vormt een consistent geheel dat voortbouwt op het scenario Klimaatambitie uit IP2024. Het scenario kenmerkt zich door een sterke en snelle elektrificatie van het eindverbruik, waarbij het totale energieverbruik in balans wordt gehouden door aanvullend gebruik van andere energiedragers."
-    },
-    {
-        "title": "Eigen Vermogen 2050",
-        "dataLink": "ii3050_ev_nl2019_cy2012_2050",
-        "description": "Eigen Vermogen beschrijft een toekomst waarin Nederland qua politiek, beleid en markt sterk inzet op energie-autonomie en een hoge mate van zelfvoorzienendheid. Het scenario combineert elementen uit de scenario's Nationale Drijfveren uit IP2024 en Nationaal Leiderschap uit II3050-2e editie, aangevuld met kenmerken uit Decentrale Initiatieven. De opwek van duurzame elektriciteit groeit sterk, met een nadruk op zon- en windenergie. Er wordt maximaal ingezet op flexibiliteit, grootschalige warmtenetten en de inzet van groene waterstof. Er is sprake van een snelle elektrificatie van de industrie, mobiliteit en gebouwde omgeving, wat leidt tot een grote impact op de elektriciteitsinfrastructuur."
-    },
-    {
-        "title": "Gezamenlijke Balans 2050",
-        "dataLink": "ii3050_gb_nl2019_cy2012_2050",
-        "description": "Gezamenlijke Balans schetst een toekomst waarin samenwerking en afstemming binnen Europa centraal staan, en is mede gebaseerd op de uitgangspunten van de scenario's Internationale Ambitie uit IP2024 en Europese Integratie uit II3050-2e editie. De verduurzaming van vraagsectoren gebeurt via een hybride aanpak, met een belangrijke rol voor zowel elektrificatie als gas. De gasinfrastructuur blijft daarbij van groot belang, mede door de inzet van aardgas, groen gas, biobrandstoffen en blauwe waterstof. Het scenario kent daarnaast een hoge energiedoorvoer naar het buitenland, zodat ook buurlanden kunnen profiteren van de duurzame energie die via Nederlandse import beschikbaar komt."
-    },
-    {
-        "title": "Horizon Aanvoer 2050",
-        "dataLink": "ii3050_ha_nl2019_cy2012_2050",
-        "description": "Horizon Aanvoer bouwt voort op de scenario's Internationale Ambitie uit IP2024 en Internationale Handel uit II3050-2e editie en gaat uit van een wereld waarin duurzame energie op grote schaal internationaal beschikbaar is. Nederland richt zich sterk op de import van energie en industriële halffabricaten, waardoor de energie-intensieve industrie deels verplaatst naar het buitenland en het finaal energieverbruik in Nederland laag blijft. Door deze importoriëntatie is de eigen productie van duurzame elektriciteit beperkt, en ligt de nadruk op internationale energieketens."
     }
 ]
