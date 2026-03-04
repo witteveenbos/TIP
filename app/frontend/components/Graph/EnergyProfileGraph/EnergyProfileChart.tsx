@@ -1,6 +1,5 @@
 import { ComposedChart, Area, Line, XAxis, YAxis, ResponsiveContainer, CartesianGrid, Tooltip, ReferenceLine, Brush } from 'recharts';
 import { useState, useMemo, useCallback } from 'react';
-import React from 'react';
 import CustomYAxisLabel from './CustomYAxisLabel';
 import { EnergyProfileChartProps } from '@/types/components/EnergyProfileGraph';
 
@@ -99,7 +98,7 @@ export default function EnergyProfileChart({
                     {groupedPayload['Aanbod'] && (
                         <>
                             <p className="font-semibold text-sm mt-2">Aanbod</p>
-                            {groupedPayload['Aanbod'].map((entry: any, index: number) => (
+                            {[...groupedPayload['Aanbod']].reverse().map((entry: any, index: number) => (
                                 <p key={`aanbod-${index}`} className="ml-2">
                                     {`${entry.dataKey}: ${entry.value?.toFixed(2) || 0} ${metadata?.unit || ''}`}
                                 </p>
@@ -110,11 +109,18 @@ export default function EnergyProfileChart({
                     {groupedPayload['Vraag'] && (
                         <>
                             <p className="font-semibold text-sm mt-2">Vraag</p>
-                            {groupedPayload['Vraag'].map((entry: any, index: number) => (
-                                <p key={`vraag-${index}`} className="ml-2">
-                                    {`${entry.dataKey}: ${entry.value?.toFixed(2) || 0} ${metadata?.unit || ''}`}
-                                </p>
-                            ))}
+                            {(() => {
+                                const vraagItems = [...groupedPayload['Vraag']];
+                                const basislastItem = vraagItems.find(entry => entry.dataKey === 'Basislast elektriciteitsvraag');
+                                const otherItems = vraagItems.filter(entry => entry.dataKey !== 'Basislast elektriciteitsvraag');
+                                const sortedItems = basislastItem ? [basislastItem, ...otherItems] : otherItems;
+                                
+                                return sortedItems.map((entry: any, index: number) => (
+                                    <p key={`vraag-${index}`} className="ml-2">
+                                        {`${entry.dataKey}: ${entry.value?.toFixed(2) || 0} ${metadata?.unit || ''}`}
+                                    </p>
+                                ));
+                            })()}
                         </>
                     )}
                 </div>
