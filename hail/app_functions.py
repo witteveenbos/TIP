@@ -120,7 +120,9 @@ async def update_context(
         request.viewSettings.graphType is not None
         and request.viewSettings.graphType.value == "energybalance_curve"
     )
-    gqueries = accessed_attributes.gqueries_all if needs_curves else accessed_attributes.gqueries
+    gqueries = accessed_attributes.gqueries_curve if needs_curves else accessed_attributes.gqueries
+
+    # TODO @NielsJ check gqueries
 
     updated_context = await updated_client.connect(
         gqueries=gqueries,
