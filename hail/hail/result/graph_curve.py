@@ -1,5 +1,4 @@
 from __future__ import annotations
-import logging
 from abc import abstractmethod
 from hail.models.calculate import GraphMeta, GraphCurveElement, GraphCurveMeta, GraphCurveResponse, NullReponse
 from hail.result.base import AbstractResult
@@ -213,8 +212,6 @@ class AbstractResultCurveGraph(AbstractResult):
                 metaData=graph_meta_data,
             )
 
-            logging.info(f"Returning curve bottomlevel (municipality) response: {response}")
-
             return response
 
         else:
@@ -242,7 +239,6 @@ class AbstractResultCurveGraph(AbstractResult):
             )
             summed_graphs.append(graph)
 
-        logging.info(f"Summed graph curve elements for toplevel graph: {summed_graphs}")
 
         graph_data = cls.transform_data_for_frontend(summed_graphs, resample_hours)
         graph_meta_data = cls._make_metadata(summed_graphs, resample_hours)
@@ -251,7 +247,6 @@ class AbstractResultCurveGraph(AbstractResult):
             graphData=graph_data,
             metaData=graph_meta_data,
         )
-        logging.info(f"Returning curve toplevel response: {response}")
 
         return response
     
