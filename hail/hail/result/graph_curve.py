@@ -75,7 +75,7 @@ class AbstractResultCurveGraph(AbstractResult):
         fig = go.Figure()
         from hail.result.helpers import hourly_datetime_objects
         for gce in gces:
-            fig.add_trace(go.Scatter(y=gce.value, mode='lines', line=dict(color=gce.color), name=gce.name, stackgroup='one' if gce.demandSupply.lower() == "aanbod" else 'two'))
+            fig.add_trace(go.Scatter(y=gce.value, mode='lines', line=dict(color=gce.color), name=gce.name, stackgroup='one' if gce.demandSupply.lower() == "aanbod" else 'two')) # x-axis data is put in metadata to avoid redundant info on every trace to save data.
         return fig
 
     @classmethod
@@ -125,35 +125,35 @@ class AbstractResultCurveGraph(AbstractResult):
                 component="graph",
             )
 
-    @classmethod
-    def make_graph_toplevel(cls, context: ContextProvider, resample_hours: int = 24) -> GraphCurveResponse:
-        """Make a top level (province) curve graph, summing all graph curve elements (municipalities) in the context
+    # @classmethod ## not implemented and outdated, see make_graph
+    # def make_graph_toplevel(cls, context: ContextProvider, resample_hours: int = 24) -> GraphCurveResponse:
+    #     """Make a top level (province) curve graph, summing all graph curve elements (municipalities) in the context
         
-        Args:
-            context: ContextProvider with scenario data
-            resample_hours: Number of hours to aggregate data into (default: 1 for hourly data)
-        """
-        # TODO: This is a temporary solution, we need to make a proper aggregate graph but that is currently out of scope
-        all_graphs: list[GraphCurveElement] = cls.graph(context)
+    #     Args:
+    #         context: ContextProvider with scenario data
+    #         resample_hours: Number of hours to aggregate data into (default: 1 for hourly data)
+    #     """
+    #     # TODO: This is a temporary solution, we need to make a proper aggregate graph but that is currently out of scope
+    #     all_graphs: list[GraphCurveElement] = cls.graph(context)
 
-        summed_graphs = []
-        for gce in all_graphs:
-            graph = GraphCurveElement(
-                value=gce.value.sum_element_wise(),
-                **gce.model_dump(exclude={"value"}),
-            )
-            summed_graphs.append(graph)
+    #     summed_graphs = []
+    #     for gce in all_graphs:
+    #         graph = GraphCurveElement(
+    #             value=gce.value.sum_element_wise(),
+    #             **gce.model_dump(exclude={"value"}),
+    #         )
+    #         summed_graphs.append(graph)
 
-        logging.info(f"Summed graph curve elements for toplevel graph: {summed_graphs}")
+    #     logging.info(f"Summed graph curve elements for toplevel graph: {summed_graphs}")
 
-        graph_data = cls.transform_data_for_frontend(summed_graphs, resample_hours)
-        graph_meta_data = cls._make_metadata()
+    #     graph_data = cls.transform_data_for_frontend(summed_graphs, resample_hours)
+    #     graph_meta_data = cls._make_metadata()
         
-        response = GraphCurveResponse(
-            graphData=graph_data,
-            graphMeta=graph_meta_data,
-        )
-        logging.info(f"Returning curve toplevel response: {response}")
-
-        return response
+    #     response = GraphCurveResponse(
+    #         graphData=graph_data,
+    #         graphMeta=graph_meta_data,
+    #     )
+    #     logging.info(f"Returning curve toplevel response: {response}")
+    
+    #     return response
     
