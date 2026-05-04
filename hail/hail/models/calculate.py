@@ -3,6 +3,7 @@ import logging
 from typing import Any, Literal, Optional
 import colorcet as cc
 from pydantic import BaseModel
+from datetime import datetime
 
 from hail.models.enums import (
     AllAreaDivisionIDs,
@@ -179,6 +180,7 @@ class GraphCurveMeta(BaseModel):
     yLabelText: str
     plotType: plotTypes
     xLabelText: Optional[str] = None
+    xTickLabels: Optional[list[datetime]] = None
 
 class GraphElement(BaseModel, arbitrary_types_allowed=True):
     carrier: str

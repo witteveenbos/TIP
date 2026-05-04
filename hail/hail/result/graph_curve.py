@@ -9,6 +9,7 @@ from hail.context import ContextProvider
 from hail.models.matrix import Matrix
 from hail.util import id_to_region_map, region_to_id_map
 import plotly.graph_objects as go
+from hail.result.helpers import hourly_datetime_objects
 
 
 if TYPE_CHECKING:
@@ -73,9 +74,8 @@ class AbstractResultCurveGraph(AbstractResult):
         """
         fig = go.Figure()
         from hail.result.helpers import hourly_datetime_objects
-        x_datetimes = hourly_datetime_objects()
         for gce in gces:
-            fig.add_trace(go.Scatter(x=x_datetimes, y=gce.value, mode='lines', line=dict(color=gce.color), name=gce.name, stackgroup='one' if gce.demandSupply.lower() == "aanbod" else 'two'))
+            fig.add_trace(go.Scatter(y=gce.value, mode='lines', line=dict(color=gce.color), name=gce.name, stackgroup='one' if gce.demandSupply.lower() == "aanbod" else 'two'))
         return fig
 
     @classmethod
@@ -84,7 +84,8 @@ class AbstractResultCurveGraph(AbstractResult):
         return GraphCurveMeta(
             title=cls.name if exst_meta.title == "default" else exst_meta.title,
             unit=cls.unit if exst_meta.unit == "default" else exst_meta.unit,
-            **exst_meta.model_dump(exclude={"title", "unit"}),
+            xTickLabels=hourly_datetime_objects(),
+            **exst_meta.model_dump(exclude={"title", "unit", "xTickLabels"}),
         )
 
     @classmethod
