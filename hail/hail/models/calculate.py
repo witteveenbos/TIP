@@ -13,7 +13,6 @@ from hail.models.matrix import AggregatedMatrix, Matrix
 from hail.models.curve import AggregatedCurve, Curve
 from hail.util import get_color
 
-
 class NullReponse(BaseModel):
     component: Literal["developments", "map", "graph"]
     msg: str
@@ -138,6 +137,8 @@ ContinuousDevSetting = float | int
 
 InputResponse = dict[AllAreaDivisionIDs, list[DevelopmentGroup]]
 
+DemandSupply = Literal["Aanbod", "Vraag"]
+
 
 # as used for the sectoral developments
 class SectoralDevSetting(BaseModel):
@@ -169,8 +170,8 @@ class GraphMeta(BaseModel):
 
 # ------ > Graph
 class GraphCurveResponse(BaseModel):
-    metaData: GraphCurveMeta
-    graphData: list[dict[str, float | int]]
+    graphData: dict # contains a plotly graph in dict format which can be serialized by fastapi
+    graphMeta: GraphCurveMeta
 
 class GraphCurveMeta(BaseModel):
     title: str = "default"
@@ -178,14 +179,11 @@ class GraphCurveMeta(BaseModel):
     yLabelText: str
     plotType: plotTypes
     xLabelText: Optional[str] = None
-    xTickLabels: Optional[list[str]] = None
-    xGrouping: Optional[Groupable] = None    
-    properties: Optional[dict[str, dict[str, str]]] = None
 
 class GraphElement(BaseModel, arbitrary_types_allowed=True):
     carrier: str
     sector: str
-    demandSupply: str
+    demandSupply: DemandSupply
     color: str
     value: float | int | Matrix
 
@@ -215,7 +213,7 @@ class GraphElement(BaseModel, arbitrary_types_allowed=True):
 class GraphCurveElement(BaseModel, arbitrary_types_allowed=True):
     name: str
     group: str
-    demandSupply: str
+    demandSupply: DemandSupply
     color: str
     value: list | Curve
 
