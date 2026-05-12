@@ -24,24 +24,76 @@ export default function EnergyProfileChart({ graphData, graphMeta }: EnergyProfi
         const legendGroupMap: Record<string, string> = { one: 'Aanbod', two: 'Vraag' };
         const legendgroup = originalStackgroup ? legendGroupMap[originalStackgroup] ?? originalStackgroup : undefined;
         if (legendgroup) {
-            result = { ...result, legendgroup, legendgrouptitle: { text: legendgroup } };
+            result = { ...result, legendgroup, legendgrouptitle: { text: legendgroup, font: { size: 14 } } };
         }
 
         return result;
     };
 
-    const traces = graphMeta.xTickLabels
+    const stackgroupOrder: Record<string, number> = { one: 0, two: 1 };
+    const traces = (graphMeta.xTickLabels
         ? graphData.data.map(trace => applyOverrides({ ...trace, x: graphMeta.xTickLabels }))
-        : graphData.data.map(applyOverrides);
+        : graphData.data.map(applyOverrides)
+    ).sort((a, b) => {
+        const aOrder = stackgroupOrder[(a as any).stackgroup] ?? 99;
+        const bOrder = stackgroupOrder[(b as any).stackgroup] ?? 99;
+        return aOrder - bOrder;
+    });
+
+    const gridStyle = { gridcolor: '#d1d5db', griddash: 'dot' as const, gridwidth: 1 };
+
+    const sharedAnnotationStyle = {
+        xref: 'paper' as const,
+        xanchor: 'right' as const,
+        showarrow: false,
+        textangle: -90,
+    };
+
+    const yAxisAnnotations = [
+        {
+            ...sharedAnnotationStyle,
+            x: -0.06,
+            text: 'Vermogen',
+            font: { size: 16,  color: '#374151', weight: 'bold'},
+            yref: 'y' as const,
+            y: 0,
+            yanchor: 'middle' as const,
+            
+        },
+        {
+            ...sharedAnnotationStyle,
+            x: -0.04,
+            text: 'Aanbod',
+            font: { size: 14,  color: '#374151', weight: 'bold'},
+            yref: 'paper' as const,
+            y: 0.75,
+            yanchor: 'middle' as const,
+           
+        },
+        {
+            ...sharedAnnotationStyle,
+            x: -0.04,
+            text: 'Vraag',
+            font: { size: 14,  color: '#374151', weight: 'bold'},
+            yref: 'paper' as const,
+            y: 0.25,
+            yanchor: 'middle' as const,
+            
+        },
+    ];
 
     const layout = {
         ...graphData.layout,
-        title: { text: graphMeta.title },
+        title: undefined,
         autosize: true,
-        margin: { t: 40, r: 20, b: 60, l: 60 },
-        legend: { orientation: 'v' as const },
+        margin: { t: 10, r: 10, b: 60, l: 0 },
+        legend: { orientation: 'v' as const, font: { size: 14 }, title: { text: 'Selecteer energieprofielen' }, x: -0.2, xanchor: 'right' as const, y: 1 },
         hovermode: 'x unified' as const,
-        xaxis: { ...(graphData.layout as any)?.xaxis, hoverformat: '%d-%m-%Y %H:%M' },
+        paper_bgcolor: '#ffffff',
+        plot_bgcolor: '#ffffff',
+        xaxis: { ...(graphData.layout as any)?.xaxis, hoverformat: '%d-%m-%Y %H:%M', ...gridStyle },
+        yaxis: { ...(graphData.layout as any)?.yaxis, ...gridStyle },
+        annotations: yAxisAnnotations,
     };
 
     return (
