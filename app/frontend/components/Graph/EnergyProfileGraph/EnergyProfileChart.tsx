@@ -87,7 +87,7 @@ export default function EnergyProfileChart({ graphData, graphMeta }: EnergyProfi
         title: undefined,
         autosize: true,
         margin: { t: 10, r: 10, b: 60, l: 0 },
-        legend: { orientation: 'v' as const, font: { size: 14 }, title: { text: 'Selecteer energieprofielen' }, x: -0.2, xanchor: 'right' as const, y: 1 },
+        legend: { orientation: 'v' as const, font: { size: 14 }, title: { text: 'Selecteer energieprofielen' }, x: -0.2, xanchor: 'right' as const, y: 1, groupclick: 'toggleitem' as const },
         hovermode: 'x unified' as const,
         paper_bgcolor: '#ffffff',
         plot_bgcolor: '#ffffff',
