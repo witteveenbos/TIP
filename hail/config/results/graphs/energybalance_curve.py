@@ -144,21 +144,21 @@ class ElectricityBalanceCurve(AbstractResultCurveGraph):
                 value=var.gqueries.merit_other_flexibility_demand.future,
                 color="#0AA1DD",
                 name="Conversie en opslag",
-                group="Flexibiliteit",
+                group="Overige flexibiliteit",
                 demandSupply="Vraag",
             ),
             GraphCurveElement(
                 value=var.gqueries.merit_energy_export_demand.future,
                 color="#79DAE8",
                 name="Export",
-                group="Flexibiliteit",
+                group="Export",
                 demandSupply="Vraag",
             ),
             GraphCurveElement(
                 value=var.gqueries.merit_flexibility_curtailment_demand.future,
                 color="#E8F9FD",
                 name="Productiebeperking",
-                group="Flexibiliteit",
+                group="Vraagsturing",
                 demandSupply="Vraag",
             ),
             # Supply side entries based on: https://energytransitionmodel.com/output_elements/merit_order_hourly_supply
@@ -684,7 +684,7 @@ class ElectricityBalanceCurve(AbstractResultCurveGraph):
                 value=var.gqueries.energy_load_shifting_industry.future,
                 color="#F5B7B1",
                 name="Verlaagde vraag in industrie",
-                group="Flexibiliteit",
+                group="Vraagsturing",
                 demandSupply="Aanbod",
             ),
         ]
