@@ -101,10 +101,7 @@ class AbstractResultCurveGraph(AbstractResult):
 
     @staticmethod
     def _split_storage_trace(gce: GraphCurveElement) -> list[GraphCurveElement]:
-        """Split mixed-sign storage values into charge (vraag) and discharge (aanbod). Pass through non-storage or non-curve elements unchanged."""
-        if gce.group != "Opslag" or not isinstance(gce.value, list):
-            return [gce]
-
+        """Split mixed-sign storage values into charge (vraag) and discharge (aanbod)."""
         discharging_values: list[float | int | None] = []
         charging_values: list[float | int | None] = []
 
@@ -154,7 +151,10 @@ class AbstractResultCurveGraph(AbstractResult):
 
         expanded_gces: list[GraphCurveElement] = []
         for gce in gces:
-            expanded_gces.extend(AbstractResultCurveGraph._split_storage_trace(gce))
+            if gce.group == "Opslag" and isinstance(gce.value, list):
+                expanded_gces.extend(AbstractResultCurveGraph._split_storage_trace(gce))
+            else:
+                expanded_gces.append(gce)
 
         aanbod_traces = [gce for gce in expanded_gces if gce.demandSupply.lower() == "aanbod"]
         vraag_traces = [gce for gce in expanded_gces if gce.demandSupply.lower() != "aanbod"]
