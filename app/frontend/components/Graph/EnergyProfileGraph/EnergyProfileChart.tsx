@@ -5,35 +5,10 @@ import { EnergyProfileChartProps } from '@/types/components/EnergyProfileGraph';
 const Plot = dynamic(() => import('react-plotly.js'), { ssr: false });
 
 export default function EnergyProfileChart({ graphData, graphMeta }: EnergyProfileChartProps) {
-    // Apply overrides to specific traces based on their name or stackgroup - this will be removed later, as this will be implemented in the backend
-    const applyOverrides = (trace: (typeof graphData.data)[number]) => {
-        const t = trace as any;
-        const originalStackgroup: string | undefined = t.stackgroup;
-        let result = t;
-
-        if (t.name === 'Basislast elektriciteitsvraag') {
-            const { stackgroup, ...rest } = t;
-            result = { ...rest, fill: 'none', line: { ...rest.line, dash: 'dot' } };
-        }
-
-        if (originalStackgroup === 'two') {
-            const y = Array.isArray(result.y) ? result.y.map((v: number) => -v) : result.y;
-            result = { ...result, y };
-        }
-
-        const legendGroupMap: Record<string, string> = { one: 'Aanbod', two: 'Vraag' };
-        const legendgroup = originalStackgroup ? legendGroupMap[originalStackgroup] ?? originalStackgroup : undefined;
-        if (legendgroup) {
-            result = { ...result, legendgroup, legendgrouptitle: { text: legendgroup, font: { size: 14 } } };
-        }
-
-        return result;
-    };
-
     const stackgroupOrder: Record<string, number> = { one: 0, two: 1 };
     const traces = (graphMeta.xTickLabels
-        ? graphData.data.map(trace => applyOverrides({ ...trace, x: graphMeta.xTickLabels }))
-        : graphData.data.map(applyOverrides)
+        ? graphData.data.map(trace => ({ ...trace, x: graphMeta.xTickLabels }))
+        : graphData.data
     ).sort((a, b) => {
         const aOrder = stackgroupOrder[(a as any).stackgroup] ?? 99;
         const bOrder = stackgroupOrder[(b as any).stackgroup] ?? 99;
@@ -53,7 +28,7 @@ export default function EnergyProfileChart({ graphData, graphMeta }: EnergyProfi
         {
             ...sharedAnnotationStyle,
             x: -0.06,
-            text: 'Vermogen',
+            text: 'Vermogen (MW)',
             font: { size: 16,  color: '#374151', weight: 'bold'},
             yref: 'y' as const,
             y: 0,
