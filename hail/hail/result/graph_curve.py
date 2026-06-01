@@ -20,6 +20,8 @@ if TYPE_CHECKING:
 
 
 class AbstractResultCurveGraph(AbstractResult):
+    _BASELOAD_ELECTRICITY_DEMAND_NAME = "Basislast elektriciteitsvraag"
+
     @property
     @abstractmethod
     def graph(self, var: Var) -> list[GraphCurveElement]:
@@ -47,14 +49,14 @@ class AbstractResultCurveGraph(AbstractResult):
         
         grouped_elements = []
         for group_name, group_elements in groups.items():
-            aggregated_value = None
-            for gce in group_elements:
-                if aggregated_value is None:
-                    aggregated_value = gce.value
-                else:
-                    aggregated_value += gce.value
+            aggregated_value = group_elements[0].value
+            for gce in group_elements[1:]:
+                aggregated_value += gce.value
             
             representative_element = group_elements[0]
+            if AbstractResultCurveGraph._is_all_zero_values(aggregated_value):
+                continue
+
             grouped_element = GraphCurveElement(
                 name=group_name,
                 group=representative_element.group,
@@ -65,6 +67,19 @@ class AbstractResultCurveGraph(AbstractResult):
             grouped_elements.append(grouped_element)
         
         return grouped_elements
+
+    @staticmethod
+    def _is_all_zero_values(values: list | Curve) -> bool:
+        for value in values:
+            if value is None:
+                continue
+            if value != 0:
+                return False
+        return True
+
+    @staticmethod
+    def _negative_values(values: list | Curve) -> list:
+        return [(-value if value is not None else None) for value in values]
     
     @staticmethod
     def _make_plotly_graph(gces: list[GraphCurveElement]) -> go.Figure:
@@ -74,8 +89,37 @@ class AbstractResultCurveGraph(AbstractResult):
         """
         fig = go.Figure()
         from hail.result.helpers import hourly_datetime_objects
-        for gce in gces:
-            fig.add_trace(go.Scatter(y=gce.value, mode='lines', line=dict(color=gce.color), name=gce.name, stackgroup='one' if gce.demandSupply.lower() == "aanbod" else 'two')) # x-axis data is put in metadata to avoid redundant info on every trace to save data.
+
+        aanbod_traces = [gce for gce in gces if gce.demandSupply.lower() == "aanbod"]
+        vraag_traces = [gce for gce in gces if gce.demandSupply.lower() != "aanbod"]
+
+        ordered_traces = aanbod_traces + vraag_traces
+
+        for gce in ordered_traces:
+            stackgroup = 'one' if gce.demandSupply.lower() == "aanbod" else 'two'
+            is_baseload_electricity_demand = gce.name == AbstractResultCurveGraph._BASELOAD_ELECTRICITY_DEMAND_NAME
+
+            y_values = gce.value
+            if stackgroup == 'two':
+                y_values = AbstractResultCurveGraph._negative_values(gce.value)
+
+            line = dict(color=gce.color)
+            trace_kwargs = {
+                "y": y_values,
+                "mode": "lines",
+                "line": line,
+                "name": gce.name,
+                "legendgroup": "Aanbod" if stackgroup == "one" else "Vraag",
+                "legendgrouptitle": {"text": "Aanbod" if stackgroup == "one" else "Vraag"},
+            }
+
+            if is_baseload_electricity_demand:
+                line["dash"] = "dot"
+                trace_kwargs["fill"] = "none"
+            else:
+                trace_kwargs["stackgroup"] = stackgroup
+
+            fig.add_trace(go.Scatter(**trace_kwargs)) # x-axis data is put in metadata to avoid redundant info on every trace to save data.
         return fig
 
     @classmethod
@@ -124,36 +168,3 @@ class AbstractResultCurveGraph(AbstractResult):
                 msg="Graph focus not set in request (viewSettings.graphFocus). Cannot make (yet) make aggregate graph.",
                 component="graph",
             )
-
-    # @classmethod ## not implemented and outdated, see make_graph
-    # def make_graph_toplevel(cls, context: ContextProvider, resample_hours: int = 24) -> GraphCurveResponse:
-    #     """Make a top level (province) curve graph, summing all graph curve elements (municipalities) in the context
-        
-    #     Args:
-    #         context: ContextProvider with scenario data
-    #         resample_hours: Number of hours to aggregate data into (default: 1 for hourly data)
-    #     """
-    #     # TODO: This is a temporary solution, we need to make a proper aggregate graph but that is currently out of scope
-    #     all_graphs: list[GraphCurveElement] = cls.graph(context)
-
-    #     summed_graphs = []
-    #     for gce in all_graphs:
-    #         graph = GraphCurveElement(
-    #             value=gce.value.sum_element_wise(),
-    #             **gce.model_dump(exclude={"value"}),
-    #         )
-    #         summed_graphs.append(graph)
-
-    #     logging.info(f"Summed graph curve elements for toplevel graph: {summed_graphs}")
-
-    #     graph_data = cls.transform_data_for_frontend(summed_graphs, resample_hours)
-    #     graph_meta_data = cls._make_metadata()
-        
-    #     response = GraphCurveResponse(
-    #         graphData=graph_data,
-    #         graphMeta=graph_meta_data,
-    #     )
-    #     logging.info(f"Returning curve toplevel response: {response}")
-    
-    #     return response
-    
