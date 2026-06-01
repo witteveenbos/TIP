@@ -22,6 +22,7 @@ if TYPE_CHECKING:
 
 class AbstractResultCurveGraph(AbstractResult):
     _BASELOAD_ELECTRICITY_DEMAND_NAME = "Basislast elektriciteitsvraag"
+    _LAST_GROUP_NAME = "Overige flexibiliteit"
 
     @property
     @abstractmethod
@@ -160,6 +161,11 @@ class AbstractResultCurveGraph(AbstractResult):
         vraag_traces = [gce for gce in expanded_gces if gce.demandSupply.lower() != "aanbod"]
 
         ordered_traces = aanbod_traces + vraag_traces
+        ordered_traces = [ # plot last the "Overige flexibiliteit" group if it exists, so it appears on top in the graph (above the baseload demand)
+            trace for trace in ordered_traces if trace.group != AbstractResultCurveGraph._LAST_GROUP_NAME
+        ] + [
+            trace for trace in ordered_traces if trace.group == AbstractResultCurveGraph._LAST_GROUP_NAME
+        ]
 
         for gce in ordered_traces:
             stackgroup = 'one' if gce.demandSupply.lower() == "aanbod" else 'two'
