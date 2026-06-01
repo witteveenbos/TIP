@@ -158,7 +158,7 @@ class ElectricityBalanceCurve(AbstractResultCurveGraph):
                 value=var.gqueries.merit_flexibility_curtailment_demand.future,
                 color="#E8F9FD",
                 name="Productiebeperking",
-                group="Vraagsturing",
+                group="Curtailment",
                 demandSupply="Vraag",
             ),
             # Supply side entries based on: https://energytransitionmodel.com/output_elements/merit_order_hourly_supply
@@ -166,7 +166,7 @@ class ElectricityBalanceCurve(AbstractResultCurveGraph):
                 value=var.gqueries.households_flexibility_p2p_electricity.future,
                 color="#92896B",
                 name="Thuisbatterijen",
-                group="Batterijen",
+                group="Opslag",
                 demandSupply="Aanbod",
             ),
             GraphCurveElement(
@@ -537,21 +537,21 @@ class ElectricityBalanceCurve(AbstractResultCurveGraph):
                 value=var.gqueries.energy_flexibility_opac_electricity.future,
                 color="#385ba6",
                 name="Opslag in OPAC",
-                group="Batterijen",
+                group="Opslag",
                 demandSupply="Aanbod",
             ),
             GraphCurveElement(
                 value=var.gqueries.energy_flexibility_mv_batteries_electricity.future,
                 color="#5a7bc4",
                 name="Grootschalige batterijopslag",
-                group="Batterijen",
+                group="Opslag",
                 demandSupply="Aanbod",
             ),
             GraphCurveElement(
                 value=var.gqueries.energy_flexibility_flow_batteries_electricity.future,
                 color="#162442",
                 name="Opslag in flowbatterijen",
-                group="Batterijen",
+                group="Opslag",
                 demandSupply="Aanbod",
             ),
             GraphCurveElement(
@@ -684,7 +684,7 @@ class ElectricityBalanceCurve(AbstractResultCurveGraph):
                 value=var.gqueries.energy_load_shifting_industry.future,
                 color="#F5B7B1",
                 name="Verlaagde vraag in industrie",
-                group="Vraagsturing",
+                group="Vraagafschakeling industrie",
                 demandSupply="Aanbod",
             ),
         ]

@@ -52,3 +52,33 @@ def test_group_elements_still_sums_list_values_elementwise():
     assert len(grouped_elements) == 1
     assert grouped_elements[0].value == [3.5, 4.0, 3.0]
     assert len(grouped_elements[0].value) == 3
+
+
+def test_make_plotly_graph_splits_opslag_into_charging_and_discharging():
+    fig = AbstractResultCurveGraph._make_plotly_graph(
+        [
+            GraphCurveElement(
+                name="Opslag",
+                group="Opslag",
+                demandSupply="Aanbod",
+                color="#385ba6",
+                value=[10.0, -5.0, 0.0, None, -2.0, 3.0],
+            )
+        ]
+    )
+
+    traces = {trace["name"]: trace for trace in fig.to_dict()["data"]}
+
+    assert set(traces) == {"Opslag (ontladen)", "Opslag (laden)"}
+
+    ontladen_trace = traces["Opslag (ontladen)"]
+    assert ontladen_trace["stackgroup"] == "one"
+    assert ontladen_trace["legendgroup"] == "Aanbod"
+    assert ontladen_trace["legendgrouptitle"]["text"] == "Aanbod"
+    assert ontladen_trace["y"] == [10.0, 0, 0, None, 0, 3.0]
+
+    laden_trace = traces["Opslag (laden)"]
+    assert laden_trace["stackgroup"] == "two"
+    assert laden_trace["legendgroup"] == "Vraag"
+    assert laden_trace["legendgrouptitle"]["text"] == "Vraag"
+    assert laden_trace["y"] == [0, -5.0, 0, None, -2.0, 0]

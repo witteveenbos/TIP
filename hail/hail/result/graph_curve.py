@@ -98,6 +98,50 @@ class AbstractResultCurveGraph(AbstractResult):
     @staticmethod
     def _negative_values(values: list | Curve) -> list:
         return [(-value if value is not None else None) for value in values]
+
+    @staticmethod
+    def _split_storage_trace(gce: GraphCurveElement) -> list[GraphCurveElement]:
+        """Split mixed-sign storage values into charge (vraag) and discharge (aanbod). Pass through non-storage or non-curve elements unchanged."""
+        if gce.group != "Opslag" or not isinstance(gce.value, list):
+            return [gce]
+
+        discharging_values: list[float | int | None] = []
+        charging_values: list[float | int | None] = []
+
+        for value in gce.value:
+            if value is None:
+                discharging_values.append(None)
+                charging_values.append(None)
+                continue
+
+            discharging_values.append(value if value > 0 else 0)
+            charging_values.append(-value if value < 0 else 0)
+
+        split_elements: list[GraphCurveElement] = []
+
+        if not AbstractResultCurveGraph._is_all_zero_values(discharging_values):
+            split_elements.append(
+                GraphCurveElement(
+                    name="Opslag (ontladen)",
+                    group=gce.group,
+                    demandSupply="Aanbod",
+                    color=gce.color,
+                    value=discharging_values,
+                )
+            )
+
+        if not AbstractResultCurveGraph._is_all_zero_values(charging_values):
+            split_elements.append(
+                GraphCurveElement(
+                    name="Opslag (laden)",
+                    group=gce.group,
+                    demandSupply="Vraag",
+                    color=gce.color,
+                    value=charging_values,
+                )
+            )
+
+        return split_elements
     
     @staticmethod
     def _make_plotly_graph(gces: list[GraphCurveElement]) -> go.Figure:
@@ -108,8 +152,12 @@ class AbstractResultCurveGraph(AbstractResult):
         fig = go.Figure()
         from hail.result.helpers import hourly_datetime_objects
 
-        aanbod_traces = [gce for gce in gces if gce.demandSupply.lower() == "aanbod"]
-        vraag_traces = [gce for gce in gces if gce.demandSupply.lower() != "aanbod"]
+        expanded_gces: list[GraphCurveElement] = []
+        for gce in gces:
+            expanded_gces.extend(AbstractResultCurveGraph._split_storage_trace(gce))
+
+        aanbod_traces = [gce for gce in expanded_gces if gce.demandSupply.lower() == "aanbod"]
+        vraag_traces = [gce for gce in expanded_gces if gce.demandSupply.lower() != "aanbod"]
 
         ordered_traces = aanbod_traces + vraag_traces
 
