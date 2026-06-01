@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING
 
 from hail.context import ContextProvider
 from hail.models.matrix import Matrix
+from hail.models.curve import Curve
 from hail.util import id_to_region_map, region_to_id_map
 import plotly.graph_objects as go
 from hail.result.helpers import hourly_datetime_objects
@@ -50,8 +51,22 @@ class AbstractResultCurveGraph(AbstractResult):
         grouped_elements = []
         for group_name, group_elements in groups.items():
             aggregated_value = group_elements[0].value
+
             for gce in group_elements[1:]:
-                aggregated_value += gce.value
+
+                    if isinstance(aggregated_value, Curve) and isinstance(gce.value, Curve):
+                        aggregated_value = aggregated_value + gce.value
+                    elif isinstance(aggregated_value, list) and isinstance(gce.value, list):
+                        aggregated_value = [
+                            (
+                                left + right
+                                if left is not None and right is not None
+                                else left if left is not None else right
+                            )
+                            for left, right in zip(aggregated_value, gce.value)
+                        ]
+                    else:
+                        raise TypeError("Expected grouped curve values to use matching list or Curve types")
             
             representative_element = group_elements[0]
             if AbstractResultCurveGraph._is_all_zero_values(aggregated_value):
@@ -70,6 +85,9 @@ class AbstractResultCurveGraph(AbstractResult):
 
     @staticmethod
     def _is_all_zero_values(values: list | Curve) -> bool:
+        if isinstance(values, Curve):
+            return all(AbstractResultCurveGraph._is_all_zero_values(row) for row in values)
+
         for value in values:
             if value is None:
                 continue
@@ -147,12 +165,12 @@ class AbstractResultCurveGraph(AbstractResult):
             filter_id = region_to_id[filter_region]
             graph_index = context.scenario_ids.index(filter_id)
             all_graphs: list[GraphCurveElement] = cls.graph(context)
-            filtered_graph = [ge.filter_on_index(graph_index) for ge in all_graphs]
+            grouped_graph = cls._group_elements(all_graphs)
+            filtered_graph = [ge.filter_on_index(graph_index) for ge in grouped_graph]
 
             # graph_data = cls.transform_data_for_frontend(filtered_graph, resample_hours)
             graph_meta_data = cls._make_metadata()
-            grouped_data = cls._group_elements(filtered_graph)
-            graph_data = cls._make_plotly_graph(grouped_data).to_dict()
+            graph_data = cls._make_plotly_graph(filtered_graph).to_dict()
 
             response = GraphCurveResponse(
                 graphData=graph_data,
