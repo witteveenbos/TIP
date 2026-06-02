@@ -41,7 +41,7 @@ class AbstractResultCurveGraph(AbstractResult):
 
     @staticmethod
     def _group_elements(gces: list[GraphCurveElement]) -> list[GraphCurveElement]:
-        """Group elements by their group attribute and sum their values"""
+        """Group elements by group name and sum their values."""
         groups = {}
         for gce in gces:
             group_name = gce.group
@@ -54,20 +54,19 @@ class AbstractResultCurveGraph(AbstractResult):
             aggregated_value = group_elements[0].value
 
             for gce in group_elements[1:]:
-
-                    if isinstance(aggregated_value, Curve) and isinstance(gce.value, Curve):
-                        aggregated_value = aggregated_value + gce.value
-                    elif isinstance(aggregated_value, list) and isinstance(gce.value, list):
-                        aggregated_value = [
-                            (
-                                left + right
-                                if left is not None and right is not None
-                                else left if left is not None else right
-                            )
-                            for left, right in zip(aggregated_value, gce.value)
-                        ]
-                    else:
-                        raise TypeError("Expected grouped curve values to use matching list or Curve types")
+                if isinstance(aggregated_value, Curve) and isinstance(gce.value, Curve):
+                    aggregated_value = aggregated_value + gce.value
+                elif isinstance(aggregated_value, list) and isinstance(gce.value, list):
+                    aggregated_value = [
+                        (
+                            left + right
+                            if left is not None and right is not None
+                            else left if left is not None else right
+                        )
+                        for left, right in zip(aggregated_value, gce.value)
+                    ]
+                else:
+                    raise TypeError("Expected grouped curve values to use matching list or Curve types")
             
             representative_element = group_elements[0]
             if AbstractResultCurveGraph._is_all_zero_values(aggregated_value):
@@ -86,6 +85,7 @@ class AbstractResultCurveGraph(AbstractResult):
 
     @staticmethod
     def _is_all_zero_values(values: list | Curve) -> bool:
+        """Return whether all non-null values in a list or curve are zero."""
         if isinstance(values, Curve):
             return all(AbstractResultCurveGraph._is_all_zero_values(row) for row in values)
 
@@ -98,6 +98,7 @@ class AbstractResultCurveGraph(AbstractResult):
 
     @staticmethod
     def _negative_values(values: list | Curve) -> list:
+        """Return values with sign inverted, preserving null values."""
         return [(-value if value is not None else None) for value in values]
 
     @staticmethod
@@ -143,12 +144,11 @@ class AbstractResultCurveGraph(AbstractResult):
     
     @staticmethod
     def _make_plotly_graph(gces: list[GraphCurveElement]) -> go.Figure:
-        """Make a plotly graph with datetime objects on the x-axis.
-        Datetime objects are automatically serialized to ISO 8601 strings by fig.to_dict(),
-        and the plotly React frontend understands them natively for proper date formatting.
+        """Build a Plotly timeseries graph for a single selected municipality.
+
+        X-axis labels are stored in metadata, not in each trace, to reduce payload size.
         """
         fig = go.Figure()
-        from hail.result.helpers import hourly_datetime_objects
 
         expanded_gces: list[GraphCurveElement] = []
         for gce in gces:
@@ -196,6 +196,7 @@ class AbstractResultCurveGraph(AbstractResult):
 
     @classmethod
     def _make_metadata(cls) -> GraphCurveMeta:
+        """Compose metadata, replacing default title and unit with class-level values."""
         exst_meta: GraphMeta = cls.meta
         return GraphCurveMeta(
             title=cls.name if exst_meta.title == "default" else exst_meta.title,
@@ -205,12 +206,14 @@ class AbstractResultCurveGraph(AbstractResult):
         )
 
     @classmethod
-    def make_graph(cls, context: ContextProvider, resample_hours: int = 24) -> GraphCurveResponse:
-        """Make a curve graph for a specific filtered municipality based on the graph focus in the context
-        
+    def make_graph(cls, context: ContextProvider) -> GraphCurveResponse:
+        """Build a curve graph for the municipality selected in graph focus.
+
         Args:
-            context: ContextProvider with scenario data
-            resample_hours: Number of hours to aggregate data into (default: 1 for hourly data)
+            context: Context provider with scenario data.
+
+        Returns:
+            Graph response with Plotly data and metadata for frontend rendering.
         """
         region_to_id = region_to_id_map(request=context.request)
 
