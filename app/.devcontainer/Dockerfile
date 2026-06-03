@@ -22,9 +22,9 @@ ARG NODE_VERSION="none"
 RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c "umask 0002 && . /usr/local/share/nvm/nvm.sh && nvm install ${NODE_VERSION} 2>&1"; fi
 
 # [Optional] If your requirements rarely change, uncomment this section to add them to the image.
-COPY ./src/requirements/local.txt /tmp/pip-tmp/
-COPY ./src/requirements/test.txt /tmp/pip-tmp/
-COPY ./src/requirements/base.txt /tmp/pip-tmp/
+COPY ./app/src/requirements/local.txt /tmp/pip-tmp/
+COPY ./app/src/requirements/test.txt /tmp/pip-tmp/
+COPY ./app/src/requirements/base.txt /tmp/pip-tmp/
 RUN pip3 --disable-pip-version-check --no-cache-dir install -r /tmp/pip-tmp/local.txt \
     && rm -rf /tmp/pip-tmp
 
@@ -32,13 +32,18 @@ RUN pip install --upgrade pip \
     && pip install ipython ipdb
 
 # [Optional] Uncomment this section to install additional OS packages.
-RUN rm -f /etc/apt/sources.list.d/yarn.list \
-    && apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get -y install --no-install-recommends \
-    && apt-get install -y netcat gcc libpq-dev \
-    && apt-get install -y binutils libproj-dev gdal-bin \
-    && apt-get install -y vim curl gettext \
-    && apt-get install -y libmagickwand-dev \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+    && apt-get install -y --no-install-recommends \
+        netcat-openbsd gcc libpq-dev \
+        binutils libproj-dev gdal-bin \
+        vim curl gettext \
+        libmagickwand-dev \
+        sudo \
+
+# Give vscode user sudo access
+RUN echo "vscode ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+# Pre-create XDG runtime dir so VS Code server can use it as non-root user
+RUN mkdir -p /home/vscode/xdg-runtime && chown vscode:vscode /home/vscode/xdg-runtime && chmod 700 /home/vscode/xdg-runtime
 
 EXPOSE 8000
