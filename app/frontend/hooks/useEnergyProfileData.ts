@@ -11,7 +11,7 @@ import {
     useScenarioStore,
 } from 'stores/calculateStore';
 import { useDragersStore } from 'stores/headerTogglesStore';
-import { PlotlyGraphData, GraphMeta, GraphResponse } from '@/types/components/EnergyProfileGraph';
+import { PlotlyGraphData, GraphMeta, EnergyProfileChartProps } from '@/types/components/EnergyProfileGraph';
 
 interface UseEnergyProfileDataProps {
     enabled?: boolean;
@@ -61,7 +61,7 @@ export function useEnergyProfileData({ enabled = true }: UseEnergyProfileDataPro
             const response = await postUserInputs(userInputRequest);
 
             if (response && response.graph) {
-                const graphResponse = response.graph as GraphResponse;
+                const graphResponse = response.graph as EnergyProfileChartProps;
                 if (graphResponse.graphData?.data?.length > 0) {
                     setGraphData(graphResponse.graphData);
                     setGraphMeta(graphResponse.graphMeta);
