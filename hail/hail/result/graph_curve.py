@@ -19,10 +19,13 @@ if TYPE_CHECKING:
 
     Var = RefersTo | ContextProvider
 
+DEMAND = "Vraag"
+SUPPLY = "Aanbod"
+STORAGE = "Opslag"
+BASELOAD_ELECTRICITY_DEMAND = "Basislast elektriciteitsvraag"
+LAST_GROUP = "Overige flexibiliteit"
 
 class AbstractResultCurveGraph(AbstractResult):
-    _BASELOAD_ELECTRICITY_DEMAND_NAME = "Basislast elektriciteitsvraag"
-    _LAST_GROUP_NAME = "Overige flexibiliteit"
 
     @property
     @abstractmethod
@@ -123,7 +126,7 @@ class AbstractResultCurveGraph(AbstractResult):
                 GraphCurveElement(
                     name="Opslag (ontladen)",
                     group=gce.group,
-                    demandSupply="Aanbod",
+                    demandSupply=SUPPLY,
                     color=gce.color,
                     value=discharging_values,
                 )
@@ -134,7 +137,7 @@ class AbstractResultCurveGraph(AbstractResult):
                 GraphCurveElement(
                     name="Opslag (laden)",
                     group=gce.group,
-                    demandSupply="Vraag",
+                    demandSupply=DEMAND,
                     color=gce.color,
                     value=charging_values,
                 )
@@ -151,16 +154,16 @@ class AbstractResultCurveGraph(AbstractResult):
         fig = go.Figure()
 
         expanded_gces: list[GraphCurveElement] = []
-        for gce in gces:
-            if gce.group == "Opslag" and isinstance(gce.value, list):
+        for gce in gces: # if storage trace, split into separate charge and discharge traces for correct plotting
+            if gce.group == STORAGE and isinstance(gce.value, list):
                 expanded_gces.extend(AbstractResultCurveGraph._split_storage_trace(gce))
             else:
                 expanded_gces.append(gce)
 
-        aanbod_traces = [gce for gce in expanded_gces if gce.demandSupply.lower() == "aanbod"]
-        vraag_traces = [gce for gce in expanded_gces if gce.demandSupply.lower() != "aanbod"]
+        supply_traces = [gce for gce in expanded_gces if gce.demandSupply == SUPPLY] # split supply and demand for correct stacking order (supply on top of demand, not interleaved)
+        demand_traces = [gce for gce in expanded_gces if gce.demandSupply != SUPPLY]
 
-        ordered_traces = aanbod_traces + vraag_traces
+        ordered_traces = supply_traces + demand_traces
         ordered_traces = [ # plot last the "Overige flexibiliteit" group if it exists, so it appears on top in the graph (above the baseload demand)
             trace for trace in ordered_traces if trace.group != AbstractResultCurveGraph._LAST_GROUP_NAME
         ] + [
@@ -168,30 +171,30 @@ class AbstractResultCurveGraph(AbstractResult):
         ]
 
         for gce in ordered_traces:
-            stackgroup = 'one' if gce.demandSupply.lower() == "aanbod" else 'two'
-            is_baseload_electricity_demand = gce.name == AbstractResultCurveGraph._BASELOAD_ELECTRICITY_DEMAND_NAME
+            stackgroup = 'one' if gce.demandSupply == SUPPLY else 'two' # supply traces are in stackgroup one, demand traces in stackgroup two (so they appear below the x-axis)
+            is_baseload_electricity_demand = gce.name == AbstractResultCurveGraph.BASELOAD_ELECTRICITY_DEMAND
 
             y_values = gce.value
-            if stackgroup == 'two':
+            if stackgroup == 'two': # for demand traces, we want to invert the y-values so they appear below the x-axis in the graph
                 y_values = AbstractResultCurveGraph._negative_values(gce.value)
 
             line = dict(color=gce.color)
-            trace_kwargs = {
-                "y": y_values,
+            trace_kwargs = { 
+                "y": y_values, # x-axis data is put in metadata to avoid redundant info on every trace to save data.
                 "mode": "lines",
                 "line": line,
                 "name": gce.name,
-                "legendgroup": "Aanbod" if stackgroup == "one" else "Vraag",
-                "legendgrouptitle": {"text": "Aanbod" if stackgroup == "one" else "Vraag"},
+                "legendgroup": SUPPLY if stackgroup == "one" else DEMAND,
+                "legendgrouptitle": {"text": SUPPLY if stackgroup == "one" else DEMAND},
             }
 
-            if is_baseload_electricity_demand:
+            if is_baseload_electricity_demand: # baseload demand is plotted as a dotted line without fill to distinguish it from other demand traces
                 line["dash"] = "dot"
                 trace_kwargs["fill"] = "none"
             else:
                 trace_kwargs["stackgroup"] = stackgroup
 
-            fig.add_trace(go.Scatter(**trace_kwargs)) # x-axis data is put in metadata to avoid redundant info on every trace to save data.
+            fig.add_trace(go.Scatter(**trace_kwargs))
         return fig
 
     @classmethod
