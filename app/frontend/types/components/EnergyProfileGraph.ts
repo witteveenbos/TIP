@@ -6,8 +6,8 @@ export interface PlotlyTrace {
     name: string;
     type: string;
     mode?: string;
-    x?: (string | number)[];
-    y?: (string | number)[];
+    x?: (string | number | null)[];
+    y?: (string | number | null)[];
     line?: { color?: string; [key: string]: any };
     stackgroup?: string;
     fill?: string;
@@ -32,11 +32,6 @@ export interface GraphMeta {
     title: string;
     plotType: string;
     xTickLabels?: string[];
-}
-
-export interface GraphResponse {
-    graphData: PlotlyGraphData;
-    graphMeta: GraphMeta;
 }
 
 export interface EnergyProfileChartProps {
