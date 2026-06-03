@@ -4,7 +4,12 @@ We work using LTAP. Local runs on dev containers (see below). All TAP environmen
 
 ## Start Dev Container
 
-Visual Studio Code will detect that you are working in a Dev Container, click "Reopen in Container" to start the Dev container. Make sure there is an .env file for local development present in the `/frontend` folder, like this:
+    - Navigate to 'File' in VSCode
+    - Open Folder
+    - Open the app folder
+    - This will prompt 'Reopen in container?', click yes. If this is not automatically promted you can CTRL + Shift + P and select 'Dev Container: Reopen in Dev Container. 
+
+Make sure there is an .env file for local development present in the `/frontend` folder, like this:
 
 ```
 WAGTAIL_API_URL=http://localhost:8000/wt/api/nextjs
