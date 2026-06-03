@@ -165,14 +165,14 @@ class AbstractResultCurveGraph(AbstractResult):
 
         ordered_traces = supply_traces + demand_traces
         ordered_traces = [ # plot last the "Overige flexibiliteit" group if it exists, so it appears on top in the graph (above the baseload demand)
-            trace for trace in ordered_traces if trace.group != AbstractResultCurveGraph._LAST_GROUP_NAME
+            trace for trace in ordered_traces if trace.group != LAST_GROUP
         ] + [
-            trace for trace in ordered_traces if trace.group == AbstractResultCurveGraph._LAST_GROUP_NAME
+            trace for trace in ordered_traces if trace.group == LAST_GROUP
         ]
 
         for gce in ordered_traces:
             stackgroup = 'one' if gce.demandSupply == SUPPLY else 'two' # supply traces are in stackgroup one, demand traces in stackgroup two (so they appear below the x-axis)
-            is_baseload_electricity_demand = gce.name == AbstractResultCurveGraph.BASELOAD_ELECTRICITY_DEMAND
+            is_baseload_electricity_demand = gce.name == BASELOAD_ELECTRICITY_DEMAND
 
             y_values = gce.value
             if stackgroup == 'two': # for demand traces, we want to invert the y-values so they appear below the x-axis in the graph
