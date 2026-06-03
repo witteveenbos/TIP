@@ -1,16 +1,14 @@
 from datetime import datetime, timedelta
-from typing import List
 
-def hourly_datetime_labels() -> List[str]:
+def hourly_datetime_objects() -> list[datetime]:
     """
-    Return a list of 8760 hourly strings for a non-leap year, excluding the year
-    and using a space as separator. Format: "MM-DD HH".
+    Return a list of 8760 hourly datetime objects for a non-leap year.
     - Always 8760 entries (assumes a 365-day year).
-    - Uses only the standard library and naive datetimes.
+    - Uses a representative non-leap year as the base (2021).
+    When serialized via plotly's fig.to_dict(), these become ISO 8601 strings
+    that the plotly React frontend understands natively.
     """
-    # Use a representative non-leap year as the base (any non-leap year works)
     base_year = 2021
     start = datetime(base_year, 1, 1, 0, 0, 0)
     hours = 24 * 365  # 8760
-    fmt = "%m-%d %H"
-    return [(start + timedelta(hours=i)).strftime(fmt) for i in range(hours)]
+    return [start + timedelta(hours=i) for i in range(hours)]

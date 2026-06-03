@@ -46,13 +46,11 @@
     "esModuleInterop": true,
     "module": "esnext",
     "resolveJsonModule": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "isolatedModules": true,
     "jsx": "react-jsx",
     "types": [
       "node",
-      "jest",
-      "@testing-library/jest-dom"
     ]
   },
   "include": [
