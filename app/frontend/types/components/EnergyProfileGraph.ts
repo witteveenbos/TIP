@@ -1,29 +1,40 @@
-import { GraphDataPoint } from "./Graph";
 export interface EnergyProfileGraphProps {
     enabled?: boolean;
 }
 
-export interface GraphData {
-    [key: string]: number | string;
+export interface PlotlyTrace {
+    name: string;
+    type: string;
+    mode?: string;
+    x?: (string | number | null)[];
+    y?: (string | number | null)[];
+    line?: { color?: string; [key: string]: any };
+    stackgroup?: string;
+    fill?: string;
+    fillcolor?: string;
+    [key: string]: any;
 }
 
-export interface GraphMetadata {
+export interface PlotlyLayout {
+    template?: {
+        data?: Record<string, any>;
+        layout?: Record<string, any>;
+    };
+    [key: string]: any;
+}
+
+export interface PlotlyGraphData {
+    data: PlotlyTrace[];
+    layout: PlotlyLayout;
+}
+
+export interface GraphMeta {
     title: string;
-    unit: string;
-    yLabelText: string;
+    plotType: string;
     xTickLabels?: string[];
-    properties?: { [key: string]: { [key: string]: string } };
-}
-
-export interface GraphResponse {
-    metaData: GraphMetadata;
-    graphData: GraphData[];
 }
 
 export interface EnergyProfileChartProps {
-    chartData: GraphDataPoint[];
-    metadata: GraphMetadata;
-    dataKeys: string[];
-    hasBasislast: boolean;
-    colors: string[];
+    graphData: PlotlyGraphData;
+    graphMeta: GraphMeta;
 }

@@ -1,5 +1,3 @@
-import { GraphMetadata } from '@/types/components/EnergyProfileGraph';
-
 interface CustomYAxisLabelProps {
     viewBox?: {
         x: number;
@@ -7,7 +5,7 @@ interface CustomYAxisLabelProps {
         width: number;
         height: number;
     };
-    metadata?: GraphMetadata | null;
+    metadata?: { yLabelText?: string } | null;
     // Allow any additional props that Recharts might pass
     [key: string]: any;
 }

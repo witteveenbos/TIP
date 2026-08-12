@@ -11,15 +11,15 @@ import {
     useScenarioStore,
 } from 'stores/calculateStore';
 import { useDragersStore } from 'stores/headerTogglesStore';
-import { GraphData, GraphMetadata, GraphResponse } from '@/types/components/EnergyProfileGraph';
+import { PlotlyGraphData, GraphMeta, EnergyProfileChartProps } from '@/types/components/EnergyProfileGraph';
 
 interface UseEnergyProfileDataProps {
     enabled?: boolean;
 }
 
 export function useEnergyProfileData({ enabled = true }: UseEnergyProfileDataProps) {
-    const [data, setData] = useState<GraphData[]>([]);
-    const [metadata, setMetadata] = useState<GraphMetadata | null>(null);
+    const [graphData, setGraphData] = useState<PlotlyGraphData | null>(null);
+    const [graphMeta, setGraphMeta] = useState<GraphMeta | null>(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -61,10 +61,10 @@ export function useEnergyProfileData({ enabled = true }: UseEnergyProfileDataPro
             const response = await postUserInputs(userInputRequest);
 
             if (response && response.graph) {
-                const graphResponse = response.graph as GraphResponse;
-                if (graphResponse.graphData && Array.isArray(graphResponse.graphData) && graphResponse.graphData.length > 0) {
-                    setData(graphResponse.graphData);
-                    setMetadata(graphResponse.metaData);
+                const graphResponse = response.graph as EnergyProfileChartProps;
+                if (graphResponse.graphData?.data?.length > 0) {
+                    setGraphData(graphResponse.graphData);
+                    setGraphMeta(graphResponse.graphMeta);
                 } else {
                     console.warn('EnergyProfileGraph: Empty graphData received', graphResponse);
                     setError('Geen grafiekdata beschikbaar - lege dataset');
@@ -98,8 +98,8 @@ export function useEnergyProfileData({ enabled = true }: UseEnergyProfileDataPro
     }, [enabled, selectedGeoId, selectedAreaDivision, energyCarrier, balance, original, inputType, municipalityScenarios, changedContinuousDevelopments, changedSectoralDevelopments, selectedScenario]);
 
     return {
-        data,
-        metadata,
+        graphData,
+        graphMeta,
         loading,
         error,
         refetch: fetchGraphData
