@@ -38,6 +38,40 @@ For local development; follow these steps:
    4. Redis, Postgres and PGadmin will be running as supporting services
 5. Refer to the README files in each of the folders for more detailed information. 
 
+## Branch naming and deployment workflow
+
+TIP uses `main` as the single source of truth for the latest code. Client-specific
+deployment branches are named with the following convention:
+
+```text
+accept-<client>   # acceptance deployment for a client
+prod-<client>     # production deployment for the same client
+```
+
+For example, the branches for the PNH and GR projects are `accept-pnh`,
+`prod-pnh`, `accept-gr`, and `prod-gr`.
+
+The recommended flow is:
+
+1. Create or update a feature branch from `main`.
+2. Merge the completed feature branch into the relevant `accept-<client>` branch.
+3. Test and validate the acceptance deployment.
+4. Promote the accepted changes to the matching `prod-<client>` branch.
+
+The deployment workflow in `.github/workflows/deploy.yml` runs automatically
+when an `accept-*` or `prod-*` branch is pushed.
+
+> **Important:** The GitHub Environment name must be exactly the complete branch
+> name. For example, the `accept-pnh` branch uses the `accept-pnh` GitHub
+> Environment, and the `prod-pnh` branch uses the `prod-pnh` GitHub Environment.
+> Configure the client- and stage-specific variables and secrets in that exact
+> GitHub Environment; the workflow reads them from there.
+
+Docker images are tagged with the complete branch name as well, for example
+`backend:accept-pnh` and `backend:prod-pnh`.
+
+![Multi-project branch workflow](docs/imgs/multi-project-workflow.png)
+
 ## Overview
 
 ```bash

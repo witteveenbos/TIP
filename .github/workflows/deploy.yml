@@ -4,7 +4,8 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - "accept-pnh"
+      - "accept-*"
+      - "prod-*"
 
 permissions:
   id-token: write
@@ -12,8 +13,9 @@ permissions:
 
 jobs:
   build_rekenkern:
+    if: startsWith(github.ref_name, 'accept-') || startsWith(github.ref_name, 'prod-')
     runs-on: "ubuntu-latest"
-    environment: accept-pnh
+    environment: ${{ github.ref_name }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -37,7 +39,7 @@ jobs:
       # - name: Create a Redis container
       #   run: |
       #     az containerapp add-on redis create \
-      #       --name dataacceptredis \
+      #       --name data-${{ startsWith(github.ref_name, 'accept-') && 'accept' || 'prod' }}-redis \
       #       --resource-group ${{vars.RESOURCE_GROUP_NAME}} \
       #       --environment ${{vars.CONTAINER_APPS_ENV}}
 
@@ -58,7 +60,7 @@ jobs:
       #             --output tsv)
 
       #     az containerapp create \
-      #       --name data-accept-app \
+      #       --name data-${{ startsWith(github.ref_name, 'accept-') && 'accept' || 'prod' }}-app \
       #       --resource-group ${{vars.RESOURCE_GROUP_NAME}} \
       #       --environment ${{vars.CONTAINER_APPS_ENV}} \
       #       --image ${{vars.ACR_NAME}}.azurecr.io/data:${{github.ref_name}} \
@@ -78,14 +80,15 @@ jobs:
       #       --query properties.configuration.ingress.fqdn
 
       #     az containerapp ingress cors enable \
-      #       --name data-accept-app \
+      #       --name data-${{ startsWith(github.ref_name, 'accept-') && 'accept' || 'prod' }}-app \
       #       --resource-group ${{vars.RESOURCE_GROUP_NAME}} \
       #       --allowed-origins ${{vars.TRUSTED_ORIGINS_DATA}}
 
 
   build_backend:
+    if: startsWith(github.ref_name, 'accept-') || startsWith(github.ref_name, 'prod-')
     runs-on: "ubuntu-latest"
-    environment: accept-pnh
+    environment: ${{ github.ref_name }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -118,7 +121,7 @@ jobs:
       #             --output tsv)
 
       #     az containerapp create \
-      #       --name backend-accept-app \
+      #       --name backend-${{ startsWith(github.ref_name, 'accept-') && 'accept' || 'prod' }}-app \
       #       --resource-group ${{vars.RESOURCE_GROUP_NAME}} \
       #       --environment ${{vars.CONTAINER_APPS_ENV}} \
       #       --image ${{vars.ACR_NAME}}.azurecr.io/backend:${{github.ref_name}} \
@@ -143,9 +146,10 @@ jobs:
       #       --query properties.configuration.ingress.fqdn
 
   build_frontend:
+    if: startsWith(github.ref_name, 'accept-') || startsWith(github.ref_name, 'prod-')
     runs-on: "ubuntu-latest"
     # needs: build_backend
-    environment: accept-pnh
+    environment: ${{ github.ref_name }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -183,7 +187,7 @@ jobs:
       #             --output tsv)
 
       #     az containerapp create \
-      #       --name frontend-accept-app \
+      #       --name frontend-${{ startsWith(github.ref_name, 'accept-') && 'accept' || 'prod' }}-app \
       #       --resource-group ${{vars.RESOURCE_GROUP_NAME}} \
       #       --environment ${{vars.CONTAINER_APPS_ENV}} \
       #       --image ${{vars.ACR_NAME}}.azurecr.io/frontend:${{github.ref_name}} \
@@ -200,7 +204,7 @@ jobs:
   # build_nginx:
   #   runs-on: "ubuntu-latest"
   #   needs: [build_backend, build_frontend]
-  #   environment: accept-pnh
+  #   environment: ${{ github.ref_name }}
   #   steps:
   #     - name: Checkout code
   #       uses: actions/checkout@v2
@@ -233,7 +237,7 @@ jobs:
   #                 --output tsv)
 
   #         az containerapp create \
-  #           --name tip-pnh-accept \
+  #           --name tip-pnh-${{ startsWith(github.ref_name, 'accept-') && 'accept' || 'prod' }} \
   #           --resource-group ${{vars.RESOURCE_GROUP_NAME}} \
   #           --environment ${{vars.CONTAINER_APPS_ENV}} \
   #           --image ${{vars.ACR_NAME}}.azurecr.io/nginx:${{github.ref_name}} \
