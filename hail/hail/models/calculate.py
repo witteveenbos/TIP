@@ -3,6 +3,7 @@ import logging
 from typing import Any, Literal, Optional
 import colorcet as cc
 from pydantic import BaseModel
+from datetime import datetime
 
 from hail.models.enums import (
     AllAreaDivisionIDs,
@@ -10,8 +11,8 @@ from hail.models.enums import (
 )
 from hail.models.fundamental import Value
 from hail.models.matrix import AggregatedMatrix, Matrix
+from hail.models.curve import AggregatedCurve, Curve
 from hail.util import get_color
-
 
 class NullReponse(BaseModel):
     component: Literal["developments", "map", "graph"]
@@ -21,7 +22,7 @@ class NullReponse(BaseModel):
 class CalculateResponse(BaseModel):
     input: Optional[InputResponse] = None
     map: Optional[MapResponse] = None
-    graph: Optional[GraphResponse] = None
+    graph: Optional[GraphResponse|GraphCurveResponse] = None
     msgs: Optional[list[NullReponse]] = None
 
 
@@ -55,6 +56,8 @@ class LegendDef(BaseModel):
 
 class ColorMapDef(BaseModel):
     colormap: str
+    reverse: bool = False
+    # if True, the colormap will be reversed
     lower_limit: Optional[float | int] = None
     # if None, the minimum value of the data is used
     upper_limit: Optional[float | int] = None
@@ -70,6 +73,7 @@ class ColorMapDef(BaseModel):
             cmap_name=self.colormap,
             vmin=self.lower_limit,
             vmax=self.upper_limit,
+            reverse=self.reverse,
         )
 
     def model_post_init(self, __context: Any) -> None:
@@ -134,6 +138,8 @@ ContinuousDevSetting = float | int
 
 InputResponse = dict[AllAreaDivisionIDs, list[DevelopmentGroup]]
 
+DemandSupply = Literal["Aanbod", "Vraag"]
+
 
 # as used for the sectoral developments
 class SectoralDevSetting(BaseModel):
@@ -163,11 +169,23 @@ class GraphMeta(BaseModel):
     xLabelText: Optional[str] = None
     xGrouping: Optional[Groupable] = None
 
+# ------ > Graph
+class GraphCurveResponse(BaseModel):
+    graphData: dict # contains a plotly graph in dict format which can be serialized by fastapi
+    graphMeta: GraphCurveMeta
+
+class GraphCurveMeta(BaseModel):
+    title: str = "default"
+    unit: str = "default"
+    yLabelText: str
+    plotType: plotTypes
+    xLabelText: Optional[str] = None
+    xTickLabels: Optional[list[datetime]] = None
 
 class GraphElement(BaseModel, arbitrary_types_allowed=True):
     carrier: str
     sector: str
-    demandSupply: str
+    demandSupply: DemandSupply
     color: str
     value: float | int | Matrix
 
@@ -178,6 +196,36 @@ class GraphElement(BaseModel, arbitrary_types_allowed=True):
         return GraphElement(
             carrier=self.carrier,
             sector=self.sector,
+            demandSupply=self.demandSupply,
+            color=self.color,
+            value=self.value[index],
+        )
+    
+    def multiply_value(self, factor: float | int) -> GraphElement:
+        new_value = self.value * factor
+        return GraphElement(
+            carrier=self.carrier,
+            sector=self.sector,
+            demandSupply=self.demandSupply,
+            color=self.color,
+            value=new_value,
+        )
+
+
+class GraphCurveElement(BaseModel, arbitrary_types_allowed=True):
+    name: str
+    group: str
+    demandSupply: DemandSupply
+    color: str
+    value: list | Curve
+
+    def filter_on_index(self, index: int) -> GraphCurveElement:
+        assert isinstance(
+            self.value, Curve
+        ), "Cannot filter on index if value is not a curve"
+        return GraphCurveElement(
+            name=self.name,
+            group=self.group,
             demandSupply=self.demandSupply,
             color=self.color,
             value=self.value[index],

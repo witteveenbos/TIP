@@ -26,6 +26,7 @@ STATIC_MAP_DATA = StaticMapData(
         name: StationData(invoeding=station["invoeding"], afname=station["afname"])
         for name, station in hsms_capacity.items()
     },
+    # replace 0.0 with None
     gm_to_station_share={
         name: {
             gmid: (this_share if this_share != 0.0 else None)

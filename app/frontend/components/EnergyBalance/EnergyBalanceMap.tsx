@@ -295,6 +295,7 @@ export default function EnergyBalanceMap({ geojson }: { geojson: any }) {
                                 currentZoom={currentZoom}
                                 getFeatureValue={getFeatureValue}
                                 selectedDevelopment={selectedDevelopment}
+                                mapUnit={geoJsonData?.metadata?.unit}
                             />
                         ))}
 
@@ -346,7 +347,7 @@ export default function EnergyBalanceMap({ geojson }: { geojson: any }) {
                                     type: 'energyBalance',
                                 })
                             }>
-                            energiebalans
+                            Energie inzichten
                         </Button>
                     </EnergyBalanceAsideDevelopments>
                 </div>

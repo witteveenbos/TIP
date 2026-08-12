@@ -1,34 +1,64 @@
 {
-    "compilerOptions": {
-        "baseUrl": ".",
-        "paths": {
-            "@/components/*": ["./components/*"],
-            "@/containers/*": ["./containers/*"],
-            "@/pages/*": ["./pages/*"],
-            "@/api/*": ["./api/*"],
-            "@/hooks/*": ["./hooks/*"],
-            "@/utils/*": ["./utils/*"],
-            "@/public/*": ["./public/*"],
-            "@/services/*": ["./services/*"],
-            "@/types/*": ["./types/*"]  
-        },
-        "target": "es6",
-        "downlevelIteration": true,
-        "lib": ["dom", "dom.iterable", "esnext"],
-        "allowJs": true,
-        "skipLibCheck": true,
-        "strict": false,
-        "forceConsistentCasingInFileNames": true,
-        "noEmit": true,
-        "incremental": true,
-        "esModuleInterop": true,
-        "module": "esnext",
-        "resolveJsonModule": true,
-        "moduleResolution": "node",
-        "isolatedModules": true,
-        "jsx": "preserve",
-        "types": ["node", "jest", "@testing-library/jest-dom"]
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/components/*": [
+        "./components/*"
+      ],
+      "@/containers/*": [
+        "./containers/*"
+      ],
+      "@/pages/*": [
+        "./pages/*"
+      ],
+      "@/api/*": [
+        "./api/*"
+      ],
+      "@/hooks/*": [
+        "./hooks/*"
+      ],
+      "@/utils/*": [
+        "./utils/*"
+      ],
+      "@/public/*": [
+        "./public/*"
+      ],
+      "@/services/*": [
+        "./services/*"
+      ],
+      "@/types/*": [
+        "./types/*"
+      ]
     },
-    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-    "exclude": ["node_modules"]
+    "target": "es6",
+    "downlevelIteration": true,
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "incremental": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "resolveJsonModule": true,
+    "moduleResolution": "bundler",
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "types": [
+      "node",
+    ]
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

@@ -23,13 +23,15 @@ interface GeoJsonLabelProps {
         unit?: string;
         key?: string;
     };
+    mapUnit?: string;
 }
 
 const GeoJsonLabel = ({ 
     feature, 
     currentZoom, 
     getFeatureValue, 
-    selectedDevelopment 
+    selectedDevelopment,
+    mapUnit
 }: GeoJsonLabelProps) => {
     const { inputType } = useInputTypeStore();
     const { changedContinuousDevelopments } = continuousDevelopmentsChangesStore();
@@ -37,7 +39,7 @@ const GeoJsonLabel = ({
 
     const center = L.polygon(feature.geometry.coordinates).getBounds().getCenter();
     const value = getFeatureValue(feature);
-    const unit = selectedDevelopment?.unit || '%';
+    const unit = selectedDevelopment?.unit || mapUnit || '%';
     const formattedValue = value !== undefined && value !== null ? 
         `${value.toLocaleString('nl-NL', { maximumFractionDigits: 1 })} ${unit}`.trim() : 
         'Geen data';

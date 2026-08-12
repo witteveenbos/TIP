@@ -8,6 +8,7 @@ export default function FilterSection({
     selectedItems,
     onToggleItem,
     legendData,
+    reverseOrder = {},
 }: FilterSectionProps) {
     // Group items by demandSupply to show separator
     const groupedItems = items.reduce((acc, item) => {
@@ -18,7 +19,10 @@ export default function FilterSection({
         return acc;
     }, {} as Record<string, typeof items>);
 
-    const groups = Object.entries(groupedItems);
+    const groups = Object.entries(groupedItems).map(([demandSupply, groupItems]) => [
+        demandSupply,
+        reverseOrder[demandSupply] ? groupItems.slice().reverse() : groupItems
+    ]);
 
     return (
         <>
@@ -31,16 +35,23 @@ export default function FilterSection({
                             <Checkbox
                                 id={item.name}
                                 value={item.name}
-                                defaultChecked={selectedItems.includes(item.name)}
+                                checked={selectedItems.includes(item.name)}
                                 onCheckedChange={() => onToggleItem(item.name)}
                             />
                             <label htmlFor={item.name} className="mx-4">
                                 {item.name}
                             </label>
-                            <div
-                                className="absolute right-[-8px] top-1 w-4 h-4 ml-2 mr-1 border rounded border-gray-300"
-                                style={{ backgroundColor: legendData[item.name] }}
-                            />
+                            {item.name === "Basislast elektriciteitsvraag" ? (
+                                <div
+                                    className="absolute right-[-8px] top-2 w-4 h-0 ml-2 mr-1 border-t-2 border-dashed"
+                                    style={{ borderColor: legendData[item.name] }}
+                                />
+                            ) : (
+                                <div
+                                    className="absolute right-[-8px] top-1 w-4 h-4 ml-2 mr-1 border rounded border-gray-300"
+                                    style={{ backgroundColor: legendData[item.name] }}
+                                />
+                            )}
                         </div>
                     ))}
                     {/* Add separator line between groups (except after the last group) */}

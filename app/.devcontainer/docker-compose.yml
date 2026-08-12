@@ -12,7 +12,7 @@ services:
         # Use -bullseye variants on local arm64/Apple Silicon.
         VARIANT: 3.11-bullseye
         # Optional Node.js version to install
-        NODE_VERSION: "20"
+        NODE_VERSION: "20.20"
     env_file: .env
     depends_on:
       - db

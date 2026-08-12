@@ -4,14 +4,21 @@ We work using LTAP. Local runs on dev containers (see below). All TAP environmen
 
 ## Start Dev Container
 
-Visual Studio Code will detect that you are working in a Dev Container, click "Reopen in Container" to start the Dev container. After you reopen visual studio code in a devcontainer you are ready to start the backend and frontend, run the following commands in two seperate terminals:
+Visual Studio Code will detect that you are working in a Dev Container, click "Reopen in Container" to start the Dev container. Make sure there is an .env file for local development present in the `/frontend` folder, like this:
 
 ```
-cd frontend
-npm run dev
+WAGTAIL_API_URL=http://localhost:8000/wt/api/nextjs
+NEXT_PUBLIC_WAGTAIL_API_URL=http://localhost:8000/wt/api/nextjs
+NEXT_PUBLIC_API_URL=http://localhost:8000/api
+NEXT_PUBLIC_REKENKERN_API_URL=http://localhost:7000
+```
 
-cd src
-python manage.py runserver
+After you reopen visual studio code in a devcontainer you are ready to start the backend and frontend, run the following commands in two seperate terminals:
+
+```
+cd frontend && npm run dev
+
+cd src && python manage.py runserver
 ```
 
 For the frontend Prettier and EsLin1t is used. Make sure you installed these extenstions in your VSCode. These extensions are automatically installed in the dev container:
