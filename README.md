@@ -46,7 +46,7 @@ deployment branches are named with the following convention:
 ```text
 accept-<client>   # acceptance deployment for a client
 prod-<client>     # production deployment for the same client
-feature-<issue ID client>  # feature deployment for a client with issue ID
+
 ```
 
 For example, the branches for the PNH and GR projects are `accept-pnh`,
