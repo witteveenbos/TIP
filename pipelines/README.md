@@ -6,6 +6,12 @@ Collection of scripts to load and transform the data required to start an instan
 *More documentation will follow later; for now refer to ['start a new project'](../docs/start-new-project.md)*
 
 
+# How to run
+
+- Open a terminal from the `pipelines` directory (or open in TIP project root, and `cd pipelines`)
+- install the poetry environment with `poetry install`
+- run the scripts as indicated in the abovementioned document.
+
 # Changes for GRDR
 
 ## geo_preprocessing.py
