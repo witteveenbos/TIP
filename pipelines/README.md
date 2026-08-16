@@ -17,3 +17,6 @@ Collection of scripts to load and transform the data required to start an instan
 - Added path handling relative to the script location.
 - Added validation for the configured province and changed the default to Groningen, because the current GRDR source contains only Groningen and Drenthe.
 - Preserved generation of both municipalities.geojson and municipalities_simplified.geojson.
+## constants.py
+
+Added constants for the project paths which can be reused by multiple scripts.
