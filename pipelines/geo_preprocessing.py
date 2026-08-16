@@ -1,32 +1,35 @@
 # %%
+from pathlib import Path
+
 import geopandas as gpd
-import fiona
-import matplotlib
-import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
+import pandas as pd
 
 ######## CHECK BOTTOM OF SCRIPT FOR ACTUAL PROVINCE SPECIFIC RUN SETTINGS ##############
 ######## MOST PART OF THIS CODE IS GENERAL AND FOR THE ENTIRE NETHERLANDS ##############
 
-# set filepaths 
-fp_gemeenten = "data/base_data/gemeenten_nh.geojson" #this can be downloaded from PDOK
-fp_provincies = "data/base_data/provincie_nh.geojson" #this can be downloaded from PDOK
-fp_res = "data/base_data/RESregio.json" # I don't remember where i got this one...
+# set filepaths
+DATA_DIR = Path(__file__).resolve().parent / "data"
+fp_gemeenten = DATA_DIR / "base_data/gemeenten_grdr.geojson"  # this can be downloaded from PDOK
+fp_provincies = DATA_DIR / "base_data/provincie_grdr.geojson"  # this can be downloaded from PDOK
+fp_res = DATA_DIR / "base_data/RESregio.json"
+
+SOURCE_CRS = "EPSG:28992"
+OUTPUT_CRS = "OGC:CRS84"
 
 # # List available stuff
 # layers = fiona.listlayers(fp_bg)
 # print(layers)
 
-# Usually gemeente is layer 0 and provincie is layer 2
-gemeenten = gpd.read_file(fp_gemeenten).set_index("identificatie", ).to_crs("EPSG:4326")  # Convert to WGS84
-provincies = gpd.read_file(fp_provincies).set_index("identificatie").to_crs("EPSG:4326")  # Convert to WGS84
-resregio = gpd.read_file(fp_res).set_index("statcode").to_crs("EPSG:4326")  # Convert to WGS84
+# Keep the source data projected while calculating overlap areas and clipping.
+# Convert to CRS84 only when writing GeoJSON for the application.
+gemeenten = gpd.read_file(fp_gemeenten).set_index("identificatie").to_crs(SOURCE_CRS)
+provincies = gpd.read_file(fp_provincies).set_index("identificatie").to_crs(SOURCE_CRS)
+resregio = gpd.read_file(fp_res).set_index("statcode").to_crs(SOURCE_CRS)
 
 # add the gid and label as properties to all geoshapes:
 gemeenten["gid"] = gemeenten.index
-gemeenten["label"] = gemeenten["index"]
-gemeenten["naam"] = gemeenten["index"]  # adding a 'naam' column for consistency
+gemeenten["label"] = gemeenten["naam"]
 provincies["gid"] = provincies.index
 provincies["label"] = provincies["naam"]
 resregio["gid"] = resregio.index
@@ -69,12 +72,12 @@ for idx, gemeente in gemeenten.iterrows():
         res_region = find_most_overlap(gemeente.geometry, resregio, name_col="statnaam")
         if res_region:
             res_obj = resregio[resregio["statnaam"] == res_region].iloc[0]
-            res_id = res_obj.name  # Using the index which is 'id'
+            res_id = str(res_obj.name)
             
             # Find the administrative region (this might be the same as RES region in some cases)
             # For simplicity, we'll use the RES region as the administrative region
             region = res_region
-            region_id = f"REG{str(res_obj.name).zfill(2)}"
+            region_id = f"REG{res_id}"
             
             # Store the relationships
             hierarchy[gemeente_name] = {
@@ -155,8 +158,8 @@ def plot_province_hierarchy(province_name):
     
     # Add title and labels
     ax.set_title(f'Municipalities in {province_name} by RES Region')
-    ax.set_xlabel('Longitude')
-    ax.set_ylabel('Latitude')
+    ax.set_xlabel('Rijksdriehoek X')
+    ax.set_ylabel('Rijksdriehoek Y')
     
     # Show the plot
     plt.tight_layout()
@@ -167,14 +170,22 @@ def plot_province_hierarchy(province_name):
 
 # %% ACTUAL PROVINCIE SPECIFIC FILE GENERATION
 ### Select a province
-PROVINCIE = "Noord-Holland" 
+PROVINCIE = "Groningen"
+
+available_provinces = sorted(provincies["naam"].unique())
+if PROVINCIE not in available_provinces:
+    raise ValueError(
+        f"Unknown province {PROVINCIE!r}. Available provinces: {available_provinces}"
+    )
 
 # Example usage:
 plot_province_hierarchy(PROVINCIE)
 
 ### Perform some cookie cutting
 hierarchy_df_selected = hierarchy_df[hierarchy_df['Provincie'] == PROVINCIE]
-hierarchy_df_selected.to_csv("data/geo_mapping.csv", index=False)
+if hierarchy_df_selected.empty:
+    raise ValueError(f"No municipality hierarchy entries found for {PROVINCIE!r}")
+hierarchy_df_selected.to_csv(DATA_DIR / "geo_mapping.csv", index=False)
 
 #get the shapes
 resregio_selected = resregio[resregio.index.isin(hierarchy_df_selected["RES_ID"])]
@@ -189,31 +200,23 @@ gemeenten_selected = gemeenten_selected.clip(resregio_selected)
 # after
 gemeenten_selected.plot(column="naam")
 
-#saving geoshapes for geomapping script and also for the frontend shapes
+# saving geoshapes for geomapping script and also for the frontend shapes
 # %% create a version of the municipalities with simplified geometries to reduce file size
-tolerance = 0.0001 # unit: CRS unit - 10 meter shrinks the filesize ~10x for the gemeenten shapes
-gemeenten_selected.to_file("data/municipalities.geojson")
+# Simplification is intentionally not enabled yet; the application needs the full shapes.
+gemeenten_selected.to_crs(OUTPUT_CRS).to_file(DATA_DIR / "municipalities.geojson")
 gemeenten_selected_simplified = gemeenten_selected.copy()
+gemeenten_selected_simplified.to_crs(OUTPUT_CRS).to_file(DATA_DIR / "municipalities_simplified.geojson")
 
-# gemeenten_selected_simplified["geometry"] = gemeenten_selected_simplified["geometry"].simplify_coverage(tolerance)
-# Dirty hack because one of the shapes in the municipalities is not valid
-# exclude index 29 from simplification
-gemeenten_selected_simplified.loc["GM1598", "geometry"] = gemeenten_selected.loc["GM1598", "geometry"]
-gemeenten_selected_simplified.to_file("data/municipalities_simplified.geojson")
-
-resregio_selected.to_file("data/res.geojson")
+resregio_selected.to_crs(OUTPUT_CRS).to_file(DATA_DIR / "res.geojson")
 resregio_selected_simplified = resregio_selected.copy()
-# resregio_selected_simplified["geometry"] = resregio_selected_simplified["geometry"].simplify_coverage(tolerance)
-resregio_selected_simplified.to_file("data/res_simplified.geojson")
+resregio_selected_simplified.to_crs(OUTPUT_CRS).to_file(DATA_DIR / "res_simplified.geojson")
 
 regions_selected = resregio_selected.copy() #same as resregio, no real use. This was done for PZH regio indeling originaly
-regions_selected.to_file("data/regions.geojson")
+regions_selected.to_crs(OUTPUT_CRS).to_file(DATA_DIR / "regions.geojson")
 regions_selected_simplified = regions_selected.copy()
-# regions_selected_simplified["geometry"] = regions_selected_simplified["geometry"].simplify_coverage(tolerance)
-regions_selected_simplified.to_file("data/regions_simplified.geojson")
+regions_selected_simplified.to_crs(OUTPUT_CRS).to_file(DATA_DIR / "regions_simplified.geojson")
 
 provincies_selected = provincies[provincies.index.isin(hierarchy_df_selected["Provincie_ID"])]
-provincies_selected.to_file("data/province.geojson")
+provincies_selected.to_crs(OUTPUT_CRS).to_file(DATA_DIR / "province.geojson")
 provincies_selected_simplified = provincies_selected.copy()
-# provincies_selected_simplified["geometry"] = provincies_selected_simplified["geometry"].simplify_coverage(tolerance)
-provincies_selected_simplified.to_file("data/province_simplified.geojson")
+provincies_selected_simplified.to_crs(OUTPUT_CRS).to_file(DATA_DIR / "province_simplified.geojson")
