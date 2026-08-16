@@ -1,36 +1,27 @@
+from pathlib import Path
+
 import folium
 import geopandas as gpd
-import numpy as np
-from itertools import product
-from scipy import sparse
-from owslib.wfs import WebFeatureService
-import json
-from shapely.prepared import prep
+
+from constants import BASE_DATA_DIR, DATA_DIR
 from shapes_mapper_grid_only import pmiek_substation_mapper
 
-
-gdf_municipalities, gdf_substations = pmiek_substation_mapper()
+legacy_municipalities_path = BASE_DATA_DIR / "gemeenten_nh.geojson"
+gdf_municipalities, gdf_substations = pmiek_substation_mapper(municipalities_path=legacy_municipalities_path)
 
 # exclude rotterdam from the plot
-gdf_municipalities: gpd.GeoDataFrame = gdf_municipalities[
-    gdf_municipalities["label"] != "Rotterdam"
-]
+gdf_municipalities: gpd.GeoDataFrame = gdf_municipalities[gdf_municipalities["label"] != "Rotterdam"]
 fig1 = gdf_municipalities.plot(column="invoeding", legend=True)
 
 
-gdf_substations_clip: gpd.GeoDataFrame = gdf_substations.clip(
-    gdf_municipalities.total_bounds
-)
+gdf_substations_clip: gpd.GeoDataFrame = gdf_substations.clip(gdf_municipalities.total_bounds)
 fig2 = gdf_substations_clip.plot(column="totaleCapaciteitInvoedingMva", legend=True)
 gdf_municipalities.boundary.plot(ax=fig2, color="black")
 
 
 # %%
-
-stations: gpd.GeoDataFrame = gpd.read_file("data/hsms.geojson")
-municipalities: gpd.GeoDataFrame = gpd.read_file(
-    "data/municipalities_simplified.geojson"
-)
+stations: gpd.GeoDataFrame = gpd.read_file(DATA_DIR / "hsms.geojson")
+municipalities: gpd.GeoDataFrame = gdf_municipalities
 
 
 m = folium.Map(location=[52.1, 5.1], zoom_start=8)
