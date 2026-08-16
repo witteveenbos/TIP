@@ -1,4 +1,5 @@
 import json
+import logging
 from itertools import product
 from pathlib import Path
 
@@ -11,6 +12,7 @@ from shapely.prepared import prep
 from constants import DATA_DIR
 
 PROJECTED_CRS = "EPSG:28992"
+LOGGER = logging.getLogger(__name__)
 
 
 def shapes_to_shapes(orig: gpd.GeoSeries, dest: gpd.GeoSeries) -> sparse.lil_matrix:
@@ -49,6 +51,10 @@ def _load_inputs(
     )
     substations = substations.join(capacities, on="label")
     substations["station"] = substations["label"]
+    LOGGER.info(
+        f"Loaded {len(municipalities)} municipalities and {len(substations)} "
+        f"substations from {municipalities_path} and {substations_path}"
+    )
 
     missing_municipality_columns = {"identificatie", "geometry"} - set(municipalities.columns)
     if missing_municipality_columns:
@@ -119,7 +125,9 @@ def pmiek_substation_mapper(
         Path(capacity_path),
     )
     substations = substations.clip(municipalities)
+    LOGGER.info(f"{len(substations)} substations overlap the municipality layer")
     if substations.empty:
+        LOGGER.error("No substations overlap the municipality layer")
         raise ValueError(
             "No substations overlap the municipality layer. "
             "Check that both files describe the same province and CRS."
@@ -134,6 +142,7 @@ def pmiek_substation_mapper(
 
     municipalities["invoeding"] = transfer.T.dot(substations["totaleCapaciteitInvoedingMva"].to_numpy())
     municipalities["afname"] = transfer.T.dot(substations["totaleCapaciteitAfnameMva"].to_numpy())
+    LOGGER.info(f"Mapped capacities to {len(municipalities)} municipalities using " f"{len(substations)} substations")
 
     transfer_matrix = shapes_to_shapes(
         substations_projected.geometry,
@@ -162,6 +171,7 @@ def pmiek_substation_mapper(
     }
 
     if visual_validation:
+        LOGGER.info(f"Saving per-station validation plots to {validation_dir}")
         _save_station_validation(
             municipalities,
             substations,
@@ -171,11 +181,13 @@ def pmiek_substation_mapper(
 
     if save_mapper:
         (DATA_DIR / "municipal_load_to_station_map.json").write_text(json.dumps(station_to_municipality))
+        LOGGER.info(f"Saved mapper for {len(station_to_municipality)} stations")
 
     return municipalities, substations
 
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
     pmiek_substation_mapper(
         municipalities_path=DATA_DIR / "base_data/gemeenten_nh.geojson",
         save_mapper=True,

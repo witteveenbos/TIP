@@ -1,4 +1,5 @@
 # %%
+import logging
 from pathlib import Path
 
 import geopandas as gpd
@@ -6,6 +7,10 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 from constants import BASE_DATA_DIR, DATA_DIR
+
+LOGGER = logging.getLogger(__name__)
+if not logging.getLogger().handlers:
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
 
 ######## CHECK BOTTOM OF SCRIPT FOR ACTUAL PROVINCE SPECIFIC RUN SETTINGS ##############
 ######## MOST PART OF THIS CODE IS GENERAL AND FOR THE ENTIRE NETHERLANDS ##############
@@ -27,6 +32,10 @@ OUTPUT_CRS = "OGC:CRS84"
 gemeenten = gpd.read_file(fp_gemeenten).set_index("identificatie").to_crs(SOURCE_CRS)
 provincies = gpd.read_file(fp_provincies).set_index("identificatie").to_crs(SOURCE_CRS)
 resregio = gpd.read_file(fp_res).set_index("statcode").to_crs(SOURCE_CRS)
+LOGGER.info(
+    f"Loaded {len(gemeenten)} municipalities, {len(provincies)} provinces "
+    f"and {len(resregio)} RES regions in {SOURCE_CRS}"
+)
 
 # add the gid and label as properties to all geoshapes:
 gemeenten["gid"] = gemeenten.index
@@ -102,9 +111,9 @@ hierarchy_df.rename(columns={"index": "Municipality"}, inplace=True)
 # Save the hierarchy to a CSV file
 hierarchy_df.to_csv("data/geo_hierarchy.csv", index=False)
 
-print(f"Hierarchy created with {len(hierarchy_df)} municipalities")
-print(f"Number of unique provinces: {hierarchy_df['Provincie'].nunique()}")
-print(f"Number of unique RES regions: {hierarchy_df['RES'].nunique()}")
+LOGGER.info(f"Hierarchy created with {len(hierarchy_df)} municipalities")
+LOGGER.info(f"Number of unique provinces: {hierarchy_df['Provincie'].nunique()}")
+LOGGER.info(f"Number of unique RES regions: {hierarchy_df['RES'].nunique()}")
 
 
 # Function to select a single province and plot the results
@@ -119,17 +128,17 @@ def plot_province_hierarchy(province_name):
     province_df = hierarchy_df[hierarchy_df["Provincie"] == province_name]
 
     if province_df.empty:
-        print(f"No municipalities found for province: {province_name}")
+        LOGGER.warning(f"No municipalities found for province: {province_name}")
         return
 
-    print(f"Plotting {len(province_df)} municipalities in {province_name}")
-    print(f"RES regions in {province_name}: {province_df['RES'].unique()}")
+    LOGGER.info(f"Plotting {len(province_df)} municipalities in {province_name}")
+    LOGGER.info(f"RES regions in {province_name}: {province_df['RES'].unique()}")
 
     # Get the province geometry
     province_geom = provincies[provincies["naam"] == province_name]
 
     if province_geom.empty:
-        print(f"Province geometry not found for: {province_name}")
+        LOGGER.warning(f"Province geometry not found for: {province_name}")
         return
 
     # Get the municipalities in this province
@@ -144,7 +153,7 @@ def plot_province_hierarchy(province_name):
             province_municipalities.append(muni_geom)
 
     if not province_municipalities:
-        print(f"No municipality geometries found for province: {province_name}")
+        LOGGER.warning(f"No municipality geometries found for province: {province_name}")
         return
 
     # Combine all municipalities into a single GeoDataFrame
@@ -177,6 +186,7 @@ PROVINCIE = "Groningen"
 
 available_provinces = sorted(provincies["naam"].unique())
 if PROVINCIE not in available_provinces:
+    LOGGER.error(f"Unknown province {PROVINCIE!r}. Available provinces: {available_provinces}")
     raise ValueError(f"Unknown province {PROVINCIE!r}. Available provinces: {available_provinces}")
 
 # Example usage:
@@ -185,8 +195,10 @@ plot_province_hierarchy(PROVINCIE)
 ### Perform some cookie cutting
 hierarchy_df_selected = hierarchy_df[hierarchy_df["Provincie"] == PROVINCIE]
 if hierarchy_df_selected.empty:
+    LOGGER.error(f"No municipality hierarchy entries found for {PROVINCIE!r}")
     raise ValueError(f"No municipality hierarchy entries found for {PROVINCIE!r}")
 hierarchy_df_selected.to_csv(DATA_DIR / "geo_mapping.csv", index=False)
+LOGGER.info(f"Wrote {len(hierarchy_df_selected)} rows to {DATA_DIR / 'geo_mapping.csv'}")
 
 # get the shapes
 resregio_selected = resregio[resregio.index.isin(hierarchy_df_selected["RES_ID"])]
@@ -223,3 +235,4 @@ provincies_selected = provincies[provincies.index.isin(hierarchy_df_selected["Pr
 provincies_selected.to_crs(OUTPUT_CRS).to_file(DATA_DIR / "province.geojson")
 provincies_selected_simplified = provincies_selected.copy()
 provincies_selected_simplified.to_crs(OUTPUT_CRS).to_file(DATA_DIR / "province_simplified.geojson")
+LOGGER.info(f"Wrote generated geometry outputs in {OUTPUT_CRS}")
