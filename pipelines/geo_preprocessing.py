@@ -77,12 +77,14 @@ for idx, gemeente in gemeenten.iterrows():
     # Find which province this municipality belongs to
     province = find_most_overlap(gemeente.geometry, provincies)
     if province:
+        LOGGER.info(f"Municipality {gemeente_name} belongs to province {province}")
         province_obj = provincies[provincies["naam"] == province].iloc[0]
         province_id = f"PV{province_obj['code'].zfill(2)}"
 
         # Find which RES region this municipality belongs to
         res_region = find_most_overlap(gemeente.geometry, resregio, name_col="statnaam")
         if res_region:
+            LOGGER.info(f"Municipality {gemeente_name} belongs to RES region {res_region}")
             res_obj = resregio[resregio["statnaam"] == res_region].iloc[0]
             res_id = str(res_obj.name)
 
@@ -109,7 +111,7 @@ hierarchy_df.reset_index(inplace=True)
 hierarchy_df.rename(columns={"index": "Municipality"}, inplace=True)
 
 # Save the hierarchy to a CSV file
-hierarchy_df.to_csv("data/geo_hierarchy.csv", index=False)
+hierarchy_df.to_csv(DATA_DIR / "geo_hierarchy.csv", index=False)
 
 LOGGER.info(f"Hierarchy created with {len(hierarchy_df)} municipalities")
 LOGGER.info(f"Number of unique provinces: {hierarchy_df['Provincie'].nunique()}")
@@ -117,35 +119,35 @@ LOGGER.info(f"Number of unique RES regions: {hierarchy_df['RES'].nunique()}")
 
 
 # Function to select a single province and plot the results
-def plot_province_hierarchy(province_name):
+def plot_province_hierarchy(province_names: list[str]) -> pd.DataFrame:
     """
     Select a single province and plot its municipalities colored by RES region.
 
     Args:
-        province_name (str): Name of the province to plot
+        province_names (list[str]): List of province names to plot
     """
     # Filter the hierarchy DataFrame to only include municipalities in the selected province
-    province_df = hierarchy_df[hierarchy_df["Provincie"] == province_name]
+    province_df = hierarchy_df[hierarchy_df["Provincie"].isin(province_names)]
 
     if province_df.empty:
-        LOGGER.warning(f"No municipalities found for province: {province_name}")
+        LOGGER.warning(f"No municipalities found for provinces: {province_names}")
         return
 
-    LOGGER.info(f"Plotting {len(province_df)} municipalities in {province_name}")
-    LOGGER.info(f"RES regions in {province_name}: {province_df['RES'].unique()}")
+    LOGGER.info(f"Plotting {len(province_df)} municipalities in {province_names}")
+    LOGGER.info(f"RES regions in {province_names}: {province_df['RES'].unique()}")
 
     # Get the province geometry
-    province_geom = provincies[provincies["naam"] == province_name]
+    province_geom = provincies[provincies["naam"].isin(province_names)]
 
     if province_geom.empty:
-        LOGGER.warning(f"Province geometry not found for: {province_name}")
+        LOGGER.warning(f"Province geometry not found for: {province_names}")
         return
 
     # Get the municipalities in this province
     province_municipalities = []
     for _, row in province_df.iterrows():
         muni_name = row["Municipality"]
-        muni_geom = gemeenten[gemeenten["naam"] == muni_name]
+        muni_geom = gemeenten[gemeenten["naam"].isin([muni_name])]
         if not muni_geom.empty:
             # Add the RES region to the municipality geometry for coloring
             muni_geom = muni_geom.copy()
@@ -153,7 +155,7 @@ def plot_province_hierarchy(province_name):
             province_municipalities.append(muni_geom)
 
     if not province_municipalities:
-        LOGGER.warning(f"No municipality geometries found for province: {province_name}")
+        LOGGER.warning(f"No municipality geometries found for provinces: {province_names}")
         return
 
     # Combine all municipalities into a single GeoDataFrame
@@ -169,7 +171,7 @@ def plot_province_hierarchy(province_name):
     province_geom.boundary.plot(ax=ax, color="red", linewidth=2)
 
     # Add title and labels
-    ax.set_title(f"Municipalities in {province_name} by RES Region")
+    ax.set_title(f"Municipalities in {province_names} by RES Region")
     ax.set_xlabel("Rijksdriehoek X")
     ax.set_ylabel("Rijksdriehoek Y")
 
@@ -182,21 +184,21 @@ def plot_province_hierarchy(province_name):
 
 # %% ACTUAL PROVINCIE SPECIFIC FILE GENERATION
 ### Select a province
-PROVINCIE = "Groningen"
+PROVINCIES = provincies["naam"].to_list()
 
 available_provinces = sorted(provincies["naam"].unique())
-if PROVINCIE not in available_provinces:
-    LOGGER.error(f"Unknown province {PROVINCIE!r}. Available provinces: {available_provinces}")
-    raise ValueError(f"Unknown province {PROVINCIE!r}. Available provinces: {available_provinces}")
+if any(p not in available_provinces for p in PROVINCIES):
+    LOGGER.error(f"Unknown province {PROVINCIES!r}. Available provinces: {available_provinces}")
+    raise ValueError(f"Unknown province {PROVINCIES!r}. Available provinces: {available_provinces}")
 
 # Example usage:
-plot_province_hierarchy(PROVINCIE)
+plot_province_hierarchy(PROVINCIES)
 
 ### Perform some cookie cutting
-hierarchy_df_selected = hierarchy_df[hierarchy_df["Provincie"] == PROVINCIE]
+hierarchy_df_selected = hierarchy_df[hierarchy_df["Provincie"].isin(PROVINCIES)]
 if hierarchy_df_selected.empty:
-    LOGGER.error(f"No municipality hierarchy entries found for {PROVINCIE!r}")
-    raise ValueError(f"No municipality hierarchy entries found for {PROVINCIE!r}")
+    LOGGER.error(f"No municipality hierarchy entries found for {PROVINCIES!r}")
+    raise ValueError(f"No municipality hierarchy entries found for {PROVINCIES!r}")
 hierarchy_df_selected.to_csv(DATA_DIR / "geo_mapping.csv", index=False)
 LOGGER.info(f"Wrote {len(hierarchy_df_selected)} rows to {DATA_DIR / 'geo_mapping.csv'}")
 

@@ -1,46 +1,26 @@
 Municipality,Gem_code_CBS,Municipality_ID,Region,Region_ID,RES,RES_ID,Provincie,Provincie_ID
-Aalsmeer,0358,GM0358,Amstelland,REGET1606,Amstelland,ET1606,Noord-Holland,PV27
-Alkmaar,0361,GM0361,Regio Alkmaar,REGET1502,Regio Alkmaar,ET1502,Noord-Holland,PV27
-Amstelveen,0362,GM0362,Amstelland,REGET1606,Amstelland,ET1606,Noord-Holland,PV27
-Amsterdam,0363,GM0363,Amsterdam,REGET1601,Amsterdam,ET1601,Noord-Holland,PV27
-Bergen (NH),0373,GM0373,Regio Alkmaar,REGET1502,Regio Alkmaar,ET1502,Noord-Holland,PV27
-Beverwijk,0375,GM0375,IJmond-Zuid-Kennemerland,REGET1602,IJmond-Zuid-Kennemerland,ET1602,Noord-Holland,PV27
-Blaricum,0376,GM0376,Gooi en Vechtstreek,REGET1604,Gooi en Vechtstreek,ET1604,Noord-Holland,PV27
-Bloemendaal,0377,GM0377,IJmond-Zuid-Kennemerland,REGET1602,IJmond-Zuid-Kennemerland,ET1602,Noord-Holland,PV27
-Castricum,0383,GM0383,Regio Alkmaar,REGET1502,Regio Alkmaar,ET1502,Noord-Holland,PV27
-Den Helder,0400,GM0400,Kop van Noord-Holland,REGET1501,Kop van Noord-Holland,ET1501,Noord-Holland,PV27
-Diemen,0384,GM0384,Amstelland,REGET1606,Amstelland,ET1606,Noord-Holland,PV27
-Drechterland,0498,GM0498,West-Friesland,REGET1503,West-Friesland,ET1503,Noord-Holland,PV27
-Edam-Volendam,0385,GM0385,Zaanstreek-Waterland,REGET1603,Zaanstreek-Waterland,ET1603,Noord-Holland,PV27
-Enkhuizen,0388,GM0388,West-Friesland,REGET1503,West-Friesland,ET1503,Noord-Holland,PV27
-Gooise Meren,1942,GM1942,Gooi en Vechtstreek,REGET1604,Gooi en Vechtstreek,ET1604,Noord-Holland,PV27
-Haarlem,0392,GM0392,IJmond-Zuid-Kennemerland,REGET1602,IJmond-Zuid-Kennemerland,ET1602,Noord-Holland,PV27
-Haarlemmermeer,0394,GM0394,Haarlemmermeer,REGET1605,Haarlemmermeer,ET1605,Noord-Holland,PV27
-Heemskerk,0396,GM0396,IJmond-Zuid-Kennemerland,REGET1602,IJmond-Zuid-Kennemerland,ET1602,Noord-Holland,PV27
-Heemstede,0397,GM0397,IJmond-Zuid-Kennemerland,REGET1602,IJmond-Zuid-Kennemerland,ET1602,Noord-Holland,PV27
-Heerhugowaard,0398,GM0398,Regio Alkmaar,REGET1502,Regio Alkmaar,ET1502,Noord-Holland,PV27
-Heiloo,0399,GM0399,Regio Alkmaar,REGET1502,Regio Alkmaar,ET1502,Noord-Holland,PV27
-Hilversum,0402,GM0402,Gooi en Vechtstreek,REGET1604,Gooi en Vechtstreek,ET1604,Noord-Holland,PV27
-Hollands Kroon,1911,GM1911,Kop van Noord-Holland,REGET1501,Kop van Noord-Holland,ET1501,Noord-Holland,PV27
-Hoorn,0405,GM0405,West-Friesland,REGET1503,West-Friesland,ET1503,Noord-Holland,PV27
-Huizen,0406,GM0406,Gooi en Vechtstreek,REGET1604,Gooi en Vechtstreek,ET1604,Noord-Holland,PV27
-Koggenland,1598,GM1598,West-Friesland,REGET1503,West-Friesland,ET1503,Noord-Holland,PV27
-Landsmeer,0415,GM0415,Zaanstreek-Waterland,REGET1603,Zaanstreek-Waterland,ET1603,Noord-Holland,PV27
-Langedijk,0416,GM0416,Regio Alkmaar,REGET1502,Regio Alkmaar,ET1502,Noord-Holland,PV27
-Laren,0417,GM0417,Gooi en Vechtstreek,REGET1604,Gooi en Vechtstreek,ET1604,Noord-Holland,PV27
-Medemblik,0420,GM0420,West-Friesland,REGET1503,West-Friesland,ET1503,Noord-Holland,PV27
-Oostzaan,0431,GM0431,Zaanstreek-Waterland,REGET1603,Zaanstreek-Waterland,ET1603,Noord-Holland,PV27
-Opmeer,0432,GM0432,West-Friesland,REGET1503,West-Friesland,ET1503,Noord-Holland,PV27
-Ouder-Amstel,0437,GM0437,Amstelland,REGET1606,Amstelland,ET1606,Noord-Holland,PV27
-Purmerend,0439,GM0439,Zaanstreek-Waterland,REGET1603,Zaanstreek-Waterland,ET1603,Noord-Holland,PV27
-Schagen,0441,GM0441,Kop van Noord-Holland,REGET1501,Kop van Noord-Holland,ET1501,Noord-Holland,PV27
-Stede Broec,0532,GM0532,West-Friesland,REGET1503,West-Friesland,ET1503,Noord-Holland,PV27
-Texel,0448,GM0448,Kop van Noord-Holland,REGET1501,Kop van Noord-Holland,ET1501,Noord-Holland,PV27
-Uitgeest,0450,GM0450,Regio Alkmaar,REGET1502,Regio Alkmaar,ET1502,Noord-Holland,PV27
-Uithoorn,0451,GM0451,Amstelland,REGET1606,Amstelland,ET1606,Noord-Holland,PV27
-Velsen,0453,GM0453,IJmond-Zuid-Kennemerland,REGET1602,IJmond-Zuid-Kennemerland,ET1602,Noord-Holland,PV27
-Waterland,0852,GM0852,Zaanstreek-Waterland,REGET1603,Zaanstreek-Waterland,ET1603,Noord-Holland,PV27
-Wijdemeren,1696,GM1696,Gooi en Vechtstreek,REGET1604,Gooi en Vechtstreek,ET1604,Noord-Holland,PV27
-Wormerland,0880,GM0880,Zaanstreek-Waterland,REGET1603,Zaanstreek-Waterland,ET1603,Noord-Holland,PV27
-Zaanstad,0479,GM0479,Zaanstreek-Waterland,REGET1603,Zaanstreek-Waterland,ET1603,Noord-Holland,PV27
-Zandvoort,0473,GM0473,IJmond-Zuid-Kennemerland,REGET1602,IJmond-Zuid-Kennemerland,ET1602,Noord-Holland,PV27
+Assen,0106,GM0106,Drenthe,REGET0301,Drenthe,ET0301,Drenthe,PV22
+Coevorden,0109,GM0109,Drenthe,REGET0301,Drenthe,ET0301,Drenthe,PV22
+Oldambt,1895,GM1895,Groningen,REGET0101,Groningen,ET0101,Groningen,PV20
+Het Hogeland,1966,GM1966,Groningen,REGET0101,Groningen,ET0101,Groningen,PV20
+Hardenberg,0160,GM0160,West-Overijssel,REGET0501,West-Overijssel,ET0501,Overijssel,PV23
+Pekela,0765,GM0765,Groningen,REGET0101,Groningen,ET0101,Groningen,PV20
+Tynaarlo,1730,GM1730,Drenthe,REGET0301,Drenthe,ET0301,Drenthe,PV22
+Westerveld,1701,GM1701,Drenthe,REGET0301,Drenthe,ET0301,Drenthe,PV22
+Aa en Hunze,1680,GM1680,Drenthe,REGET0301,Drenthe,ET0301,Drenthe,PV22
+Stadskanaal,0037,GM0037,Groningen,REGET0101,Groningen,ET0101,Groningen,PV20
+Westerwolde,1950,GM1950,Groningen,REGET0101,Groningen,ET0101,Groningen,PV20
+Meppel,0119,GM0119,Drenthe,REGET0301,Drenthe,ET0301,Drenthe,PV22
+Midden-Drenthe,1731,GM1731,Drenthe,REGET0301,Drenthe,ET0301,Drenthe,PV22
+Groningen,0014,GM0014,Groningen,REGET0101,Groningen,ET0101,Groningen,PV20
+Hoogeveen,0118,GM0118,Drenthe,REGET0301,Drenthe,ET0301,Drenthe,PV22
+Westerkwartier,1969,GM1969,Groningen,REGET0101,Groningen,ET0101,Groningen,PV20
+Borger-Odoorn,1681,GM1681,Drenthe,REGET0301,Drenthe,ET0301,Drenthe,PV22
+Eemsdelta,1979,GM1979,Groningen,REGET0101,Groningen,ET0101,Groningen,PV20
+De Wolden,1690,GM1690,Drenthe,REGET0301,Drenthe,ET0301,Drenthe,PV22
+Midden-Groningen,1952,GM1952,Groningen,REGET0101,Groningen,ET0101,Groningen,PV20
+Noordenveld,1699,GM1699,Drenthe,REGET0301,Drenthe,ET0301,Drenthe,PV22
+Emmen,0114,GM0114,Drenthe,REGET0301,Drenthe,ET0301,Drenthe,PV22
+Staphorst,0180,GM0180,West-Overijssel,REGET0501,West-Overijssel,ET0501,Overijssel,PV23
+Steenwijkerland,1708,GM1708,West-Overijssel,REGET0501,West-Overijssel,ET0501,Overijssel,PV23
+Veendam,0047,GM0047,Groningen,REGET0101,Groningen,ET0101,Groningen,PV20
