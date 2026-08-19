@@ -111,8 +111,8 @@ def _save_station_validation(
 
 def pmiek_substation_mapper(
     municipalities_path: Path = DATA_DIR / "municipalities.geojson",
-    substations_path: Path = DATA_DIR / "hsms.geojson",
-    capacity_path: Path = DATA_DIR / "hsms_capacity.json",
+    substations_path: Path = DATA_DIR / "hsms_grdr.geojson",
+    capacity_path: Path = DATA_DIR / "hsms_capacity_grdr.json",
     *,
     save_mapper: bool = False,
     visual_validation: bool = False,
@@ -140,8 +140,8 @@ def pmiek_substation_mapper(
         substations_projected.geometry,
     )
 
-    municipalities["invoeding"] = transfer.T.dot(substations["totaleCapaciteitInvoedingMva"].to_numpy())
-    municipalities["afname"] = transfer.T.dot(substations["totaleCapaciteitAfnameMva"].to_numpy())
+    municipalities["invoeding"] = transfer.T.dot(substations["totaleCapaciteitInvoedingMva"].astype(int).to_numpy())
+    municipalities["afname"] = transfer.T.dot(substations["totaleCapaciteitAfnameMva"].astype(int).to_numpy())
     LOGGER.info(f"Mapped capacities to {len(municipalities)} municipalities using " f"{len(substations)} substations")
 
     transfer_matrix = shapes_to_shapes(
@@ -189,7 +189,7 @@ def pmiek_substation_mapper(
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
     pmiek_substation_mapper(
-        municipalities_path=DATA_DIR / "base_data/gemeenten_nh.geojson",
+        municipalities_path=DATA_DIR / "base_data/gemeenten_grdr.geojson",
         save_mapper=True,
         visual_validation=True,
     )

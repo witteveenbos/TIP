@@ -12,7 +12,7 @@ if __name__ == "__main__":
     if not logging.getLogger().handlers:
         logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
 
-    legacy_municipalities_path = BASE_DATA_DIR / "gemeenten_nh.geojson"
+    legacy_municipalities_path = BASE_DATA_DIR / "gemeenten_grdr.geojson"
     gdf_municipalities, gdf_substations = pmiek_substation_mapper(municipalities_path=legacy_municipalities_path)
     LOGGER.info(
         f"Loaded mapped visualisation data for {len(gdf_municipalities)} "
@@ -28,7 +28,7 @@ if __name__ == "__main__":
     gdf_municipalities.boundary.plot(ax=fig2, color="black")
 
     # %%
-    stations: gpd.GeoDataFrame = gpd.read_file(DATA_DIR / "hsms.geojson")
+    stations: gpd.GeoDataFrame = gpd.read_file(DATA_DIR / "hsms_grdr.geojson")
     municipalities: gpd.GeoDataFrame = gdf_municipalities
 
     m = folium.Map(location=[52.1, 5.1], zoom_start=8)
