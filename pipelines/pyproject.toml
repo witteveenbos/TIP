@@ -9,9 +9,10 @@ description = "Add a short description here!"
 authors = ["casper <casper.berkhout@witteveenbos.com>"]
 license = "Proprietary - Witteveen+Bos"
 readme = "README.md"
+package-mode=false
 
 [tool.poetry.dependencies]
-python = "^3.10 <3.12"
+python = "^3.10 <3.14"
 ipykernel = "^6.29.5"
 geopandas = "^1.0.1"
 scipy = "^1.14.1"
@@ -34,11 +35,12 @@ tenacity = "^9.1.2"
 [[tool.poetry.source]]
 name = "wb_pypi"
 url = "https://pypi.wbad.witteveenbos.com/simple/"
-priority = "default"
+priority = "primary"
 
 [[tool.poetry.source]]
 name = "PyPI"
 priority = "primary"
+
 
 [tool.pyscaffold]
 # PyScaffold's parameters when the project was created.
