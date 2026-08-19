@@ -11,7 +11,6 @@ from hail.util import id_to_region_map, region_to_id_map
 import plotly.graph_objects as go
 from hail.result.helpers import hourly_datetime_objects
 
-
 if TYPE_CHECKING:
     from hail.reference import RefersTo
     from hail.context import ContextProvider
@@ -23,6 +22,7 @@ SUPPLY = "Aanbod"
 STORAGE = "Opslag"
 BASELOAD_ELECTRICITY_DEMAND = "Basislast elektriciteitsvraag"
 LAST_GROUP = "Overige flexibiliteit"
+
 
 class AbstractResultCurveGraph(AbstractResult):
 
@@ -50,7 +50,7 @@ class AbstractResultCurveGraph(AbstractResult):
             if group_name not in groups:
                 groups[group_name] = []
             groups[group_name].append(gce)
-        
+
         grouped_elements = []
         for group_name, group_elements in groups.items():
             aggregated_value = group_elements[0].value
@@ -69,9 +69,9 @@ class AbstractResultCurveGraph(AbstractResult):
                     ]
                 else:
                     raise TypeError("Expected grouped curve values to use matching list or Curve types")
-            
+
             representative_element = group_elements[0]
-            if AbstractResultCurveGraph._is_all_zero_values(aggregated_value):
+            if AbstractResultCurveGraph._is_all_none_values(aggregated_value):
                 continue
 
             grouped_element = GraphCurveElement(
@@ -82,8 +82,16 @@ class AbstractResultCurveGraph(AbstractResult):
                 value=aggregated_value,
             )
             grouped_elements.append(grouped_element)
-        
+
         return grouped_elements
+
+    @staticmethod
+    def _is_all_none_values(values: list | Curve) -> bool:
+        """Return whether all values in a list or curve are None."""
+        if isinstance(values, Curve):
+            return all(AbstractResultCurveGraph._is_all_none_values(row) for row in values)
+
+        return all(value is None for value in values)
 
     @staticmethod
     def _is_all_zero_values(values: list | Curve) -> bool:
@@ -91,12 +99,7 @@ class AbstractResultCurveGraph(AbstractResult):
         if isinstance(values, Curve):
             return all(AbstractResultCurveGraph._is_all_zero_values(row) for row in values)
 
-        for value in values:
-            if value is None:
-                continue
-            if value != 0:
-                return False
-        return True
+        return all(value is None or value == 0 for value in values)
 
     @staticmethod
     def _negative_values(values: list | Curve) -> list:
@@ -143,7 +146,7 @@ class AbstractResultCurveGraph(AbstractResult):
             )
 
         return split_elements
-    
+
     @staticmethod
     def _make_plotly_graph(gces: list[GraphCurveElement]) -> go.Figure:
         """Build a Plotly timeseries graph for a single selected municipality.
@@ -153,33 +156,39 @@ class AbstractResultCurveGraph(AbstractResult):
         fig = go.Figure()
 
         expanded_gces: list[GraphCurveElement] = []
-        for gce in gces: # if storage trace, split into separate charge and discharge traces for correct plotting
+        for gce in gces:  # if storage trace, split into separate charge and discharge traces for correct plotting
             if gce.group == STORAGE and isinstance(gce.value, list):
                 expanded_gces.extend(AbstractResultCurveGraph._split_storage_trace(gce))
             else:
                 expanded_gces.append(gce)
 
-        supply_traces = [gce for gce in expanded_gces if gce.demandSupply == SUPPLY] # split supply and demand for correct stacking order (supply on top of demand, not interleaved)
+        supply_traces = [
+            gce for gce in expanded_gces if gce.demandSupply == SUPPLY
+        ]  # split supply and demand for correct stacking order (supply on top of demand, not interleaved)
         demand_traces = [gce for gce in expanded_gces if gce.demandSupply != SUPPLY]
 
         ordered_traces = supply_traces + demand_traces
-        ordered_traces = [ # plot last the "Overige flexibiliteit" group if it exists, so it appears on top in the graph (above the baseload demand)
+        ordered_traces = [  # plot last the "Overige flexibiliteit" group if it exists, so it appears on top in the graph (above the baseload demand)
             trace for trace in ordered_traces if trace.group != LAST_GROUP
         ] + [
             trace for trace in ordered_traces if trace.group == LAST_GROUP
         ]
 
         for gce in ordered_traces:
-            stackgroup = 'one' if gce.demandSupply == SUPPLY else 'two' # supply traces are in stackgroup one, demand traces in stackgroup two (so they appear below the x-axis)
+            stackgroup = (
+                "one" if gce.demandSupply == SUPPLY else "two"
+            )  # supply traces are in stackgroup one, demand traces in stackgroup two (so they appear below the x-axis)
             is_baseload_electricity_demand = gce.name == BASELOAD_ELECTRICITY_DEMAND
 
             y_values = gce.value
-            if stackgroup == 'two': # for demand traces, we want to invert the y-values so they appear below the x-axis in the graph
+            if (
+                stackgroup == "two"
+            ):  # for demand traces, we want to invert the y-values so they appear below the x-axis in the graph
                 y_values = AbstractResultCurveGraph._negative_values(gce.value)
 
             line = dict(color=gce.color)
-            trace_kwargs = { 
-                "y": y_values, # x-axis data is put in metadata to avoid redundant info on every trace to save data.
+            trace_kwargs = {
+                "y": y_values,  # x-axis data is put in metadata to avoid redundant info on every trace to save data.
                 "mode": "lines",
                 "line": line,
                 "name": gce.name,
@@ -187,7 +196,9 @@ class AbstractResultCurveGraph(AbstractResult):
                 "legendgrouptitle": {"text": SUPPLY if stackgroup == "one" else DEMAND},
             }
 
-            if is_baseload_electricity_demand: # baseload demand is plotted as a dotted line without fill to distinguish it from other demand traces
+            if (
+                is_baseload_electricity_demand
+            ):  # baseload demand is plotted as a dotted line without fill to distinguish it from other demand traces
                 line["dash"] = "dot"
                 trace_kwargs["fill"] = "none"
             else:
@@ -224,12 +235,12 @@ class AbstractResultCurveGraph(AbstractResult):
             filter_id = region_to_id[filter_region]
             graph_index = context.scenario_ids.index(filter_id)
             all_graphs: list[GraphCurveElement] = cls.graph(context)
-            grouped_graph = cls._group_elements(all_graphs)
-            filtered_graph = [ge.filter_on_index(graph_index) for ge in grouped_graph]
+            filtered_graph = [ge.filter_on_index(graph_index) for ge in all_graphs]
+            grouped_graph = cls._group_elements(filtered_graph)
 
             # graph_data = cls.transform_data_for_frontend(filtered_graph, resample_hours)
             graph_meta_data = cls._make_metadata()
-            graph_data = cls._make_plotly_graph(filtered_graph).to_dict()
+            graph_data = cls._make_plotly_graph(grouped_graph).to_dict()
 
             response = GraphCurveResponse(
                 graphData=graph_data,
@@ -247,7 +258,7 @@ class AbstractResultCurveGraph(AbstractResult):
     @classmethod
     def make_graph_toplevel(cls, context: ContextProvider, resample_hours: int = 24) -> GraphCurveResponse:
         """Make a top level (province) curve graph, summing all graph curve elements (municipalities) in the context
-        
+
         Args:
             context: ContextProvider with scenario data
             resample_hours: Number of hours to aggregate data into (default: 1 for hourly data)
@@ -263,14 +274,12 @@ class AbstractResultCurveGraph(AbstractResult):
             )
             summed_graphs.append(graph)
 
-
         graph_data = cls.transform_data_for_frontend(summed_graphs, resample_hours)
         graph_meta_data = cls._make_metadata(summed_graphs, resample_hours)
-        
+
         response = GraphCurveResponse(
             graphData=graph_data,
             metaData=graph_meta_data,
         )
 
         return response
-    

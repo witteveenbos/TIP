@@ -158,6 +158,24 @@ def test_is_all_zero_values_with_none_and_nonzero():
     assert AbstractResultCurveGraph._is_all_zero_values([None, 1, None]) is False
 
 
+def test_is_all_none_values_with_none_and_zero():
+    """
+    GIVEN a list containing None and zero values.
+    WHEN _is_all_none_values is called.
+    THEN it returns False because zero is a valid curve value.
+    """
+    assert AbstractResultCurveGraph._is_all_none_values([None, 0, None]) is False
+
+
+def test_is_all_none_values_with_all_none():
+    """
+    GIVEN a list containing only None values.
+    WHEN _is_all_none_values is called.
+    THEN it returns True.
+    """
+    assert AbstractResultCurveGraph._is_all_none_values([None, None]) is True
+
+
 # Tests for _negative_values
 def test_negative_values_inverts_list():
     """
@@ -334,11 +352,11 @@ def test_group_elements_single_element_per_group():
     assert grouped[0].value == [5.0]
 
 
-def test_group_elements_filters_out_all_zero_groups():
+def test_group_elements_keeps_groups_that_sum_to_zero():
     """
     GIVEN elements that sum to all zeros.
     WHEN _group_elements is called.
-    THEN those groups are filtered out and not included in the result.
+    THEN the group is retained because zero is a valid curve value.
     """
     grouped = AbstractResultCurveGraph._group_elements(
         [
@@ -359,7 +377,36 @@ def test_group_elements_filters_out_all_zero_groups():
         ]
     )
 
-    assert len(grouped) == 0
+    assert len(grouped) == 1
+    assert grouped[0].value == [0.0, 0.0]
+
+
+def test_group_elements_filters_out_all_none_groups():
+    """
+    GIVEN elements whose values are all None.
+    WHEN _group_elements is called.
+    THEN the group is filtered out because it has no data.
+    """
+    grouped = AbstractResultCurveGraph._group_elements(
+        [
+            GraphCurveElement(
+                name="Solar 1",
+                group="Zon",
+                demandSupply="Aanbod",
+                color="#fed976",
+                value=[None, None],
+            ),
+            GraphCurveElement(
+                name="Solar 2",
+                group="Zon",
+                demandSupply="Aanbod",
+                color="#fed976",
+                value=[None, None],
+            ),
+        ]
+    )
+
+    assert grouped == []
 
 
 # Tests for _make_plotly_graph trace ordering
