@@ -1,5 +1,4 @@
 from __future__ import annotations
-import logging
 from abc import abstractmethod
 from hail.models.calculate import GraphMeta, GraphCurveElement, GraphCurveMeta, GraphCurveResponse, NullReponse
 from hail.result.base import AbstractResult
@@ -237,8 +236,6 @@ class AbstractResultCurveGraph(AbstractResult):
                 graphMeta=graph_meta_data,
             )
 
-            logging.info(f"Returning curve bottomlevel (municipality) response: {response}")
-
             return response
 
         else:
@@ -246,3 +243,34 @@ class AbstractResultCurveGraph(AbstractResult):
                 msg="Graph focus not set in request (viewSettings.graphFocus). Cannot make (yet) make aggregate graph.",
                 component="graph",
             )
+
+    @classmethod
+    def make_graph_toplevel(cls, context: ContextProvider, resample_hours: int = 24) -> GraphCurveResponse:
+        """Make a top level (province) curve graph, summing all graph curve elements (municipalities) in the context
+        
+        Args:
+            context: ContextProvider with scenario data
+            resample_hours: Number of hours to aggregate data into (default: 1 for hourly data)
+        """
+        # TODO: This is a temporary solution, we need to make a proper aggregate graph but that is currently out of scope
+        all_graphs: list[GraphCurveElement] = cls.graph(context)
+
+        summed_graphs = []
+        for gce in all_graphs:
+            graph = GraphCurveElement(
+                value=gce.value.sum_element_wise(),
+                **gce.model_dump(exclude={"value"}),
+            )
+            summed_graphs.append(graph)
+
+
+        graph_data = cls.transform_data_for_frontend(summed_graphs, resample_hours)
+        graph_meta_data = cls._make_metadata(summed_graphs, resample_hours)
+        
+        response = GraphCurveResponse(
+            graphData=graph_data,
+            metaData=graph_meta_data,
+        )
+
+        return response
+    

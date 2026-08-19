@@ -12,10 +12,11 @@ from hail.generate import (
 )
 from hail.models.calculate import CalculateResponse
 from hail.models.configuration import AccessedAttributes, ETMScenario
-from hail.models.enums import MainScenarioEnum
+from hail.models.enums import MainScenarioEnum, MunicipalityIDs
 from hail.models.request import PostUserInputRequest
 from hail.models.response import APIResponse
 from hail.models.state import PreloadedState
+from hail.reference.graphs import GraphTypes
 from hail.result import AbstractResultMap, AbstractResultGraph, AbstractResultCurveGraph
 from tests.mock_context import MockMultiScenarioDataWrapper
 from config.aggregation import configs as aggregation_configs
@@ -44,13 +45,20 @@ async def initial_context_call(
     accessed_attributes: AccessedAttributes,
     redis_client: Redis,
 ) -> ContextProvider:
+    
+    municipality_scenarios = request.userSettings.municipalityScenarios
+
+    # If single graph focus is requested, filter the scenarios to only include the relevant municipality
+    if isinstance(request.viewSettings.graphFocus, MunicipalityIDs) and request.viewSettings.graphType is GraphTypes.ENERGYBALANCE_CURVE:
+        municipality_scenarios = [ms for ms in  municipality_scenarios if ms.municipalityID is request.viewSettings.graphFocus]
+
     # create a list of scenarios to be used in the ETM client
     scenarios = [
         ETMScenario(
             name=ms.municipalityID,
             etm_id=ms.ETMscenarioID,
         )
-        for ms in request.userSettings.municipalityScenarios
+        for ms in municipality_scenarios
     ]
 
     # this should be done for each request as every request can have different scenarios
@@ -112,7 +120,9 @@ async def update_context(
         request.viewSettings.graphType is not None
         and request.viewSettings.graphType.value == "energybalance_curve"
     )
-    gqueries = accessed_attributes.gqueries_all if needs_curves else accessed_attributes.gqueries
+    gqueries = accessed_attributes.gqueries_curve if needs_curves else accessed_attributes.gqueries
+
+    # TODO @NielsJ check gqueries
 
     updated_context = await updated_client.connect(
         gqueries=gqueries,

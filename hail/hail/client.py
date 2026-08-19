@@ -83,6 +83,8 @@ class AsyncETMClient:
         redis_client: redis.Redis,
     ) -> dict:
         """Do the put operation on a single scenario for a list of gqueries and return the response."""
+        
+        logging.debug(f"Requesting data for scenario {scenario.etm_id} for {len(body['gqueries'])} gqueries")
         try:
             async with session.put(url=scenario.url_path, json=body) as response:
                 resp = await response.json()
