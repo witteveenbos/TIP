@@ -28,7 +28,7 @@ class AsyncETMClient:
         self,
         main_scenario: str,
         scenarios: list[ETMScenario],
-        base_url: str = "https://2025-01.engine.energytransitionmodel.com/", # most straightforward way to set URL
+        base_url: str = "https://2025-01.engine.energytransitionmodel.com/",  # most straightforward way to set URL
         api_key: str = None,
         redis_client: redis.Redis = None,
     ) -> None:
@@ -100,7 +100,9 @@ class AsyncETMClient:
                     )
         except Exception as e:
             logger.error(
-                "Unable to put on {} due to {}.".format(scenario.etm_id, e.__class__.__name__)
+                "Unable to put on {} due to {}.".format(
+                    scenario.etm_id, e.__class__.__name__
+                )
             )
             raise e
         return resp
@@ -212,10 +214,15 @@ class AsyncETMClient:
         """Query all scenarios for a list of gqueries and return a list of responses."""
 
         headers = {}
-        if self.api_key and self.api_key not in ["your_api_key", "enter_etm_key"]: # Don't send non-existing defaults which may have ended up in env vars. Invalid key returns unauthorized
+        if self.api_key and self.api_key not in [
+            "your_api_key",
+            "enter_etm_key",
+        ]:  # Don't send non-existing defaults which may have ended up in env vars. Invalid key returns unauthorized
             headers["Authorization"] = f"Bearer {self.api_key}"
 
-        async with aiohttp.ClientSession(base_url=self.base_url, headers=headers) as session:
+        async with aiohttp.ClientSession(
+            base_url=self.base_url, headers=headers
+        ) as session:
             ret = await asyncio.gather(
                 *(
                     self.query(scenario, session, gqueries, inputs)
