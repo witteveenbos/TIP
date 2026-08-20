@@ -32,7 +32,7 @@ class AsyncETMClient:
         api_key: str = None,
         redis_client: redis.Redis = None,
     ) -> None:
-        self.base_url = base_url or os.getenv("ETM_BASE_URL", None)
+        self.base_url = "https://2025-01.engine.energytransitionmodel.com/"  #  base_url or os.getenv("ETM_BASE_URL", "https://2025-01.engine.energytransitionmodel.com/")
         if self.base_url is None:
             raise ValueError(
                 "No base_url provided and no ETM_BASE_URL environment variable set. Please provide a base_url or set the ETM_BASE_URL environment variable."
@@ -41,10 +41,11 @@ class AsyncETMClient:
         self.main_scenario = main_scenario
 
         self.api_key = api_key or os.getenv("ETM_API_KEY", None)
-        if self.api_key is None:
-            raise ValueError(
-                "No api_key provided and no ETM_API_KEY environment variable set. Please provide an api_key or set the ETM_API_KEY environment variable."
-            )
+        # self.api_key = api_key or os.getenv("ETM_API_KEY", None)
+        # if self.api_key is None:
+        #     raise ValueError(
+        #         "No api_key provided and no ETM_API_KEY environment variable set. Please provide an api_key or set the ETM_API_KEY environment variable."
+        #     )
 
         self.scenarios = scenarios
 
