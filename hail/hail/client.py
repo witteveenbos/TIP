@@ -28,18 +28,23 @@ class AsyncETMClient:
         self,
         main_scenario: str,
         scenarios: list[ETMScenario],
-        base_url: str = "https://2025-01.engine.energytransitionmodel.com/",  # most straightforward way to set URL
+        base_url: str = None,
         api_key: str = None,
         redis_client: redis.Redis = None,
     ) -> None:
-        self.base_url = base_url
+        self.base_url = base_url or os.getenv("ETM_BASE_URL", None)
+        if self.base_url is None:
+            raise ValueError(
+                "No base_url provided and no ETM_BASE_URL environment variable set. Please provide a base_url or set the ETM_BASE_URL environment variable."
+            )
 
         self.main_scenario = main_scenario
 
-        if api_key is not None:
-            self.api_key = api_key
-        else:
-            self.api_key = os.getenv("ETM_API_KEY")
+        self.api_key = api_key or os.getenv("ETM_API_KEY", None)
+        if self.api_key is None:
+            raise ValueError(
+                "No api_key provided and no ETM_API_KEY environment variable set. Please provide an api_key or set the ETM_API_KEY environment variable."
+            )
 
         self.scenarios = scenarios
 
@@ -83,29 +88,27 @@ class AsyncETMClient:
         redis_client: redis.Redis,
     ) -> dict:
         """Do the put operation on a single scenario for a list of gqueries and return the response."""
-        
+
         logging.debug(f"Requesting data for scenario {scenario.etm_id} for {len(body['gqueries'])} gqueries")
         try:
             async with session.put(url=scenario.url_path, json=body) as response:
                 resp = await response.json()
 
                 if response.status != 200:
-                    logger.error(
-                        f"Failed to get put on {scenario.etm_id}: {response.reason}"
-                    )
-                    raise ConnectionError(
-                        f"Unable to put on {scenario.etm_id}: {response.status} {response.reason}"
-                    )
+                    logger.error(f"Failed to get put on {scenario.etm_id}: {response.reason}")
+                    logger.debug(f"Url: {response.url}")
+                    logger.debug(f"Body: {body}")
+                    logger.debug(f"Response: {resp}")
+                    raise ConnectionError(f"Unable to put on {scenario.etm_id}: {response.status} {response.reason}")
                 else:
                     logger.debug(
                         f"Successfully ({response.status}) put on {scenario.etm_id} for {len(body['gqueries'])} gqueries."
                     )
         except Exception as e:
-            logger.error(
-                "Unable to put on {} due to {}.".format(
-                    scenario.etm_id, e.__class__.__name__
-                )
-            )
+            logger.error("Unable to put on {} due to {}.".format(scenario.etm_id, e.__class__.__name__))
+            logger.debug(f"Full put request URL: {response.url}")
+            logger.debug(f"Full put request body: {body}")
+            logger.debug(f"Full put response: {resp}")
             raise e
         return resp
 
@@ -153,30 +156,20 @@ class AsyncETMClient:
         inputs_url = scenario.url_path + "/inputs"
         try:
             async with session.get(url=inputs_url) as response:
-                resp = await response.json()
+                response_data = await response.json()
 
                 if response.status != 200:
-                    logger.error(
-                        f"Failed to get inputs for {scenario.etm_id}: {response.reason}"
-                    )
-                    raise ConnectionError(
-                        f"Unable to get inputs on {scenario.etm_id}: {response.reason}"
-                    )
+                    logger.error(f"Failed to get inputs for {scenario.etm_id}: {response.reason}")
+                    raise ConnectionError(f"Unable to get inputs on {scenario.etm_id}: {response.reason}")
                 else:
-                    logger.debug(
-                        f"Successfully ({response.status}) got inputs on {scenario.etm_id}"
-                    )
+                    logger.debug(f"Successfully ({response.status}) got inputs on {scenario.etm_id}")
         except Exception as e:
-            logger.error(
-                "Unable to get inputs for {} due to {}.".format(
-                    scenario.etm_id, e.__class__.__name__
-                )
-            )
-            logger.error(f"Full get request URL: {self.base_url}{inputs_url}")
+            logger.error("Unable to get inputs for {} due to {}.".format(scenario.etm_id, e.__class__.__name__))
+            logger.error(f"Full get request URL: {response.url}")
             logger.exception(e)
             raise e
 
-        return filter_dict(resp, inputs)
+        return filter_dict(response_data, inputs)
 
     async def query(
         self,
@@ -200,9 +193,7 @@ class AsyncETMClient:
         scenario_task = self.scenario_put(scenario, session, gqueries)
 
         if inputs_task:
-            scenario_response, inputs_response = await asyncio.gather(
-                scenario_task, inputs_task
-            )
+            scenario_response, inputs_response = await asyncio.gather(scenario_task, inputs_task)
             return {**scenario_response, "inputs": inputs_response}
         else:
             scenario_response = await scenario_task
@@ -222,14 +213,9 @@ class AsyncETMClient:
         ]:  # Don't send non-existing defaults which may have ended up in env vars. Invalid key returns unauthorized
             headers["Authorization"] = f"Bearer {self.api_key}"
 
-        async with aiohttp.ClientSession(
-            base_url=self.base_url, headers=headers
-        ) as session:
+        async with aiohttp.ClientSession(base_url=self.base_url, headers=headers) as session:
             ret = await asyncio.gather(
-                *(
-                    self.query(scenario, session, gqueries, inputs)
-                    for scenario in self.scenarios
-                )
+                *(self.query(scenario, session, gqueries, inputs) for scenario in self.scenarios)
             )
 
         return ret
@@ -239,9 +225,7 @@ class AsyncETMClient:
     ) -> list[APIResponse]:
         """Return a list of APIResponse objects."""
         unvalidated_responses = await self.query_all(gqueries, inputs)
-        validated_responses = [
-            APIResponse(**response) for response in unvalidated_responses
-        ]
+        validated_responses = [APIResponse(**response) for response in unvalidated_responses]
         return validated_responses
 
     def _get_raw_response(self, gqueries: list[str]) -> list[dict]:
@@ -260,9 +244,7 @@ class AsyncETMClient:
         return ContextProvider.from_response(responses, accessed_attributes_ui=ui)
 
     @retry(**RETRY_KWARGS)
-    async def copy_single_scenario(
-        self, ms: MunicipalityScenario
-    ) -> MunicipalityScenario:
+    async def copy_single_scenario(self, ms: MunicipalityScenario) -> MunicipalityScenario:
         url = self.base_url + "api/v3/scenarios"
         headers = {
             "Accept": "application/json",
@@ -279,13 +261,9 @@ class AsyncETMClient:
                     logger.debug(
                         f"Failed to copy scenario {scenario_id}: {response.reason}. Body: {data}. Response: {resp}"
                     )
-                    raise ConnectionError(
-                        f"Failed to copy scenario {scenario_id}: {response.reason}"
-                    )
+                    raise ConnectionError(f"Failed to copy scenario {scenario_id}: {response.reason}")
                 else:
-                    logger.debug(
-                        f"Successfully copied scenario {scenario_id} with new ID {resp.get('id')}"
-                    )
+                    logger.debug(f"Successfully copied scenario {scenario_id} with new ID {resp.get('id')}")
 
                 valid_resp = ScenarioData(**resp)
 
@@ -294,9 +272,7 @@ class AsyncETMClient:
                     ETMscenarioID=valid_resp.id,
                 )
 
-    async def copy_scenarios(
-        self, base_scenarios: list[MunicipalityScenario]
-    ) -> list[MunicipalityScenario]:
+    async def copy_scenarios(self, base_scenarios: list[MunicipalityScenario]) -> list[MunicipalityScenario]:
         """Copy existing scenarios by their IDs and return the response."""
 
         tasks = [self.copy_single_scenario(ms) for ms in base_scenarios]
