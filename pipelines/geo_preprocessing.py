@@ -5,6 +5,8 @@ from pathlib import Path
 import geopandas as gpd
 import matplotlib.pyplot as plt
 import pandas as pd
+from shapely.geometry import GeometryCollection, MultiPolygon, Polygon
+from shapely.ops import unary_union
 
 from constants import BASE_DATA_DIR, DATA_DIR
 
@@ -63,6 +65,33 @@ def find_most_overlap(geom, regions_gdf, name_col="naam"):
                 best_match = region[name_col]
 
     return best_match
+
+
+def polygonal_geometry(geometry):
+    """Remove line and point fragments created when clipping polygons."""
+    if geometry is None or geometry.is_empty:
+        return None
+    if isinstance(geometry, (Polygon, MultiPolygon)):
+        return geometry
+    if isinstance(geometry, GeometryCollection):
+        polygons = [
+            part
+            for part in geometry.geoms
+            if isinstance(part, (Polygon, MultiPolygon))
+        ]
+        return unary_union(polygons) if polygons else None
+    return None
+
+
+def keep_polygonal_geometries(gdf: gpd.GeoDataFrame) -> gpd.GeoDataFrame:
+    """Ensure GeoJSON outputs contain only geometry types supported by the app."""
+    result = gdf.copy()
+    result.geometry = result.geometry.map(polygonal_geometry)
+    result = result[result.geometry.notna() & ~result.geometry.is_empty]
+    invalid_types = set(result.geometry.geom_type) - {"Polygon", "MultiPolygon"}
+    if invalid_types:
+        raise ValueError(f"Unsupported geometry types remain: {sorted(invalid_types)}")
+    return result
 
 
 # Create a dictionary to store the hierarchical relationships
@@ -211,7 +240,7 @@ gemeenten_selected = gemeenten[gemeenten.index.isin(hierarchy_df_selected["Munic
 # before
 gemeenten_selected.plot(column="naam")
 # operation
-gemeenten_selected = gemeenten_selected.clip(resregio_selected)
+gemeenten_selected = keep_polygonal_geometries(gemeenten_selected.clip(resregio_selected))
 # after
 gemeenten_selected.plot(column="naam")
 
