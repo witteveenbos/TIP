@@ -16,7 +16,7 @@ class GraphTypes(models.TextChoices):
 
 class AreaDivision(models.TextChoices):
     PROV = "PROV", "Provincie"
-    REG = "REG", "Regio-indeling NH"  # Can this be commented out? > No
+    REG = "REG", "Regio-indeling"  # Can this be commented out? > No
     GM = "GM", "Gemeente"
     RES = "RES", "RES-regio's"
     HSMS = "HSMS", "Netvlakken"

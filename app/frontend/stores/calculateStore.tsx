@@ -1,10 +1,8 @@
-import { create } from 'zustand';
-import { createJSONStorage, devtools, persist } from 'zustand/middleware';
 import {
+    AllAreasState,
     Area,
     AreaData,
     AreaDivisionState,
-    AllAreasState,
     CalculatedData,
     CalculatedDataState,
     changedDevelopment,
@@ -28,8 +26,8 @@ import {
     SelectedDevelopmentState,
     SelectedGeoIDState,
 } from '@/types/stores/calculateStore';
-
-
+import { create } from 'zustand';
+import { createJSONStorage, devtools, persist } from 'zustand/middleware';
 
 export const useScenarioStore = create<ScenarioState>()(
     devtools(
@@ -54,7 +52,9 @@ export const useAreaDivisionStore = create<AreaDivisionState>()(
         persist(
             (set) => ({
                 areaDivision: [],
-                setAreaDivision: (areaDivision: Array<{ label: string; value: string }>) => set({ areaDivision }),
+                setAreaDivision: (
+                    areaDivision: Array<{ label: string; value: string }>
+                ) => set({ areaDivision }),
                 selectedAreaDivision: Area.GM,
                 setSelectedAreaDivision: (selectedAreaDivision: Area) =>
                     set({ selectedAreaDivision }),
@@ -107,7 +107,8 @@ export const useAllAreasStore = create<AllAreasState>()(
         persist(
             (set) => ({
                 allAreas: {},
-                setAllAreas: (allAreas: Record<string, AreaData>) => set({ allAreas }),
+                setAllAreas: (allAreas: Record<string, AreaData>) =>
+                    set({ allAreas }),
             }),
             {
                 name: 'all-areas-store',
@@ -122,11 +123,20 @@ export const useGeoJsonDataStore = create<GeoJsonDataState>()(
         persist(
             (set) => ({
                 geoJsonData: { metadata: null, geoJSON: null },
-                setGeoJsonData: (geoJsonData: { metadata: GeoMetadata | null; geoJSON: GeoJSONData | null }) => set({ geoJsonData }),
+                setGeoJsonData: (geoJsonData: {
+                    metadata: GeoMetadata | null;
+                    geoJSON: GeoJSONData | null;
+                }) => set({ geoJsonData }),
             }),
             {
                 name: 'geo-data-store',
                 storage: createJSONStorage(() => sessionStorage),
+                partialize: (state) => ({
+                    geoJsonData: {
+                        metadata: state.geoJsonData.metadata,
+                        geoJSON: null,
+                    },
+                }),
             }
         )
     )
@@ -153,7 +163,8 @@ export const useInputTypeStore = create<InputTypeState>()(
         persist(
             (set) => ({
                 inputType: 'continuous',
-                setInputType: (inputType: 'continuous' | 'sectoral') => set({ inputType }),
+                setInputType: (inputType: 'continuous' | 'sectoral') =>
+                    set({ inputType }),
             }),
             {
                 name: 'input-type-store',
@@ -168,15 +179,16 @@ export const selectedDevelopmentStore = create<SelectedDevelopmentState>()(
         persist(
             (set) => ({
                 selectedDevelopment: null,
-                setSelectedDevelopment: (selectedDevelopment: {
-                    name: string;
-                    key: string;
-                    type: string;
-                    min: number;
-                    max: number;
-                    unit: string;
-                } | null) =>
-                    set({ selectedDevelopment }),
+                setSelectedDevelopment: (
+                    selectedDevelopment: {
+                        name: string;
+                        key: string;
+                        type: string;
+                        min: number;
+                        max: number;
+                        unit: string;
+                    } | null
+                ) => set({ selectedDevelopment }),
             }),
             {
                 name: 'selected-development-store',
@@ -209,31 +221,32 @@ export const continuousDevelopmentsChangesStore =
         )
     );
 
+export const sectoralDevelopmentsChangesStore =
+    create<SectoralDevelopmentsChangesState>()(
+        devtools(
+            persist(
+                (set) => ({
+                    sectoralDevelopmentDefaults: null,
+                    setSectoralDevelopmentDefaults: (
+                        sectoralDevelopmentDefaults: DevelopmentDefaults
+                    ) => set({ sectoralDevelopmentDefaults }),
+                    sectoralDevelopmentDefaultProjects: [],
+                    setSectoralDevelopmentDefaultProjects: (
+                        sectoralDevelopmentDefaultProjects: SectoralProject[]
+                    ) => set({ sectoralDevelopmentDefaultProjects }),
 
-export const sectoralDevelopmentsChangesStore = create<SectoralDevelopmentsChangesState>()(
-    devtools(
-        persist(
-            (set) => ({
-                sectoralDevelopmentDefaults: null,
-                setSectoralDevelopmentDefaults: (sectoralDevelopmentDefaults: DevelopmentDefaults) =>
-                    set({ sectoralDevelopmentDefaults }),
-                sectoralDevelopmentDefaultProjects: [],
-                setSectoralDevelopmentDefaultProjects: (
-                    sectoralDevelopmentDefaultProjects: SectoralProject[]
-                ) => set({ sectoralDevelopmentDefaultProjects }),
-
-                changedSectoralDevelopments: [],
-                setChangedSectoralDevelopments: (
-                    changedSectoralDevelopments: changedDevelopment[]
-                ) => set({ changedSectoralDevelopments }),
-            }),
-            {
-                name: 'sectoral-developments-changes-store',
-                storage: createJSONStorage(() => sessionStorage),
-            }
+                    changedSectoralDevelopments: [],
+                    setChangedSectoralDevelopments: (
+                        changedSectoralDevelopments: changedDevelopment[]
+                    ) => set({ changedSectoralDevelopments }),
+                }),
+                {
+                    name: 'sectoral-developments-changes-store',
+                    storage: createJSONStorage(() => sessionStorage),
+                }
+            )
         )
-    )
-);
+    );
 
 export const useContinuousOptionsStore = create<ContinuousOptionsState>()(
     devtools(

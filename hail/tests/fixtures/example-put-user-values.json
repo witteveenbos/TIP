@@ -6,7 +6,7 @@
     "original": true,
     "developmentType": "sectoral",
     "graphType": "energybalance_bar",
-    "graphFocus": "PV28"
+    "graphFocus": "PV22"
   },
   "userSettings": {
     "municipalityScenarios": [

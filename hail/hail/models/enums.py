@@ -389,7 +389,7 @@ class HSMSIDs(Enum):
     # OS_ULKESLUIS = "OS ULKESLUIS"
     # OS_TEXEL = "OS TEXEL"
     # OS_ENKHUIZEN = "OS ENKHUIZEN"
-    EHAVM_EEMSHAVEN_MIDDEN_20_KV = "EHAVM Eemshaven Midden 20 kV"
+    EHAVM_EEMSHAVEN_MIDDEN_20_KV = "EHAVM Eemshaven-Midden 20 kV"
     EHAVO_EEMSHAVEN_OOST_20_KV = "EHAVO Eemshaven-Oost 20 kV"
     BL_BEILEN = "BL Beilen"
     GLTK_GASSELTE_KRAANLANDEN = "GLTK Gasselte Kraanlanden"
@@ -404,7 +404,19 @@ class HSMSIDs(Enum):
     MEE_MEEDEN = "MEE Meeden"
     WS_WINSCHOTEN = "WS Winschoten"
     KZVZ_KLAZIENAVEEN_ZWET = "KZVZ Klazienaveen ZWET"
-
+    WEW_WEIWERD = "WEW Weiwerd"
+    WSMR_WINSUM_RANUM = "WSMR Winsum Ranum"
+    SKN_STADSKANAAL = "SKN Stadskanaal"
+    VO_VEENOORD = "VO Veenoord"
+    DDV_DEDEMSVAART = "DDV Dedemsvaart"
+    MSKZ_MUSSELKANAAL_ZANDBERG = "MSKZ Musselkanaal-Zandberg"
+    CVD_COEVORDEN = "CVD Coevorden"
+    MP_MEPPEL = "MP Meppel"
+    MAK_MARSDIJK = "MAK Marsdijk"
+    GNHU_GRONINGEN_HUNZE = "GNHU Groningen Hunze"
+    ZYV_ZEIJERVEEN = "ZYV Zeijerveen"
+    EMW_EMMEN_WEERDINGE = "EMW Emmen Weerdinge"
+    VVL10_VIERVERLATEN = "VVL10 Vierverlaten"
 
 AllAreaDivisionIDs = ProvinceIDs | ResRegionIDs | RegionIDs | MunicipalityIDs | HSMSIDs
 

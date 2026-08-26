@@ -288,9 +288,9 @@ export default function EnergyBalanceMap({ geojson }: { geojson: any }) {
                         />
 
                         {/* Zoom-based labels with integrated development indicators */}
-                        {geoJsonData.geoJSON.features.map((feature) => (
+                        {geoJsonData.geoJSON.features.map((feature, index) => (
                             <GeoJsonLabel
-                                key={`geojson-label-${feature.properties.gid}`}
+                                key={`geojson-label-${feature.properties.gid ?? feature.properties.code ?? feature.properties.fid ?? index}`}
                                 feature={feature}
                                 currentZoom={currentZoom}
                                 getFeatureValue={getFeatureValue}
