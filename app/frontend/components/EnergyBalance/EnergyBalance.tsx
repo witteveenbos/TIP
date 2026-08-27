@@ -10,6 +10,7 @@ import {
     useAreaDivisionStore,
     useMunicipalityScenariosStore,
     useScenarioStore,
+    useGeoJsonDataStore,
 } from '../../stores/calculateStore';
 
 const EnergyBalanceMapComponent = dynamic(() => import('./EnergyBalanceMap'), {
@@ -27,6 +28,8 @@ const EnergyBalance = ({
     const { municipalityScenarios, setMunicipalityScenarios } =
         useMunicipalityScenariosStore();
     const [geoJsonData, setGeoJsonData] = useState(null);
+    const { setGeoJsonData: setMapGeoJsonData } = useGeoJsonDataStore();
+    const { selectedAreaDivision } = useAreaDivisionStore();
 
     const { setAllAreas } = useAllAreasStore();
 
@@ -56,6 +59,10 @@ const EnergyBalance = ({
                     const geoJsonRes = await getGeoJSONs();
                     if (geoJsonRes) {
                         setGeoJsonData(geoJsonRes);
+                        setMapGeoJsonData({
+                            metadata: null,
+                            geoJSON: geoJsonRes[selectedAreaDivision],
+                        });
                         const areasData = getAllAreas(geoJsonRes);
                         setAllAreas(areasData);
                     } else {

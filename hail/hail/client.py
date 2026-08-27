@@ -1,6 +1,7 @@
 import aiohttp
 import asyncio
 import os
+import re
 
 import redis
 from hail.models.configuration import ETMScenario
@@ -20,6 +21,31 @@ RETRY_KWARGS = dict(
     stop=stop_after_delay(5),
     after=after_log(logger, logging.DEBUG),
 )
+
+
+def clamp_rejected_user_values(body: dict, response: dict) -> bool:
+    user_values = body.get("user_values")
+    errors = response.get("errors", [])
+    if not isinstance(user_values, dict) or not isinstance(errors, list):
+        return False
+
+    changed = False
+    pattern = re.compile(
+        r"Input (?P<field>[a-zA-Z0-9_]+) cannot be greater than (?P<maximum>-?\d+(?:\.\d+)?)"
+    )
+    for error in errors:
+        match = pattern.search(str(error))
+        if not match:
+            continue
+
+        field = match.group("field")
+        maximum = float(match.group("maximum"))
+        value = user_values.get(field)
+        if isinstance(value, (int, float)) and value > maximum:
+            user_values[field] = min(value, maximum)
+            changed = True
+
+    return changed
 
 
 class AsyncETMClient:
@@ -100,6 +126,11 @@ class AsyncETMClient:
                     logger.debug(f"Url: {response.url}")
                     logger.debug(f"Body: {body}")
                     logger.debug(f"Response: {resp}")
+                    if response.status == 422 and clamp_rejected_user_values(body, resp):
+                        logger.warning(
+                            "Clamped rejected ETM user values for scenario %s before retry",
+                            scenario.etm_id,
+                        )
                     raise ConnectionError(f"Unable to put on {scenario.etm_id}: {response.status} {response.reason}")
                 else:
                     logger.debug(
