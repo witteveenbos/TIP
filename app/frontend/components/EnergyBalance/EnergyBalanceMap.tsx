@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { GeoJSON, MapContainer, TileLayer } from 'react-leaflet';
+import { GeoJSON, MapContainer } from 'react-leaflet';
 import {
     continuousDevelopmentsChangesStore,
     sectoralDevelopmentsChangesStore,
@@ -22,6 +22,7 @@ import EnergyBalanceDialog from './EnergyBalanceDialog';
 import EnergyBalanceLegend from './EnergyBalanceLegend';
 import ZoomHandler from './ZoomHandler';
 import GeoJsonLabel from './GeoJsonLabel';
+import OpenFreeMapLayer from '../BaseMap/OpenFreeMapLayer';
 
 export default function EnergyBalanceMap({ geojson }: { geojson: any }) {
     const [hoverGeoId, setHoverGeoId] = useState('');
@@ -271,12 +272,7 @@ export default function EnergyBalanceMap({ geojson }: { geojson: any }) {
                 ref={mapContainerRef}
                 bounds={bounds}
                 scrollWheelZoom={true}>
-                <TileLayer
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-                    url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-                    subdomains="abcd"
-                    maxZoom={20}
-                />
+                <OpenFreeMapLayer />
                 <ZoomHandler setCurrentZoom={setCurrentZoom} />
                 {geoJsonData.geoJSON && (
                     <>
