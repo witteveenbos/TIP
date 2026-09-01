@@ -38,6 +38,77 @@ For local development; follow these steps:
    4. Redis, Postgres and PGadmin will be running as supporting services
 5. Refer to the README files in each of the folders for more detailed information. 
 
+## Branch naming
+
+TIP uses `main` as the single source of truth for the latest code. Client-specific
+deployment branches are named with the following convention:
+
+```text
+accept-<client>   # acceptance deployment for a client
+prod-<client>     # production deployment for the same client
+```
+
+For example, the branches for the PNH and GR projects are `accept-pnh`,
+`prod-pnh`, `accept-gr`, and `prod-gr`.
+
+Feature branches should have a meaningful name that describes the work they
+contain. 
+> **Important:** Feature branches must not start with `accept-` or `prod-`, as those prefixes are
+> reserved for deployment branches.
+
+```text
+<client>/<feature-ID-OR-issue-ID>-<define your feature>  # client name (optional) followed by "/" then feature Id 
+                                                         # and precise feature detail 
+                                                         # client name can be used if adding a feature specifically for a client
+```
+
+For example, `pnh/feature-8-add-geojson-data` this is a client specific update and 
+`feature-5-add-copy-button-to-scenario` is a general update.
+
+## Workflow and deployment pipeline
+
+### General update
+1. Create a feature branch from `main`.
+2. Review and merge the completed feature branch into `main`.
+3. Merge the changes into the relevant `accept-<client>` branch.
+4. Test and validate the acceptance deployment.
+5. Promote the accepted changes to the matching `prod-<client>` branch.
+6. Merge `main` to other clients.
+
+For instance:
+1. Create `feature-5-add-copy-button-to-scenario` from `main`.
+2. Review and merge `feature-5-add-copy-button-to-scenario` into `main`.
+3. Merge the changes into the `accept-pnh` branch.
+4. Test and validate the acceptance deployment.
+5. Merge `accept-pnh` into `prod-pnh` branch.
+6. Merge `main` to `accept-gr` into `prod-gr` branch.
+
+### Client-specific update
+1. Create a feature branch from `accept-<client>`.
+2. Review and merge the completed feature branch into `accept-<client>`.
+3. Test and validate the acceptance deployment.
+4. Promote the accepted changes to the matching `prod-<client>` branch.
+
+For instance:
+1. Create `pnh/feature-8-add-geojson-data` from `accept-pnh`.
+2. Review and merge `pnh/feature-8-add-geojson-data` into `accept-pnh`.
+3. Test and validate the acceptance deployment.
+4. Merge `accept-pnh` into `prod-pnh` branch.
+
+The deployment workflow in `.github/workflows/deploy.yml` runs automatically when 
+changes to `accept-*` or `prod-*` branches are pushed (only allowed via a merge request).
+
+> **Important:** The GitHub Environment name must be exactly the complete branch
+> name. For example, the `accept-pnh` branch uses the `accept-pnh` GitHub
+> Environment, and the `prod-pnh` branch uses the `prod-pnh` GitHub Environment.
+> Configure the client- and stage-specific variables and secrets in that exact
+> GitHub Environment; the workflow reads them from there.
+
+Docker images are tagged with the complete branch name as well, for example
+`backend:accept-pnh` and `backend:prod-pnh`.
+
+![Multi-project branch workflow](docs/imgs/multi-project-workflow.png)
+
 ## Overview
 
 ```bash
