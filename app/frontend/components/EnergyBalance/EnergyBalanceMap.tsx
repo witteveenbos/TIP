@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { GeoJSON, MapContainer } from 'react-leaflet';
+import { GeoJSON, MapContainer, TileLayer } from 'react-leaflet';
 import {
     continuousDevelopmentsChangesStore,
     sectoralDevelopmentsChangesStore,
@@ -22,7 +22,6 @@ import EnergyBalanceDialog from './EnergyBalanceDialog';
 import EnergyBalanceLegend from './EnergyBalanceLegend';
 import ZoomHandler from './ZoomHandler';
 import GeoJsonLabel from './GeoJsonLabel';
-import OpenFreeMapLayer from '../BaseMap/OpenFreeMapLayer';
 
 export default function EnergyBalanceMap({ geojson }: { geojson: any }) {
     const [hoverGeoId, setHoverGeoId] = useState('');
@@ -272,7 +271,12 @@ export default function EnergyBalanceMap({ geojson }: { geojson: any }) {
                 ref={mapContainerRef}
                 bounds={bounds}
                 scrollWheelZoom={true}>
-                <OpenFreeMapLayer />
+                <TileLayer
+                    attribution='Kaartgegevens &copy; <a href="https://www.kadaster.nl">Kadaster</a>'
+                    url="https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0/grijs/EPSG:3857/{z}/{x}/{y}{r}.png"
+                    subdomains="abcd"
+                    maxZoom={20}
+                />
                 <ZoomHandler setCurrentZoom={setCurrentZoom} />
                 {geoJsonData.geoJSON && (
                     <>

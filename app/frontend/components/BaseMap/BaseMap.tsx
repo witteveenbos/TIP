@@ -1,10 +1,10 @@
 import { useRef } from 'react';
-import { MapContainer } from 'react-leaflet';
-import OpenFreeMapLayer from './OpenFreeMapLayer';
+import type { LatLngBoundsExpression } from 'leaflet';
+import { MapContainer, TileLayer } from 'react-leaflet';
 
 const BaseMap = () => {
     const mapContainerRef = useRef(null);
-    const bounds = [
+    const bounds: LatLngBoundsExpression = [
         [51.8, 3.2], // whole of the Netherlands
         [53.6, 6.2],
     ];
@@ -15,7 +15,13 @@ const BaseMap = () => {
                 ref={mapContainerRef}
                 bounds={bounds}
                 scrollWheelZoom={false}>
-                <OpenFreeMapLayer />
+               <TileLayer
+                    attribution='Kaartgegevens &copy; <a href="https://www.kadaster.nl">Kadaster</a>'
+                    url="https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0/grijs/EPSG:3857/{z}/{x}/{y}{r}.png"
+                    subdomains="abcd"
+                   
+                    maxZoom={20}
+                />
             </MapContainer>
         </div>
     ) : null;
