@@ -1,8 +1,9 @@
 import { useRef } from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet';
+import type { LatLngBoundsExpression } from 'leaflet';
 const BaseMap = () => {
     const mapContainerRef = useRef(null);
-    const bounds = [
+    const bounds: LatLngBoundsExpression = [
         [51.8, 3.2], // whole of the Netherlands
         [53.6, 6.2],
     ];
@@ -13,9 +14,9 @@ const BaseMap = () => {
                 ref={mapContainerRef}
                 bounds={bounds}
                 scrollWheelZoom={false}>
-                <TileLayer
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-                    url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+                 <TileLayer
+                    attribution='Kaartgegevens &copy; <a href="https://www.kadaster.nl">Kadaster</a>'
+                    url="https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0/grijs/EPSG:3857/{z}/{x}/{y}{r}.png"
                     subdomains="abcd"
                     maxZoom={20}
                 />
