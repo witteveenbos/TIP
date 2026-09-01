@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { GeoJSON, MapContainer, TileLayer } from 'react-leaflet';
+import { LatLngBoundsExpression } from 'leaflet';
 import {
     continuousDevelopmentsChangesStore,
     sectoralDevelopmentsChangesStore,
@@ -243,7 +244,7 @@ export default function EnergyBalanceMap({ geojson }: { geojson: any }) {
         }
     };
 
-    const bounds = [
+    const bounds: LatLngBoundsExpression = [
         [50.5, 3.5], // whole of the Netherlands
         [53.5, 7.108],
     ]; 
@@ -272,8 +273,8 @@ export default function EnergyBalanceMap({ geojson }: { geojson: any }) {
                 bounds={bounds}
                 scrollWheelZoom={true}>
                 <TileLayer
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-                    url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+                      attribution='Kaartgegevens &copy; <a href="https://www.kadaster.nl">Kadaster</a>'
+                    url="https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0/grijs/EPSG:3857/{z}/{x}/{y}{r}.png"
                     subdomains="abcd"
                     maxZoom={20}
                 />
