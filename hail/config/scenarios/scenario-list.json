@@ -1,7 +1,7 @@
 [
     {
-        "title": "Koersvaste Middenweg 2050",
-        "dataLink": "ii3050_km_nl2019_cy2012_2050",
-        "description": "Koersvaste Middenweg schetst de verwachte koers van de energietransitie op basis van actuele trends, aangevuld met beleidsambities uit onder meer het Nationaal Plan Energiesysteem (NPE), beleidsnota's en provinciale energievisies. Dit scenario vormt een consistent geheel dat voortbouwt op het scenario Klimaatambitie uit IP2024. Het scenario kenmerkt zich door een sterke en snelle elektrificatie van het eindverbruik, waarbij het totale energieverbruik in balans wordt gehouden door aanvullend gebruik van andere energiedragers."
+        "title": "Huidige situatie (2019) in 2050",
+        "dataLink": "nl2019_cy2012_2050",
+        "description": "Huidige situatie (2019) in 2050 pakt de huidige situatie in 2019 als vertrekpunt, en bepaalt de situatie in 2050 alleen o.b.v. ontwikkelingen die de gebruiker instelt."
     }
 ]
