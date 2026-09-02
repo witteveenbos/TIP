@@ -26,12 +26,14 @@ class DistributedScenarioRelation(BaseModel):
         cls, config_folder_path: Path
     ) -> list[DistributedScenarioRelation]:
         multiple = []
-        for file in config_folder_path.glob("scenarios/ii3050*.json"):
+        for file in config_folder_path.glob("scenarios/*.json"):
+            if file.name.startswith("scenario-list"):
+                continue
             obj = cls.from_config(file)
             multiple.append(obj)
         if len(multiple) == 0:
             raise ValueError(
-                "Could not find any valid ii3050*.json files in 'config/scenarios/' (obj: hail.models.scenario.DistributedScenarioRelation) "
+                "Could not find any valid scenario JSON files in 'config/scenarios/' (obj: hail.models.scenario.DistributedScenarioRelation) "
             )
         return multiple
 
