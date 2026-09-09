@@ -152,13 +152,17 @@ USE_TZ = True
 LOCALE_PATHS = [os.path.join(BASE_DIR, "locale")]
 
 # Email
-DEFAULT_FROM_EMAIL = get_env("DEFAULT_FROM_EMAIL", default="noreply@example.com")
+DEFAULT_FROM_EMAIL = get_env(
+    "DEFAULT_FROM_EMAIL", default="noreply@example.com")
 
 # Auth
 AUTH_USER_MODEL = "customuser.User"
 
 # Wagtail
 WAGTAIL_SITE_NAME = "Company-Project"
+WAGTAIL_USER_CUSTOM_FIELDS = ["organization"]
+WAGTAIL_USER_CREATION_FORM = "customuser.forms.UserCreationForm"
+WAGTAIL_USER_EDIT_FORM = "customuser.forms.UserEditForm"
 WAGTAILIMAGES_IMAGE_MODEL = "customimage.CustomImage"
 WAGTAILDOCS_DOCUMENT_MODEL = "customdocument.CustomDocument"
 WAGTAIL_ALLOW_UNICODE_SLUGS = False

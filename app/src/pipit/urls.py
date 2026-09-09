@@ -62,6 +62,7 @@ urlpatterns += [
     path("wt/sitemap.xml", sitemap, name="sitemap"),
     path("api/energy/", include(energy_urls)),
     path("api/future-visions/", include(futurevision_urls)),
+    path("api/workboarditems/", include("main.workboard_urls")),
 ]
 
 urlpatterns += [re_path(r"", include(wagtail_urls))]
