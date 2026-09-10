@@ -9,9 +9,26 @@ from .pages import *  # NOQA: F403
 
 @register_snippet
 class WorkboardItems(models.Model):
+    TYPE_CHOICES = [
+        ("Woningbouw", "Woningbouw"),
+        ("Laadinfra", "Laadinfra"),
+        ("Bedrijventerrein / logistiek", "Bedrijventerrein / logistiek"),
+        ("Zon", "Zon"),
+    ]
+    STATUS_CHOICES = [
+        (1, "Idee"),
+        (2, "Beleidsvoornemen"),
+        (3, "Planvorming"),
+        (4, "Besluitvorming loopt vast"),
+        (5, "Vastgesteld / in uitvoering"),
+    ]
+
     title = models.CharField(max_length=255, blank=True)
     description = models.TextField(blank=True)
     organization = models.CharField(max_length=255, blank=True)
+    type = models.CharField(max_length=32, choices=TYPE_CHOICES, default="Woningbouw")
+    size_mw = models.IntegerField("Size (MW)", default=0)
+    status = models.IntegerField(choices=STATUS_CHOICES, default=1)
     page_id = models.IntegerField(null=True, blank=True)
     lane = models.IntegerField(default=0)
     updated_by = models.ForeignKey(
@@ -27,6 +44,9 @@ class WorkboardItems(models.Model):
         FieldPanel("title"),
         FieldPanel("description"),
         FieldPanel("organization"),
+        FieldPanel("type"),
+        FieldPanel("size_mw"),
+        FieldPanel("status"),
         FieldPanel("page_id"),
         FieldPanel("lane"),
         FieldPanel("updated_by"),

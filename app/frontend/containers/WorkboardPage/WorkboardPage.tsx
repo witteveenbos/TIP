@@ -1,10 +1,10 @@
-import {
-    draggable,
-    dropTargetForElements,
-} from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
-import { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
+import CreateItemModal from './CreateItemModal';
+import ProjectCard from './ProjectCard';
+import SwimmingLaneColumn from './SwimmingLaneColumn';
 import styles from './WorkboardPage.module.css';
+import { Project, WorkboardPageProps } from './Workboardpage';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -13,307 +13,6 @@ const getCsrfToken = () =>
         .split('; ')
         .find((cookie) => cookie.startsWith('csrftoken='))
         ?.split('=')[1];
-
-export type SwimmingLane = {
-    label: string;
-    minimumEnergy: number;
-    maximumEnergy: number;
-    minimumRisk: number;
-    maximumRisk: number;
-};
-
-type Project = {
-    id: number;
-    title: string;
-    description: string;
-    organization: string;
-    user: number;
-    lane: number;
-};
-
-interface WorkboardPageProps {
-    id: number;
-    title?: string;
-    phase?: string;
-    organization?: string | null;
-    swimmingLanes?: SwimmingLane[];
-}
-
-interface SwimmingLaneColumnProps {
-    index: number;
-    lane: SwimmingLane;
-    projects: Project[];
-    userOrganization?: string | null;
-    onProjectDrop: (
-        projectId: number,
-        laneIndex: number,
-        targetProjectId?: number,
-        insertBefore?: boolean
-    ) => void;
-}
-
-interface ProjectCardProps {
-    project: Project;
-    canDrag: boolean;
-    laneIndex: number;
-    onProjectDrop: SwimmingLaneColumnProps['onProjectDrop'];
-}
-
-interface CreateItemModalProps {
-    isOpen: boolean;
-    isSubmitting: boolean;
-    error?: string;
-    onClose: () => void;
-    onSubmit: (title: string, description: string) => void;
-}
-
-const CreateItemModal = ({
-    isOpen,
-    isSubmitting,
-    error,
-    onClose,
-    onSubmit,
-}: CreateItemModalProps) => {
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-
-    useEffect(() => {
-        if (!isOpen) {
-            setTitle('');
-            setDescription('');
-        }
-    }, [isOpen]);
-
-    if (!isOpen) {
-        return null;
-    }
-
-    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        onSubmit(title, description);
-    };
-
-    return (
-        <div className={styles.modalBackdrop} role="presentation">
-            <section
-                aria-labelledby="create-item-title"
-                aria-modal="true"
-                className={styles.modal}
-                role="dialog">
-                <div className={styles.modalHeader}>
-                    <div>
-                        <p className={styles.eyebrow}>Lane 0</p>
-                        <h2 id="create-item-title">Create new item</h2>
-                    </div>
-                    <button
-                        aria-label="Close modal"
-                        className={styles.closeButton}
-                        onClick={onClose}
-                        type="button">
-                        x
-                    </button>
-                </div>
-                <form className={styles.form} onSubmit={handleSubmit}>
-                    <label htmlFor="item-title">Title</label>
-                    <input
-                        autoFocus
-                        id="item-title"
-                        onChange={(event) => setTitle(event.target.value)}
-                        required
-                        value={title}
-                    />
-                    <label htmlFor="item-description">Description</label>
-                    <textarea
-                        id="item-description"
-                        onChange={(event) => setDescription(event.target.value)}
-                        rows={5}
-                        value={description}
-                    />
-                    {error && <p className={styles.formError}>{error}</p>}
-                    <div className={styles.modalActions}>
-                        <button
-                            className={styles.secondaryButton}
-                            onClick={onClose}
-                            type="button">
-                            Cancel
-                        </button>
-                        <button
-                            className={styles.primaryButton}
-                            disabled={isSubmitting}
-                            type="submit">
-                            {isSubmitting ? 'Creating...' : 'Create item'}
-                        </button>
-                    </div>
-                </form>
-            </section>
-        </div>
-    );
-};
-
-const ProjectCard = ({
-    project,
-    canDrag,
-    laneIndex,
-    onProjectDrop,
-}: ProjectCardProps) => {
-    const cardRef = useRef<HTMLElement>(null);
-    const [isDragging, setIsDragging] = useState(false);
-    const [isDropTarget, setIsDropTarget] = useState(false);
-
-    useEffect(() => {
-        const card = cardRef.current;
-        if (!card) {
-            return;
-        }
-
-        const cleanupDraggable = canDrag
-            ? draggable({
-                  element: card,
-                  getInitialData: () => ({
-                      type: 'project',
-                      projectId: project.id,
-                      organization: project.organization,
-                  }),
-                  onDragStart: () => setIsDragging(true),
-                  onDrop: () => setIsDragging(false),
-              })
-            : undefined;
-
-        const cleanupDropTarget = dropTargetForElements({
-            element: card,
-            getData: () => ({
-                type: 'project-card',
-                projectId: project.id,
-            }),
-            onDragEnter: () => setIsDropTarget(true),
-            onDragLeave: () => setIsDropTarget(false),
-            onDrop: ({ source, location }) => {
-                const sourceProjectId = source.data.projectId;
-                if (
-                    source.data.type === 'project' &&
-                    typeof sourceProjectId === 'number' &&
-                    sourceProjectId !== project.id
-                ) {
-                    const bounds = card.getBoundingClientRect();
-                    const insertBefore =
-                        location.current.input.clientY <
-                        bounds.top + bounds.height / 2;
-                    onProjectDrop(
-                        sourceProjectId,
-                        laneIndex,
-                        project.id,
-                        insertBefore
-                    );
-                }
-                setIsDropTarget(false);
-            },
-        });
-
-        return () => {
-            cleanupDraggable?.();
-            cleanupDropTarget();
-        };
-    }, [canDrag, laneIndex, onProjectDrop, project.id, project.organization]);
-
-    return (
-        <article
-            className={`${styles.project} ${
-                isDragging ? styles.projectDragging : ''
-            } ${isDropTarget ? styles.projectDropTarget : ''}`}
-            ref={cardRef}>
-            <span className={styles.projectId}>#{project.id}</span>
-            <h3>{project.title}</h3>
-            <p>
-                {project.organization} | {project.user}
-            </p>
-            {project.description && <p>{project.description}</p>}
-        </article>
-    );
-};
-
-const SwimmingLaneColumn = ({
-    index,
-    lane,
-    projects,
-    userOrganization,
-    onProjectDrop,
-}: SwimmingLaneColumnProps) => {
-    const columnRef = useRef<HTMLElement>(null);
-    const [isDraggedOver, setIsDraggedOver] = useState(false);
-
-    useEffect(() => {
-        const column = columnRef.current;
-        if (!column) {
-            return;
-        }
-
-        return dropTargetForElements({
-            element: column,
-            getData: () => ({
-                type: 'swimming-lane',
-                label: lane.label,
-            }),
-            onDrop: ({ source, location }) => {
-                if (
-                    location.current.dropTargets[0]?.data.type !==
-                    'swimming-lane'
-                ) {
-                    setIsDraggedOver(false);
-                    return;
-                }
-                const projectId = source.data.projectId;
-                if (
-                    source.data.type === 'project' &&
-                    typeof projectId === 'number'
-                ) {
-                    onProjectDrop(projectId, index);
-                }
-                setIsDraggedOver(false);
-            },
-            onDragEnter: () => setIsDraggedOver(true),
-            onDragLeave: () => setIsDraggedOver(false),
-        });
-    }, [index, lane.label, onProjectDrop]);
-
-    return (
-        <article
-            className={`${styles.column} ${
-                isDraggedOver ? styles.columnDraggedOver : ''
-            }`}
-            data-index={index}
-            ref={columnRef}>
-            <h2>{lane.label}</h2>
-            <div className={styles.projects}>
-                {projects.map((project) => (
-                    <ProjectCard
-                        key={project.id}
-                        canDrag={
-                            Boolean(userOrganization) &&
-                            project.organization === userOrganization
-                        }
-                        laneIndex={index}
-                        onProjectDrop={onProjectDrop}
-                        project={project}
-                    />
-                ))}
-            </div>
-            <dl className={styles.metrics}>
-                <div>
-                    <dt>Energy</dt>
-                    <dd>
-                        {lane.minimumEnergy} - {lane.maximumEnergy}
-                    </dd>
-                </div>
-                <div>
-                    <dt>Risk</dt>
-                    <dd>
-                        {lane.minimumRisk} - {lane.maximumRisk}
-                    </dd>
-                </div>
-            </dl>
-        </article>
-    );
-};
 
 const WorkboardPage = ({
     id,
@@ -419,7 +118,13 @@ const WorkboardPage = ({
         []
     );
 
-    const handleCreateItem = async (itemTitle: string, description: string) => {
+    const handleCreateItem = async (
+        itemTitle: string,
+        description: string,
+        type: Project['type'],
+        sizeMw: number,
+        status: number
+    ) => {
         setIsCreating(true);
         setCreateError(undefined);
 
@@ -434,6 +139,9 @@ const WorkboardPage = ({
                 body: JSON.stringify({
                     title: itemTitle,
                     description,
+                    type,
+                    size_mw: sizeMw,
+                    status,
                 }),
             });
 
@@ -470,6 +178,16 @@ const WorkboardPage = ({
                         <div>
                             <p className={styles.laneNumber}>Lane 0</p>
                             <h2>New items</h2>
+                            <p className={styles.laneTotal}>
+                                Total size:{' '}
+                                {projects
+                                    .filter((project) => project.lane === 0)
+                                    .reduce(
+                                        (sum, project) => sum + project.size_mw,
+                                        0
+                                    )}{' '}
+                                MW
+                            </p>
                         </div>
                         <button
                             className={styles.primaryButton}
