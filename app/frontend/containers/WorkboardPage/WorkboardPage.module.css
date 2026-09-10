@@ -76,6 +76,135 @@
     line-height: 1.2;
 }
 
+.laneHeader {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.laneNumber {
+    margin: 0 0 0.4rem;
+    color: #a34f35;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.primaryButton,
+.secondaryButton,
+.closeButton {
+    border: 0;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 700;
+}
+
+.primaryButton {
+    background: #a34f35;
+    color: #fffdf7;
+    padding: 0.7rem 0.9rem;
+}
+
+.primaryButton:hover {
+    background: #843d29;
+}
+
+.primaryButton:disabled {
+    cursor: wait;
+    opacity: 0.65;
+}
+
+.modalBackdrop {
+    position: fixed;
+    z-index: 10;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    background: rgb(29 41 36 / 55%);
+    padding: 1rem;
+}
+
+.modal {
+    width: min(100%, 32rem);
+    background: #fffdf7;
+    box-shadow: 0 18px 45px rgb(29 41 36 / 24%);
+    padding: 1.5rem;
+}
+
+.modalHeader {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    border-bottom: 1px solid #d8ded2;
+    padding-bottom: 1rem;
+}
+
+.modalHeader h2 {
+    margin: 0;
+    color: #243f36;
+    font-size: 1.35rem;
+}
+
+.closeButton {
+    align-self: flex-start;
+    background: transparent;
+    color: #657b6b;
+    font-size: 1.25rem;
+}
+
+.form {
+    display: grid;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+}
+
+.form label {
+    color: #243f36;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.form input,
+.form textarea {
+    border: 1px solid #b9c2b4;
+    background: #f4f1e8;
+    color: #1d2924;
+    font: inherit;
+    margin-bottom: 0.5rem;
+    padding: 0.7rem;
+}
+
+.form textarea {
+    resize: vertical;
+}
+
+.form input:focus,
+.form textarea:focus {
+    outline: 2px solid #2d6a5b;
+    outline-offset: 1px;
+}
+
+.formError {
+    margin: 0;
+    color: #a34f35;
+    font-size: 0.85rem;
+}
+
+.modalActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.secondaryButton {
+    background: transparent;
+    color: #243f36;
+    padding: 0.7rem 0.9rem;
+}
+
 .projects {
     display: grid;
     gap: 0.65rem;
@@ -156,5 +285,9 @@
 
     .board {
         grid-template-columns: 1fr;
+    }
+
+    .laneHeader {
+        flex-direction: column;
     }
 }

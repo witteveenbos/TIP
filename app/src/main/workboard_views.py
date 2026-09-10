@@ -9,11 +9,24 @@ from .workboard_serializers import (
 )
 
 
-class WorkboardItemsByPageList(generics.ListAPIView):
+class WorkboardItemsByPageList(generics.ListCreateAPIView):
     serializer_class = WorkboardItemsSerializer
+
+    def get_permissions(self):
+        if self.request.method == "POST":
+            return [permissions.IsAuthenticated()]
+        return [permissions.AllowAny()]
 
     def get_queryset(self):
         return WorkboardItems.objects.filter(page_id=self.kwargs["page_id"])
+
+    def perform_create(self, serializer):
+        serializer.save(
+            page_id=self.kwargs["page_id"],
+            lane=0,
+            organization=getattr(self.request.user, "organization", ""),
+            updated_by=self.request.user,
+        )
 
 
 class WorkboardItemLaneUpdate(generics.UpdateAPIView):

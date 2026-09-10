@@ -2,7 +2,7 @@ import {
     draggable,
     dropTargetForElements,
 } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 
 import styles from './WorkboardPage.module.css';
 
@@ -25,6 +25,7 @@ export type SwimmingLane = {
 type Project = {
     id: number;
     title: string;
+    description: string;
     organization: string;
     user: number;
     lane: number;
@@ -57,6 +58,97 @@ interface ProjectCardProps {
     laneIndex: number;
     onProjectDrop: SwimmingLaneColumnProps['onProjectDrop'];
 }
+
+interface CreateItemModalProps {
+    isOpen: boolean;
+    isSubmitting: boolean;
+    error?: string;
+    onClose: () => void;
+    onSubmit: (title: string, description: string) => void;
+}
+
+const CreateItemModal = ({
+    isOpen,
+    isSubmitting,
+    error,
+    onClose,
+    onSubmit,
+}: CreateItemModalProps) => {
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+
+    useEffect(() => {
+        if (!isOpen) {
+            setTitle('');
+            setDescription('');
+        }
+    }, [isOpen]);
+
+    if (!isOpen) {
+        return null;
+    }
+
+    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        onSubmit(title, description);
+    };
+
+    return (
+        <div className={styles.modalBackdrop} role="presentation">
+            <section
+                aria-labelledby="create-item-title"
+                aria-modal="true"
+                className={styles.modal}
+                role="dialog">
+                <div className={styles.modalHeader}>
+                    <div>
+                        <p className={styles.eyebrow}>Lane 0</p>
+                        <h2 id="create-item-title">Create new item</h2>
+                    </div>
+                    <button
+                        aria-label="Close modal"
+                        className={styles.closeButton}
+                        onClick={onClose}
+                        type="button">
+                        x
+                    </button>
+                </div>
+                <form className={styles.form} onSubmit={handleSubmit}>
+                    <label htmlFor="item-title">Title</label>
+                    <input
+                        autoFocus
+                        id="item-title"
+                        onChange={(event) => setTitle(event.target.value)}
+                        required
+                        value={title}
+                    />
+                    <label htmlFor="item-description">Description</label>
+                    <textarea
+                        id="item-description"
+                        onChange={(event) => setDescription(event.target.value)}
+                        rows={5}
+                        value={description}
+                    />
+                    {error && <p className={styles.formError}>{error}</p>}
+                    <div className={styles.modalActions}>
+                        <button
+                            className={styles.secondaryButton}
+                            onClick={onClose}
+                            type="button">
+                            Cancel
+                        </button>
+                        <button
+                            className={styles.primaryButton}
+                            disabled={isSubmitting}
+                            type="submit">
+                            {isSubmitting ? 'Creating...' : 'Create item'}
+                        </button>
+                    </div>
+                </form>
+            </section>
+        </div>
+    );
+};
 
 const ProjectCard = ({
     project,
@@ -134,6 +226,7 @@ const ProjectCard = ({
             <p>
                 {project.organization} | {project.user}
             </p>
+            {project.description && <p>{project.description}</p>}
         </article>
     );
 };
@@ -230,6 +323,9 @@ const WorkboardPage = ({
     swimmingLanes = [],
 }: WorkboardPageProps) => {
     const [projects, setProjects] = useState<Project[]>([]);
+    const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+    const [isCreating, setIsCreating] = useState(false);
+    const [createError, setCreateError] = useState<string>();
 
     useEffect(() => {
         let isMounted = true;
@@ -323,6 +419,41 @@ const WorkboardPage = ({
         []
     );
 
+    const handleCreateItem = async (itemTitle: string, description: string) => {
+        setIsCreating(true);
+        setCreateError(undefined);
+
+        try {
+            const response = await fetch(`${API_URL}/workboarditems/${id}/`, {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCsrfToken() || '',
+                },
+                body: JSON.stringify({
+                    title: itemTitle,
+                    description,
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Unable to create item');
+            }
+
+            const createdProject = (await response.json()) as Project;
+            setProjects((currentProjects) => [
+                createdProject,
+                ...currentProjects,
+            ]);
+            setIsCreateModalOpen(false);
+        } catch {
+            setCreateError('Unable to create item. Please try again.');
+        } finally {
+            setIsCreating(false);
+        }
+    };
+
     return (
         <main className={styles.page}>
             <header className={styles.header}>
@@ -334,6 +465,39 @@ const WorkboardPage = ({
             </header>
 
             <section className={styles.board} aria-label="Swimming lanes">
+                <article className={styles.column}>
+                    <div className={styles.laneHeader}>
+                        <div>
+                            <p className={styles.laneNumber}>Lane 0</p>
+                            <h2>New items</h2>
+                        </div>
+                        <button
+                            className={styles.primaryButton}
+                            onClick={() => {
+                                setCreateError(undefined);
+                                setIsCreateModalOpen(true);
+                            }}
+                            type="button">
+                            Create new item
+                        </button>
+                    </div>
+                    <div className={styles.projects}>
+                        {projects
+                            .filter((project) => project.lane === 0)
+                            .map((project) => (
+                                <ProjectCard
+                                    key={project.id}
+                                    canDrag={
+                                        Boolean(organization) &&
+                                        project.organization === organization
+                                    }
+                                    laneIndex={0}
+                                    onProjectDrop={handleProjectDrop}
+                                    project={project}
+                                />
+                            ))}
+                    </div>
+                </article>
                 {swimmingLanes.map((lane, index) => (
                     <SwimmingLaneColumn
                         index={index + 1}
@@ -347,6 +511,13 @@ const WorkboardPage = ({
                     />
                 ))}
             </section>
+            <CreateItemModal
+                error={createError}
+                isOpen={isCreateModalOpen}
+                isSubmitting={isCreating}
+                onClose={() => setIsCreateModalOpen(false)}
+                onSubmit={handleCreateItem}
+            />
         </main>
     );
 };
