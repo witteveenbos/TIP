@@ -41,6 +41,7 @@ export type Project = {
     status: number;
     user: number;
     lane: number;
+    sort_order: number;
 };
 
 export interface WorkboardPageProps {

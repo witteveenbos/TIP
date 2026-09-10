@@ -61,7 +61,7 @@ const WorkboardPage = ({
         ) => {
             try {
                 const response = await fetch(
-                    `${API_URL}/workboarditems/item/${projectId}/lane/`,
+                    `${API_URL}/workboarditems/item/${projectId}/position/`,
                     {
                         method: 'PATCH',
                         credentials: 'include',
@@ -69,7 +69,11 @@ const WorkboardPage = ({
                             'Content-Type': 'application/json',
                             'X-CSRFToken': getCsrfToken() || '',
                         },
-                        body: JSON.stringify({ lane: laneIndex }),
+                        body: JSON.stringify({
+                            lane: laneIndex,
+                            target_item_id: targetProjectId ?? null,
+                            insert_before: insertBefore,
+                        }),
                     }
                 );
                 if (!response.ok) {

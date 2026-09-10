@@ -40,6 +40,7 @@ class WorkboardItems(models.Model):
         choices=ACM_PRIO_CHOICES, default=0, verbose_name="ACM prioriteringskader")
     page_id = models.IntegerField(null=True, blank=True)
     lane = models.IntegerField(default=0)
+    sort_order = models.PositiveIntegerField(default=0)
     updated_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
@@ -59,6 +60,7 @@ class WorkboardItems(models.Model):
         FieldPanel("acm_prio"),
         FieldPanel("page_id"),
         FieldPanel("lane"),
+        FieldPanel("sort_order"),
         FieldPanel("updated_by"),
     ]
 
@@ -68,6 +70,7 @@ class WorkboardItems(models.Model):
     class Meta:
         verbose_name = _("Workboard item")
         verbose_name_plural = _("Workboard items")
+        ordering = ["lane", "sort_order", "id"]
 
 
 class WorkboardItemModification(models.Model):
