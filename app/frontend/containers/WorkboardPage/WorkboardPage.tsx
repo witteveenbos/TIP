@@ -123,7 +123,8 @@ const WorkboardPage = ({
         description: string,
         type: Project['type'],
         sizeMw: number,
-        status: number
+        status: number,
+        acmPrio: number
     ) => {
         setIsCreating(true);
         setCreateError(undefined);
@@ -141,6 +142,7 @@ const WorkboardPage = ({
                     description,
                     type,
                     size_mw: sizeMw,
+                    acm_prio: acmPrio,
                     status,
                 }),
             });

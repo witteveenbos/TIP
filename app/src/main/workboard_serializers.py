@@ -14,6 +14,7 @@ class WorkboardItemsSerializer(serializers.ModelSerializer):
             "type",
             "size_mw",
             "status",
+            "acm_prio",
             "page_id",
             "lane",
             "updated_by",

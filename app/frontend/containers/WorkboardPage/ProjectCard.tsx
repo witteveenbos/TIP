@@ -5,7 +5,11 @@ import {
 import { useEffect, useRef, useState } from 'react';
 
 import styles from './WorkboardPage.module.css';
-import { ProjectCardProps, STATUS_OPTIONS } from './Workboardpage';
+import {
+    ACM_PRIO_OPTIONS,
+    ProjectCardProps,
+    STATUS_OPTIONS,
+} from './Workboardpage';
 
 const ProjectCard = ({
     project,
@@ -72,6 +76,8 @@ const ProjectCard = ({
         };
     }, [canDrag, laneIndex, onProjectDrop, project.id, project.organization]);
 
+    console.log(project);
+
     return (
         <article
             className={`${styles.project} ${
@@ -81,13 +87,11 @@ const ProjectCard = ({
             <strong
                 className={styles.projectstatus}
                 title={
-                    project.status +
-                        ': ' +
-                        STATUS_OPTIONS.find(
-                            (option) => option.value === project.status
-                        )?.label ?? 'Unknown'
+                    ACM_PRIO_OPTIONS.find(
+                        (option) => option.value === project.acm_prio
+                    )?.label ?? 'Unknown'
                 }>
-                {project.status}
+                {project.acm_prio}
             </strong>
             <div className={styles.projectinfo}>
                 <strong>{project.title}</strong>
@@ -96,6 +100,15 @@ const ProjectCard = ({
                     <small className={styles.badge}>{project.type}</small>
                     <small className={styles.badge}>
                         {project.organization}
+                    </small>
+                    <small
+                        className={styles.badge}
+                        title={
+                            STATUS_OPTIONS.find(
+                                (option) => option.value === project.status
+                            )?.label ?? 'Unknown'
+                        }>
+                        {project.status < 4 ? 'zacht' : 'hard'}
                     </small>
                 </div>
             </div>

@@ -2,6 +2,7 @@ import { FormEvent, useEffect, useState } from 'react';
 
 import styles from './WorkboardPage.module.css';
 import {
+    ACM_PRIO_OPTIONS,
     CreateItemModalProps,
     ProjectType,
     STATUS_OPTIONS,
@@ -20,6 +21,7 @@ const CreateItemModal = ({
     const [type, setType] = useState<ProjectType>(TYPE_OPTIONS[0]);
     const [sizeMw, setSizeMw] = useState('0');
     const [status, setStatus] = useState(1);
+    const [acmPrio, setacmPrio] = useState(0);
 
     useEffect(() => {
         if (!isOpen) {
@@ -28,6 +30,7 @@ const CreateItemModal = ({
             setType(TYPE_OPTIONS[0]);
             setSizeMw('0');
             setStatus(1);
+            setacmPrio(0);
         }
     }, [isOpen]);
 
@@ -37,7 +40,7 @@ const CreateItemModal = ({
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        onSubmit(title, description, type, Number(sizeMw), status);
+        onSubmit(title, description, type, Number(sizeMw), status, acmPrio);
     };
 
     return (
@@ -106,6 +109,19 @@ const CreateItemModal = ({
                         }
                         value={status}>
                         {STATUS_OPTIONS.map((option) => (
+                            <option key={option.value} value={option.value}>
+                                {option.value}: {option.label}
+                            </option>
+                        ))}
+                    </select>
+                    <label htmlFor="item-acmPrio">ACM priority</label>
+                    <select
+                        id="item-acmPrio"
+                        onChange={(event) =>
+                            setacmPrio(Number(event.target.value))
+                        }
+                        value={acmPrio}>
+                        {ACM_PRIO_OPTIONS.map((option) => (
                             <option key={option.value} value={option.value}>
                                 {option.value}: {option.label}
                             </option>

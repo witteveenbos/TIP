@@ -6,11 +6,18 @@ export const TYPE_OPTIONS = [
 ] as const;
 
 export const STATUS_OPTIONS = [
-    { value: 1, label: 'Idee' },
-    { value: 2, label: 'Beleidsvoornemen' },
-    { value: 3, label: 'Planvorming' },
-    { value: 4, label: 'Besluitvorming loopt vast' },
-    { value: 5, label: 'Vastgesteld / in uitvoering' },
+    { value: 1, label: 'Idee (zacht)' },
+    { value: 2, label: 'Beleidsvoornemen (zacht)' },
+    { value: 3, label: 'Planvorming  (zacht)' },
+    { value: 4, label: 'Besluitvorming loopt  (vast)' },
+    { value: 5, label: 'Vastgesteld / in uitvoering (vast)' },
+] as const;
+
+export const ACM_PRIO_OPTIONS = [
+    { value: 0, label: 'Geen prio' },
+    { value: 1, label: 'Categorie 1: Congestieverzachters' },
+    { value: 2, label: 'Categorie 2: Veiligheid' },
+    { value: 3, label: 'Categorie 3: Basisbehoeften' },
 ] as const;
 
 export type ProjectType = (typeof TYPE_OPTIONS)[number];
@@ -30,6 +37,7 @@ export type Project = {
     organization: string;
     type: ProjectType;
     size_mw: number;
+    acm_prio: number;
     status: number;
     user: number;
     lane: number;
@@ -75,6 +83,7 @@ export interface CreateItemModalProps {
         description: string,
         type: ProjectType,
         sizeMw: number,
-        status: number
+        status: number,
+        acmPrio: number
     ) => void;
 }
