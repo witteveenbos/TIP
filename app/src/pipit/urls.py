@@ -15,6 +15,7 @@ from main.views.error_500 import error_500_view
 from nextjs.api import api_router
 from energy.urls import urlpatterns as energy_urls
 from futurevision.urls import urlpatterns as futurevision_urls
+from pipit.views_login import CsrfTokenView, LoginView, LogoutView
 
 handler404 = PageNotFoundView.as_view()
 handler500 = error_500_view
@@ -56,6 +57,9 @@ def trigger_error(request):
 
 urlpatterns += [
     path(settings.ADMIN_URL, admin.site.urls),
+    path("wt/api/nextjs/v1/login/", LoginView.as_view()),
+    path("wt/api/nextjs/v1/logout/", LogoutView.as_view()),
+    path("wt/api/nextjs/v1/csrf/", CsrfTokenView.as_view()),
     path("wt/api/nextjs/v1/", api_router.urls),
     path("wt/cms/", include(wagtailadmin_urls)),
     path("wt/documents/", include(wagtaildocs_urls)),
