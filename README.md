@@ -28,6 +28,11 @@ For a new deployment of this tool follow the instructions to start a new project
 For local development; follow these steps:  
 1. Configure and run the scripts in the `/pipelines` 
 2. Use VScode to open dev containers for both the `/app` as the `/hail` folders
+  2.1 To open the /app devcontainer: 
+    - Navigate to 'File' in VSCode
+    - Open Folder
+    - Open the app folder
+    - This will prompt 'Reopen in devcontainer?', click yes. If this is not automatically promted you can CTRL + Shift + P and select 'Dev Container: Reopen in Dev Container. 
 3. In the `/app` dev container, start the client and backend with 2 terminals:
    1. `cd frontend && npm run dev`
    2. `cd src && python manage.py runserver`
