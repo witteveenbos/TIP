@@ -5,6 +5,7 @@ from rest_framework import generics, permissions, serializers
 from rest_framework.response import Response
 from rest_framework import status
 
+from .pages import WorkboardPage
 from .models import WorkboardItems
 from .workboard_serializers import (
     WorkboardItemLaneSerializer,
@@ -48,9 +49,17 @@ class WorkboardItemLaneUpdate(generics.UpdateAPIView):
     def update(self, request, *args, **kwargs):
         item = self.get_object()
         user_organization = getattr(request.user, "organization", "")
-        if item.organization != user_organization:
+        is_admin = request.user.is_staff or request.user.is_superuser
+        page = WorkboardPage.objects.get(pk=item.page_id)
+        if (
+            not is_admin
+            and (
+                page.phase.casefold() == "samenwerksessie"
+                or item.organization != user_organization
+            )
+        ):
             return Response(
-                {"detail": "You cannot move items from another organization."},
+                {"detail": "You do not have permission to move this item."},
                 status=status.HTTP_403_FORBIDDEN,
             )
 
@@ -69,9 +78,17 @@ class WorkboardItemPositionUpdate(generics.UpdateAPIView):
     def update(self, request, *args, **kwargs):
         item = self.get_object()
         user_organization = getattr(request.user, "organization", "")
-        if item.organization != user_organization:
+        is_admin = request.user.is_staff or request.user.is_superuser
+        page = WorkboardPage.objects.get(pk=item.page_id)
+        if (
+            not is_admin
+            and (
+                page.phase.casefold() == "samenwerksessie"
+                or item.organization != user_organization
+            )
+        ):
             return Response(
-                {"detail": "You cannot move items from another organization."},
+                {"detail": "You do not have permission to move this item."},
                 status=status.HTTP_403_FORBIDDEN,
             )
 

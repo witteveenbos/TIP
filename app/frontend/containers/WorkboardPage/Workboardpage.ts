@@ -68,6 +68,7 @@ export interface WorkboardPageProps {
     title?: string;
     phase?: string;
     organization?: string | null;
+    isAdmin?: boolean;
     swimmingLanes?: SwimmingLane[];
 }
 
@@ -83,6 +84,8 @@ export interface SwimmingLaneColumnProps {
     lane: SwimmingLane;
     projects: Project[];
     userOrganization?: string | null;
+    isAdmin?: boolean;
+    phase?: string;
     onProjectDrop: ProjectDropHandler;
 }
 

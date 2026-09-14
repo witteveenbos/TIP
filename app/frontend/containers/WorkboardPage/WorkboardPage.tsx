@@ -19,6 +19,7 @@ const WorkboardPage = ({
     title = 'Workboard',
     phase,
     organization,
+    isAdmin,
     swimmingLanes = [],
 }: WorkboardPageProps) => {
     const [projects, setProjects] = useState<Project[]>([]);
@@ -237,8 +238,12 @@ const WorkboardPage = ({
                                 <ProjectCard
                                     key={project.id}
                                     canDrag={
-                                        Boolean(organization) &&
-                                        project.organization === organization
+                                        Boolean(isAdmin) ||
+                                        (phase?.toLowerCase() !==
+                                            'samenwerksessie' &&
+                                            Boolean(organization) &&
+                                            project.organization ===
+                                                organization)
                                     }
                                     laneIndex={0}
                                     onProjectDrop={handleProjectDrop}
@@ -256,6 +261,8 @@ const WorkboardPage = ({
                             (project) => project.lane === index + 1
                         )}
                         userOrganization={organization}
+                        isAdmin={isAdmin}
+                        phase={phase}
                         onProjectDrop={handleProjectDrop}
                     />
                 ))}
