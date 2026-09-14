@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import WorkboardItems
+from .models import WorkboardItemModification, WorkboardItems
 
 
 class WorkboardItemsSerializer(serializers.ModelSerializer):
@@ -51,6 +51,28 @@ class WorkboardItemUpdateSerializer(serializers.ModelSerializer):
             "updated_by",
             "updated_at",
         ]
+
+
+class WorkboardItemModificationSerializer(serializers.ModelSerializer):
+    username = serializers.SerializerMethodField()
+
+    class Meta:
+        model = WorkboardItemModification
+        fields = [
+            "id",
+            "change_type",
+            "changed_fields",
+            "updated_at",
+            "updated_by",
+            "username",
+        ]
+
+    def get_username(self, modification):
+        return (
+            modification.updated_by.get_username()
+            if modification.updated_by
+            else None
+        )
 
 
 class WorkboardItemLaneSerializer(serializers.ModelSerializer):

@@ -5,7 +5,12 @@ import EditItemModal from './EditItemModal';
 import ProjectCard from './ProjectCard';
 import SwimmingLaneColumn from './SwimmingLaneColumn';
 import styles from './WorkboardPage.module.css';
-import { PHASE_CHOICES, Project, WorkboardPageProps } from './Workboardpage';
+import {
+    PHASE_CHOICES,
+    Project,
+    ProjectModification,
+    WorkboardPageProps,
+} from './Workboardpage';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -31,6 +36,10 @@ const WorkboardPage = ({
     const [isUpdating, setIsUpdating] = useState(false);
     const [updateError, setUpdateError] = useState<string>();
     const [isDeleting, setIsDeleting] = useState(false);
+    const [modifications, setModifications] = useState<ProjectModification[]>(
+        []
+    );
+    const [isLoadingModifications, setIsLoadingModifications] = useState(false);
 
     const canEditProject = (project: Project) =>
         Boolean(isAdmin) ||
@@ -66,6 +75,45 @@ const WorkboardPage = ({
             isMounted = false;
         };
     }, [id]);
+
+    useEffect(() => {
+        if (!editingProject) {
+            setModifications([]);
+            return;
+        }
+
+        let isMounted = true;
+        setIsLoadingModifications(true);
+        fetch(
+            `${API_URL}/workboarditems/item/${editingProject.id}/modifications/`,
+            { credentials: 'include' }
+        )
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Unable to load modifications');
+                }
+                return response.json();
+            })
+            .then((loadedModifications: ProjectModification[]) => {
+                if (isMounted) {
+                    setModifications(loadedModifications);
+                }
+            })
+            .catch(() => {
+                if (isMounted) {
+                    setModifications([]);
+                }
+            })
+            .finally(() => {
+                if (isMounted) {
+                    setIsLoadingModifications(false);
+                }
+            });
+
+        return () => {
+            isMounted = false;
+        };
+    }, [editingProject]);
 
     const handleProjectDrop = useCallback(
         async (
@@ -405,6 +453,8 @@ const WorkboardPage = ({
                     onDelete={handleDeleteItem}
                     onSubmit={handleUpdateItem}
                     project={editingProject}
+                    modifications={modifications}
+                    isLoadingModifications={isLoadingModifications}
                 />
             )}
         </main>

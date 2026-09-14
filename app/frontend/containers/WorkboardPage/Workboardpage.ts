@@ -63,6 +63,15 @@ export type Project = {
     sort_order: number;
 };
 
+export type ProjectModification = {
+    id: number;
+    change_type: 'lane' | 'properties';
+    changed_fields: string[];
+    updated_at: string;
+    updated_by: number | null;
+    username: string | null;
+};
+
 export interface WorkboardPageProps {
     id: number;
     title?: string;
@@ -118,4 +127,6 @@ export interface CreateItemModalProps {
 export type EditItemModalProps = CreateItemModalProps & {
     project: Project;
     onDelete: () => void;
+    modifications: ProjectModification[];
+    isLoadingModifications: boolean;
 };
