@@ -4,7 +4,7 @@ import CreateItemModal from './CreateItemModal';
 import ProjectCard from './ProjectCard';
 import SwimmingLaneColumn from './SwimmingLaneColumn';
 import styles from './WorkboardPage.module.css';
-import { Project, WorkboardPageProps } from './Workboardpage';
+import { PHASE_CHOICES, Project, WorkboardPageProps } from './Workboardpage';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -171,11 +171,36 @@ const WorkboardPage = ({
     return (
         <main className={styles.page}>
             <header className={styles.header}>
-                <div>
-                    <p className={styles.eyebrow}>Workboard</p>
-                    <h1>{title}</h1>
-                </div>
-                {phase && <p className={styles.phase}>{phase}</p>}
+                <ul>
+                    {PHASE_CHOICES.map((phaseChoice) => {
+                        const isActive =
+                            phase === phaseChoice.label ||
+                            phase === String(phaseChoice.value);
+
+                        return (
+                            <li
+                                aria-current={isActive ? 'step' : undefined}
+                                className={isActive ? styles.active : undefined}
+                                key={phaseChoice.value}>
+                                <span>{phaseChoice.value}</span>
+                                <span>{phaseChoice.label}</span>
+                            </li>
+                        );
+                    })}
+                </ul>
+                <ul className={styles.subheader}>
+                    <li>
+                        <span>
+                            {
+                                PHASE_CHOICES.find(
+                                    (phaseChoice) => phaseChoice.label === phase
+                                ).description
+                            }
+                        </span>
+                        <small className={styles.badge}>Organisatie x</small>
+                        <small className={styles.badge}>Organisatie 7</small>
+                    </li>
+                </ul>
             </header>
 
             <section className={styles.board} aria-label="Swimming lanes">

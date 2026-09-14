@@ -20,6 +20,25 @@ export const ACM_PRIO_OPTIONS = [
     { value: 3, label: 'Categorie 3: Basisbehoeften' },
 ] as const;
 
+export const PHASE_CHOICES = [
+    { value: 1, label: 'inzicht & invoeren', description: 'Lorem ipsum' },
+    {
+        value: 2,
+        label: 'Samenwerksessie',
+        description: 'Lorem ipsum samenwerksessie',
+    },
+    {
+        value: 3,
+        label: 'Versies vergelijken',
+        description: 'In deze stap vergelijken we sessies',
+    },
+    {
+        value: 4,
+        label: 'Integraal programmeren',
+        description: 'Lekker integraal programmeren',
+    },
+] as const;
+
 export type ProjectType = (typeof TYPE_OPTIONS)[number];
 
 export type SwimmingLane = {
