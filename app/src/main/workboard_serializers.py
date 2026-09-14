@@ -24,6 +24,35 @@ class WorkboardItemsSerializer(serializers.ModelSerializer):
         read_only_fields = ["sort_order"]
 
 
+class WorkboardItemUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WorkboardItems
+        fields = [
+            "id",
+            "title",
+            "description",
+            "organization",
+            "type",
+            "size_mw",
+            "status",
+            "acm_prio",
+            "page_id",
+            "lane",
+            "sort_order",
+            "updated_by",
+            "updated_at",
+        ]
+        read_only_fields = [
+            "id",
+            "organization",
+            "page_id",
+            "lane",
+            "sort_order",
+            "updated_by",
+            "updated_at",
+        ]
+
+
 class WorkboardItemLaneSerializer(serializers.ModelSerializer):
     class Meta:
         model = WorkboardItems

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import CreateItemModal from './CreateItemModal';
+import EditItemModal from './EditItemModal';
 import ProjectCard from './ProjectCard';
 import SwimmingLaneColumn from './SwimmingLaneColumn';
 import styles from './WorkboardPage.module.css';
@@ -26,6 +27,19 @@ const WorkboardPage = ({
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     const [isCreating, setIsCreating] = useState(false);
     const [createError, setCreateError] = useState<string>();
+    const [editingProject, setEditingProject] = useState<Project | null>(null);
+    const [isUpdating, setIsUpdating] = useState(false);
+    const [updateError, setUpdateError] = useState<string>();
+    const [isDeleting, setIsDeleting] = useState(false);
+
+    const canEditProject = (project: Project) =>
+        Boolean(isAdmin) ||
+        (phase?.toLowerCase() === 'inzicht & invoeren' &&
+            Boolean(organization) &&
+            project.organization === organization);
+    const organizations = Array.from(
+        new Set(projects.map((project) => project.organization).filter(Boolean))
+    );
 
     useEffect(() => {
         let isMounted = true;
@@ -169,6 +183,97 @@ const WorkboardPage = ({
         }
     };
 
+    const handleUpdateItem = async (
+        itemTitle: string,
+        description: string,
+        type: Project['type'],
+        sizeMw: number,
+        status: number,
+        acmPrio: number
+    ) => {
+        if (!editingProject) {
+            return;
+        }
+
+        setIsUpdating(true);
+        setUpdateError(undefined);
+
+        try {
+            const response = await fetch(
+                `${API_URL}/workboarditems/item/${editingProject.id}/`,
+                {
+                    method: 'PATCH',
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCsrfToken() || '',
+                    },
+                    body: JSON.stringify({
+                        title: itemTitle,
+                        description,
+                        type,
+                        size_mw: sizeMw,
+                        acm_prio: acmPrio,
+                        status,
+                    }),
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error('Unable to update item');
+            }
+
+            const updatedProject = (await response.json()) as Project;
+            setProjects((currentProjects) =>
+                currentProjects.map((project) =>
+                    project.id === updatedProject.id ? updatedProject : project
+                )
+            );
+            setEditingProject(null);
+        } catch {
+            setUpdateError('Unable to update item. Please try again.');
+        } finally {
+            setIsUpdating(false);
+        }
+    };
+
+    const handleDeleteItem = async () => {
+        if (!editingProject) {
+            return;
+        }
+
+        setIsDeleting(true);
+        setUpdateError(undefined);
+
+        try {
+            const response = await fetch(
+                `${API_URL}/workboarditems/item/${editingProject.id}/`,
+                {
+                    method: 'DELETE',
+                    credentials: 'include',
+                    headers: {
+                        'X-CSRFToken': getCsrfToken() || '',
+                    },
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error('Unable to delete item');
+            }
+
+            setProjects((currentProjects) =>
+                currentProjects.filter(
+                    (project) => project.id !== editingProject.id
+                )
+            );
+            setEditingProject(null);
+        } catch {
+            setUpdateError('Unable to delete item. Please try again.');
+        } finally {
+            setIsDeleting(false);
+        }
+    };
+
     return (
         <main className={styles.page}>
             <header className={styles.header}>
@@ -191,15 +296,22 @@ const WorkboardPage = ({
                 </ul>
                 <ul className={styles.subheader}>
                     <li>
-                        <span>
+                        <span className={styles.subheader__description}>
                             {
                                 PHASE_CHOICES.find(
                                     (phaseChoice) => phaseChoice.label === phase
                                 ).description
                             }
                         </span>
-                        <small className={styles.badge}>Organisatie x</small>
-                        <small className={styles.badge}>Organisatie 7</small>
+                        <span className={styles.badgelist}>
+                            {organizations.map((projectOrganization) => (
+                                <small
+                                    className={styles.badge}
+                                    key={projectOrganization}>
+                                    {projectOrganization}
+                                </small>
+                            ))}
+                        </span>
                     </li>
                 </ul>
             </header>
@@ -245,7 +357,12 @@ const WorkboardPage = ({
                                             project.organization ===
                                                 organization)
                                     }
+                                    canEdit={canEditProject(project)}
                                     laneIndex={0}
+                                    onEdit={(selectedProject) => {
+                                        setUpdateError(undefined);
+                                        setEditingProject(selectedProject);
+                                    }}
                                     onProjectDrop={handleProjectDrop}
                                     project={project}
                                 />
@@ -263,6 +380,11 @@ const WorkboardPage = ({
                         userOrganization={organization}
                         isAdmin={isAdmin}
                         phase={phase}
+                        canEdit={canEditProject}
+                        onEdit={(selectedProject) => {
+                            setUpdateError(undefined);
+                            setEditingProject(selectedProject);
+                        }}
                         onProjectDrop={handleProjectDrop}
                     />
                 ))}
@@ -274,6 +396,17 @@ const WorkboardPage = ({
                 onClose={() => setIsCreateModalOpen(false)}
                 onSubmit={handleCreateItem}
             />
+            {editingProject && (
+                <EditItemModal
+                    error={updateError}
+                    isOpen={true}
+                    isSubmitting={isUpdating || isDeleting}
+                    onClose={() => setEditingProject(null)}
+                    onDelete={handleDeleteItem}
+                    onSubmit={handleUpdateItem}
+                    project={editingProject}
+                />
+            )}
         </main>
     );
 };

@@ -86,13 +86,17 @@ export interface SwimmingLaneColumnProps {
     userOrganization?: string | null;
     isAdmin?: boolean;
     phase?: string;
+    canEdit: (project: Project) => boolean;
+    onEdit: (project: Project) => void;
     onProjectDrop: ProjectDropHandler;
 }
 
 export interface ProjectCardProps {
     project: Project;
     canDrag: boolean;
+    canEdit: boolean;
     laneIndex: number;
+    onEdit: (project: Project) => void;
     onProjectDrop: ProjectDropHandler;
 }
 
@@ -110,3 +114,8 @@ export interface CreateItemModalProps {
         acmPrio: number
     ) => void;
 }
+
+export type EditItemModalProps = CreateItemModalProps & {
+    project: Project;
+    onDelete: () => void;
+};

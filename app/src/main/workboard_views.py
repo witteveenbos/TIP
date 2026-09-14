@@ -10,6 +10,7 @@ from .models import WorkboardItems
 from .workboard_serializers import (
     WorkboardItemLaneSerializer,
     WorkboardItemPositionSerializer,
+    WorkboardItemUpdateSerializer,
     WorkboardItemsSerializer,
 )
 
@@ -38,6 +39,45 @@ class WorkboardItemsByPageList(generics.ListCreateAPIView):
                 organization=getattr(self.request.user, "organization", ""),
                 updated_by=self.request.user,
             )
+
+
+class WorkboardItemUpdate(generics.UpdateAPIView):
+    queryset = WorkboardItems.objects.all()
+    serializer_class = WorkboardItemUpdateSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    http_method_names = ["patch", "delete"]
+
+    def can_edit(self, item, user):
+        page = WorkboardPage.objects.get(pk=item.page_id)
+        return user.is_staff or user.is_superuser or (
+            page.phase.casefold() == "inzicht & invoeren"
+            and item.organization == getattr(user, "organization", "")
+        )
+
+    def update(self, request, *args, **kwargs):
+        item = self.get_object()
+        user = request.user
+        if not self.can_edit(item, user):
+            return Response(
+                {"detail": "You do not have permission to edit this item."},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+
+        serializer = self.get_serializer(item, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save(updated_by=user)
+        return Response(WorkboardItemsSerializer(item).data)
+
+    def delete(self, request, *args, **kwargs):
+        item = self.get_object()
+        if not self.can_edit(item, request.user):
+            return Response(
+                {"detail": "You do not have permission to delete this item."},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+
+        item.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class WorkboardItemLaneUpdate(generics.UpdateAPIView):

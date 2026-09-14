@@ -14,7 +14,9 @@ import {
 const ProjectCard = ({
     project,
     canDrag,
+    canEdit,
     laneIndex,
+    onEdit,
     onProjectDrop,
 }: ProjectCardProps) => {
     const cardRef = useRef<HTMLElement>(null);
@@ -76,8 +78,6 @@ const ProjectCard = ({
         };
     }, [canDrag, laneIndex, onProjectDrop, project.id, project.organization]);
 
-    console.log(project);
-
     return (
         <article
             className={`${styles.project} ${
@@ -112,6 +112,14 @@ const ProjectCard = ({
                     </small>
                 </div>
             </div>
+            {canEdit && (
+                <button
+                    className={styles.editbutton}
+                    onClick={() => onEdit(project)}
+                    type="button">
+                    <small className={styles.badge}>edit</small>
+                </button>
+            )}
         </article>
     );
 };

@@ -12,6 +12,8 @@ const SwimmingLaneColumn = ({
     userOrganization,
     isAdmin,
     phase,
+    canEdit,
+    onEdit,
     onProjectDrop,
 }: SwimmingLaneColumnProps) => {
     const columnRef = useRef<HTMLElement>(null);
@@ -88,7 +90,9 @@ const SwimmingLaneColumn = ({
                                 Boolean(userOrganization) &&
                                 project.organization === userOrganization)
                         }
+                        canEdit={canEdit(project)}
                         laneIndex={index}
+                        onEdit={onEdit}
                         onProjectDrop={onProjectDrop}
                         project={project}
                     />

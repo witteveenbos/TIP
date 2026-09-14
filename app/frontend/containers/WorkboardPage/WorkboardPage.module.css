@@ -43,9 +43,9 @@
             li {
                 justify-content: end;
                 align-items: center;
-                span {
-                    margin-right: auto;
-                }
+            }
+            .subheader__description {
+                margin-right: auto;
             }
         }
     }
@@ -255,6 +255,22 @@
         color: #243f36;
         padding: 0.7rem 0.9rem;
     }
+
+    .deleteButton {
+        border: 0;
+        background: transparent;
+        color: #a34f35;
+        cursor: pointer;
+        font: inherit;
+        font-weight: 700;
+        margin-right: auto;
+        padding: 0.7rem 0.9rem;
+    }
+
+    .deleteButton:disabled {
+        cursor: wait;
+        opacity: 0.65;
+    }
 }
 
 .projects {
@@ -262,8 +278,20 @@
     gap: 0.65rem;
     margin-top: 1.5rem;
 }
+.badgelist {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
 
+.badge {
+    padding: 0.125rem 0.25rem;
+    border: 1px solid #333;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+}
 .project {
+    position: relative;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -291,18 +319,6 @@
         margin-bottom: auto;
         aspect-ratio: 1 / 1;
     }
-    .badgelist {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-
-        .badge {
-            padding: 0.125rem 0.25rem;
-            border: 1px solid #333;
-            border-radius: 0.25rem;
-            font-size: 0.75rem;
-        }
-    }
 
     &.projectDragging {
         opacity: 0.45;
@@ -312,6 +328,12 @@
     &.projectDropTarget {
         border-color: #a34f35;
         box-shadow: 0 0 0 2px rgb(163 79 53 / 25%);
+    }
+    .editbutton {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 0.25rem;
     }
 }
 
