@@ -74,6 +74,11 @@ class WorkboardItems(models.Model):
 
 
 class WorkboardItemModification(models.Model):
+    CHANGE_TYPE_CHOICES = [
+        ("lane", "Lane"),
+        ("properties", "Properties"),
+    ]
+
     item = models.ForeignKey(
         WorkboardItems,
         on_delete=models.CASCADE,
@@ -85,6 +90,8 @@ class WorkboardItemModification(models.Model):
         null=True,
         related_name="workboard_item_modifications",
     )
+    change_type = models.CharField(max_length=20, choices=CHANGE_TYPE_CHOICES)
+    changed_fields = models.JSONField(default=list)
     updated_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

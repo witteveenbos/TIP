@@ -7,19 +7,47 @@
 
 .header {
     display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 1.5rem;
-    max-width: 90rem;
-    margin: 0 auto 2rem;
+    flex-direction: column;
     border-bottom: 1px solid #b9c2b4;
     padding-bottom: 1.25rem;
 
-    & h1 {
+    h1 {
         margin: 0;
         font-size: clamp(1.8rem, 4vw, 3.5rem);
         font-weight: 500;
         letter-spacing: 0;
+    }
+    ul {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        border-bottom: 1px solid #000;
+
+        li {
+            flex: 1 1 100%;
+            border: 1px solid #333;
+            border-bottom: 3px solid transparent;
+            padding: 1rem;
+            display: flex;
+            flex-direction: row;
+            gap: 0.5rem;
+            background-color: rgb(193, 194, 223);
+
+            &[aria-current='step'] {
+                background-color: rgb(193, 255, 255);
+                border-bottom-color: rgb(33, 177, 255);
+            }
+        }
+        &.subheader {
+            li {
+                justify-content: end;
+                align-items: center;
+            }
+            .subheader__description {
+                margin-right: auto;
+            }
+        }
     }
 }
 
@@ -86,7 +114,7 @@
                 transition: 0.3s all;
                 position: absolute;
                 height: 100%;
-                background-color: blue;
+                background-color: rgb(36, 36, 146);
                 &:after {
                     content: attr(data-label);
                     position: absolute;
@@ -155,6 +183,8 @@
         background: #fffdf7;
         box-shadow: 0 18px 45px rgb(29 41 36 / 24%);
         padding: 1.5rem;
+        max-height: 100%;
+        overflow: auto;
     }
 
     .modalHeader {
@@ -176,6 +206,29 @@
         background: transparent;
         color: #657b6b;
         font-size: 1.25rem;
+    }
+
+    .modalTabs {
+        display: flex;
+        gap: 0.5rem;
+        border-bottom: 1px solid #d8ded2;
+        margin-top: 1rem;
+    }
+
+    .tabButton {
+        border: 0;
+        border-bottom: 2px solid transparent;
+        background: transparent;
+        color: #657b6b;
+        cursor: pointer;
+        font: inherit;
+        font-weight: 700;
+        padding: 0.6rem 0.75rem;
+
+        &[aria-selected='true'] {
+            border-bottom-color: #a34f35;
+            color: #243f36;
+        }
     }
 
     .form {
@@ -215,6 +268,32 @@
         font-size: 0.85rem;
     }
 
+    .history {
+        min-height: 12rem;
+        margin-top: 1.25rem;
+
+        & ul {
+            display: grid;
+            gap: 0.75rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        & li {
+            display: grid;
+            gap: 0.2rem;
+            border-left: 3px solid #2d6a5b;
+            background: #f4f1e8;
+            padding: 0.7rem 0.8rem;
+        }
+
+        & span,
+        & small {
+            color: #657b6b;
+        }
+    }
+
     .modalActions {
         display: flex;
         justify-content: flex-end;
@@ -227,6 +306,22 @@
         color: #243f36;
         padding: 0.7rem 0.9rem;
     }
+
+    .deleteButton {
+        border: 0;
+        background: transparent;
+        color: #a34f35;
+        cursor: pointer;
+        font: inherit;
+        font-weight: 700;
+        margin-right: auto;
+        padding: 0.7rem 0.9rem;
+    }
+
+    .deleteButton:disabled {
+        cursor: wait;
+        opacity: 0.65;
+    }
 }
 
 .projects {
@@ -234,14 +329,26 @@
     gap: 0.65rem;
     margin-top: 1.5rem;
 }
+.badgelist {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
 
+.badge {
+    padding: 0.125rem 0.25rem;
+    border: 1px solid #333;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+}
 .project {
+    position: relative;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     cursor: not-allowed;
     border: 0.2rem solid #d8ded2;
-    background: silver;
+    background: rgb(203, 203, 203);
     padding: 0.5rem;
     gap: 0.5rem;
     transition:
@@ -263,18 +370,6 @@
         margin-bottom: auto;
         aspect-ratio: 1 / 1;
     }
-    .badgelist {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-
-        .badge {
-            padding: 0.125rem 0.25rem;
-            border: 1px solid #333;
-            border-radius: 0.25rem;
-            font-size: 0.75rem;
-        }
-    }
 
     &.projectDragging {
         opacity: 0.45;
@@ -284,6 +379,12 @@
     &.projectDropTarget {
         border-color: #a34f35;
         box-shadow: 0 0 0 2px rgb(163 79 53 / 25%);
+    }
+    .editbutton {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 0.25rem;
     }
 }
 

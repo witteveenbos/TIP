@@ -1,10 +1,16 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import CreateItemModal from './CreateItemModal';
+import EditItemModal from './EditItemModal';
 import ProjectCard from './ProjectCard';
 import SwimmingLaneColumn from './SwimmingLaneColumn';
 import styles from './WorkboardPage.module.css';
-import { Project, WorkboardPageProps } from './Workboardpage';
+import {
+    PHASE_CHOICES,
+    Project,
+    ProjectModification,
+    WorkboardPageProps,
+} from './Workboardpage';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -19,12 +25,30 @@ const WorkboardPage = ({
     title = 'Workboard',
     phase,
     organization,
+    isAdmin,
     swimmingLanes = [],
 }: WorkboardPageProps) => {
     const [projects, setProjects] = useState<Project[]>([]);
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     const [isCreating, setIsCreating] = useState(false);
     const [createError, setCreateError] = useState<string>();
+    const [editingProject, setEditingProject] = useState<Project | null>(null);
+    const [isUpdating, setIsUpdating] = useState(false);
+    const [updateError, setUpdateError] = useState<string>();
+    const [isDeleting, setIsDeleting] = useState(false);
+    const [modifications, setModifications] = useState<ProjectModification[]>(
+        []
+    );
+    const [isLoadingModifications, setIsLoadingModifications] = useState(false);
+
+    const canEditProject = (project: Project) =>
+        Boolean(isAdmin) ||
+        (phase?.toLowerCase() === 'inzicht & invoeren' &&
+            Boolean(organization) &&
+            project.organization === organization);
+    const organizations = Array.from(
+        new Set(projects.map((project) => project.organization).filter(Boolean))
+    );
 
     useEffect(() => {
         let isMounted = true;
@@ -51,6 +75,45 @@ const WorkboardPage = ({
             isMounted = false;
         };
     }, [id]);
+
+    useEffect(() => {
+        if (!editingProject) {
+            setModifications([]);
+            return;
+        }
+
+        let isMounted = true;
+        setIsLoadingModifications(true);
+        fetch(
+            `${API_URL}/workboarditems/item/${editingProject.id}/modifications/`,
+            { credentials: 'include' }
+        )
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Unable to load modifications');
+                }
+                return response.json();
+            })
+            .then((loadedModifications: ProjectModification[]) => {
+                if (isMounted) {
+                    setModifications(loadedModifications);
+                }
+            })
+            .catch(() => {
+                if (isMounted) {
+                    setModifications([]);
+                }
+            })
+            .finally(() => {
+                if (isMounted) {
+                    setIsLoadingModifications(false);
+                }
+            });
+
+        return () => {
+            isMounted = false;
+        };
+    }, [editingProject]);
 
     const handleProjectDrop = useCallback(
         async (
@@ -168,14 +231,137 @@ const WorkboardPage = ({
         }
     };
 
+    const handleUpdateItem = async (
+        itemTitle: string,
+        description: string,
+        type: Project['type'],
+        sizeMw: number,
+        status: number,
+        acmPrio: number
+    ) => {
+        if (!editingProject) {
+            return;
+        }
+
+        setIsUpdating(true);
+        setUpdateError(undefined);
+
+        try {
+            const response = await fetch(
+                `${API_URL}/workboarditems/item/${editingProject.id}/`,
+                {
+                    method: 'PATCH',
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCsrfToken() || '',
+                    },
+                    body: JSON.stringify({
+                        title: itemTitle,
+                        description,
+                        type,
+                        size_mw: sizeMw,
+                        acm_prio: acmPrio,
+                        status,
+                    }),
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error('Unable to update item');
+            }
+
+            const updatedProject = (await response.json()) as Project;
+            setProjects((currentProjects) =>
+                currentProjects.map((project) =>
+                    project.id === updatedProject.id ? updatedProject : project
+                )
+            );
+            setEditingProject(null);
+        } catch {
+            setUpdateError('Unable to update item. Please try again.');
+        } finally {
+            setIsUpdating(false);
+        }
+    };
+
+    const handleDeleteItem = async () => {
+        if (!editingProject) {
+            return;
+        }
+
+        setIsDeleting(true);
+        setUpdateError(undefined);
+
+        try {
+            const response = await fetch(
+                `${API_URL}/workboarditems/item/${editingProject.id}/`,
+                {
+                    method: 'DELETE',
+                    credentials: 'include',
+                    headers: {
+                        'X-CSRFToken': getCsrfToken() || '',
+                    },
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error('Unable to delete item');
+            }
+
+            setProjects((currentProjects) =>
+                currentProjects.filter(
+                    (project) => project.id !== editingProject.id
+                )
+            );
+            setEditingProject(null);
+        } catch {
+            setUpdateError('Unable to delete item. Please try again.');
+        } finally {
+            setIsDeleting(false);
+        }
+    };
+
     return (
         <main className={styles.page}>
             <header className={styles.header}>
-                <div>
-                    <p className={styles.eyebrow}>Workboard</p>
-                    <h1>{title}</h1>
-                </div>
-                {phase && <p className={styles.phase}>{phase}</p>}
+                <ul>
+                    {PHASE_CHOICES.map((phaseChoice) => {
+                        const isActive =
+                            phase === phaseChoice.label ||
+                            phase === String(phaseChoice.value);
+
+                        return (
+                            <li
+                                aria-current={isActive ? 'step' : undefined}
+                                className={isActive ? styles.active : undefined}
+                                key={phaseChoice.value}>
+                                <span>{phaseChoice.value}</span>
+                                <span>{phaseChoice.label}</span>
+                            </li>
+                        );
+                    })}
+                </ul>
+                <ul className={styles.subheader}>
+                    <li>
+                        <span className={styles.subheader__description}>
+                            {
+                                PHASE_CHOICES.find(
+                                    (phaseChoice) => phaseChoice.label === phase
+                                ).description
+                            }
+                        </span>
+                        <span className={styles.badgelist}>
+                            {organizations.map((projectOrganization) => (
+                                <small
+                                    className={styles.badge}
+                                    key={projectOrganization}>
+                                    {projectOrganization}
+                                </small>
+                            ))}
+                        </span>
+                    </li>
+                </ul>
             </header>
 
             <section className={styles.board} aria-label="Swimming lanes">
@@ -212,10 +398,19 @@ const WorkboardPage = ({
                                 <ProjectCard
                                     key={project.id}
                                     canDrag={
-                                        Boolean(organization) &&
-                                        project.organization === organization
+                                        Boolean(isAdmin) ||
+                                        (phase?.toLowerCase() !==
+                                            'samenwerksessie' &&
+                                            Boolean(organization) &&
+                                            project.organization ===
+                                                organization)
                                     }
+                                    canEdit={canEditProject(project)}
                                     laneIndex={0}
+                                    onEdit={(selectedProject) => {
+                                        setUpdateError(undefined);
+                                        setEditingProject(selectedProject);
+                                    }}
                                     onProjectDrop={handleProjectDrop}
                                     project={project}
                                 />
@@ -231,6 +426,13 @@ const WorkboardPage = ({
                             (project) => project.lane === index + 1
                         )}
                         userOrganization={organization}
+                        isAdmin={isAdmin}
+                        phase={phase}
+                        canEdit={canEditProject}
+                        onEdit={(selectedProject) => {
+                            setUpdateError(undefined);
+                            setEditingProject(selectedProject);
+                        }}
                         onProjectDrop={handleProjectDrop}
                     />
                 ))}
@@ -242,6 +444,19 @@ const WorkboardPage = ({
                 onClose={() => setIsCreateModalOpen(false)}
                 onSubmit={handleCreateItem}
             />
+            {editingProject && (
+                <EditItemModal
+                    error={updateError}
+                    isOpen={true}
+                    isSubmitting={isUpdating || isDeleting}
+                    onClose={() => setEditingProject(null)}
+                    onDelete={handleDeleteItem}
+                    onSubmit={handleUpdateItem}
+                    project={editingProject}
+                    modifications={modifications}
+                    isLoadingModifications={isLoadingModifications}
+                />
+            )}
         </main>
     );
 };
