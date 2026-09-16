@@ -1,14 +1,8 @@
-import { FormEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
+import ItemForm, { ItemFormValues } from './ItemForm';
+import { EditItemModalProps, ProjectModification } from './Workboardpage';
 import styles from './WorkboardPage.module.css';
-import {
-    ACM_PRIO_OPTIONS,
-    EditItemModalProps,
-    ProjectModification,
-    ProjectType,
-    STATUS_OPTIONS,
-    TYPE_OPTIONS,
-} from './Workboardpage';
 
 const EditItemModal = ({
     isOpen,
@@ -21,23 +15,11 @@ const EditItemModal = ({
     modifications,
     isLoadingModifications,
 }: EditItemModalProps) => {
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [type, setType] = useState<ProjectType>(TYPE_OPTIONS[0]);
-    const [sizeMw, setSizeMw] = useState('0');
-    const [status, setStatus] = useState(1);
-    const [acmPrio, setAcmPrio] = useState(0);
     const [activeTab, setActiveTab] = useState<'edit' | 'history'>('edit');
 
     useEffect(() => {
         if (isOpen) {
             setActiveTab('edit');
-            setTitle(project.title);
-            setDescription(project.description);
-            setType(project.type);
-            setSizeMw(String(project.size_mw));
-            setStatus(project.status);
-            setAcmPrio(project.acm_prio);
         }
     }, [isOpen, project]);
 
@@ -45,10 +27,15 @@ const EditItemModal = ({
         return null;
     }
 
-    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        onSubmit(title, description, type, Number(sizeMw), status, acmPrio);
-    };
+    const handleSubmit = ({
+        title,
+        description,
+        type,
+        sizeMw,
+        status,
+        acmPrio,
+    }: ItemFormValues) =>
+        onSubmit(title, description, type, sizeMw, status, acmPrio);
 
     const formatModification = (modification: ProjectModification) =>
         `${modification.username ?? 'Onbekende gebruiker'} - ${new Date(
@@ -103,78 +90,21 @@ const EditItemModal = ({
                     </button>
                 </div>
                 {activeTab === 'edit' ? (
-                    <form className={styles.form} onSubmit={handleSubmit}>
-                        <label htmlFor="edit-item-title-input">Titel</label>
-                        <input
-                            autoFocus
-                            id="edit-item-title-input"
-                            onChange={(event) => setTitle(event.target.value)}
-                            required
-                            value={title}
-                        />
-                        <label htmlFor="edit-item-description">
-                            Omschrijving
-                        </label>
-                        <textarea
-                            id="edit-item-description"
-                            onChange={(event) =>
-                                setDescription(event.target.value)
-                            }
-                            rows={5}
-                            value={description}
-                        />
-                        <label htmlFor="edit-item-type">Type</label>
-                        <select
-                            id="edit-item-type"
-                            onChange={(event) =>
-                                setType(event.target.value as ProjectType)
-                            }
-                            value={type}>
-                            {TYPE_OPTIONS.map((option) => (
-                                <option key={option} value={option}>
-                                    {option}
-                                </option>
-                            ))}
-                        </select>
-                        <label htmlFor="edit-item-size-mw">Grootte (MW)</label>
-                        <input
-                            id="edit-item-size-mw"
-                            min="0"
-                            onChange={(event) => setSizeMw(event.target.value)}
-                            required
-                            type="number"
-                            value={sizeMw}
-                        />
-                        <label htmlFor="edit-item-status">Status</label>
-                        <select
-                            id="edit-item-status"
-                            onChange={(event) =>
-                                setStatus(Number(event.target.value))
-                            }
-                            value={status}>
-                            {STATUS_OPTIONS.map((option) => (
-                                <option key={option.value} value={option.value}>
-                                    {option.value}: {option.label}
-                                </option>
-                            ))}
-                        </select>
-                        <label htmlFor="edit-item-acm-prio">
-                            ACM prioriteit
-                        </label>
-                        <select
-                            id="edit-item-acm-prio"
-                            onChange={(event) =>
-                                setAcmPrio(Number(event.target.value))
-                            }
-                            value={acmPrio}>
-                            {ACM_PRIO_OPTIONS.map((option) => (
-                                <option key={option.value} value={option.value}>
-                                    {option.value}: {option.label}
-                                </option>
-                            ))}
-                        </select>
-                        {error && <p className={styles.formError}>{error}</p>}
-                        <div className={styles.modalActions}>
+                    <ItemForm
+                        error={error}
+                        idPrefix="edit-item"
+                        initialValues={{
+                            title: project.title,
+                            description: project.description,
+                            type: project.type,
+                            sizeMw: project.size_mw,
+                            status: project.status,
+                            acmPrio: project.acm_prio,
+                        }}
+                        isSubmitting={isSubmitting}
+                        onCancel={onClose}
+                        onSubmit={handleSubmit}
+                        renderAdditionalActions={() => (
                             <button
                                 className={styles.deleteButton}
                                 disabled={isSubmitting}
@@ -182,20 +112,10 @@ const EditItemModal = ({
                                 type="button">
                                 Verwijder item
                             </button>
-                            <button
-                                className={styles.secondaryButton}
-                                onClick={onClose}
-                                type="button">
-                                Annuleer
-                            </button>
-                            <button
-                                className={styles.primaryButton}
-                                disabled={isSubmitting}
-                                type="submit">
-                                {isSubmitting ? 'opslaan...' : 'Verstuur'}
-                            </button>
-                        </div>
-                    </form>
+                        )}
+                        submitLabel="Verstuur"
+                        submittingLabel="opslaan..."
+                    />
                 ) : (
                     <div className={styles.history} role="tabpanel">
                         {isLoadingModifications ? (
