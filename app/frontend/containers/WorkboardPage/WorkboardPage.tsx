@@ -56,7 +56,7 @@ const WorkboardPage = ({
         fetch(`${API_URL}/workboarditems/${id}/`)
             .then((response) => {
                 if (!response.ok) {
-                    throw new Error('Unable to load projects');
+                    throw new Error('Fout bij inladen van projecten');
                 }
                 return response.json();
             })
@@ -90,7 +90,7 @@ const WorkboardPage = ({
         )
             .then((response) => {
                 if (!response.ok) {
-                    throw new Error('Unable to load modifications');
+                    throw new Error('Fout bij inladen van modificaties');
                 }
                 return response.json();
             })
@@ -215,7 +215,7 @@ const WorkboardPage = ({
             });
 
             if (!response.ok) {
-                throw new Error('Unable to create item');
+                throw new Error('Fout bij aanmaken van item');
             }
 
             const createdProject = (await response.json()) as Project;
@@ -225,7 +225,7 @@ const WorkboardPage = ({
             ]);
             setIsCreateModalOpen(false);
         } catch {
-            setCreateError('Unable to create item. Please try again.');
+            setCreateError('Fout bij aanmaken van item, probeer het opnieuw.');
         } finally {
             setIsCreating(false);
         }
@@ -268,7 +268,7 @@ const WorkboardPage = ({
             );
 
             if (!response.ok) {
-                throw new Error('Unable to update item');
+                throw new Error('Fout bij updaten van item');
             }
 
             const updatedProject = (await response.json()) as Project;
@@ -279,7 +279,7 @@ const WorkboardPage = ({
             );
             setEditingProject(null);
         } catch {
-            setUpdateError('Unable to update item. Please try again.');
+            setUpdateError('Fout bij updaten van item, probeer het opnieuw.');
         } finally {
             setIsUpdating(false);
         }
@@ -306,7 +306,7 @@ const WorkboardPage = ({
             );
 
             if (!response.ok) {
-                throw new Error('Unable to delete item');
+                throw new Error('Fout bij verwijderen van item');
             }
 
             setProjects((currentProjects) =>
@@ -316,7 +316,9 @@ const WorkboardPage = ({
             );
             setEditingProject(null);
         } catch {
-            setUpdateError('Unable to delete item. Please try again.');
+            setUpdateError(
+                'Fout bij verwijderen van item. Probeer het opnieuw.'
+            );
         } finally {
             setIsDeleting(false);
         }
@@ -368,18 +370,7 @@ const WorkboardPage = ({
                 <article className={styles.column}>
                     <div className={styles.laneHeader}>
                         <div>
-                            <p className={styles.laneNumber}>Lane 0</p>
-                            <h2>New items</h2>
-                            <p className={styles.laneTotal}>
-                                Total size:{' '}
-                                {projects
-                                    .filter((project) => project.lane === 0)
-                                    .reduce(
-                                        (sum, project) => sum + project.size_mw,
-                                        0
-                                    )}{' '}
-                                MW
-                            </p>
+                            <p className={styles.laneNumber}>Voorraad</p>
                         </div>
                         <button
                             className={styles.primaryButton}
@@ -388,7 +379,7 @@ const WorkboardPage = ({
                                 setIsCreateModalOpen(true);
                             }}
                             type="button">
-                            Create new item
+                            Nieuw item
                         </button>
                     </div>
                     <div className={styles.projects}>

@@ -51,14 +51,14 @@ const EditItemModal = ({
     };
 
     const formatModification = (modification: ProjectModification) =>
-        `${modification.username ?? 'Unknown user'} - ${new Date(
+        `${modification.username ?? 'Onbekende gebruiker'} - ${new Date(
             modification.updated_at
         ).toLocaleString()}`;
 
     const handleDelete = () => {
         if (
             window.confirm(
-                `Are you sure you want to delete "${project.title}"?`
+                `Weet je zeker dat je "${project.title}" wilt verwijderen?`
             )
         ) {
             onDelete();
@@ -74,11 +74,10 @@ const EditItemModal = ({
                 role="dialog">
                 <div className={styles.modalHeader}>
                     <div>
-                        <p className={styles.eyebrow}>Project item</p>
-                        <h2 id="edit-item-title">Edit item</h2>
+                        <h2 id="edit-item-title">Aanpassen</h2>
                     </div>
                     <button
-                        aria-label="Close modal"
+                        aria-label="sluit venster"
                         className={styles.closeButton}
                         onClick={onClose}
                         type="button">
@@ -92,7 +91,7 @@ const EditItemModal = ({
                         onClick={() => setActiveTab('edit')}
                         role="tab"
                         type="button">
-                        Edit
+                        Aanpassen
                     </button>
                     <button
                         aria-selected={activeTab === 'history'}
@@ -100,12 +99,12 @@ const EditItemModal = ({
                         onClick={() => setActiveTab('history')}
                         role="tab"
                         type="button">
-                        History
+                        Historie
                     </button>
                 </div>
                 {activeTab === 'edit' ? (
                     <form className={styles.form} onSubmit={handleSubmit}>
-                        <label htmlFor="edit-item-title-input">Title</label>
+                        <label htmlFor="edit-item-title-input">Titel</label>
                         <input
                             autoFocus
                             id="edit-item-title-input"
@@ -114,7 +113,7 @@ const EditItemModal = ({
                             value={title}
                         />
                         <label htmlFor="edit-item-description">
-                            Description
+                            Omschrijving
                         </label>
                         <textarea
                             id="edit-item-description"
@@ -137,7 +136,7 @@ const EditItemModal = ({
                                 </option>
                             ))}
                         </select>
-                        <label htmlFor="edit-item-size-mw">Size (MW)</label>
+                        <label htmlFor="edit-item-size-mw">Grootte (MW)</label>
                         <input
                             id="edit-item-size-mw"
                             min="0"
@@ -159,7 +158,9 @@ const EditItemModal = ({
                                 </option>
                             ))}
                         </select>
-                        <label htmlFor="edit-item-acm-prio">ACM priority</label>
+                        <label htmlFor="edit-item-acm-prio">
+                            ACM prioriteit
+                        </label>
                         <select
                             id="edit-item-acm-prio"
                             onChange={(event) =>
@@ -179,36 +180,36 @@ const EditItemModal = ({
                                 disabled={isSubmitting}
                                 onClick={handleDelete}
                                 type="button">
-                                Delete item
+                                Verwijder item
                             </button>
                             <button
                                 className={styles.secondaryButton}
                                 onClick={onClose}
                                 type="button">
-                                Cancel
+                                Annuleer
                             </button>
                             <button
                                 className={styles.primaryButton}
                                 disabled={isSubmitting}
                                 type="submit">
-                                {isSubmitting ? 'Saving...' : 'Save changes'}
+                                {isSubmitting ? 'opslaan...' : 'Verstuur'}
                             </button>
                         </div>
                     </form>
                 ) : (
                     <div className={styles.history} role="tabpanel">
                         {isLoadingModifications ? (
-                            <p>Loading history...</p>
+                            <p>Historie inladen...</p>
                         ) : modifications.length === 0 ? (
-                            <p>No changes recorded yet.</p>
+                            <p>Nog geen aanpassingen geregistreerd.</p>
                         ) : (
                             <ul>
                                 {modifications.map((modification) => (
                                     <li key={modification.id}>
                                         <strong>
                                             {modification.change_type === 'lane'
-                                                ? 'Lane updated'
-                                                : 'Properties updated'}
+                                                ? 'Kolom aangepast'
+                                                : 'Eigenschap(pen) aangepast'}
                                         </strong>
                                         <span>
                                             {formatModification(modification)}

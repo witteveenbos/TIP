@@ -117,7 +117,7 @@ const ProjectCard = ({
                     className={styles.editbutton}
                     onClick={() => onEdit(project)}
                     type="button">
-                    <small className={styles.badge}>edit</small>
+                    <small className={styles.badge}>bewerk</small>
                 </button>
             )}
         </article>

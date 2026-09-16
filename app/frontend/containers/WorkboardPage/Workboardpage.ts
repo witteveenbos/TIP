@@ -21,21 +21,25 @@ export const ACM_PRIO_OPTIONS = [
 ] as const;
 
 export const PHASE_CHOICES = [
-    { value: 1, label: 'inzicht & invoeren', description: 'Lorem ipsum' },
+    {
+        value: 1,
+        label: 'inzicht & invoeren',
+        description: 'Initiatieven toevoegen, krapte zien',
+    },
     {
         value: 2,
         label: 'Samenwerksessie',
-        description: 'Lorem ipsum samenwerksessie',
+        description: 'Samen prioriteren & vastleggen',
     },
     {
         value: 3,
         label: 'Versies vergelijken',
-        description: 'In deze stap vergelijken we sessies',
+        description: 'Wat is er veranderd?',
     },
     {
         value: 4,
         label: 'Integraal programmeren',
-        description: 'Lekker integraal programmeren',
+        description: 'Kaartweergave & doorrekenen',
     },
 ] as const;
 

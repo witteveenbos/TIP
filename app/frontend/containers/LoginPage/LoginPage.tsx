@@ -2,7 +2,6 @@ import { getRequest, postRequest } from '@/api/requests';
 import { LoginPageProps } from '@/types/containers/loginPage';
 import { useSearchParams } from 'next/navigation';
 import React, { useState } from 'react';
-import { basePageWrap } from '../BasePage';
 import s from './LoginPage.module.css';
 
 const getSafeReturnUrl = (
@@ -115,4 +114,4 @@ const LoginPage = ({
     );
 };
 
-export default basePageWrap(LoginPage);
+export default LoginPage;

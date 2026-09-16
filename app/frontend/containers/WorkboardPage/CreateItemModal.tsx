@@ -52,8 +52,7 @@ const CreateItemModal = ({
                 role="dialog">
                 <div className={styles.modalHeader}>
                     <div>
-                        <p className={styles.eyebrow}>Lane 0</p>
-                        <h2 id="create-item-title">Create new item</h2>
+                        <h2 id="create-item-title">Maak nieuw item</h2>
                     </div>
                     <button
                         aria-label="Close modal"
@@ -64,7 +63,7 @@ const CreateItemModal = ({
                     </button>
                 </div>
                 <form className={styles.form} onSubmit={handleSubmit}>
-                    <label htmlFor="item-title">Title</label>
+                    <label htmlFor="item-title">Titel</label>
                     <input
                         autoFocus
                         id="item-title"
@@ -72,7 +71,7 @@ const CreateItemModal = ({
                         required
                         value={title}
                     />
-                    <label htmlFor="item-description">Description</label>
+                    <label htmlFor="item-description">Omschrijving</label>
                     <textarea
                         id="item-description"
                         onChange={(event) => setDescription(event.target.value)}
@@ -92,7 +91,7 @@ const CreateItemModal = ({
                             </option>
                         ))}
                     </select>
-                    <label htmlFor="item-size-mw">Size (MW)</label>
+                    <label htmlFor="item-size-mw">Grootte (MW)</label>
                     <input
                         id="item-size-mw"
                         min="0"
@@ -114,7 +113,7 @@ const CreateItemModal = ({
                             </option>
                         ))}
                     </select>
-                    <label htmlFor="item-acmPrio">ACM priority</label>
+                    <label htmlFor="item-acmPrio">ACM prioriteit</label>
                     <select
                         id="item-acmPrio"
                         onChange={(event) =>
@@ -133,13 +132,13 @@ const CreateItemModal = ({
                             className={styles.secondaryButton}
                             onClick={onClose}
                             type="button">
-                            Cancel
+                            Annuleer
                         </button>
                         <button
                             className={styles.primaryButton}
                             disabled={isSubmitting}
                             type="submit">
-                            {isSubmitting ? 'Creating...' : 'Create item'}
+                            {isSubmitting ? 'Aanmaken...' : 'Verstuur'}
                         </button>
                     </div>
                 </form>
