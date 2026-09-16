@@ -81,6 +81,7 @@ export interface WorkboardPageProps {
     title?: string;
     phase?: string;
     organization?: string | null;
+    username?: string | null;
     isAdmin?: boolean;
     swimmingLanes?: SwimmingLane[];
 }

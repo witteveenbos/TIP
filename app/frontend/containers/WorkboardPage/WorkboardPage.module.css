@@ -6,7 +6,13 @@
     height: 100%;;
     overflow-y: auto;
 }
-
+.logoutmenu {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: end;
+    margin-bottom: 1rem;
+}
 .header {
     display: flex;
     flex-direction: column;
