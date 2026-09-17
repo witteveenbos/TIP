@@ -10,6 +10,10 @@ const SwimmingLaneColumn = ({
     lane,
     projects,
     userOrganization,
+    isAdmin,
+    phase,
+    canEdit,
+    onEdit,
     onProjectDrop,
 }: SwimmingLaneColumnProps) => {
     const columnRef = useRef<HTMLElement>(null);
@@ -81,10 +85,14 @@ const SwimmingLaneColumn = ({
                     <ProjectCard
                         key={project.id}
                         canDrag={
-                            Boolean(userOrganization) &&
-                            project.organization === userOrganization
+                            Boolean(isAdmin) ||
+                            (phase?.toLowerCase() !== 'samenwerksessie' &&
+                                Boolean(userOrganization) &&
+                                project.organization === userOrganization)
                         }
+                        canEdit={canEdit(project)}
                         laneIndex={index}
+                        onEdit={onEdit}
                         onProjectDrop={onProjectDrop}
                         project={project}
                     />

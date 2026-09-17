@@ -6,3 +6,5 @@ from .article import *  # NOQA
 from .article_serializer import *  # NOQA
 from .workboard import *  # NOQA
 from .workboard_serializer import *  # NOQA
+from .login import *  # NOQA
+from .login_serializer import *  # NOQA

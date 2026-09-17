@@ -1,16 +1,29 @@
 from django.db import transaction
 from django.db.models import F
+from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from rest_framework import generics, permissions, serializers
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.exceptions import PermissionDenied
 
-from .models import WorkboardItems
+from .pages import WorkboardPage
+from .models import WorkboardItemModification, WorkboardItems
 from .workboard_serializers import (
     WorkboardItemLaneSerializer,
+    WorkboardItemModificationSerializer,
     WorkboardItemPositionSerializer,
+    WorkboardItemUpdateSerializer,
     WorkboardItemsSerializer,
 )
+
+
+def can_edit_workboard_item(item, user):
+    page = WorkboardPage.objects.get(pk=item.page_id)
+    return user.is_staff or user.is_superuser or (
+        page.phase.casefold() == "inzicht & invoeren"
+        and item.organization == getattr(user, "organization", "")
+    )
 
 
 class WorkboardItemsByPageList(generics.ListCreateAPIView):
@@ -39,6 +52,53 @@ class WorkboardItemsByPageList(generics.ListCreateAPIView):
             )
 
 
+class WorkboardItemUpdate(generics.UpdateAPIView):
+    queryset = WorkboardItems.objects.all()
+    serializer_class = WorkboardItemUpdateSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    http_method_names = ["patch", "delete"]
+
+    def can_edit(self, item, user):
+        return can_edit_workboard_item(item, user)
+
+    def update(self, request, *args, **kwargs):
+        item = self.get_object()
+        user = request.user
+        if not self.can_edit(item, user):
+            return Response(
+                {"detail": "You do not have permission to edit this item."},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+
+        serializer = self.get_serializer(item, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        changed_fields = [
+            field
+            for field, value in serializer.validated_data.items()
+            if getattr(item, field) != value
+        ]
+        serializer.save(updated_by=user)
+        if changed_fields:
+            WorkboardItemModification.objects.create(
+                item=item,
+                updated_by=user,
+                change_type="properties",
+                changed_fields=changed_fields,
+            )
+        return Response(WorkboardItemsSerializer(item).data)
+
+    def delete(self, request, *args, **kwargs):
+        item = self.get_object()
+        if not self.can_edit(item, request.user):
+            return Response(
+                {"detail": "You do not have permission to delete this item."},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+
+        item.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
 class WorkboardItemLaneUpdate(generics.UpdateAPIView):
     queryset = WorkboardItems.objects.all()
     serializer_class = WorkboardItemLaneSerializer
@@ -48,15 +108,29 @@ class WorkboardItemLaneUpdate(generics.UpdateAPIView):
     def update(self, request, *args, **kwargs):
         item = self.get_object()
         user_organization = getattr(request.user, "organization", "")
-        if item.organization != user_organization:
+        is_admin = request.user.is_staff or request.user.is_superuser
+        page = WorkboardPage.objects.get(pk=item.page_id)
+        if (
+            not is_admin
+            and (
+                page.phase.casefold() == "samenwerksessie"
+                or item.organization != user_organization
+            )
+        ):
             return Response(
-                {"detail": "You cannot move items from another organization."},
+                {"detail": "You do not have permission to move this item."},
                 status=status.HTTP_403_FORBIDDEN,
             )
 
         serializer = self.get_serializer(item, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save(updated_by=request.user)
+        WorkboardItemModification.objects.create(
+            item=item,
+            updated_by=request.user,
+            change_type="lane",
+            changed_fields=["lane"],
+        )
         return Response(serializer.data)
 
 
@@ -69,9 +143,17 @@ class WorkboardItemPositionUpdate(generics.UpdateAPIView):
     def update(self, request, *args, **kwargs):
         item = self.get_object()
         user_organization = getattr(request.user, "organization", "")
-        if item.organization != user_organization:
+        is_admin = request.user.is_staff or request.user.is_superuser
+        page = WorkboardPage.objects.get(pk=item.page_id)
+        if (
+            not is_admin
+            and (
+                page.phase.casefold() == "samenwerksessie"
+                or item.organization != user_organization
+            )
+        ):
             return Response(
-                {"detail": "You cannot move items from another organization."},
+                {"detail": "You do not have permission to move this item."},
                 status=status.HTTP_403_FORBIDDEN,
             )
 
@@ -143,5 +225,30 @@ class WorkboardItemPositionUpdate(generics.UpdateAPIView):
                 items_to_update,
                 ["lane", "sort_order", "updated_by", "updated_at"],
             )
+            WorkboardItemModification.objects.create(
+                item=item,
+                updated_by=request.user,
+                change_type="lane",
+                changed_fields=["lane"],
+            )
 
         return Response(WorkboardItemsSerializer(item).data)
+
+
+class WorkboardItemModificationList(generics.ListAPIView):
+    serializer_class = WorkboardItemModificationSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        item = get_object_or_404(WorkboardItems, pk=self.kwargs["pk"])
+        if not can_edit_workboard_item(item, self.request.user):
+            raise PermissionDenied(
+                "You do not have permission to view this item's history."
+            )
+        return (
+            WorkboardItemModification.objects.filter(
+                item_id=self.kwargs["pk"]
+            )
+            .select_related("updated_by")
+            .order_by("-updated_at")
+        )

@@ -20,6 +20,29 @@ export const ACM_PRIO_OPTIONS = [
     { value: 3, label: 'Categorie 3: Basisbehoeften' },
 ] as const;
 
+export const PHASE_CHOICES = [
+    {
+        value: 1,
+        label: 'inzicht & invoeren',
+        description: 'Initiatieven toevoegen, krapte zien',
+    },
+    {
+        value: 2,
+        label: 'Samenwerksessie',
+        description: 'Samen prioriteren & vastleggen',
+    },
+    {
+        value: 3,
+        label: 'Versies vergelijken',
+        description: 'Wat is er veranderd?',
+    },
+    {
+        value: 4,
+        label: 'Integraal programmeren',
+        description: 'Kaartweergave & doorrekenen',
+    },
+] as const;
+
 export type ProjectType = (typeof TYPE_OPTIONS)[number];
 
 export type SwimmingLane = {
@@ -44,11 +67,22 @@ export type Project = {
     sort_order: number;
 };
 
+export type ProjectModification = {
+    id: number;
+    change_type: 'lane' | 'properties';
+    changed_fields: string[];
+    updated_at: string;
+    updated_by: number | null;
+    username: string | null;
+};
+
 export interface WorkboardPageProps {
     id: number;
     title?: string;
     phase?: string;
     organization?: string | null;
+    username?: string | null;
+    isAdmin?: boolean;
     swimmingLanes?: SwimmingLane[];
 }
 
@@ -64,13 +98,19 @@ export interface SwimmingLaneColumnProps {
     lane: SwimmingLane;
     projects: Project[];
     userOrganization?: string | null;
+    isAdmin?: boolean;
+    phase?: string;
+    canEdit: (project: Project) => boolean;
+    onEdit: (project: Project) => void;
     onProjectDrop: ProjectDropHandler;
 }
 
 export interface ProjectCardProps {
     project: Project;
     canDrag: boolean;
+    canEdit: boolean;
     laneIndex: number;
+    onEdit: (project: Project) => void;
     onProjectDrop: ProjectDropHandler;
 }
 
@@ -88,3 +128,10 @@ export interface CreateItemModalProps {
         acmPrio: number
     ) => void;
 }
+
+export type EditItemModalProps = CreateItemModalProps & {
+    project: Project;
+    onDelete: () => void;
+    modifications: ProjectModification[];
+    isLoadingModifications: boolean;
+};

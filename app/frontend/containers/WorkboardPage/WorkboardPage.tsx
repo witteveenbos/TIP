@@ -1,125 +1,54 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import CreateItemModal from './CreateItemModal';
+import EditItemModal from './EditItemModal';
 import ProjectCard from './ProjectCard';
 import SwimmingLaneColumn from './SwimmingLaneColumn';
 import styles from './WorkboardPage.module.css';
-import { Project, WorkboardPageProps } from './Workboardpage';
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
-
-const getCsrfToken = () =>
-    document.cookie
-        .split('; ')
-        .find((cookie) => cookie.startsWith('csrftoken='))
-        ?.split('=')[1];
+import { PHASE_CHOICES, Project, WorkboardPageProps } from './Workboardpage';
+import { useWorkboardProjects } from './useWorkboardProjects';
+import { postRequest } from '@/api/requests';
 
 const WorkboardPage = ({
     id,
     title = 'Workboard',
     phase,
+    username,
     organization,
+    isAdmin,
     swimmingLanes = [],
 }: WorkboardPageProps) => {
-    const [projects, setProjects] = useState<Project[]>([]);
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-    const [isCreating, setIsCreating] = useState(false);
-    const [createError, setCreateError] = useState<string>();
+    const [editingProject, setEditingProject] = useState<Project | null>(null);
 
-    useEffect(() => {
-        let isMounted = true;
+    const {
+        projects,
+        isCreating,
+        createError,
+        isUpdating,
+        updateError,
+        isDeleting,
+        modifications,
+        isLoadingModifications,
+        handleProjectDrop,
+        handleCreateItem: createItem,
+        handleUpdateItem: updateItem,
+        handleDeleteItem,
+        clearCreateError,
+        clearUpdateError,
+    } = useWorkboardProjects({
+        pageId: id,
+        editingProject,
+        onEditComplete: () => setEditingProject(null),
+    });
 
-        fetch(`${API_URL}/workboarditems/${id}/`)
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error('Unable to load projects');
-                }
-                return response.json();
-            })
-            .then((loadedProjects: Project[]) => {
-                if (isMounted) {
-                    setProjects(loadedProjects);
-                }
-            })
-            .catch(() => {
-                if (isMounted) {
-                    setProjects([]);
-                }
-            });
-
-        return () => {
-            isMounted = false;
-        };
-    }, [id]);
-
-    const handleProjectDrop = useCallback(
-        async (
-            projectId: number,
-            laneIndex: number,
-            targetProjectId?: number,
-            insertBefore = false
-        ) => {
-            try {
-                const response = await fetch(
-                    `${API_URL}/workboarditems/item/${projectId}/position/`,
-                    {
-                        method: 'PATCH',
-                        credentials: 'include',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRFToken': getCsrfToken() || '',
-                        },
-                        body: JSON.stringify({
-                            lane: laneIndex,
-                            target_item_id: targetProjectId ?? null,
-                            insert_before: insertBefore,
-                        }),
-                    }
-                );
-                if (!response.ok) {
-                    return;
-                }
-
-                setProjects((currentProjects) => {
-                    const project = currentProjects.find(
-                        (item) => item.id === projectId
-                    );
-                    if (!project) {
-                        return currentProjects;
-                    }
-
-                    const withoutProject = currentProjects.filter(
-                        (item) => item.id !== projectId
-                    );
-                    const movedProject = { ...project, lane: laneIndex };
-
-                    if (targetProjectId !== undefined) {
-                        const targetIndex = withoutProject.findIndex(
-                            (item) => item.id === targetProjectId
-                        );
-                        if (targetIndex !== -1) {
-                            withoutProject.splice(
-                                insertBefore ? targetIndex : targetIndex + 1,
-                                0,
-                                movedProject
-                            );
-                            return withoutProject;
-                        }
-                    }
-
-                    const lastLaneIndex = withoutProject.reduce(
-                        (lastIndex, item, index) =>
-                            item.lane === laneIndex ? index : lastIndex,
-                        -1
-                    );
-                    withoutProject.splice(lastLaneIndex + 1, 0, movedProject);
-                    return withoutProject;
-                });
-            } catch {
-                return;
-            }
-        },
-        []
+    const canEditProject = (project: Project) =>
+        Boolean(isAdmin) ||
+        (phase?.toLowerCase() === 'inzicht & invoeren' &&
+            Boolean(organization) &&
+            project.organization === organization);
+    const organizations = Array.from(
+        new Set(projects.map((project) => project.organization).filter(Boolean))
     );
 
     const handleCreateItem = async (
@@ -130,119 +59,184 @@ const WorkboardPage = ({
         status: number,
         acmPrio: number
     ) => {
-        setIsCreating(true);
-        setCreateError(undefined);
-
-        try {
-            const response = await fetch(`${API_URL}/workboarditems/${id}/`, {
-                method: 'POST',
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': getCsrfToken() || '',
-                },
-                body: JSON.stringify({
-                    title: itemTitle,
-                    description,
-                    type,
-                    size_mw: sizeMw,
-                    acm_prio: acmPrio,
-                    status,
-                }),
-            });
-
-            if (!response.ok) {
-                throw new Error('Unable to create item');
-            }
-
-            const createdProject = (await response.json()) as Project;
-            setProjects((currentProjects) => [
-                createdProject,
-                ...currentProjects,
-            ]);
+        const created = await createItem({
+            title: itemTitle,
+            description,
+            type,
+            size_mw: sizeMw,
+            acm_prio: acmPrio,
+            status,
+        });
+        if (created) {
             setIsCreateModalOpen(false);
-        } catch {
-            setCreateError('Unable to create item. Please try again.');
-        } finally {
-            setIsCreating(false);
+        }
+    };
+
+    const handleUpdateItem = async (
+        itemTitle: string,
+        description: string,
+        type: Project['type'],
+        sizeMw: number,
+        status: number,
+        acmPrio: number
+    ) => {
+        return updateItem({
+            title: itemTitle,
+            description,
+            type,
+            size_mw: sizeMw,
+            acm_prio: acmPrio,
+            status,
+        });
+    };
+
+     const NEXT_PUBLIC_API_URL: string =
+        process.env.NEXT_PUBLIC_WAGTAIL_API_URL || '';
+
+    const handleLogout = async () => {
+        try {
+            await postRequest(`${NEXT_PUBLIC_API_URL}/v1/logout/`, {});
+            // Redirect to home page after logout
+            window.location.href = '/';
+        } catch (error) {
+            console.error('Logout failed:', error);
+            // Even if the API call fails, redirect to home
+            window.location.href = '/';
         }
     };
 
     return (
-        <main className={styles.page}>
-            <header className={styles.header}>
-                <div>
-                    <p className={styles.eyebrow}>Workboard</p>
-                    <h1>{title}</h1>
-                </div>
-                {phase && <p className={styles.phase}>{phase}</p>}
-            </header>
+        <>
+            <main className={styles.page}>
+                {username &&
+                    <header className={styles.logoutmenu}>
+                        <small>Ingelogd als {username} &nbsp; ({organization})</small> <button onClick={handleLogout}><small className={styles.badge}>Log uit</small></button>
+                    </header>
+                }
+                <header className={styles.header}>
+                    <ul>
+                        {PHASE_CHOICES.map((phaseChoice) => {
+                            const isActive =
+                                phase === phaseChoice.label ||
+                                phase === String(phaseChoice.value);
 
-            <section className={styles.board} aria-label="Swimming lanes">
-                <article className={styles.column}>
-                    <div className={styles.laneHeader}>
-                        <div>
-                            <p className={styles.laneNumber}>Lane 0</p>
-                            <h2>New items</h2>
-                            <p className={styles.laneTotal}>
-                                Total size:{' '}
-                                {projects
-                                    .filter((project) => project.lane === 0)
-                                    .reduce(
-                                        (sum, project) => sum + project.size_mw,
-                                        0
-                                    )}{' '}
-                                MW
-                            </p>
+                            return (
+                                <li
+                                    aria-current={isActive ? 'step' : undefined}
+                                    className={isActive ? styles.active : undefined}
+                                    key={phaseChoice.value}>
+                                    <span>{phaseChoice.value}</span>
+                                    <span>{phaseChoice.label}</span>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                    <ul className={styles.subheader}>
+                        <li>
+                            <span className={styles.subheader__description}>
+                                {
+                                    PHASE_CHOICES.find(
+                                        (phaseChoice) => phaseChoice.label === phase
+                                    ).description
+                                }
+                            </span>
+                            <span className={styles.badgelist}>
+                                {organizations.map((projectOrganization) => (
+                                    <small
+                                        className={styles.badge}
+                                        key={projectOrganization}>
+                                        {projectOrganization}
+                                    </small>
+                                ))}
+                            </span>
+                        </li>
+                    </ul>
+                </header>
+
+                <section className={styles.board} aria-label="Swimming lanes">
+                    <article className={styles.column}>
+                        <div className={styles.laneHeader}>
+                            <div>
+                                <p className={styles.laneNumber}>Voorraad</p>
+                            </div>
+                            <button
+                                className={styles.primaryButton}
+                                onClick={() => {
+                                    clearCreateError();
+                                    setIsCreateModalOpen(true);
+                                }}
+                                type="button">
+                                Nieuw item
+                            </button>
                         </div>
-                        <button
-                            className={styles.primaryButton}
-                            onClick={() => {
-                                setCreateError(undefined);
-                                setIsCreateModalOpen(true);
+                        <div className={styles.projects}>
+                            {projects
+                                .filter((project) => project.lane === 0)
+                                .map((project) => (
+                                    <ProjectCard
+                                        key={project.id}
+                                        canDrag={
+                                            Boolean(isAdmin) ||
+                                            (phase?.toLowerCase() !==
+                                                'samenwerksessie' &&
+                                                Boolean(organization) &&
+                                                project.organization ===
+                                                organization)
+                                        }
+                                        canEdit={canEditProject(project)}
+                                        laneIndex={0}
+                                        onEdit={(selectedProject) => {
+                                            clearUpdateError();
+                                            setEditingProject(selectedProject);
+                                        }}
+                                        onProjectDrop={handleProjectDrop}
+                                        project={project}
+                                    />
+                                ))}
+                        </div>
+                    </article>
+                    {swimmingLanes.map((lane, index) => (
+                        <SwimmingLaneColumn
+                            index={index + 1}
+                            lane={lane}
+                            key={lane.label}
+                            projects={projects.filter(
+                                (project) => project.lane === index + 1
+                            )}
+                            userOrganization={organization}
+                            isAdmin={isAdmin}
+                            phase={phase}
+                            canEdit={canEditProject}
+                            onEdit={(selectedProject) => {
+                                clearUpdateError();
+                                setEditingProject(selectedProject);
                             }}
-                            type="button">
-                            Create new item
-                        </button>
-                    </div>
-                    <div className={styles.projects}>
-                        {projects
-                            .filter((project) => project.lane === 0)
-                            .map((project) => (
-                                <ProjectCard
-                                    key={project.id}
-                                    canDrag={
-                                        Boolean(organization) &&
-                                        project.organization === organization
-                                    }
-                                    laneIndex={0}
-                                    onProjectDrop={handleProjectDrop}
-                                    project={project}
-                                />
-                            ))}
-                    </div>
-                </article>
-                {swimmingLanes.map((lane, index) => (
-                    <SwimmingLaneColumn
-                        index={index + 1}
-                        lane={lane}
-                        key={lane.label}
-                        projects={projects.filter(
-                            (project) => project.lane === index + 1
-                        )}
-                        userOrganization={organization}
-                        onProjectDrop={handleProjectDrop}
+                            onProjectDrop={handleProjectDrop}
+                        />
+                    ))}
+                </section>
+                <CreateItemModal
+                    error={createError}
+                    isOpen={isCreateModalOpen}
+                    isSubmitting={isCreating}
+                    onClose={() => setIsCreateModalOpen(false)}
+                    onSubmit={handleCreateItem}
+                />
+                {editingProject && (
+                    <EditItemModal
+                        error={updateError}
+                        isOpen={true}
+                        isSubmitting={isUpdating || isDeleting}
+                        onClose={() => setEditingProject(null)}
+                        onDelete={handleDeleteItem}
+                        onSubmit={handleUpdateItem}
+                        project={editingProject}
+                        modifications={modifications}
+                        isLoadingModifications={isLoadingModifications}
                     />
-                ))}
-            </section>
-            <CreateItemModal
-                error={createError}
-                isOpen={isCreateModalOpen}
-                isSubmitting={isCreating}
-                onClose={() => setIsCreateModalOpen(false)}
-                onSubmit={handleCreateItem}
-            />
-        </main>
+                )}
+            </main>
+        </>
     );
 };
 
