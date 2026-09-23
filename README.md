@@ -108,6 +108,8 @@ Docker images are tagged with the complete branch name as well, for example
 `backend:accept-pnh` and `backend:prod-pnh`.
 
 ![Multi-project branch workflow](docs/imgs/multi-project-workflow.png)
+![TIP generic changes](docs/imgs/TIP-generic-changes.png)
+![TIP client specific changes](docs/imgs/TIP-client-specific-changes.png)
 
 ## Overview
 
