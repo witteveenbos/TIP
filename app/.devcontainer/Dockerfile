@@ -1,6 +1,6 @@
 # [Choice] Python version (use -bullseye variants on local arm64/Apple Silicon): 3, 3.10, 3.9, 3.8, 3.7, 3.6, 3-bullseye, 3.10-bullseye, 3.9-bullseye, 3.8-bullseye, 3.7-bullseye, 3.6-bullseye, 3-buster, 3.10-buster, 3.9-buster, 3.8-buster, 3.7-buster, 3.6-buster
-ARG VARIANT=3.11-bullseye
-FROM mcr.microsoft.com/vscode/devcontainers/python:0-${VARIANT}
+ARG VARIANT=3.11-bookworm
+FROM mcr.microsoft.com/devcontainers/python:1-${VARIANT}
 LABEL version="v0.1.0"
 
 ENV PYTHONUNBUFFERED=1 \
@@ -34,8 +34,7 @@ RUN pip install --upgrade pip \
 # [Optional] Uncomment this section to install additional OS packages.
 RUN rm -f /etc/apt/sources.list.d/yarn.list \
     && apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get -y install --no-install-recommends \
-    && apt-get install -y netcat gcc libpq-dev \
+    && apt-get install -y netcat-openbsd gcc libpq-dev \
     && apt-get install -y binutils libproj-dev gdal-bin \
     && apt-get install -y vim curl gettext \
     && apt-get install -y libmagickwand-dev \

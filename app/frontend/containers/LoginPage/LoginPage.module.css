@@ -1,0 +1,20 @@
+/* also being used by passwordprotectedpage */
+
+.loginpage {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 24px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+}
+
+.loginpage__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.loginpage__input {
+    width: 100%;
+    padding: 0.5rem;
+}
