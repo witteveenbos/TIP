@@ -3,6 +3,7 @@ import ArticlePage from './ArticlePage';
 import NotFoundPage from './NotFoundPage';
 import PasswordProtectedPage from './PasswordProtectedPage';
 import PureHtmlPage from './PureHtmlPage';
+import WorkboardPage from './WorkboardPage';
 
 export default {
     HomePage,
@@ -10,4 +11,5 @@ export default {
     NotFoundPage,
     PasswordProtectedPage,
     PureHtmlPage,
+    WorkboardPage,
 };

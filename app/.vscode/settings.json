@@ -3,6 +3,12 @@
     "[yaml]": {
         "editor.formatOnSave": false
     },
+    "[html]": {
+        "editor.formatOnSave": false
+    },
+    "[django-html]": {
+        "editor.formatOnSave": false
+    },
 
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": "explicit",
@@ -43,11 +49,7 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "spellright.language": ["en", "nl"],
-    "spellright.documentTypes": [
-        "markdown",
-        "latex",
-        "plaintext"
-    ],
+    "spellright.documentTypes": ["markdown", "latex", "plaintext"],
     "peacock.remoteColor": "#9c93a3",
     "workbench.colorCustomizations": {
         "activityBar.activeBackground": "#b5afba",
