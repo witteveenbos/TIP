@@ -5,7 +5,7 @@ Write prod settings here, or override base settings
 from pipit.settings.base import *  # NOQA
 
 
-DEBUG = True
+DEBUG = False
 
 DATABASES["default"]["CONN_MAX_AGE"] = int(
     get_env("DATABASE_CONN_MAX_AGE", default="60")
@@ -64,8 +64,17 @@ SESSION_COOKIE_SECURE = True
 # Use a secure cookie for the CSRF cookie
 CSRF_COOKIE_SECURE = True
 
-CORS_ALLOWED_ORIGINS = get_env("TRUSTED_ORIGINS", default="").split(",")
-CSRF_TRUSTED_ORIGINS = get_env("TRUSTED_ORIGINS", default="").split(",")
+# Frontend and backend run on different domains, so cookies must be sent cross-site
+SESSION_COOKIE_SAMESITE = "None"
+CSRF_COOKIE_SAMESITE = "None"
+
+TRUSTED_ORIGINS = [
+    origin.strip()
+    for origin in get_env("TRUSTED_ORIGINS", default="").split(",")
+    if origin.strip()
+]
+CORS_ALLOWED_ORIGINS = TRUSTED_ORIGINS
+CSRF_TRUSTED_ORIGINS = TRUSTED_ORIGINS
 
 # Email notification url
 WAGTAILADMIN_BASE_URL = "https://stripedtodo.nl"
