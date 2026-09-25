@@ -46,16 +46,16 @@ const LoginPage = ({
         redirectPageUrl
     );
 
-    const NEXT_PUBLIC_API_URL: string =
+    const WAGTAIL_API_URL: string =
         process.env.NEXT_PUBLIC_WAGTAIL_API_URL || '';
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError(null);
         try {
-            await getRequest(`${NEXT_PUBLIC_API_URL}/v1/csrf/`);
+            await getRequest(`${WAGTAIL_API_URL}/v1/csrf/`);
             const response = await postRequest(
-                `${NEXT_PUBLIC_API_URL}/v1/login/`,
+                `${WAGTAIL_API_URL}/v1/login/`,
                 {
                     username,
                     password,

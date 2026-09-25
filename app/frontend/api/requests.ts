@@ -8,11 +8,8 @@ import { getCookie } from '@/utils/cookie';
 interface RequestOptions {
     headers?: Record<string, string>;
 }
-// Determine if we're in development or production
-const isDevelopment = process.env.NODE_ENV === 'development';
-
-// Use appropriate credentials mode based on environment
-const credentialsMode = isDevelopment ? 'include' : 'same-origin';
+// Authentication requests may target the backend on a different origin.
+const credentialsMode: RequestCredentials = 'include';
 
 export async function getRequest(
     url: string,
