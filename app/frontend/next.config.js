@@ -52,11 +52,11 @@ let nextConfig = {
         return [
             {
                 source: '/wt/static/:path*',
-                destination: 'https://backend-accept-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io/wt/static/:path*', // Proxy to Backend
+                destination: 'https://backend-accept-app.yellowsea-a6617e80.westeurope.azurecontainerapps.io/wt/static/:path*', // Proxy to Backend
             },
             {
                 source: '/wt/media/:path*',
-                destination: 'https://backend-accept-app.niceflower-dd2b93bc.westeurope.azurecontainerapps.io/wt/media/:path*', // Proxy to Backend
+                destination: 'https://backend-accept-app.yellowsea-a6617e80.westeurope.azurecontainerapps.io/wt/media/:path*', // Proxy to Backend
             },
         ];
     },
