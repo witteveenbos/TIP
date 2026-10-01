@@ -8,7 +8,6 @@ from rest_framework.throttling import AnonRateThrottle
 from rest_framework.views import APIView
 
 
-@method_decorator(csrf_protect, name="dispatch")
 class LoginView(APIView):
     throttle_classes = [AnonRateThrottle]
 

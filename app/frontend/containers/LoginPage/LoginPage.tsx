@@ -1,4 +1,4 @@
-import { getRequest, postRequest } from '@/api/requests';
+import { postRequest } from '@/api/requests';
 import { LoginPageProps } from '@/types/containers/loginPage';
 import { useSearchParams } from 'next/navigation';
 import React, { useState } from 'react';
@@ -53,14 +53,10 @@ const LoginPage = ({
         e.preventDefault();
         setError(null);
         try {
-            await getRequest(`${WAGTAIL_API_URL}/v1/csrf/`);
-            const response = await postRequest(
-                `${WAGTAIL_API_URL}/v1/login/`,
-                {
-                    username,
-                    password,
-                }
-            );
+            const response = await postRequest(`${WAGTAIL_API_URL}/v1/login/`, {
+                username,
+                password,
+            });
 
             if (response) {
                 // Redirect to the return URL or home page after successful login
