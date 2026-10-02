@@ -46,20 +46,18 @@ const LoginPage = ({
         redirectPageUrl
     );
 
-    const WAGTAIL_API_URL: string =
-        process.env.NEXT_PUBLIC_WAGTAIL_API_URL || '';
+    const WAGTAIL_API_URL = '/wt/api/nextjs';
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError(null);
         try {
             const { json } = await getRequest(`${WAGTAIL_API_URL}/v1/csrf/`);
-            const response = await postRequest(`${WAGTAIL_API_URL}/v1/login/`, {
-                username,
-                password,
-            }, {
-                headers: { 'X-CSRFToken': json.csrfToken },
-            });
+            const response = await postRequest(
+                `${WAGTAIL_API_URL}/v1/login/`,
+                { username, password },
+                { headers: { 'X-CSRFToken': json.csrfToken } }
+            );
 
             if (response) {
                 // Redirect to the return URL or home page after successful login

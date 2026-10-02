@@ -2,6 +2,21 @@ const { transpile } = require('typescript');
 const { i18n } = require('./next-i18next.config');
 
 const basePath = '';
+const backendApiBase =
+    process.env.WAGTAIL_API_URL ||
+    'https://backend-accept-app.yellowsea-a6617e80.westeurope.azurecontainerapps.io/wt/api/nextjs';
+const wagtailApiBase = new URL(
+    process.env.NEXT_PUBLIC_WAGTAIL_API_URL || '/wt/api/nextjs',
+    backendApiBase
+)
+    .toString()
+    .replace(/\/$/, '');
+const apiBase = new URL(
+    process.env.NEXT_PUBLIC_API_URL || '/api',
+    backendApiBase
+)
+    .toString()
+    .replace(/\/$/, '');
 
 let nextConfig = {
     trailingSlash: true,
@@ -50,6 +65,14 @@ let nextConfig = {
     },
     async rewrites() {
         return [
+            {
+                source: '/wt/api/nextjs/:path*/',
+                destination: `${wagtailApiBase}/:path*/`,
+            },
+            {
+                source: '/api/:path*/',
+                destination: `${apiBase}/:path*/`,
+            },
             {
                 source: '/wt/static/:path*',
                 destination: 'https://backend-accept-app.yellowsea-a6617e80.westeurope.azurecontainerapps.io/wt/static/:path*', // Proxy to Backend

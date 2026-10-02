@@ -90,12 +90,11 @@ const WorkboardPage = ({
         });
     };
 
-     const NEXT_PUBLIC_API_URL: string =
-        process.env.NEXT_PUBLIC_WAGTAIL_API_URL || '';
+    const WAGTAIL_API_URL = '/wt/api/nextjs';
 
     const handleLogout = async () => {
         try {
-            await postRequest(`${NEXT_PUBLIC_API_URL}/v1/logout/`, {});
+            await postRequest(`${WAGTAIL_API_URL}/v1/logout/`, {});
             // Redirect to home page after logout
             window.location.href = '/';
         } catch (error) {
