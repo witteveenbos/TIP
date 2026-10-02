@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
+from django.middleware.csrf import get_token
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
 from rest_framework import status
@@ -8,6 +9,7 @@ from rest_framework.throttling import AnonRateThrottle
 from rest_framework.views import APIView
 
 
+@method_decorator(csrf_protect, name="dispatch")
 class LoginView(APIView):
     throttle_classes = [AnonRateThrottle]
 
@@ -43,4 +45,4 @@ class LogoutView(APIView):
 @method_decorator(ensure_csrf_cookie, name="get")
 class CsrfTokenView(APIView):
     def get(self, request, *args, **kwargs):
-        return JsonResponse({"detail": "CSRF cookie set"})
+        return JsonResponse({"csrf_token": get_token(request)})

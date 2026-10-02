@@ -1,4 +1,4 @@
-import { postRequest } from '@/api/requests';
+import { getRequest, postRequest } from '@/api/requests';
 import { LoginPageProps } from '@/types/containers/loginPage';
 import { useSearchParams } from 'next/navigation';
 import React, { useState } from 'react';
@@ -53,9 +53,12 @@ const LoginPage = ({
         e.preventDefault();
         setError(null);
         try {
+            const { json } = await getRequest(`${WAGTAIL_API_URL}/v1/csrf/`);
             const response = await postRequest(`${WAGTAIL_API_URL}/v1/login/`, {
                 username,
                 password,
+            }, {
+                headers: { 'X-CSRFToken': json.csrfToken },
             });
 
             if (response) {
