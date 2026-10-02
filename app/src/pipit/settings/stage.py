@@ -7,6 +7,24 @@ from pipit.settings.base import *  # NOQA
 
 DEBUG = False
 
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console_errors": {
+            "class": "logging.StreamHandler",
+            "level": "ERROR",
+        },
+    },
+    "loggers": {
+        "django.request": {
+            "handlers": ["console_errors"],
+            "level": "ERROR",
+            "propagate": True,
+        },
+    },
+}
+
 DATABASES["default"]["CONN_MAX_AGE"] = int(
     get_env("DATABASE_CONN_MAX_AGE", default="60")
 )
