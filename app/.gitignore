@@ -46,6 +46,8 @@ src/.env.local
 static
 src/static
 src/media
+!src/pipit/static/
+!src/pipit/static/pipit/
 src/pipit/static/pipit/**
 !src/pipit/static/pipit/admin-overrides.css
 !src/energy/static
