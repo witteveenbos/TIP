@@ -5,6 +5,7 @@ import styles from './WorkboardPage.module.css';
 import {
     ACM_PRIO_OPTIONS,
     ProjectType,
+    SECRET_OPTIONS,
     STATUS_OPTIONS,
     TYPE_OPTIONS,
 } from './Workboardpage';
@@ -16,6 +17,7 @@ export type ItemFormValues = {
     sizeMw: number;
     status: number;
     acmPrio: number;
+    secret: number;
 };
 
 interface ItemFormProps {
@@ -47,6 +49,7 @@ const ItemForm = ({
     const [sizeMw, setSizeMw] = useState(String(initialValues.sizeMw));
     const [status, setStatus] = useState(initialValues.status);
     const [acmPrio, setAcmPrio] = useState(initialValues.acmPrio);
+    const [secret, setSecret] = useState(initialValues.secret);
 
     useEffect(() => {
         setTitle(initialValues.title);
@@ -55,6 +58,7 @@ const ItemForm = ({
         setSizeMw(String(initialValues.sizeMw));
         setStatus(initialValues.status);
         setAcmPrio(initialValues.acmPrio);
+        setSecret(initialValues.secret);
     }, [initialValues]);
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -66,6 +70,7 @@ const ItemForm = ({
             sizeMw: Number(sizeMw),
             status,
             acmPrio,
+            secret,
         });
     };
 
@@ -125,6 +130,23 @@ const ItemForm = ({
                 {ACM_PRIO_OPTIONS.map((option) => (
                     <option key={option.value} value={option.value}>
                         {option.value}: {option.label}
+                    </option>
+                ))}
+            </select>
+            <label htmlFor={`${idPrefix}-acm-secret`}>Vertrouwelijkheid</label>
+            <small>
+                <i>
+                    Bij vertrouwelijke projecten worden alleen de kolom en de
+                    ,organisatie en Wattage getoond.
+                </i>
+            </small>
+            <select
+                id={`${idPrefix}-acm-secret`}
+                onChange={(event) => setSecret(Number(event.target.value))}
+                value={secret}>
+                {SECRET_OPTIONS.map((option) => (
+                    <option key={option.value} value={option.value}>
+                        {option.label}
                     </option>
                 ))}
             </select>

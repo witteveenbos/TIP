@@ -20,8 +20,9 @@ const CreateItemModal = ({
         sizeMw,
         status,
         acmPrio,
+        secret,
     }: ItemFormValues) =>
-        onSubmit(title, description, type, sizeMw, status, acmPrio);
+        onSubmit(title, description, type, sizeMw, status, acmPrio, secret);
 
     return (
         <div className={styles.modalBackdrop} role="presentation">
@@ -52,6 +53,7 @@ const CreateItemModal = ({
                         sizeMw: 0,
                         status: 1,
                         acmPrio: 0,
+                        secret: 0,
                     }}
                     isSubmitting={isSubmitting}
                     onCancel={onClose}

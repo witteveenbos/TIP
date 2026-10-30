@@ -252,7 +252,8 @@
         }
 
         & input,
-        & textarea {
+        & textarea,
+        & select {
             border: 1px solid #b9c2b4;
             background: #f4f1e8;
             color: #1d2924;

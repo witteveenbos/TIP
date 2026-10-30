@@ -1,6 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import type { Project, ProjectModification } from './Workboardpage';
+import type {
+    Project,
+    ProjectModification,
+    WorkboardProject,
+} from './Workboardpage';
 import {
     createProject,
     deleteProject,
@@ -12,7 +16,13 @@ import {
 
 type ProjectInput = Pick<
     Project,
-    'title' | 'description' | 'type' | 'size_mw' | 'acm_prio' | 'status'
+    | 'title'
+    | 'description'
+    | 'type'
+    | 'size_mw'
+    | 'acm_prio'
+    | 'secret'
+    | 'status'
 >;
 
 interface UseWorkboardProjectsProps {
@@ -26,7 +36,7 @@ export const useWorkboardProjects = ({
     editingProject,
     onEditComplete,
 }: UseWorkboardProjectsProps) => {
-    const [projects, setProjects] = useState<Project[]>([]);
+    const [projects, setProjects] = useState<WorkboardProject[]>([]);
     const [isCreating, setIsCreating] = useState(false);
     const [createError, setCreateError] = useState<string>();
     const [isUpdating, setIsUpdating] = useState(false);

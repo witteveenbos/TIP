@@ -34,8 +34,9 @@ const EditItemModal = ({
         sizeMw,
         status,
         acmPrio,
+        secret,
     }: ItemFormValues) =>
-        onSubmit(title, description, type, sizeMw, status, acmPrio);
+        onSubmit(title, description, type, sizeMw, status, acmPrio, secret);
 
     const formatModification = (modification: ProjectModification) =>
         `${modification.username ?? 'Onbekende gebruiker'} - ${new Date(
@@ -100,6 +101,7 @@ const EditItemModal = ({
                             sizeMw: project.size_mw,
                             status: project.status,
                             acmPrio: project.acm_prio,
+                            secret: project.secret,
                         }}
                         isSubmitting={isSubmitting}
                         onCancel={onClose}

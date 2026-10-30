@@ -5,7 +5,12 @@ import EditItemModal from './EditItemModal';
 import ProjectCard from './ProjectCard';
 import SwimmingLaneColumn from './SwimmingLaneColumn';
 import styles from './WorkboardPage.module.css';
-import { PHASE_CHOICES, Project, WorkboardPageProps } from './Workboardpage';
+import {
+    PHASE_CHOICES,
+    Project,
+    WorkboardPageProps,
+    WorkboardProject,
+} from './Workboardpage';
 import { useWorkboardProjects } from './useWorkboardProjects';
 import { postRequest } from '@/api/requests';
 
@@ -42,11 +47,12 @@ const WorkboardPage = ({
         onEditComplete: () => setEditingProject(null),
     });
 
-    const canEditProject = (project: Project) =>
-        Boolean(isAdmin) ||
-        (phase?.toLowerCase() === 'inzicht & invoeren' &&
-            Boolean(organization) &&
-            project.organization === organization);
+    const canEditProject = (project: WorkboardProject) =>
+        'description' in project &&
+        (Boolean(isAdmin) ||
+            (phase?.toLowerCase() === 'inzicht & invoeren' &&
+                Boolean(organization) &&
+                project.organization === organization));
     const organizations = Array.from(
         new Set(projects.map((project) => project.organization).filter(Boolean))
     );
@@ -57,7 +63,8 @@ const WorkboardPage = ({
         type: Project['type'],
         sizeMw: number,
         status: number,
-        acmPrio: number
+        acmPrio: number,
+        secret: number
     ) => {
         const created = await createItem({
             title: itemTitle,
@@ -65,6 +72,7 @@ const WorkboardPage = ({
             type,
             size_mw: sizeMw,
             acm_prio: acmPrio,
+            secret: secret,
             status,
         });
         if (created) {
@@ -78,7 +86,8 @@ const WorkboardPage = ({
         type: Project['type'],
         sizeMw: number,
         status: number,
-        acmPrio: number
+        acmPrio: number,
+        secret: number
     ) => {
         return updateItem({
             title: itemTitle,
@@ -86,6 +95,7 @@ const WorkboardPage = ({
             type,
             size_mw: sizeMw,
             acm_prio: acmPrio,
+            secret: secret,
             status,
         });
     };

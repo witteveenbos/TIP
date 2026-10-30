@@ -28,6 +28,10 @@ class WorkboardItems(models.Model):
         (2, "Categorie 2: Veiligheid"),
         (3, "Categorie 3: Basisbehoeften"),
     ]
+    SECRET_CHOICES = [
+        (0, "Openbaar"),
+        (1, "Vertrouwelijk"),
+    ]
 
     title = models.CharField(max_length=255, blank=True)
     description = models.TextField(blank=True)
@@ -38,6 +42,8 @@ class WorkboardItems(models.Model):
     status = models.IntegerField(choices=STATUS_CHOICES, default=1)
     acm_prio = models.IntegerField(
         choices=ACM_PRIO_CHOICES, default=0, verbose_name="ACM prioriteringskader")
+    secret = models.IntegerField(
+        choices=SECRET_CHOICES, default=0, verbose_name="Vertrouwlijkheid (0=openbaar, 1=vertrouwelijk)")
     page_id = models.IntegerField(null=True, blank=True)
     lane = models.IntegerField(default=0)
     sort_order = models.PositiveIntegerField(default=0)

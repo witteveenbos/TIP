@@ -20,6 +20,11 @@ export const ACM_PRIO_OPTIONS = [
     { value: 3, label: 'Categorie 3: Basisbehoeften' },
 ] as const;
 
+export const SECRET_OPTIONS = [
+    { value: 0, label: 'Openbaar' },
+    { value: 1, label: 'Vertrouwelijk' },
+] as const;
+
 export const PHASE_CHOICES = [
     {
         value: 1,
@@ -61,11 +66,16 @@ export type Project = {
     type: ProjectType;
     size_mw: number;
     acm_prio: number;
+    secret: number;
     status: number;
     user: number;
     lane: number;
     sort_order: number;
 };
+
+export type WorkboardProject =
+    | Project
+    | Pick<Project, 'id' | 'lane' | 'title' | 'size_mw' | 'organization'>;
 
 export type ProjectModification = {
     id: number;
@@ -96,17 +106,17 @@ export type ProjectDropHandler = (
 export interface SwimmingLaneColumnProps {
     index: number;
     lane: SwimmingLane;
-    projects: Project[];
+    projects: WorkboardProject[];
     userOrganization?: string | null;
     isAdmin?: boolean;
     phase?: string;
-    canEdit: (project: Project) => boolean;
+    canEdit: (project: WorkboardProject) => boolean;
     onEdit: (project: Project) => void;
     onProjectDrop: ProjectDropHandler;
 }
 
 export interface ProjectCardProps {
-    project: Project;
+    project: WorkboardProject;
     canDrag: boolean;
     canEdit: boolean;
     laneIndex: number;
@@ -125,7 +135,8 @@ export interface CreateItemModalProps {
         type: ProjectType,
         sizeMw: number,
         status: number,
-        acmPrio: number
+        acmPrio: number,
+        secret: number
     ) => void;
 }
 

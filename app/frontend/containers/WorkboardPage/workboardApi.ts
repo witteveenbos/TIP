@@ -1,4 +1,8 @@
-import type { Project, ProjectModification } from './Workboardpage';
+import type {
+    Project,
+    ProjectModification,
+    WorkboardProject,
+} from './Workboardpage';
 
 const API_URL = '/api';
 
@@ -32,7 +36,7 @@ const request = async (url: string, options: RequestInit = {}) => {
 
 export const getProjects = (pageId: number) =>
     request(`/workboarditems/${pageId}/`).then(
-        (response) => response.json() as Promise<Project[]>
+        (response) => response.json() as Promise<WorkboardProject[]>
     );
 
 export const getModifications = (projectId: number) =>
@@ -44,25 +48,37 @@ export const createProject = (
     pageId: number,
     project: Pick<
         Project,
-        'title' | 'description' | 'type' | 'size_mw' | 'acm_prio' | 'status'
+        | 'title'
+        | 'description'
+        | 'type'
+        | 'size_mw'
+        | 'acm_prio'
+        | 'status'
+        | 'secret'
     >
 ) =>
     request(`/workboarditems/${pageId}/`, {
         method: 'POST',
         body: JSON.stringify(project),
-    }).then((response) => response.json() as Promise<Project>);
+    }).then((response) => response.json() as Promise<WorkboardProject>);
 
 export const updateProject = (
     projectId: number,
     project: Pick<
         Project,
-        'title' | 'description' | 'type' | 'size_mw' | 'acm_prio' | 'status'
+        | 'title'
+        | 'description'
+        | 'type'
+        | 'size_mw'
+        | 'acm_prio'
+        | 'status'
+        | 'secret'
     >
 ) =>
     request(`/workboarditems/item/${projectId}/`, {
         method: 'PATCH',
         body: JSON.stringify(project),
-    }).then((response) => response.json() as Promise<Project>);
+    }).then((response) => response.json() as Promise<WorkboardProject>);
 
 export const deleteProject = (projectId: number) =>
     request(`/workboarditems/item/${projectId}/`, { method: 'DELETE' });

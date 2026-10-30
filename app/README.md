@@ -61,6 +61,17 @@ python manage.py createsuperuser
 
 After finishing all the steps, you can login on localhost:8000/wt/admin
 
+## Confidential workboard cards
+
+For cards with `secret = 1`, anonymous users and users outside the owning
+organization receive only `id`, `lane`, `title`, `size_mw`, and `organization`.
+The title is replaced with "Vertrouwelijk project". Authenticated users in the
+owning organization, staff, and superusers receive the full card. Public cards
+are unchanged.
+
+The confidentiality selection is submitted when creating or updating a card.
+Editing a card starts with its saved confidentiality setting.
+
 ## Wagtail
 
 Wagtail can be accessed at localhost:8000/wt/cms

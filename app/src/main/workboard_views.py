@@ -85,7 +85,9 @@ class WorkboardItemUpdate(generics.UpdateAPIView):
                 change_type="properties",
                 changed_fields=changed_fields,
             )
-        return Response(WorkboardItemsSerializer(item).data)
+        return Response(
+            WorkboardItemsSerializer(item, context=self.get_serializer_context()).data
+        )
 
     def delete(self, request, *args, **kwargs):
         item = self.get_object()
@@ -232,7 +234,9 @@ class WorkboardItemPositionUpdate(generics.UpdateAPIView):
                 changed_fields=["lane"],
             )
 
-        return Response(WorkboardItemsSerializer(item).data)
+        return Response(
+            WorkboardItemsSerializer(item, context=self.get_serializer_context()).data
+        )
 
 
 class WorkboardItemModificationList(generics.ListAPIView):

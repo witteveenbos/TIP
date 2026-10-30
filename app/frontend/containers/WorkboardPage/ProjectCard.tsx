@@ -22,6 +22,7 @@ const ProjectCard = ({
     const cardRef = useRef<HTMLElement>(null);
     const [isDragging, setIsDragging] = useState(false);
     const [isDropTarget, setIsDropTarget] = useState(false);
+    const fullProject = 'description' in project ? project : null;
 
     useEffect(() => {
         const card = cardRef.current;
@@ -84,38 +85,52 @@ const ProjectCard = ({
                 isDragging ? styles.projectDragging : ''
             } ${isDropTarget ? styles.projectDropTarget : ''}`}
             ref={cardRef}>
-            <strong
-                className={styles.projectstatus}
-                title={
-                    ACM_PRIO_OPTIONS.find(
-                        (option) => option.value === project.acm_prio
-                    )?.label ?? 'Unknown'
-                }>
-                {project.acm_prio}
-            </strong>
+            {fullProject && (
+                <strong
+                    className={styles.projectstatus}
+                    title={
+                        ACM_PRIO_OPTIONS.find(
+                            (option) => option.value === fullProject.acm_prio
+                        )?.label ?? 'Unknown'
+                    }>
+                    {fullProject.acm_prio}
+                </strong>
+            )}
             <div className={styles.projectinfo}>
                 <strong>{project.title}</strong>
                 <p>{project.size_mw} MW</p>
                 <div className={styles.badgelist}>
-                    <small className={styles.badge}>{project.type}</small>
+                    {fullProject && (
+                        <small className={styles.badge}>
+                            {fullProject.type}
+                        </small>
+                    )}
                     <small className={styles.badge}>
                         {project.organization}
                     </small>
-                    <small
-                        className={styles.badge}
-                        title={
-                            STATUS_OPTIONS.find(
-                                (option) => option.value === project.status
-                            )?.label ?? 'Unknown'
-                        }>
-                        {project.status < 4 ? 'zacht' : 'hard'}
-                    </small>
+                    {fullProject?.secret && (
+                        <small className={styles.badge}>
+                            {fullProject.secret == 1 && 'vertrouwelijk'}
+                        </small>
+                    )}
+                    {fullProject && (
+                        <small
+                            className={styles.badge}
+                            title={
+                                STATUS_OPTIONS.find(
+                                    (option) =>
+                                        option.value === fullProject.status
+                                )?.label ?? 'Unknown'
+                            }>
+                            {fullProject.status < 4 ? 'zacht' : 'hard'}
+                        </small>
+                    )}
                 </div>
             </div>
-            {canEdit && (
+            {canEdit && fullProject && (
                 <button
                     className={styles.editbutton}
-                    onClick={() => onEdit(project)}
+                    onClick={() => onEdit(fullProject)}
                     type="button">
                     <small className={styles.badge}>bewerk</small>
                 </button>
