@@ -17,7 +17,7 @@ const BaseMap = () => {
                 scrollWheelZoom={false}>
                <TileLayer
                     attribution='Kaartgegevens &copy; <a href="https://www.kadaster.nl">Kadaster</a>'
-                    url="https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0/grijs/EPSG:3857/{z}/{x}/{y}{r}.png"
+                    url="https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0/grijs/EPSG:3857/{z}/{x}/{y}.png"
                     subdomains="abcd"
                    
                     maxZoom={20}
