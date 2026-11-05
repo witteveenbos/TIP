@@ -1,4 +1,5 @@
 from typing import Dict, Union, cast
+from urllib.parse import urlencode
 
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
@@ -22,6 +23,8 @@ from wagtail.forms import PasswordViewRestrictionForm
 from wagtail.models import Page, PageViewRestriction, Site
 from wagtail.wagtail_hooks import require_wagtail_login
 from wagtail_headless_preview.models import PagePreview
+
+from main.pages.login import LoginPage
 
 api_router = WagtailAPIRouter("nextjs")
 
@@ -47,7 +50,8 @@ class PageRelativeUrlListAPIViewSet(PagesAPIViewSet):
         ]
 
 
-api_router.register_endpoint("page_relative_urls", PageRelativeUrlListAPIViewSet)
+api_router.register_endpoint(
+    "page_relative_urls", PageRelativeUrlListAPIViewSet)
 
 
 class PagePreviewAPIViewSet(BaseAPIViewSet):
@@ -70,7 +74,8 @@ class PagePreviewAPIViewSet(BaseAPIViewSet):
             raise ValidationError({"content_type": "Missing value"})
 
         app_label, model = content_type.split(".")
-        content_type = ContentType.objects.get(app_label=app_label, model=model)
+        content_type = ContentType.objects.get(
+            app_label=app_label, model=model)
 
         token = self.request.GET.get("token")
         if not token:
@@ -136,11 +141,13 @@ class PasswordProtectedPageViewSet(BaseAPIViewSet):
         ]
 
 
-api_router.register_endpoint("password_protected_page", PasswordProtectedPageViewSet)
+api_router.register_endpoint(
+    "password_protected_page", PasswordProtectedPageViewSet)
 
 
 class PageByPathAPIViewSet(BaseAPIViewSet):
-    known_query_parameters = BaseAPIViewSet.known_query_parameters.union(["html_path"])
+    known_query_parameters = BaseAPIViewSet.known_query_parameters.union([
+                                                                         "html_path"])
 
     def listing_view(self, request):
         page, args, kwargs = self.get_object()
@@ -164,11 +171,34 @@ class PageByPathAPIViewSet(BaseAPIViewSet):
                     PageViewRestriction.GROUPS,
                 ]:
                     site = Site.find_for_request(self.request)
-                    resp = require_wagtail_login(next=page.relative_url(site, request))
+
+                    # Try to find a LoginPage for this site
+                    login_page = (
+                        LoginPage.objects.live().descendant_of(site.root_page).first()
+                    )
+
+                    if login_page:
+                        # Redirect to the custom LoginPage with next parameter
+                        next_url = page.relative_url(site, request)
+                        login_url = login_page.get_url(request)
+
+                        # Add next parameter to login URL
+                        if next_url:
+                            query_params = urlencode({"next": next_url})
+                            destination = f"{login_url}?{query_params}"
+                        else:
+                            destination = login_url
+                    else:
+                        # Fallback to admin login if no LoginPage exists
+                        resp = require_wagtail_login(
+                            next=page.relative_url(site, request)
+                        )
+                        destination = resp.url
+
                     return Response(
                         {
                             "redirect": {
-                                "destination": resp.url,
+                                "destination": destination,
                                 "is_permanent": False,
                             }
                         }
@@ -190,7 +220,8 @@ class PageByPathAPIViewSet(BaseAPIViewSet):
 
         root_page = site.root_page
 
-        path_components = [component for component in path.split("/") if component]
+        path_components = [
+            component for component in path.split("/") if component]
 
         if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
             language_from_path = translation.get_language_from_path(path)
@@ -207,7 +238,8 @@ class PageByPathAPIViewSet(BaseAPIViewSet):
 
                 root_page = translated_root_page
 
-        page, args, kwargs = root_page.specific.route(self.request, path_components)
+        page, args, kwargs = root_page.specific.route(
+            self.request, path_components)
         return page, args, kwargs
 
     @classmethod
@@ -256,7 +288,8 @@ class ExternalViewDataAPIViewSet(BaseAPIViewSet):
     @classmethod
     def get_urlpatterns(cls):
         return [
-            path("<str:pk>/", cls.as_view({"get": "detail_view"}), name="detail"),
+            path("<str:pk>/",
+                 cls.as_view({"get": "detail_view"}), name="detail"),
         ]
 
 
@@ -272,7 +305,8 @@ class RedirectSerializer(serializers.ModelSerializer):
 
 
 class RedirectByPathAPIViewSet(BaseAPIViewSet):
-    known_query_parameters = BaseAPIViewSet.known_query_parameters.union(["html_path"])
+    known_query_parameters = BaseAPIViewSet.known_query_parameters.union([
+                                                                         "html_path"])
 
     def detail_view(self, request):
         redirect = self.get_object()

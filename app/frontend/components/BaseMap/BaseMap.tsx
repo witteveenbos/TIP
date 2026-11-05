@@ -1,6 +1,7 @@
 import { useRef } from 'react';
-import { MapContainer, TileLayer } from 'react-leaflet';
 import type { LatLngBoundsExpression } from 'leaflet';
+import { MapContainer, TileLayer } from 'react-leaflet';
+
 const BaseMap = () => {
     const mapContainerRef = useRef(null);
     const bounds: LatLngBoundsExpression = [
@@ -14,10 +15,11 @@ const BaseMap = () => {
                 ref={mapContainerRef}
                 bounds={bounds}
                 scrollWheelZoom={false}>
-                 <TileLayer
+               <TileLayer
                     attribution='Kaartgegevens &copy; <a href="https://www.kadaster.nl">Kadaster</a>'
-                    url="https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0/grijs/EPSG:3857/{z}/{x}/{y}{r}.png"
+                    url="https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0/grijs/EPSG:3857/{z}/{x}/{y}.png"
                     subdomains="abcd"
+                   
                     maxZoom={20}
                 />
             </MapContainer>

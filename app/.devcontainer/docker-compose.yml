@@ -8,9 +8,8 @@ services:
       args:
         NEXT_PUBLIC_WAGTAIL_API_URL: http://localhost:8000/wt/api/nextjs
         # Update 'VARIANT' to pick a version of Python: 3, 3.10, 3.9, 3.8, 3.7, 3.6
-        # Append -bullseye or -buster to pin to an OS version.
-        # Use -bullseye variants on local arm64/Apple Silicon.
-        VARIANT: 3.11-bullseye
+        # Append -bookworm or -bullseye to pin to an OS version.
+        VARIANT: 3.11-bookworm
         # Optional Node.js version to install
         NODE_VERSION: "20.20"
     env_file: .env
