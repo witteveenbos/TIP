@@ -273,8 +273,8 @@ export default function EnergyBalanceMap({ geojson }: { geojson: any }) {
                 bounds={bounds}
                 scrollWheelZoom={true}>
                 <TileLayer
-                      attribution='Kaartgegevens &copy; <a href="https://www.kadaster.nl">Kadaster</a>'
-                    url="https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0/grijs/EPSG:3857/{z}/{x}/{y}{r}.png"
+                    attribution='Kaartgegevens &copy; <a href="https://www.kadaster.nl">Kadaster</a>'
+                    url="https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0/grijs/EPSG:3857/{z}/{x}/{y}.png"
                     subdomains="abcd"
                     maxZoom={20}
                 />

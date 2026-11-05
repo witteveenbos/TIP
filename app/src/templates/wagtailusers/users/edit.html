@@ -1,0 +1,7 @@
+{% extends "wagtailadmin/generic/form.html" %}
+
+{% block visible_fields %}
+    {% for field in form.visible_fields %}
+        <li>{% include "wagtailadmin/shared/field.html" with field=field %}</li>
+    {% endfor %}
+{% endblock %}
